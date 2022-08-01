@@ -1,0 +1,1 @@
+export const FETCH_ALL_GAMES = 'FETCH_ALL_GAMES';
