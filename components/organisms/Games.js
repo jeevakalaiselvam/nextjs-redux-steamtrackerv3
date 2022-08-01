@@ -58,7 +58,7 @@ export default function Games() {
     <Container>
       {searchFilteredGames.length > 0 &&
         searchFilteredGames.map((game) => {
-          return <GameCard game={game} id={game.id} />;
+          return <GameCard game={game} key={game.id} />;
         })}
       {searchFilteredGames.length === 0 && <Loaders.HashLoader />}
     </Container>
