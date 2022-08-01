@@ -1,11 +1,14 @@
-import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchAllGames } from "../store/actions/games.actions";
 
 export default function Home() {
+  const dispatch = useDispatch();
+  const games = useSelector((state) => state.games);
+
   useEffect(() => {
-    
+    dispatch(fetchAllGames());
   }, []);
 
-  const games = useSelector((state) => state.games);
   return <div>{JSON.stringify(games)}</div>;
 }
