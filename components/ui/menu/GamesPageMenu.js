@@ -4,7 +4,7 @@ import MenuItem from "../../atoms/MenuItem";
 import {
   HiViewGrid,
   HiAdjustments,
-  HiRefresh,
+  HiArrowsExpand,
   HiEye,
   HiChartBar,
 } from "react-icons/hi";
@@ -41,6 +41,9 @@ export default function GamesPageMenu() {
       </MenuItemContainer>
       <MenuItemContainer>
         <MenuItem to="/games" title="Settings" icon={<HiAdjustments />} />
+      </MenuItemContainer>
+      <MenuItemContainer>
+        <MenuItem to="/" title="Refresh" icon={<HiArrowsExpand />} />
       </MenuItemContainer>
     </Container>
   );

@@ -16,8 +16,9 @@ const Container = styled.div`
 `;
 
 export default function Games() {
-  const state = useSelector((state) => state.gamesPage);
-  const { games } = state;
+  const steamtracker = useSelector((state) => state.steamtracker);
+  const { games } = steamtracker;
+  console.log("GAMES");
 
   return (
     <Container>
