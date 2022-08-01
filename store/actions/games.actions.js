@@ -4,6 +4,7 @@ import {
   FETCH_ALL_GAMES_SUCCESS,
   FETCH_ALL_GAMES_ERROR,
   GAMES_FILTER_CHANGED,
+  GAMES_SEARCH_CHANGED,
 } from "../types/games.types";
 import axios from "axios";
 
@@ -24,5 +25,11 @@ export const fetchAllGames = () => {
 export const changeGamesPageFilterOption = (filterOption) => {
   return (dispatch) => {
     return dispatch({ type: GAMES_FILTER_CHANGED, payload: filterOption });
+  };
+};
+
+export const changeGamesPageSearchTerm = (searchTerm) => {
+  return (dispatch) => {
+    return dispatch({ type: GAMES_SEARCH_CHANGED, payload: searchTerm });
   };
 };

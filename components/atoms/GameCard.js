@@ -41,6 +41,19 @@ const Overlay = styled.div`
   background-color: rgba(0, 0, 0, 0.6);
 `;
 
+const Title = styled.div`
+  position: absolute;
+  width: 100%;
+  display: "flex";
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.75);
+  &:hover {
+    color: #3049d1;
+  }
+`;
+
 const ToGetContainer = styled.div`
   position: absolute;
   display: "flex";
@@ -107,6 +120,7 @@ export default function GameCard({ game }) {
     <Container>
       <Image image={HEADER_IMAGE(id)} />
       <Overlay />
+      <Title>{name}</Title>
       <ToGetContainer>
         <ToGetIcon>
           <FaTrophy />

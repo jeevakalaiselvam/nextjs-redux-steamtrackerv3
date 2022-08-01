@@ -3,7 +3,11 @@ import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import GameCard from "../atoms/GameCard";
 import * as Loaders from "react-spinners";
-import { sortGamesByFilterOption } from "../../helpers/gameHelper";
+import {
+  sortsearchFilteredGamesByFilterOption,
+  sortGamesBySearchTerm,
+  sortGamesByFilterOption,
+} from "../../helpers/gameHelper";
 
 const Container = styled.div`
   display: flex;
@@ -20,22 +24,43 @@ export default function Games() {
   const steamtracker = useSelector((state) => state.steamtracker);
   const { games, settings } = steamtracker;
   const { gamesPage } = settings;
-  const { filterOption } = gamesPage;
+  const { filterOption, searchTerm } = gamesPage;
 
-  const [filteredGames, setFilteredGames] = useState([]);
+  console.log("SETTIGNS", { filterOption, searchTerm });
+
+  const [searchFilteredGames, setSearchFilteredGames] = useState([]);
 
   useEffect(() => {
-    const sortedGames = sortGamesByFilterOption(games, filterOption);
-    setFilteredGames((old) => sortedGames);
-  }, [filterOption]);
+    const searchFilteredGames = games.filter((game) => {
+      if (searchTerm == "") {
+        return true;
+      } else {
+        if (
+          game.name
+            .toLowerCase()
+            .trim()
+            .includes(searchTerm.toLowerCase().trim())
+        ) {
+          return true;
+        }
+      }
+    });
+
+    const filteredGames = sortGamesByFilterOption(
+      searchFilteredGames,
+      filterOption
+    );
+
+    setSearchFilteredGames((old) => filteredGames);
+  }, [searchTerm, filterOption]);
 
   return (
     <Container>
-      {filteredGames.length > 0 &&
-        filteredGames.map((game) => {
+      {searchFilteredGames.length > 0 &&
+        searchFilteredGames.map((game) => {
           return <GameCard game={game} id={game.id} />;
         })}
-      {filteredGames.length === 0 && <Loaders.HashLoader />}
+      {searchFilteredGames.length === 0 && <Loaders.HashLoader />}
     </Container>
   );
 }

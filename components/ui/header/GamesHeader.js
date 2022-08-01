@@ -2,8 +2,12 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { FILTER_OPTIONS_GAMES_PAGE } from "../../../helpers/filterHelper";
-import { changeGamesPageFilterOption } from "../../../store/actions/games.actions";
+import {
+  changeGamesPageFilterOption,
+  changeGamesPageSearchTerm,
+} from "../../../store/actions/games.actions";
 import Filter from "../../atoms/Filter";
+import Search from "../../atoms/Search";
 
 const Container = styled.div`
   display: flex;
@@ -19,7 +23,7 @@ const FilterContainer = styled.div`
   display: flex;
   flex: 1;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 `;
 
 const SearchContainer = styled.div`
@@ -36,6 +40,10 @@ export default function GamesHeader() {
     dispatch(changeGamesPageFilterOption(filterOption));
   };
 
+  const onSearchObtained = (searchTerm) => {
+    dispatch(changeGamesPageSearchTerm(searchTerm));
+  };
+
   return (
     <Container>
       <FilterContainer>
@@ -44,7 +52,9 @@ export default function GamesHeader() {
           onFilterChanged={onFilterChanged}
         />
       </FilterContainer>
-      <SearchContainer></SearchContainer>
+      <SearchContainer>
+        <Search onSearchObtained={onSearchObtained} />
+      </SearchContainer>
     </Container>
   );
 }

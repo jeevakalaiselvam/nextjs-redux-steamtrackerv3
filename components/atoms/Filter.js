@@ -12,16 +12,16 @@ const Container = styled.div`
   margin: 0.25rem;
 
   & select {
-    background: "#171717";
     border: none;
     outline: none;
     color: #9caabe;
     cursor: pointer;
     padding: 0.5rem 1rem;
     border-radius: 4px;
+    background: #171717;
   }
   & option {
-    background: "#171717";
+    background: #171717;
     border: none;
     outline: none;
     color: #9caabe;

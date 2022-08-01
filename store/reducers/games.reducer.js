@@ -1,16 +1,21 @@
-import { GAMES_OPTION_COMPLETION_DESC } from "../../helpers/filterHelper";
+import {
+  GAMES_OPTION_COMPLETION_DESC,
+  GAMES_OPTION_COMPLETION_STARTED,
+} from "../../helpers/filterHelper";
 import {
   FETCH_ALL_GAMES_ERROR,
   FETCH_ALL_GAMES_REQUEST,
   FETCH_ALL_GAMES_SUCCESS,
   GAMES_FILTER_CHANGED,
+  GAMES_SEARCH_CHANGED,
 } from "../types/games.types";
 
 const INITIAL_STATE = {
-  games: {},
+  games: [],
   settings: {
     gamesPage: {
-      filterOption: GAMES_OPTION_COMPLETION_DESC,
+      filterOption: GAMES_OPTION_COMPLETION_STARTED,
+      searchTerm: "",
     },
   },
 };
@@ -41,7 +46,19 @@ const reducer = (state = INITIAL_STATE, action) => {
         settings: {
           ...state.settings,
           gamesPage: {
+            ...state.settings.gamesPage,
             filterOption: payload,
+          },
+        },
+      };
+    case GAMES_SEARCH_CHANGED:
+      return {
+        ...state,
+        settings: {
+          ...state.settings,
+          gamesPage: {
+            ...state.settings.gamesPage,
+            searchTerm: payload,
           },
         },
       };
