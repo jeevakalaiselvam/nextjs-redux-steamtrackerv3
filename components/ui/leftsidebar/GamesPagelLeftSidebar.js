@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import ProfileImage from "../../atoms/ProfileImage";
+import GamesPageMenu from "../menu/GamesPageMenu";
 
 const Container = styled.div`
   display: flex;
@@ -21,6 +22,7 @@ export default function GamesPagelLeftSidebar() {
         profileLink="https://steamcommunity.com/id/notreallogan"
         profileImageLink="https://avatars.cloudflare.steamstatic.com/3984d41a867b9b4eca056cdfcd1134bd591d9100_full.jpg"
       />
+      <GamesPageMenu />
     </Container>
   );
 }

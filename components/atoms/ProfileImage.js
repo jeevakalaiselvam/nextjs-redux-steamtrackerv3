@@ -9,7 +9,6 @@ const Container = styled.div`
   padding: 1rem;
   justify-content: center;
   flex-direction: column;
-  margin-bottom: 1rem;
   width: 100%;
   cursor: pointer;
 `;
@@ -30,7 +29,7 @@ const Name = styled.div`
   align-items: center;
   justify-content: center;
   padding: 0.5rem;
-  font-size: 1rem;
+  font-size: 1.5rem;
 `;
 
 const ProfileImage = (props) => {
