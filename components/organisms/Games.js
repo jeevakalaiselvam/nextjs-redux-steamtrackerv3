@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import GameCard from "../atoms/GameCard";
 import * as Loaders from "react-spinners";
+import { sortGamesByFilterOption } from "../../helpers/gameHelper";
 
 const Container = styled.div`
   display: flex;
@@ -17,15 +18,24 @@ const Container = styled.div`
 
 export default function Games() {
   const steamtracker = useSelector((state) => state.steamtracker);
-  const { games } = steamtracker;
+  const { games, settings } = steamtracker;
+  const { gamesPage } = settings;
+  const { filterOption } = gamesPage;
+
+  const [filteredGames, setFilteredGames] = useState([]);
+
+  useEffect(() => {
+    const sortedGames = sortGamesByFilterOption(games, filterOption);
+    setFilteredGames((old) => sortedGames);
+  }, [filterOption]);
 
   return (
     <Container>
-      {Object.keys(games).length > 0 &&
-        Object.keys(games).map((gameKey) => {
-          return <GameCard game={games[gameKey]} id={gameKey} />;
+      {filteredGames.length > 0 &&
+        filteredGames.map((game) => {
+          return <GameCard game={game} id={game.id} />;
         })}
-      {games.length === 0 && <Loaders.HashLoader />}
+      {filteredGames.length === 0 && <Loaders.HashLoader />}
     </Container>
   );
 }
