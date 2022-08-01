@@ -4,10 +4,10 @@ import styled from "styled-components";
 
 const Container = styled.div`
   display: flex;
+  width: 100%;
   padding: 0.5rem 1rem;
   border-radius: 2px;
   flex-direction: row;
-  width: 175px;
   cursor: pointer;
   background: ${(props) => {
     if (props.hover && !props.click) {
@@ -20,7 +20,6 @@ const Container = styled.div`
   }};
   align-items: center;
   justify-content: center;
-  margin-top: 1rem;
 `;
 
 const Title = styled.div`
@@ -36,7 +35,7 @@ const Icon = styled.div`
   align-items: center;
   justify-content: flex-end;
   margin-right: 0.75rem;
-  font-size: 2rem;
+  font-size: 1.5rem;
 `;
 
 const MenuItem = (props) => {

@@ -10,19 +10,38 @@ import {
 } from "react-icons/hi";
 
 const Container = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 0.25rem;
+`;
+
+const MenuItemContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem;
 `;
 
 export default function GamesPageMenu() {
   return (
     <Container>
-      <MenuItem to="/games" title="Games" icon={<HiViewGrid />} />
-      <MenuItem to="/games" title="Ongoing" icon={<HiEye />} />
-      <MenuItem to="/games" title="Planner" icon={<HiChartBar />} />
-      <MenuItem to="/games" title="Settings" icon={<HiAdjustments />} />
+      <MenuItemContainer>
+        <MenuItem to="/games" title="Games" icon={<HiViewGrid />} />
+      </MenuItemContainer>
+      <MenuItemContainer>
+        <MenuItem to="/games" title="Ongoing" icon={<HiEye />} />
+      </MenuItemContainer>
+      <MenuItemContainer>
+        <MenuItem to="/games" title="Planner" icon={<HiChartBar />} />
+      </MenuItemContainer>
+      <MenuItemContainer>
+        <MenuItem to="/games" title="Settings" icon={<HiAdjustments />} />
+      </MenuItemContainer>
     </Container>
   );
 }
