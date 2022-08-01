@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { HEADER_IMAGE } from "../../helpers/urlHelper";
 import { FaTrophy } from "react-icons/fa";
+import { HiClock, HiCollection } from "react-icons/hi";
+import { getAllXPFromAchievements } from "../../helpers/xpHelper";
 
 const Container = styled.div`
   display: flex;
@@ -13,6 +15,10 @@ const Container = styled.div`
   margin: 1rem;
   position: relative;
   cursor: pointer;
+
+  &:hover {
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+  }
 `;
 
 const Image = styled.div`
@@ -32,7 +38,7 @@ const Overlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.6);
 `;
 
 const ToGetContainer = styled.div`
@@ -63,8 +69,40 @@ const ToGetData = styled.div`
   font-size: 1.5rem;
 `;
 
+const XPContainer = styled.div`
+  position: absolute;
+  display: "flex";
+  flex-direction: column;
+  top: 0;
+  right: 0;
+  padding: 1rem;
+  transition: all 0.5s;
+  background-color: rgba(0, 0, 0, 0.75);
+  transform: translateX("0%");
+`;
+
+const XPIcon = styled.div`
+  display: flex;
+  align-items: center;
+  color: #fefefe;
+  font-size: 2rem;
+  justify-content: center;
+`;
+
+const XPData = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fefefe;
+  font-size: 1.5rem;
+`;
+
 export default function GameCard({ game }) {
   const { id, playtime, name, version, achievements, completion, toGet } = game;
+
+  const xpData = getAllXPFromAchievements(achievements);
+  const { totalXP, completedXP, remainingXP } = xpData;
+
   return (
     <Container>
       <Image image={HEADER_IMAGE(id)} />
@@ -75,6 +113,12 @@ export default function GameCard({ game }) {
         </ToGetIcon>
         <ToGetData>{toGet}</ToGetData>
       </ToGetContainer>
+      <XPContainer>
+        <XPIcon>
+          <HiCollection />
+        </XPIcon>
+        <XPData>{remainingXP} XP</XPData>
+      </XPContainer>
     </Container>
   );
 }
