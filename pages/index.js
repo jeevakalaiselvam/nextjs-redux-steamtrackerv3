@@ -16,9 +16,7 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    console.log("GAME", games);
     if (games && Object.keys(games).length > 0) {
-      console.log("MOVING");
       router.push("/games");
     }
   }, [games]);

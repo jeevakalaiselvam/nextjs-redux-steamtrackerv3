@@ -18,13 +18,12 @@ const Container = styled.div`
 export default function Games() {
   const steamtracker = useSelector((state) => state.steamtracker);
   const { games } = steamtracker;
-  console.log("GAMES");
 
   return (
     <Container>
-      {games.length > 0 &&
-        games.map((game) => {
-          return <GameCard game={game} id={game.appid} />;
+      {Object.keys(games).length > 0 &&
+        Object.keys(games).map((gameKey) => {
+          return <GameCard game={games[gameKey]} id={gameKey} />;
         })}
       {games.length === 0 && <Loaders.HashLoader />}
     </Container>
