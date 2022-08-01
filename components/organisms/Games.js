@@ -3,15 +3,14 @@ import styled from "styled-components";
 
 const Container = styled.div`
   display: flex;
+  flex: 1;
+  background-color: red;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  padding: 0.25rem;
-  flex: 1;
+  justify-content: center;
   width: 100%;
-  background-color: blue;
 `;
 
-export default function GamesHeader() {
-  return <Container>GamesHeader</Container>;
+export default function Games() {
+  return <Container>Games</Container>;
 }

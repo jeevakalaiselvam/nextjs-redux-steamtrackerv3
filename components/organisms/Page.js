@@ -5,11 +5,11 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 100vw;
   min-height: 100vh;
+  max-height: 100vh;
   color: #ffffff;
   max-width: 100vw;
-  max-height: 100vh;
+  min-width: 100vw;
   overflow: hidden;
   background-color: #1e1e1e;
 `;
@@ -48,6 +48,7 @@ const RightSidebarContainer = styled.div`
 
 const HeaderContainer = styled.div`
   display: flex;
+  width: 100%;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
@@ -57,6 +58,7 @@ const HeaderContainer = styled.div`
 const ContentContainer = styled.div`
   display: flex;
   flex: 1;
+  width: 100%;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
