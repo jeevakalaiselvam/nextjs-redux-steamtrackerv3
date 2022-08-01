@@ -13,6 +13,63 @@ const Container = styled.div`
   background-color: #1e1e1e;
 `;
 
+const LeftSidebarContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 200px;
+  min-height: 100vh;
+  max-height: 100vh;
+  background-color: #171717;
+`;
+
+const MainContainer = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  max-height: 100vh;
+`;
+
+const RightSidebarContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 300px;
+  min-height: 100vh;
+  max-height: 100vh;
+  background-color: #171717;
+`;
+
+const HeaderContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 200px;
+`;
+
+const ContentContainer = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+`;
+
 export default function Page({ leftSidebar, header, rightSidebar, content }) {
-  return <Container>Page</Container>;
+  return (
+    <Container>
+      <LeftSidebarContainer>{leftSidebar}</LeftSidebarContainer>
+      <MainContainer>
+        <HeaderContainer>{header}</HeaderContainer>
+        <ContentContainer>{content}</ContentContainer>
+      </MainContainer>
+      <RightSidebarContainer>{rightSidebar}</RightSidebarContainer>
+    </Container>
+  );
 }
