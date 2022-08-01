@@ -15,7 +15,7 @@ const Container = styled.div`
   overflow: hidden;
 `;
 
-export default function GamesPagelLeftSidebar() {
+export default function GamesLeftSidebar() {
   return (
     <Container>
       <ProfileImage

@@ -1,7 +1,10 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Page from "../components/organisms/Page";
-import GamesPagelLeftSidebar from "../components/ui/leftsidebar/GamesPagelLeftSidebar";
+import GamesContent from "../components/ui/content/GamesContent";
+import GamesHeader from "../components/ui/header/GamesHeader";
+import GamesLeftSidebar from "../components/ui/leftsidebar/GamesLeftSidebar";
+import GamesRightSidebar from "../components/ui/rightsidebar/GamesRightSidebar";
 import { fetchAllGames } from "../store/actions/games.actions";
 
 export default function Home() {
@@ -14,10 +17,10 @@ export default function Home() {
 
   return (
     <Page
-      leftSidebar={<GamesPagelLeftSidebar />}
-      content={<h1>Content</h1>}
-      header={<h1>Header</h1>}
-      rightSidebar={<h1>RightSidebar</h1>}
+      leftSidebar={<GamesLeftSidebar />}
+      content={<GamesContent />}
+      header={<GamesHeader />}
+      rightSidebar={<GamesRightSidebar />}
     />
   );
 }
