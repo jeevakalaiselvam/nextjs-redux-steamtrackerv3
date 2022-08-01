@@ -1,16 +1,31 @@
 import React from "react";
 import styled from "styled-components";
+import { useSelector, useDispatch } from "react-redux";
+import GameCard from "../atoms/GameCard";
+import * as Loaders from "react-spinners";
 
 const Container = styled.div`
   display: flex;
-  flex: 1;
-  background-color: red;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
+  max-height: 100%;
+  min-height: 100%;
+  overflow: scroll;
+  flex-wrap: wrap;
 `;
 
 export default function Games() {
-  return <Container>Games</Container>;
+  const state = useSelector((state) => state.gamesPage);
+  const { games } = state;
+
+  return (
+    <Container>
+      {games.length > 0 &&
+        games.map((game) => {
+          return <GameCard game={game} id={game.appid} />;
+        })}
+      {games.length === 0 && <Loaders.HashLoader />}
+    </Container>
+  );
 }

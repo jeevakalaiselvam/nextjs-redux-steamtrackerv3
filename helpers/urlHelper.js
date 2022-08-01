@@ -9,17 +9,11 @@ export const FETCH_ALL_ACHIEVEMENTS_SCHEMA = (gameID) =>
 export const FETCH_ALL_ACHIEVEMENTS_GLOBAL = (gameID) =>
   `http://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v0002/?gameid=${gameID}&format=json`;
 
-export const FETCH_ALL_ACHIEVEMENTS_PLAYER = (gameID) =>
+export const STEAM_ALL_ACHIEVEMENTS_PLAYER = (gameID) =>
   `http://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?appid=${gameID}&key=${API_KEY}&steamid=${USER_ID}`;
 
 export const HEADER_IMAGE = (gameId) => {
   return `https://cdn.cloudflare.steamstatic.com/steam/apps/${gameId}/header.jpg`;
 };
 
-export const API_GET_GAMES = () => {
-  return `/api/games`;
-};
-
-export const API_GET_GAME = (gameId) => {
-  return `/api/games/${gameId}`;
-};
+export const API_GET_GAMES = "api/refresh";

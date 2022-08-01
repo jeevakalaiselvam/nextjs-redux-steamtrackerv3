@@ -5,13 +5,7 @@ import {
 } from "../types/games.types";
 
 const INITIAL_STATE = {
-  games: [],
-  axios: {
-    fetchAllGames: {
-      status: "",
-      error: "",
-    },
-  },
+  games: {},
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -22,32 +16,16 @@ const reducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         games: [],
-        axios: {
-          ...state.axios,
-          fetchAllGames: { ...state.axios.fetchAllGames, status: "REQUEST" },
-        },
       };
     case FETCH_ALL_GAMES_SUCCESS:
       return {
         ...state,
         games: payload,
-        axios: {
-          ...state.axios,
-          fetchAllGames: { ...state.axios.fetchAllGames, status: "SUCCESS" },
-        },
       };
     case FETCH_ALL_GAMES_ERROR:
       return {
         ...state,
         games: [],
-        axios: {
-          ...state.axios,
-          fetchAllGames: {
-            ...state.axios.fetchAllGames,
-            status: "ERROR",
-            error: payload,
-          },
-        },
       };
 
     default:

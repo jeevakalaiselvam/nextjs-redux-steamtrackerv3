@@ -25,16 +25,6 @@ const LeftSidebarContainer = styled.div`
   background-color: #171717;
 `;
 
-const MainContainer = styled.div`
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  min-height: 100vh;
-  max-height: 100vh;
-`;
-
 const RightSidebarContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -46,13 +36,24 @@ const RightSidebarContainer = styled.div`
   background-color: #171717;
 `;
 
+const MainContainer = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  max-height: 100vh;
+`;
+
 const HeaderContainer = styled.div`
   display: flex;
   width: 100%;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  min-height: 100px;
+  min-height: 5vh;
+  max-height: 5vh;
 `;
 
 const ContentContainer = styled.div`
@@ -62,17 +63,25 @@ const ContentContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  min-height: 90vh;
+  max-height: 90vh;
 `;
 
 export default function Page({ leftSidebar, header, rightSidebar, content }) {
   return (
     <Container>
-      <LeftSidebarContainer>{leftSidebar}</LeftSidebarContainer>
-      <MainContainer>
-        <HeaderContainer>{header}</HeaderContainer>
-        <ContentContainer>{content}</ContentContainer>
-      </MainContainer>
-      <RightSidebarContainer>{rightSidebar}</RightSidebarContainer>
+      {leftSidebar && (
+        <LeftSidebarContainer>{leftSidebar}</LeftSidebarContainer>
+      )}
+      {(header || content) && (
+        <MainContainer>
+          <HeaderContainer>{header}</HeaderContainer>
+          <ContentContainer>{content}</ContentContainer>
+        </MainContainer>
+      )}
+      {rightSidebar && (
+        <RightSidebarContainer>{rightSidebar}</RightSidebarContainer>
+      )}
     </Container>
   );
 }

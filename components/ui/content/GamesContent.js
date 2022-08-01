@@ -9,7 +9,8 @@ const Container = styled.div`
   align-items: center;
   justify-content: flex-start;
   padding: 0.25rem;
-  flex: 1;
+  height: 100%;
+  overflow: scroll;
 `;
 
 export default function GamesContent() {

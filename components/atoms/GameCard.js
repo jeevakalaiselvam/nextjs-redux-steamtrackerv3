@@ -5,12 +5,11 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  padding: 0.25rem;
-  flex: 1;
-  width: 100%;
+  justify-content: center;
+  width: 200px;
+  height: 100px;
 `;
 
-export default function GamesHeader() {
-  return <Container>GamesHeader</Container>;
+export default function GameCard({ game }) {
+  return <Container>GameCard</Container>;
 }

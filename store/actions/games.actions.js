@@ -9,10 +9,18 @@ import axios from "axios";
 export const fetchAllGames = () => {
   return (dispatch) => {
     dispatch({ type: FETCH_ALL_GAMES_REQUEST });
-    return axios.get(API_GET_GAMES()).then(
-      (data) =>
-        dispatch({ type: FETCH_ALL_GAMES_SUCCESS, payload: data.data.data }),
-      (error) => dispatch({ type: FETCH_ALL_GAMES_ERROR, payload: error })
+    return axios.get(API_GET_GAMES).then(
+      (data) => {
+        const gamesArray = data.data.data;
+        let gamesMapper = {};
+        gamesArray.forEach((game) => {
+          gamesMapper = { ...gamesMapper, [game.id]: { ...game } };
+        });
+        dispatch({ type: FETCH_ALL_GAMES_SUCCESS, payload: gamesMapper });
+      },
+      (error) => {
+        dispatch({ type: FETCH_ALL_GAMES_ERROR, payload: error });
+      }
     );
   };
 };
