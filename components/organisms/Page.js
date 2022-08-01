@@ -7,6 +7,7 @@ const Container = styled.div`
   justify-content: center;
   min-width: 100vw;
   min-height: 100vh;
+  color: #ffffff;
   max-width: 100vw;
   max-height: 100vh;
   overflow: hidden;

@@ -1,0 +1,26 @@
+import React from "react";
+import styled from "styled-components";
+import ProfileImage from "../../atoms/ProfileImage";
+
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  width: 100%;
+  padding: 0.25rem;
+  min-height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+`;
+
+export default function GamesPagelLeftSidebar() {
+  return (
+    <Container>
+      <ProfileImage
+        profileLink="https://steamcommunity.com/id/notreallogan"
+        profileImageLink="https://avatars.cloudflare.steamstatic.com/3984d41a867b9b4eca056cdfcd1134bd591d9100_full.jpg"
+      />
+    </Container>
+  );
+}
