@@ -23,7 +23,12 @@ export default function GamesPage() {
   const steamtracker = useSelector((state) => state.steamtracker);
   const { games, settings } = steamtracker;
   const { gamePage } = settings;
-  const { leftSidebarOpen, rightSidebarOpen } = gamePage;
+  const {
+    leftSidebarOpen,
+    rightSidebarOpen,
+    leftSidebarWidth,
+    rightSidebarWidth,
+  } = gamePage;
 
   useEffect(() => {
     if (!Object.keys(games).length > 0) {

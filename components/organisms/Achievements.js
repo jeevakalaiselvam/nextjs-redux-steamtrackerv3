@@ -19,7 +19,7 @@ const Container = styled.div`
 `;
 
 export default function Achievements({ game, filterOption, searchTerm }) {
-  const { achievements, hiddenAchievements } = game || {
+  const { achievements, hiddenAchievements, name } = game || {
     hiddenAchievements: [],
   };
   const [searchFilteredAchievements, setSearchFilteredAchievements] = useState(
@@ -60,15 +60,17 @@ export default function Achievements({ game, filterOption, searchTerm }) {
     <Container>
       {searchFilteredAchievements.length > 0 &&
         searchFilteredAchievements.map((achievement) => {
+          let hiddenDescription = "HIDDEN";
+          if (hiddenAchievements) {
+            hiddenDescription =
+              hiddenAchievements[achievement.displayName.toLowerCase().trim()];
+          }
           return (
             <AchievementCard
+              gameName={name}
               achievement={achievement}
               key={achievement.name}
-              hiddenDescription={
-                hiddenAchievements[
-                  achievement.displayName.toLowerCase().trim()
-                ] ?? "HIDDEN"
-              }
+              hiddenDescription={hiddenDescription}
             />
           );
         })}

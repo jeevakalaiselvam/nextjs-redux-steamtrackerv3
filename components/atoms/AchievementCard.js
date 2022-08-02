@@ -6,7 +6,7 @@ const Container = styled.div`
   width: 350px;
   display: flex;
   flex-direction: row;
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
   align-items: flex-start;
   justify-content: center;
   background: rgba(0, 0, 0, 0.25);
@@ -127,6 +127,7 @@ export default function AchievementCard(props) {
     description,
   } = props.achievement;
   const hiddenDescription = props.hiddenDescription;
+  const gameName = props.gameName;
 
   return (
     <Container>
@@ -134,7 +135,16 @@ export default function AchievementCard(props) {
         <Icon icon={icon}></Icon>
       </IconContainer>
       <DataContainer>
-        <Title>{displayName}</Title>
+        <Title
+          onClick={() => {
+            if (window !== "undefined") {
+              const searchQuery = `${displayName} achievement ${gameName} `;
+              window.open(`https://www.google.com/search?q=${searchQuery}`);
+            }
+          }}
+        >
+          {displayName}
+        </Title>
         <Description>{hiddenDescription}</Description>
       </DataContainer>
       <PercentageContainer>
