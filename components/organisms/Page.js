@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import React from "react";
 import styled from "styled-components";
 import { HEADER_IMAGE } from "../../helpers/urlHelper";
@@ -104,9 +105,12 @@ export default function Page({
   rightSidebarWidth,
   leftSidebarWidth,
 }) {
+  const router = useRouter();
+  const { gameId } = router.query;
+
   return (
     <Container>
-      <ImageOverlay image={HEADER_IMAGE("381210")} />
+      <ImageOverlay image={HEADER_IMAGE(gameId || "381210")} />
       {leftSidebar && (
         <LeftSidebarContainer
           leftSidebarOpen={leftSidebarOpen}

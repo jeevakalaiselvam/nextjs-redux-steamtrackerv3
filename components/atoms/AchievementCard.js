@@ -2,9 +2,10 @@ import React from "react";
 import { FaGlobe } from "react-icons/fa";
 import styled from "styled-components";
 import { IoEyeOff } from "react-icons/io5";
+import { getFormattedDate } from "../../helpers/achievementHelper";
 
 const Container = styled.div`
-  width: 350px;
+  width: 360px;
   display: flex;
   flex-direction: row;
   padding: 0.5rem 1rem;
@@ -56,12 +57,14 @@ const DataContainer = styled.div`
 const Title = styled.div`
   display: flex;
   flex: 1;
-  width: 100%;
+  max-width: 150px;
+  align-self: flex-start;
   padding: 0.5rem;
   flex-direction: row;
   align-items: flex-start;
   justify-content: flex-start;
   font-size: 1.5rem;
+  word-wrap: break-word;
 
   &:hover {
     color: #ffffff;
@@ -126,6 +129,19 @@ const PercentageIcon = styled.div`
   font-size: 1.5rem;
 `;
 
+const DateContainer = styled.div`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  padding: 0rem 1rem 1rem 1rem;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 1.2rem;
+  color: #b0bec5;
+`;
+
 export default function AchievementCard(props) {
   const {
     name,
@@ -170,6 +186,11 @@ export default function AchievementCard(props) {
           <IoEyeOff />
         </HiddenContainer>
       )}
+      {/* {achieved == 1 && (
+        <DateContainer>
+          {JSON.stringify(getFormattedDate(unlocktime))}
+        </DateContainer>
+      )} */}
     </Container>
   );
 }

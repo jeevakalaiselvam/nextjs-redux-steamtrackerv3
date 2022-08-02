@@ -24,7 +24,7 @@ const INITIAL_STATE = {
       leftSidebarOpen: true,
       rightSidebarOpen: false,
       leftSidebarWidth: "200px",
-      rightSidebarWidth: "400px",
+      rightSidebarWidth: "450px",
     },
     gamePage: {
       filterOption: GAME_OPTION_PERCENTAGE_DESC,
@@ -32,7 +32,7 @@ const INITIAL_STATE = {
       leftSidebarOpen: true,
       rightSidebarOpen: true,
       leftSidebarWidth: "200px",
-      rightSidebarWidth: "400px",
+      rightSidebarWidth: "450px",
     },
   },
 };
