@@ -51,7 +51,6 @@ export default function Achievements({ game, filterOption, searchTerm }) {
         searchFilteredAchievements,
         filterOption
       );
-      console.log("FILTERED ACHIEVEMENTS", filteredAchievements[0]);
 
       setSearchFilteredAchievements((old) => filteredAchievements);
     }

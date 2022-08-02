@@ -21,14 +21,38 @@ export const FILTER_OPTIONS_GAMES_PAGE = [
 
 export const GAME_OPTION_PERCENTAGE_DESC = "GAME_OPTION_PERCENTAGE_DESC";
 export const GAME_OPTION_PERCENTAGE_ASC = "GAME_OPTION_PERCENTAGE_ASC";
+export const GAME_OPTION_PERCENTAGE_DESC_UNLOCKED =
+  "GAME_OPTION_PERCENTAGE_DESC_UNLOCKED";
+export const GAME_OPTION_PERCENTAGE_ASC_UNLOCKED =
+  "GAME_OPTION_PERCENTAGE_ASC_UNLOCKED";
+export const GAME_OPTION_PERCENTAGE_DESC_LOCKED =
+  "GAME_OPTION_PERCENTAGE_DESC_LOCKED";
+export const GAME_OPTION_PERCENTAGE_ASC_LOCKED =
+  "GAME_OPTION_PERCENTAGE_ASC_LOCKED";
 
 export const FILTER_OPTIONS_GAME_PAGE = [
   {
     id: GAME_OPTION_PERCENTAGE_DESC,
-    title: "Sort By Easy",
+    title: "Sort By Easy All",
   },
   {
     id: GAME_OPTION_PERCENTAGE_ASC,
-    title: "Sort By Hard",
+    title: "Sort By Hard All",
+  },
+  {
+    id: GAME_OPTION_PERCENTAGE_DESC_UNLOCKED,
+    title: "Sort By Easy Unlocked",
+  },
+  {
+    id: GAME_OPTION_PERCENTAGE_ASC_UNLOCKED,
+    title: "Sort By Hard Unlocked",
+  },
+  {
+    id: GAME_OPTION_PERCENTAGE_DESC_LOCKED,
+    title: "Sort By Easy Locked",
+  },
+  {
+    id: GAME_OPTION_PERCENTAGE_ASC_LOCKED,
+    title: "Sort By Hard Locked",
   },
 ];

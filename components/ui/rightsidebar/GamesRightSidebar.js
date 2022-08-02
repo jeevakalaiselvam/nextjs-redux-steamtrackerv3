@@ -1,6 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { GAME_OPTION_PERCENTAGE_DESC } from "../../../helpers/filterHelper";
+import {
+  GAME_OPTION_PERCENTAGE_DESC,
+  GAME_OPTION_PERCENTAGE_DESC_UNLOCKED,
+} from "../../../helpers/filterHelper";
 import Achievements from "../../organisms/Achievements";
 
 const Container = styled.div`
@@ -26,9 +29,10 @@ export default function GamesRightSidebar() {
 
   return (
     <Container>
+      RECENTLY UNLOCKED
       <Achievements
         game={game}
-        filterOption={GAME_OPTION_PERCENTAGE_DESC}
+        filterOption={GAME_OPTION_PERCENTAGE_DESC_UNLOCKED}
         searchTerm={""}
       />
     </Container>

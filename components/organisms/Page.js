@@ -53,7 +53,7 @@ const RightSidebarContainer = styled.div`
     props.rightSidebarWidth ? props.rightSidebarWidth : "300px"};
   min-height: 100vh;
   max-height: 100vh;
-  background: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(10px);
   z-index: 3;
 `;
@@ -66,6 +66,8 @@ const MainContainer = styled.div`
   justify-content: flex-start;
   min-height: 100vh;
   max-height: 100vh;
+  background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
   z-index: 3;
 `;
 
