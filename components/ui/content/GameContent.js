@@ -35,7 +35,7 @@ export default function GameContent() {
       const hiddenData = hiddenResponse.data.hiddenMapper;
       dispatch(setHiddenAchievementsForGame(gameId, hiddenData));
     };
-    if (!game.hiddenAchivements) {
+    if (game && !game.hiddenAchivements) {
       getHidden();
     }
   }, [gameId]);

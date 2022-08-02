@@ -39,14 +39,16 @@ export default function Filter({
   const [selected, setSelected] = useState(defaultSelected);
 
   useEffect(() => {
-    setSelected((old) => filterOptions[0]);
-  }, []);
+    setSelected((old) => defaultSelected);
+  }, [defaultSelected]);
 
   const optionChangeHandler = (event) => {
     const selectedValue = event.target.value;
     setSelected((old) => selectedValue);
     onFilterChanged(selectedValue);
   };
+
+  console.log("SELECTED OPTION", defaultSelected);
 
   return (
     <Container>
@@ -55,13 +57,16 @@ export default function Filter({
         key="sort"
         onChange={optionChangeHandler}
         value={selected}
-        defaultValue={defaultSelected}
       >
         {filterOptions &&
           filterOptions.length > 0 &&
           filterOptions.map((filterOption) => {
             return (
-              <option key={filterOption.id} value={filterOption.id}>
+              <option
+                key={filterOption.id}
+                value={filterOption.id}
+                selected={filterOption.id == defaultSelected}
+              >
                 {filterOption.title}
               </option>
             );

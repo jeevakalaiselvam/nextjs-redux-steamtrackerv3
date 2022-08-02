@@ -1,7 +1,10 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { FILTER_OPTIONS_GAMES_PAGE } from "../../../helpers/filterHelper";
+import {
+  FILTER_OPTIONS_GAMES_PAGE,
+  GAMES_OPTION_COMPLETION_DESC,
+} from "../../../helpers/filterHelper";
 import {
   changeGamesPageFilterOption,
   changeGamesPageSearchTerm,
@@ -49,6 +52,7 @@ export default function GamesHeader() {
       <FilterContainer>
         <Filter
           filterOptions={FILTER_OPTIONS_GAMES_PAGE}
+          defaultSelected={GAMES_OPTION_COMPLETION_DESC}
           onFilterChanged={onFilterChanged}
         />
       </FilterContainer>

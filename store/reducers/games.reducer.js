@@ -19,7 +19,7 @@ const INITIAL_STATE = {
   games: [],
   settings: {
     gamesPage: {
-      filterOption: GAMES_OPTION_COMPLETION_STARTED,
+      filterOption: GAMES_OPTION_COMPLETION_DESC,
       searchTerm: "",
       leftSidebarOpen: true,
       rightSidebarOpen: false,
@@ -28,7 +28,7 @@ const INITIAL_STATE = {
       filterOption: GAME_OPTION_PERCENTAGE_DESC,
       searchTerm: "",
       leftSidebarOpen: true,
-      rightSidebarOpen: false,
+      rightSidebarOpen: true,
     },
   },
 };

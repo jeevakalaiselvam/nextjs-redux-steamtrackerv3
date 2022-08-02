@@ -9,7 +9,7 @@ const Container = styled.div`
   align-items: flex-start;
   justify-content: center;
   background: #171717;
-  margin: 0.25rem;
+  margin: 0.5rem;
   min-height: 100px;
 `;
 
