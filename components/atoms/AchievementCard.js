@@ -5,7 +5,7 @@ import { IoEyeOff } from "react-icons/io5";
 import { getFormattedDate } from "../../helpers/achievementHelper";
 
 const Container = styled.div`
-  width: 360px;
+  width: 365px;
   display: flex;
   flex-direction: row;
   padding: 0.5rem 1rem;
