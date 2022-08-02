@@ -27,7 +27,7 @@ const ImageOverlay = styled.div`
   background: url(${(props) => props.image});
   background-size: cover;
   background-repeat: no-repeat;
-  filter: blur(50px);
+  filter: blur(30px);
   z-index: 2;
 `;
 
@@ -40,7 +40,7 @@ const LeftSidebarContainer = styled.div`
     props.leftSidebarWidth ? props.leftSidebarWidth : "200px"};
   min-height: 100vh;
   max-height: 100vh;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(10px);
   z-index: 3;
 `;
@@ -54,7 +54,7 @@ const RightSidebarContainer = styled.div`
     props.rightSidebarWidth ? props.rightSidebarWidth : "300px"};
   min-height: 100vh;
   max-height: 100vh;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(10px);
   z-index: 3;
 `;
@@ -67,7 +67,7 @@ const MainContainer = styled.div`
   justify-content: flex-start;
   min-height: 100vh;
   max-height: 100vh;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(10px);
   z-index: 3;
 `;

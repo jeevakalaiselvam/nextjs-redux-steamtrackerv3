@@ -3,8 +3,10 @@ import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import {
+  GAME_OPTION_PERCENTAGE_ASC_UNLOCKTIME,
   GAME_OPTION_PERCENTAGE_DESC,
   GAME_OPTION_PERCENTAGE_DESC_UNLOCKED,
+  GAME_OPTION_PERCENTAGE_DESC_UNLOCKTIME,
 } from "../../../helpers/filterHelper";
 import Achievements from "../../organisms/Achievements";
 
@@ -41,7 +43,7 @@ export default function GameRightSidebar() {
       <Title>RECENTLY UNLOCKED</Title>
       <Achievements
         game={game}
-        filterOption={GAME_OPTION_PERCENTAGE_DESC_UNLOCKED}
+        filterOption={GAME_OPTION_PERCENTAGE_ASC_UNLOCKTIME}
         searchTerm={""}
       />
     </Container>

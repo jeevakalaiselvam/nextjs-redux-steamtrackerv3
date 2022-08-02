@@ -173,7 +173,7 @@ export default function AchievementCard(props) {
         >
           {displayName}
         </Title>
-        <Description>{hiddenDescription}</Description>
+        <Description>{description || hiddenDescription}</Description>
       </DataContainer>
       <PercentageContainer>
         <PercentageIcon>

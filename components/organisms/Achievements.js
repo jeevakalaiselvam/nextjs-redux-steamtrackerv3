@@ -40,6 +40,10 @@ export default function Achievements({ game, filterOption, searchTerm }) {
             achievement.displayName
               .toLowerCase()
               .trim()
+              .includes(searchTerm.toLowerCase().trim()) ||
+            achievement.description
+              .toLowerCase()
+              .trim()
               .includes(searchTerm.toLowerCase().trim())
           ) {
             return true;
@@ -74,7 +78,9 @@ export default function Achievements({ game, filterOption, searchTerm }) {
             />
           );
         })}
-      {searchFilteredAchievements.length === 0 && <Loaders.HashLoader />}
+      {searchFilteredAchievements.length === 0 && (
+        <h4 style={{ fontWeight: "500" }}>No Achievements</h4>
+      )}
     </Container>
   );
 }

@@ -112,6 +112,20 @@ const XPData = styled.div`
   font-size: 1.5rem;
 `;
 
+const CompletionOverlay = styled.div`
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  color: #f5b81c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 6;
+  font-size: 5rem;
+`;
+
 export default function GameCard({ game }) {
   const { id, playtime, name, version, achievements, completion, toGet } = game;
 
@@ -126,6 +140,8 @@ export default function GameCard({ game }) {
         router.push(`/games/${id}`);
       }}
     >
+      <CompletionOverlay>{toGet == 0 && <FaTrophy />}</CompletionOverlay>
+
       <Image image={HEADER_IMAGE(id)} />
       <Overlay />
       <Title>{name}</Title>

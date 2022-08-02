@@ -2,6 +2,7 @@ import {
   GAMES_OPTION_COMPLETION_DESC,
   GAMES_OPTION_COMPLETION_STARTED,
   GAME_OPTION_PERCENTAGE_DESC,
+  GAME_OPTION_PERCENTAGE_DESC_LOCKED,
 } from "../../helpers/filterHelper";
 import { addHiddenToGames } from "../../helpers/gameHelper";
 import {
@@ -27,7 +28,7 @@ const INITIAL_STATE = {
       rightSidebarWidth: "450px",
     },
     gamePage: {
-      filterOption: GAME_OPTION_PERCENTAGE_DESC,
+      filterOption: GAME_OPTION_PERCENTAGE_DESC_LOCKED,
       searchTerm: "",
       leftSidebarOpen: true,
       rightSidebarOpen: true,

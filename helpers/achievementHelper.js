@@ -42,7 +42,7 @@ export const sortAchievementsByFilterOption = (achievements, filterOption) => {
       newAchievements = achievements.filter(
         (achievement) => +achievement.achieved == 0
       );
-      newAchievements = achievements.sort(
+      newAchievements = newAchievements.sort(
         (ach1, ach2) => +ach1.percentage < +ach2.percentage
       );
       break;
@@ -50,7 +50,7 @@ export const sortAchievementsByFilterOption = (achievements, filterOption) => {
       newAchievements = achievements.filter(
         (achievement) => +achievement.achieved == 0
       );
-      newAchievements = achievements.sort(
+      newAchievements = newAchievements.sort(
         (ach1, ach2) => +ach1.percentage > +ach2.percentage
       );
       break;
@@ -67,7 +67,7 @@ export const sortAchievementsByFilterOption = (achievements, filterOption) => {
         (achievement) => +achievement.achieved == 1
       );
       newAchievements = newAchievements.sort(
-        (ach1, ach2) => +ach1.unlocktime > +ach2.unlocktime
+        (ach1, ach2) => +ach1.unlocktime < +ach2.unlocktime
       );
       break;
     default:
