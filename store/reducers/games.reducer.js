@@ -16,6 +16,8 @@ const INITIAL_STATE = {
     gamesPage: {
       filterOption: GAMES_OPTION_COMPLETION_STARTED,
       searchTerm: "",
+      leftSidebarOpen: true,
+      rightSidebarOpen: false,
     },
   },
 };

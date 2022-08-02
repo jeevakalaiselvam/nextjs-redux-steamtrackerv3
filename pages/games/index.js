@@ -18,7 +18,9 @@ const Container = styled.div`
 export default function GamesPage() {
   const router = useRouter();
   const steamtracker = useSelector((state) => state.steamtracker);
-  const { games } = steamtracker;
+  const { games, settings } = steamtracker;
+  const { gamesPage } = settings;
+  const { leftSidebarOpen, rightSidebarOpen } = gamesPage;
 
   useEffect(() => {
     if (!Object.keys(games).length > 0) {
@@ -32,6 +34,8 @@ export default function GamesPage() {
       header={<GamesHeader />}
       content={<GamesContent />}
       rightSidebar={<GamesRightSidebar />}
+      leftSidebarOpen={leftSidebarOpen}
+      rightSidebarOpen={rightSidebarOpen}
     />
   );
 }

@@ -67,10 +67,17 @@ const ContentContainer = styled.div`
   max-height: 90vh;
 `;
 
-export default function Page({ leftSidebar, header, rightSidebar, content }) {
+export default function Page({
+  leftSidebar,
+  header,
+  rightSidebar,
+  content,
+  leftSidebarOpen,
+  rightSidebarOpen,
+}) {
   return (
     <Container>
-      {leftSidebar && (
+      {leftSidebar && leftSidebarOpen && (
         <LeftSidebarContainer>{leftSidebar}</LeftSidebarContainer>
       )}
       {(header || content) && (
@@ -79,7 +86,7 @@ export default function Page({ leftSidebar, header, rightSidebar, content }) {
           <ContentContainer>{content}</ContentContainer>
         </MainContainer>
       )}
-      {rightSidebar && (
+      {rightSidebar && rightSidebarOpen && (
         <RightSidebarContainer>{rightSidebar}</RightSidebarContainer>
       )}
     </Container>
