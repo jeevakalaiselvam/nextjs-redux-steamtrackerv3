@@ -17,6 +17,13 @@ const Container = styled.div`
   overflow: hidden;
 `;
 
+const Title = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+`;
+
 export default function GameRightSidebar() {
   const steamtracker = useSelector((state) => state.steamtracker);
   const { games, settings } = steamtracker;
@@ -28,6 +35,7 @@ export default function GameRightSidebar() {
 
   return (
     <Container>
+      <Title>RECENTLY UNLOCKED</Title>
       <Achievements
         game={game}
         filterOption={GAME_OPTION_PERCENTAGE_DESC}
