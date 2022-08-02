@@ -16,6 +16,7 @@ const Container = styled.div`
   overflow: scroll;
   flex-wrap: wrap;
   position: relative;
+  z-index: 3;
 `;
 
 export default function Achievements({ game, filterOption, searchTerm }) {

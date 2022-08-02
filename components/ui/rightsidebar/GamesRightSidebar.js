@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import { GAME_OPTION_PERCENTAGE_DESC } from "../../../helpers/filterHelper";
+import Achievements from "../../organisms/Achievements";
 
 const Container = styled.div`
   display: flex;
@@ -14,5 +16,21 @@ const Container = styled.div`
 `;
 
 export default function GamesRightSidebar() {
-  return <Container>GamesRightSidebar</Container>;
+  const steamtracker = useSelector((state) => state.steamtracker);
+  const { games, settings } = steamtracker;
+
+  const router = useRouter();
+  const { gameId } = router.query;
+
+  const game = games.find((game) => game.id == gameId);
+
+  return (
+    <Container>
+      <Achievements
+        game={game}
+        filterOption={GAME_OPTION_PERCENTAGE_DESC}
+        searchTerm={""}
+      />
+    </Container>
+  );
 }

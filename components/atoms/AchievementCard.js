@@ -1,6 +1,7 @@
 import React from "react";
 import { FaGlobe } from "react-icons/fa";
 import styled from "styled-components";
+import { IoEyeOff } from "react-icons/io5";
 
 const Container = styled.div`
   width: 350px;
@@ -79,6 +80,17 @@ const Description = styled.div`
   font-size: 1.5rem;
 `;
 
+const HiddenContainer = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  padding: 0rem 1rem 1rem 1rem;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+`;
+
 const PercentageContainer = styled.div`
   position: absolute;
   top: 0;
@@ -153,6 +165,11 @@ export default function AchievementCard(props) {
         </PercentageIcon>
         <PercentageText>{percentage.toFixed(2)}%</PercentageText>
       </PercentageContainer>
+      {hidden == "1" && (
+        <HiddenContainer>
+          <IoEyeOff />
+        </HiddenContainer>
+      )}
     </Container>
   );
 }
