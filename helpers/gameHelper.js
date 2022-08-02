@@ -21,6 +21,9 @@ export const sortGamesByFilterOption = (games, filterOption) => {
       newGames = games.filter(
         (game) => game.achievements.length !== game.toGet
       );
+      newGames = newGames.sort(
+        (game1, game2) => +game1.completion < +game2.completion
+      );
       break;
     default:
       newGames = games.sort(

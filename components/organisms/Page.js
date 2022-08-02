@@ -15,7 +15,7 @@ const Container = styled.div`
 `;
 
 const LeftSidebarContainer = styled.div`
-  display: flex;
+  display: ${(props) => (props.leftSidebarOpen ? "flex" : "none")};
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
@@ -26,7 +26,7 @@ const LeftSidebarContainer = styled.div`
 `;
 
 const RightSidebarContainer = styled.div`
-  display: flex;
+  display: ${(props) => (props.rightSidebarOpen ? "flex" : "none")};
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
@@ -77,8 +77,10 @@ export default function Page({
 }) {
   return (
     <Container>
-      {leftSidebar && leftSidebarOpen && (
-        <LeftSidebarContainer>{leftSidebar}</LeftSidebarContainer>
+      {leftSidebar && (
+        <LeftSidebarContainer leftSidebarOpen={leftSidebarOpen}>
+          {leftSidebar}
+        </LeftSidebarContainer>
       )}
       {(header || content) && (
         <MainContainer>
@@ -86,8 +88,10 @@ export default function Page({
           <ContentContainer>{content}</ContentContainer>
         </MainContainer>
       )}
-      {rightSidebar && rightSidebarOpen && (
-        <RightSidebarContainer>{rightSidebar}</RightSidebarContainer>
+      {rightSidebar && (
+        <RightSidebarContainer rightSidebarOpen={rightSidebarOpen}>
+          {rightSidebar}
+        </RightSidebarContainer>
       )}
     </Container>
   );

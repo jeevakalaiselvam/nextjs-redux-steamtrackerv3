@@ -14,7 +14,7 @@ const Container = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  padding: 0.25rem;
+  padding: 0.25rem 1rem;
   flex: 1;
   width: 100%;
 `;
@@ -30,7 +30,7 @@ const SearchContainer = styled.div`
   display: flex;
   flex: 1;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
 `;
 
 export default function GamesHeader() {
