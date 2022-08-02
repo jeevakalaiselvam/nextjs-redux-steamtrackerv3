@@ -4,6 +4,7 @@ import { HEADER_IMAGE } from "../../helpers/urlHelper";
 import { FaTrophy } from "react-icons/fa";
 import { HiClock, HiCollection } from "react-icons/hi";
 import { getAllXPFromAchievements } from "../../helpers/xpHelper";
+import { useRouter } from "next/router";
 
 const Container = styled.div`
   display: flex;
@@ -48,6 +49,7 @@ const Title = styled.div`
   bottom: 0;
   left: 0;
   padding: 1rem;
+  font-size: 1.5rem;
   background-color: rgba(0, 0, 0, 0.75);
   &:hover {
     color: #3049d1;
@@ -116,8 +118,14 @@ export default function GameCard({ game }) {
   const xpData = getAllXPFromAchievements(achievements);
   const { totalXP, completedXP, remainingXP } = xpData;
 
+  const router = useRouter();
+
   return (
-    <Container>
+    <Container
+      onClick={() => {
+        router.push(`/games/${id}`);
+      }}
+    >
       <Image image={HEADER_IMAGE(id)} />
       <Overlay />
       <Title>{name}</Title>

@@ -43,3 +43,16 @@ export const sortGamesBySearchTerm = (games, searchTerm) => {
   }
   return newGames;
 };
+
+export const addHiddenToGames = (games, gameId, hiddenAchievements) => {
+  let newGames = [];
+  newGames = games.map((game) => {
+    let newGame = { ...game };
+    if (game.id == gameId) {
+      newGame = { ...newGame, hiddenAchievements };
+    }
+    return newGame;
+  });
+
+  return newGames;
+};

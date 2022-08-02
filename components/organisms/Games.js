@@ -20,14 +20,7 @@ const Container = styled.div`
   flex-wrap: wrap;
 `;
 
-export default function Games() {
-  const steamtracker = useSelector((state) => state.steamtracker);
-  const { games, settings } = steamtracker;
-  const { gamesPage } = settings;
-  const { filterOption, searchTerm } = gamesPage;
-
-  console.log("SETTIGNS", { filterOption, searchTerm });
-
+export default function Games({ games, filterOption, searchTerm }) {
   const [searchFilteredGames, setSearchFilteredGames] = useState([]);
 
   useEffect(() => {

@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import Games from "../../organisms/Games";
 
@@ -14,9 +15,18 @@ const Container = styled.div`
 `;
 
 export default function GamesContent() {
+  const steamtracker = useSelector((state) => state.steamtracker);
+  const { games, settings } = steamtracker;
+  const { gamesPage } = settings;
+  const { filterOption, searchTerm } = gamesPage;
+
   return (
     <Container>
-      <Games />
+      <Games
+        filterOption={filterOption}
+        searchTerm={searchTerm}
+        games={games}
+      />
     </Container>
   );
 }

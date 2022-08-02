@@ -3,8 +3,11 @@ import {
   FETCH_ALL_GAMES_REQUEST,
   FETCH_ALL_GAMES_SUCCESS,
   FETCH_ALL_GAMES_ERROR,
+  GAME_FILTER_CHANGED,
+  GAME_SEARCH_CHANGED,
   GAMES_FILTER_CHANGED,
   GAMES_SEARCH_CHANGED,
+  SET_HIDDEN_DATA,
 } from "../types/games.types";
 import axios from "axios";
 
@@ -22,6 +25,15 @@ export const fetchAllGames = () => {
   };
 };
 
+export const setHiddenAchievementsForGame = (gameId, hiddenAchievements) => {
+  return (dispatch) => {
+    return dispatch({
+      type: SET_HIDDEN_DATA,
+      payload: { gameId, hiddenAchievements },
+    });
+  };
+};
+
 export const changeGamesPageFilterOption = (filterOption) => {
   return (dispatch) => {
     return dispatch({ type: GAMES_FILTER_CHANGED, payload: filterOption });
@@ -31,5 +43,17 @@ export const changeGamesPageFilterOption = (filterOption) => {
 export const changeGamesPageSearchTerm = (searchTerm) => {
   return (dispatch) => {
     return dispatch({ type: GAMES_SEARCH_CHANGED, payload: searchTerm });
+  };
+};
+
+export const changeGamePageFilterOption = (filterOption) => {
+  return (dispatch) => {
+    return dispatch({ type: GAME_FILTER_CHANGED, payload: filterOption });
+  };
+};
+
+export const changeGamePageSearchTerm = (searchTerm) => {
+  return (dispatch) => {
+    return dispatch({ type: GAME_SEARCH_CHANGED, payload: searchTerm });
   };
 };

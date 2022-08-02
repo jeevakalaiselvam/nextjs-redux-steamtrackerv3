@@ -18,3 +18,12 @@ export const FILTER_OPTIONS_GAMES_PAGE = [
     title: "Sort By Completion [Low to High]",
   },
 ];
+
+export const GAME_OPTION_PERCENTAGE_DESC = "GAME_OPTION_PERCENTAGE_DESC";
+
+export const FILTER_OPTIONS_GAME_PAGE = [
+  {
+    id: GAME_OPTION_PERCENTAGE_DESC,
+    title: "Sort By Easy",
+  },
+];

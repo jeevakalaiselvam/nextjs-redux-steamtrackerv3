@@ -1,13 +1,18 @@
 import {
   GAMES_OPTION_COMPLETION_DESC,
   GAMES_OPTION_COMPLETION_STARTED,
+  GAME_OPTION_PERCENTAGE_DESC,
 } from "../../helpers/filterHelper";
+import { addHiddenToGames } from "../../helpers/gameHelper";
 import {
   FETCH_ALL_GAMES_ERROR,
   FETCH_ALL_GAMES_REQUEST,
   FETCH_ALL_GAMES_SUCCESS,
   GAMES_FILTER_CHANGED,
   GAMES_SEARCH_CHANGED,
+  GAME_FILTER_CHANGED,
+  GAME_SEARCH_CHANGED,
+  SET_HIDDEN_DATA,
 } from "../types/games.types";
 
 const INITIAL_STATE = {
@@ -15,6 +20,12 @@ const INITIAL_STATE = {
   settings: {
     gamesPage: {
       filterOption: GAMES_OPTION_COMPLETION_STARTED,
+      searchTerm: "",
+      leftSidebarOpen: true,
+      rightSidebarOpen: false,
+    },
+    gamePage: {
+      filterOption: GAME_OPTION_PERCENTAGE_DESC,
       searchTerm: "",
       leftSidebarOpen: true,
       rightSidebarOpen: false,
@@ -63,6 +74,39 @@ const reducer = (state = INITIAL_STATE, action) => {
             searchTerm: payload,
           },
         },
+      };
+
+    case GAME_FILTER_CHANGED:
+      return {
+        ...state,
+        settings: {
+          ...state.settings,
+          gamePage: {
+            ...state.settings.gamePage,
+            filterOption: payload,
+          },
+        },
+      };
+    case GAME_SEARCH_CHANGED:
+      return {
+        ...state,
+        settings: {
+          ...state.settings,
+          gamePage: {
+            ...state.settings.gamePage,
+            searchTerm: payload,
+          },
+        },
+      };
+
+    case SET_HIDDEN_DATA:
+      return {
+        ...state,
+        games: addHiddenToGames(
+          state.games,
+          payload.gameId,
+          payload.hiddenAchievements
+        ),
       };
 
     default:
