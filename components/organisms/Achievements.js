@@ -3,6 +3,8 @@ import styled from "styled-components";
 import * as Loaders from "react-spinners";
 import { sortAchievementsByFilterOption } from "../../helpers/achievementHelper";
 import AchievementCard from "../atoms/AchievementCard";
+import { HEADER_IMAGE } from "../../helpers/urlHelper";
+import { useRouter } from "next/router";
 
 const Container = styled.div`
   display: flex;
@@ -13,13 +15,19 @@ const Container = styled.div`
   min-height: 100%;
   overflow: scroll;
   flex-wrap: wrap;
+  position: relative;
 `;
 
 export default function Achievements({ game, filterOption, searchTerm }) {
-  const { achievements, hiddenAchievements } = game || {};
+  const { achievements, hiddenAchievements } = game || {
+    hiddenAchievements: [],
+  };
   const [searchFilteredAchievements, setSearchFilteredAchievements] = useState(
     []
   );
+
+  const router = useRouter();
+  const { gameId } = router.query;
 
   useEffect(() => {
     if (achievements) {
@@ -42,6 +50,7 @@ export default function Achievements({ game, filterOption, searchTerm }) {
         searchFilteredAchievements,
         filterOption
       );
+      console.log("FILTERED ACHIEVEMENTS", filteredAchievements[0]);
 
       setSearchFilteredAchievements((old) => filteredAchievements);
     }
@@ -58,7 +67,7 @@ export default function Achievements({ game, filterOption, searchTerm }) {
               hiddenDescription={
                 hiddenAchievements[
                   achievement.displayName.toLowerCase().trim()
-                ] || "HIDDEN"
+                ] ?? "HIDDEN"
               }
             />
           );

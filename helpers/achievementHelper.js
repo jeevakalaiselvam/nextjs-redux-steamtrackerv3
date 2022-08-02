@@ -1,4 +1,7 @@
-import { GAME_OPTION_PERCENTAGE_DESC } from "./filterHelper";
+import {
+  GAME_OPTION_PERCENTAGE_ASC,
+  GAME_OPTION_PERCENTAGE_DESC,
+} from "./filterHelper";
 
 export const sortAchievementsByFilterOption = (achievements, filterOption) => {
   let newAchievements = [];
@@ -6,6 +9,11 @@ export const sortAchievementsByFilterOption = (achievements, filterOption) => {
     case GAME_OPTION_PERCENTAGE_DESC:
       newAchievements = achievements.sort(
         (ach1, ach2) => +ach1.percentage < +ach2.percentage
+      );
+      break;
+    case GAME_OPTION_PERCENTAGE_ASC:
+      newAchievements = achievements.sort(
+        (ach1, ach2) => +ach1.percentage > +ach2.percentage
       );
       break;
     default:

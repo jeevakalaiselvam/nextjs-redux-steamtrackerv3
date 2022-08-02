@@ -20,7 +20,12 @@ export default function GamesPage() {
   const steamtracker = useSelector((state) => state.steamtracker);
   const { games, settings } = steamtracker;
   const { gamesPage } = settings;
-  const { leftSidebarOpen, rightSidebarOpen } = gamesPage;
+  const {
+    leftSidebarOpen,
+    rightSidebarOpen,
+    leftSidebarWidth,
+    rightSidebarWidth,
+  } = gamesPage;
 
   useEffect(() => {
     if (!Object.keys(games).length > 0) {
@@ -36,6 +41,8 @@ export default function GamesPage() {
       rightSidebar={<GamesRightSidebar />}
       leftSidebarOpen={leftSidebarOpen}
       rightSidebarOpen={rightSidebarOpen}
+      leftSidebarWidth={leftSidebarWidth}
+      rightSidebarWidth={rightSidebarWidth}
     />
   );
 }

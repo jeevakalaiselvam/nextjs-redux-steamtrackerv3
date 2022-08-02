@@ -39,6 +39,8 @@ export default function GamesPage() {
       rightSidebar={<GameRightSidebar />}
       leftSidebarOpen={leftSidebarOpen}
       rightSidebarOpen={rightSidebarOpen}
+      leftSidebarWidth={leftSidebarWidth}
+      rightSidebarWidth={rightSidebarWidth}
     />
   );
 }

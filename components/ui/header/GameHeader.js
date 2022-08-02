@@ -1,13 +1,10 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { FILTER_OPTIONS_GAME_PAGE } from "../../../helpers/filterHelper";
 import {
-  FILTER_OPTIONS_GAMES_PAGE,
-  FILTER_OPTIONS_GAME_PAGE,
-} from "../../../helpers/filterHelper";
-import {
-  changeGamesPageFilterOption,
-  changeGamesPageSearchTerm,
+  changeGamePageFilterOption,
+  changeGamePageSearchTerm,
 } from "../../../store/actions/games.actions";
 import Filter from "../../atoms/Filter";
 import Search from "../../atoms/Search";
@@ -40,11 +37,11 @@ export default function GameHeader() {
   const dispatch = useDispatch();
 
   const onFilterChanged = (filterOption) => {
-    dispatch(changeGamesPageFilterOption(filterOption));
+    dispatch(changeGamePageFilterOption(filterOption));
   };
 
   const onSearchObtained = (searchTerm) => {
-    dispatch(changeGamesPageSearchTerm(searchTerm));
+    dispatch(changeGamePageSearchTerm(searchTerm));
   };
 
   return (

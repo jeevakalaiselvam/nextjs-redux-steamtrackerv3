@@ -9,17 +9,14 @@ const Container = styled.div`
   border-radius: 2px;
   flex-direction: row;
   cursor: pointer;
-  background: ${(props) => {
-    if (props.hover && !props.click) {
-      return "#3049d1";
-    } else if (props.hover && props.click) {
-      return "#3049d1";
-    } else {
-      return "#0d0c0f";
-    }
-  }};
+  background-color: rgba(0, 0, 0, 0.3);
   align-items: center;
   justify-content: center;
+
+  &:hover {
+    background-color: #3049d1;
+    color: #fefefe;
+  }
 `;
 
 const Title = styled.div`

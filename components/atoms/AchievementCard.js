@@ -1,4 +1,5 @@
 import React from "react";
+import { FaGlobe } from "react-icons/fa";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -8,9 +9,15 @@ const Container = styled.div`
   padding: 0.5rem;
   align-items: flex-start;
   justify-content: center;
-  background: #171717;
+  background: rgba(0, 0, 0, 0.25);
   margin: 0.5rem;
-  min-height: 100px;
+  min-height: 120px;
+  border-radius: 4px;
+  position: relative;
+  cursor: pointer;
+  &:hover {
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+  }
 `;
 
 const IconContainer = styled.div`
@@ -54,9 +61,48 @@ const Title = styled.div`
   align-items: flex-start;
   justify-content: flex-start;
   font-size: 1.5rem;
+
+  &:hover {
+    color: #ffffff;
+  }
 `;
 
 const Description = styled.div`
+  display: flex;
+  flex: 1;
+  width: 100%;
+  padding: 0.5rem;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  color: #b0bec5;
+  font-size: 1.5rem;
+`;
+
+const PercentageContainer = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  padding: 0rem 1rem 1rem 1rem;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+`;
+
+const PercentageText = styled.div`
+  display: flex;
+  flex: 1;
+  width: 100%;
+  padding: 0.5rem;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  color: #b0bec5;
+  font-size: 1.5rem;
+`;
+
+const PercentageIcon = styled.div`
   display: flex;
   flex: 1;
   width: 100%;
@@ -82,8 +128,6 @@ export default function AchievementCard(props) {
   } = props.achievement;
   const hiddenDescription = props.hiddenDescription;
 
-  console.log("HIDDEN", hiddenDescription);
-
   return (
     <Container>
       <IconContainer>
@@ -93,6 +137,12 @@ export default function AchievementCard(props) {
         <Title>{displayName}</Title>
         <Description>{hiddenDescription}</Description>
       </DataContainer>
+      <PercentageContainer>
+        <PercentageIcon>
+          <FaGlobe />
+        </PercentageIcon>
+        <PercentageText>{percentage.toFixed(2)}%</PercentageText>
+      </PercentageContainer>
     </Container>
   );
 }

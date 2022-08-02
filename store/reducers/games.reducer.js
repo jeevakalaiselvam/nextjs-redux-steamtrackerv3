@@ -23,12 +23,16 @@ const INITIAL_STATE = {
       searchTerm: "",
       leftSidebarOpen: true,
       rightSidebarOpen: false,
+      leftSidebarWidth: "200px",
+      rightSidebarWidth: "400px",
     },
     gamePage: {
       filterOption: GAME_OPTION_PERCENTAGE_DESC,
       searchTerm: "",
       leftSidebarOpen: true,
       rightSidebarOpen: true,
+      leftSidebarWidth: "200px",
+      rightSidebarWidth: "400px",
     },
   },
 };

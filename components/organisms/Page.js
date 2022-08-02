@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { HEADER_IMAGE } from "../../helpers/urlHelper";
 
 const Container = styled.div`
   display: flex;
@@ -12,6 +13,21 @@ const Container = styled.div`
   min-width: 100vw;
   overflow: hidden;
   background-color: #1e1e1e;
+  position: relative;
+  z-index: 1;
+`;
+
+const ImageOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url(${(props) => props.image});
+  background-size: cover;
+  background-repeat: no-repeat;
+  filter: blur(50px);
+  z-index: 2;
 `;
 
 const LeftSidebarContainer = styled.div`
@@ -19,10 +35,13 @@ const LeftSidebarContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  width: 200px;
+  width: ${(props) =>
+    props.leftSidebarWidth ? props.leftSidebarWidth : "200px"};
   min-height: 100vh;
   max-height: 100vh;
-  background-color: #171717;
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  z-index: 3;
 `;
 
 const RightSidebarContainer = styled.div`
@@ -30,10 +49,13 @@ const RightSidebarContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  width: 300px;
+  width: ${(props) =>
+    props.rightSidebarWidth ? props.rightSidebarWidth : "300px"};
   min-height: 100vh;
   max-height: 100vh;
-  background-color: #171717;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  z-index: 3;
 `;
 
 const MainContainer = styled.div`
@@ -44,6 +66,7 @@ const MainContainer = styled.div`
   justify-content: flex-start;
   min-height: 100vh;
   max-height: 100vh;
+  z-index: 3;
 `;
 
 const HeaderContainer = styled.div`
@@ -54,6 +77,7 @@ const HeaderContainer = styled.div`
   justify-content: flex-start;
   min-height: 5vh;
   max-height: 5vh;
+  z-index: 3;
 `;
 
 const ContentContainer = styled.div`
@@ -63,8 +87,9 @@ const ContentContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  min-height: 90vh;
-  max-height: 90vh;
+  min-height: 95vh;
+  max-height: 95vh;
+  z-index: 3;
 `;
 
 export default function Page({
@@ -74,11 +99,17 @@ export default function Page({
   content,
   leftSidebarOpen,
   rightSidebarOpen,
+  rightSidebarWidth,
+  leftSidebarWidth,
 }) {
   return (
     <Container>
+      <ImageOverlay image={HEADER_IMAGE("381210")} />
       {leftSidebar && (
-        <LeftSidebarContainer leftSidebarOpen={leftSidebarOpen}>
+        <LeftSidebarContainer
+          leftSidebarOpen={leftSidebarOpen}
+          leftSidebarWidth={leftSidebarWidth}
+        >
           {leftSidebar}
         </LeftSidebarContainer>
       )}
@@ -89,7 +120,10 @@ export default function Page({
         </MainContainer>
       )}
       {rightSidebar && (
-        <RightSidebarContainer rightSidebarOpen={rightSidebarOpen}>
+        <RightSidebarContainer
+          rightSidebarOpen={rightSidebarOpen}
+          rightSidebarWidth={rightSidebarWidth}
+        >
           {rightSidebar}
         </RightSidebarContainer>
       )}

@@ -20,10 +20,15 @@ export const FILTER_OPTIONS_GAMES_PAGE = [
 ];
 
 export const GAME_OPTION_PERCENTAGE_DESC = "GAME_OPTION_PERCENTAGE_DESC";
+export const GAME_OPTION_PERCENTAGE_ASC = "GAME_OPTION_PERCENTAGE_ASC";
 
 export const FILTER_OPTIONS_GAME_PAGE = [
   {
     id: GAME_OPTION_PERCENTAGE_DESC,
     title: "Sort By Easy",
+  },
+  {
+    id: GAME_OPTION_PERCENTAGE_ASC,
+    title: "Sort By Hard",
   },
 ];

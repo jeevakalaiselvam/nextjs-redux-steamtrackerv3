@@ -4,13 +4,17 @@ import { openLinkInNewTab } from "../../helpers/browserHelper";
 
 const Container = styled.div`
   display: flex;
-  background-color: #0d0c0f;
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
   align-items: center;
   padding: 1rem;
   justify-content: center;
   flex-direction: column;
-  width: 100%;
+  width: 95%;
   cursor: pointer;
+  &:hover {
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+  }
 `;
 
 const Image = styled.div`
