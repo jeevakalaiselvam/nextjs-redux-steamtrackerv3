@@ -18,10 +18,12 @@ const Container = styled.div`
     cursor: pointer;
     padding: 0.5rem 1rem;
     border-radius: 4px;
-    background: #171717;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(6px);
   }
   & option {
-    background: #171717;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(6px);
     border: none;
     outline: none;
     color: #9caabe;

@@ -8,6 +8,7 @@ import {
 } from "../../../store/actions/games.actions";
 import Filter from "../../atoms/Filter";
 import Search from "../../atoms/Search";
+import { TbRefresh } from "react-icons/tb";
 
 const Container = styled.div`
   display: flex;
@@ -33,6 +34,32 @@ const SearchContainer = styled.div`
   justify-content: flex-end;
 `;
 
+const RefreshContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  padding: 0.5rem;
+  color: #fefefe;
+  cursor: pointer;
+  background-color: rgba(48, 73, 209, 0.8);
+  backdrop-filter: blur(6px);
+  margin-left: 1rem;
+
+  &:hover {
+    background-color: rgba(30, 51, 166, 0.8);
+    backdrop-filter: blur(6px);
+  }
+`;
+
+const RefreshText = styled.div`
+  display: flex;
+  margin-left: 0.5rem;
+  align-items: center;
+  justify-content: center;
+`;
+
 export default function GameHeader() {
   const dispatch = useDispatch();
 
@@ -54,6 +81,10 @@ export default function GameHeader() {
       </FilterContainer>
       <SearchContainer>
         <Search onSearchObtained={onSearchObtained} />
+        <RefreshContainer>
+          <TbRefresh />
+          <RefreshText>REFRESH</RefreshText>
+        </RefreshContainer>
       </SearchContainer>
     </Container>
   );

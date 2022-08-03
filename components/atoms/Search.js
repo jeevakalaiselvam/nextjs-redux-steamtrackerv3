@@ -10,7 +10,8 @@ const SearchIcon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #171717;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(6px);
   padding: 0.5rem 1rem;
   border-radius: 8px 0px 0px 8px;
 `;
@@ -24,7 +25,8 @@ const SearchInput = styled.div`
     outline: none;
     padding: 0.5rem;
     width: ${(props) => props.width || "150px"};
-    background: #171717;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(6px);
     color: #9caabe;
     border: none;
     border-radius: 0px 8px 8px 0px;
