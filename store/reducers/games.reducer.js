@@ -39,6 +39,7 @@ import {
 
 const INITIAL_STATE = {
   games: [],
+  hiddenGames: {},
   settings: {
     gamesPage: {
       filterOption: GAMES_OPTION_COMPLETION_DESC,
@@ -155,11 +156,10 @@ const reducer = (state = INITIAL_STATE, action) => {
     case SET_HIDDEN_DATA:
       return {
         ...state,
-        games: addHiddenToGames(
-          state.games,
-          payload.gameId,
-          payload.hiddenAchievements
-        ),
+        hiddenGames: {
+          ...state.hiddenGames,
+          [payload.gameId]: payload.hiddenAchievements,
+        },
       };
 
     case GAME_DATA_REFRESH:

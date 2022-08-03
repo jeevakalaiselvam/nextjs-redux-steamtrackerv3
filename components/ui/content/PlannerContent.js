@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
@@ -19,7 +19,6 @@ import {
   setPhase6Search,
   setPhaseAddedGames,
 } from "../../../store/actions/games.actions";
-import AchievementCardWithPhase from "../../atoms/AchievementCardWithPhase";
 import Achievements from "../../organisms/Achievements";
 import {
   ALL,
@@ -28,8 +27,6 @@ import {
   GRIND,
   HARD,
   MISSABLE,
-  tranformGameToIncludeOnlyPhase,
-  tranformGameToIncludeOnlyUnlockedRecent,
   UNLOCKED,
 } from "../../../helpers/gameHelper";
 import Search from "../../atoms/Search";
@@ -41,6 +38,7 @@ import {
 const Container = styled.div`
   display: flex;
   flex-direction: row;
+  width: 100%;
   align-items: flex-start;
   justify-content: center;
   padding: 0.25rem;
@@ -112,7 +110,7 @@ export default function PlannerContent() {
       const hiddenData = hiddenResponse.data.hiddenMapper;
       dispatch(setHiddenAchievementsForGame(gameId, hiddenData));
     };
-    if (game && !game.hiddenAchivements) {
+    if (gameId) {
       getHidden();
     }
   }, [gameId]);

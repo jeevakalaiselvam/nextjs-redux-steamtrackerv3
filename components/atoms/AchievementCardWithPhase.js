@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaCheck, FaExpandArrowsAlt, FaGlobe } from "react-icons/fa";
 import styled from "styled-components";
 import { IoEyeOff } from "react-icons/io5";
@@ -11,7 +11,7 @@ import {
   MISSABLE,
   updateAchievementPhaseForGame,
 } from "../../helpers/gameHelper";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updatePhaseForAchievement } from "../../store/actions/games.actions";
 import { HiMenu } from "react-icons/hi";
 
@@ -207,10 +207,21 @@ export default function AchievementCardWithPhase(props) {
     description,
     phase,
   } = props.achievement;
-  const hiddenDescription = props?.hiddenDescription || "";
   const { gameName } = props?.gameName || "";
   const currentPhase = props?.phase || "";
   const gameId = props?.gameId || "";
+
+  const steamtracker = useSelector((state) => state.steamtracker);
+  const { hiddenGames } = steamtracker;
+
+  const [hiddenDescription, setHiddenDescription] = useState("HIDDEN");
+  useEffect(() => {
+    if (hiddenGames[gameId] !== "undefined") {
+      setHiddenDescription(
+        (old) => hiddenGames[gameId][displayName.toLowerCase().trim()]
+      );
+    }
+  }, [gameId]);
 
   const dispatch = useDispatch();
 
