@@ -121,6 +121,7 @@ const handler = async (req, res) => {
             achievements: newAchievements,
             completion: completionPercentage,
             toGet: toGet,
+            recentRefresh: new Date(),
           };
           return newGame;
         })

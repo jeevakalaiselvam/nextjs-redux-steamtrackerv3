@@ -4,13 +4,17 @@ import {
   GAME_OPTION_PERCENTAGE_DESC,
   GAME_OPTION_PERCENTAGE_DESC_LOCKED,
 } from "../../helpers/filterHelper";
-import { addHiddenToGames } from "../../helpers/gameHelper";
+import {
+  addHiddenToGames,
+  refreshGameDataByGameId,
+} from "../../helpers/gameHelper";
 import {
   FETCH_ALL_GAMES_ERROR,
   FETCH_ALL_GAMES_REQUEST,
   FETCH_ALL_GAMES_SUCCESS,
   GAMES_FILTER_CHANGED,
   GAMES_SEARCH_CHANGED,
+  GAME_DATA_REFRESH,
   GAME_FILTER_CHANGED,
   GAME_SEARCH_CHANGED,
   SET_HIDDEN_DATA,
@@ -129,6 +133,16 @@ const reducer = (state = INITIAL_STATE, action) => {
           state.games,
           payload.gameId,
           payload.hiddenAchievements
+        ),
+      };
+
+    case GAME_DATA_REFRESH:
+      return {
+        ...state,
+        games: refreshGameDataByGameId(
+          state.games,
+          payload.gameId,
+          payload.gameRefreshedData
         ),
       };
 

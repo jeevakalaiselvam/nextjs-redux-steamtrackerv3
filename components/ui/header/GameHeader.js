@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { FILTER_OPTIONS_GAME_PAGE } from "../../../helpers/filterHelper";
 import {
   changeGamePageFilterOption,
   changeGamePageSearchTerm,
+  setGameDataRefresh,
 } from "../../../store/actions/games.actions";
 import Filter from "../../atoms/Filter";
 import Search from "../../atoms/Search";
 import { TbRefresh } from "react-icons/tb";
+import { useRouter } from "next/router";
+import axios from "axios";
 
 const Container = styled.div`
   display: flex;
@@ -62,6 +65,8 @@ const RefreshText = styled.div`
 
 export default function GameHeader() {
   const dispatch = useDispatch();
+  const router = useRouter();
+  const { gameId } = router.query;
 
   const onFilterChanged = (filterOption) => {
     dispatch(changeGamePageFilterOption(filterOption));
@@ -69,6 +74,19 @@ export default function GameHeader() {
 
   const onSearchObtained = (searchTerm) => {
     dispatch(changeGamePageSearchTerm(searchTerm));
+  };
+
+  useEffect(() => {
+    if (gameId !== "undefined") {
+      console.log("USE EFFECT RUNNING");
+    }
+  }, [gameId]);
+
+  const refreshButtonClickHandler = async () => {
+    console.log("REFRESH Clicked");
+    const response = await axios.get(`/api/refresh/${gameId}`);
+    const gameRefreshedData = response.data.data;
+    dispatch(setGameDataRefresh(gameId, gameRefreshedData));
   };
 
   return (
@@ -81,7 +99,7 @@ export default function GameHeader() {
       </FilterContainer>
       <SearchContainer>
         <Search onSearchObtained={onSearchObtained} />
-        <RefreshContainer>
+        <RefreshContainer onClick={refreshButtonClickHandler}>
           <TbRefresh />
           <RefreshText>REFRESH</RefreshText>
         </RefreshContainer>

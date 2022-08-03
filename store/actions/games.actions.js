@@ -8,6 +8,7 @@ import {
   GAMES_FILTER_CHANGED,
   GAMES_SEARCH_CHANGED,
   SET_HIDDEN_DATA,
+  GAME_DATA_REFRESH,
 } from "../types/games.types";
 import axios from "axios";
 
@@ -30,6 +31,15 @@ export const setHiddenAchievementsForGame = (gameId, hiddenAchievements) => {
     return dispatch({
       type: SET_HIDDEN_DATA,
       payload: { gameId, hiddenAchievements },
+    });
+  };
+};
+
+export const setGameDataRefresh = (gameId, gameRefreshedData) => {
+  return (dispatch) => {
+    return dispatch({
+      type: GAME_DATA_REFRESH,
+      payload: { gameId, gameRefreshedData },
     });
   };
 };
