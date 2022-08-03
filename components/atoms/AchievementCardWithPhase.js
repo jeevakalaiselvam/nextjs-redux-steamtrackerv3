@@ -212,7 +212,7 @@ export default function AchievementCardWithPhase(props) {
   const gameId = props?.gameId || "";
 
   const steamtracker = useSelector((state) => state.steamtracker);
-  const { hiddenGames } = steamtracker;
+  const { hiddenGames, games } = steamtracker;
 
   const [hiddenDescription, setHiddenDescription] = useState("HIDDEN");
   useEffect(() => {
@@ -234,6 +234,8 @@ export default function AchievementCardWithPhase(props) {
     }
   };
 
+  const game = games.find((game) => game.id == gameId);
+
   const [showPhases, setShowPhases] = useState(false);
 
   return (
@@ -250,7 +252,7 @@ export default function AchievementCardWithPhase(props) {
         <Title
           onClick={() => {
             if (window !== "undefined") {
-              const searchQuery = `${displayName} achievement ${gameName} `;
+              const searchQuery = `${displayName} achievement ${game.name} `;
               window.open(`https://www.google.com/search?q=${searchQuery}`);
               // window.open(`https://www.youtube.com/results?search_query=${searchQuery}`);
             }
