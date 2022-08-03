@@ -18,6 +18,7 @@ import {
   GAME_FILTER_CHANGED,
   GAME_SEARCH_CHANGED,
   SET_HIDDEN_DATA,
+  SET_PHASE_ADDED_GAME,
 } from "../types/games.types";
 
 const INITIAL_STATE = {
@@ -57,6 +58,7 @@ const INITIAL_STATE = {
       leftSidebarWidth: "200px",
       rightSidebarWidth: "450px",
     },
+    phaseAddedGame: {},
   },
 };
 
@@ -144,6 +146,12 @@ const reducer = (state = INITIAL_STATE, action) => {
           payload.gameId,
           payload.gameRefreshedData
         ),
+      };
+
+    case SET_PHASE_ADDED_GAME:
+      return {
+        ...state,
+        phaseAddedGame: payload,
       };
 
     default:

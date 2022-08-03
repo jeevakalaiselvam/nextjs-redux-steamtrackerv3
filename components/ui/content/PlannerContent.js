@@ -3,19 +3,30 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
-import { setHiddenAchievementsForGame } from "../../../store/actions/games.actions";
+import {
+  setHiddenAchievementsForGame,
+  setPhaseAddedGames,
+} from "../../../store/actions/games.actions";
 import AchievementCardWithPhase from "../../atoms/AchievementCardWithPhase";
 import Achievements from "../../organisms/Achievements";
+import {
+  ALL,
+  EASY,
+  getPhaseAddedGames,
+  GRIND,
+  HARD,
+  MISSABLE,
+} from "../../../helpers/gameHelper";
 
 const Container = styled.div`
   display: flex;
-  width: 100%;
+  max-width: 90vw;
   flex-direction: row;
   align-items: flex-start;
   justify-content: center;
   padding: 0.25rem;
   height: 100%;
-  overflow: hidden;
+  overflow: scroll;
 `;
 
 const HeaderContainer = styled.div`
@@ -29,8 +40,8 @@ const PhaseContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: center;
-  flex: 1;
+  justify-content: flex-start;
+  min-width: 300px;
   min-height: 95vw;
   max-height: 95vw;
   overflow: scroll;
@@ -39,7 +50,7 @@ const PhaseContainer = styled.div`
 export default function PlannerContent() {
   const dispatch = useDispatch();
   const steamtracker = useSelector((state) => state.steamtracker);
-  const { games, settings } = steamtracker;
+  const { games, settings, phaseAddedGame } = steamtracker;
   const { plannerPage } = settings;
   const {
     phase1Filter,
@@ -72,57 +83,67 @@ export default function PlannerContent() {
     }
   }, [gameId]);
 
+  useEffect(() => {
+    const phaseAddedGame = getPhaseAddedGames(game);
+    dispatch(setPhaseAddedGames(phaseAddedGame));
+  }, [game]);
+
   return (
     <Container>
       <PhaseContainer>
         <HeaderContainer>ALL</HeaderContainer>
         <Achievements
-          game={game}
+          game={phaseAddedGame}
           filterOption={phase1Filter}
           searchTerm={phase1Search}
           showPhase={true}
+          phase={ALL}
         />
       </PhaseContainer>
       <PhaseContainer>
         <HeaderContainer>EASY</HeaderContainer>
         <Achievements
-          game={game}
+          game={phaseAddedGame}
           filterOption={phase2Filter}
           searchTerm={phase2Search}
           showPhase={true}
+          phase={EASY}
         />
       </PhaseContainer>
       <PhaseContainer>
         <HeaderContainer>HARD</HeaderContainer>
         <Achievements
-          game={game}
+          game={phaseAddedGame}
           filterOption={phase3Filter}
           searchTerm={phase3Search}
           showPhase={true}
+          phase={HARD}
         />
       </PhaseContainer>
       <PhaseContainer>
         <HeaderContainer>GRIND</HeaderContainer>
         <Achievements
-          game={game}
+          game={phaseAddedGame}
           filterOption={phase4Filter}
           searchTerm={phase4Search}
           showPhase={true}
+          phase={GRIND}
         />
       </PhaseContainer>
       <PhaseContainer>
         <HeaderContainer>MISSABLE</HeaderContainer>
         <Achievements
-          game={game}
+          game={phaseAddedGame}
           filterOption={phase5Filter}
           searchTerm={phase5Search}
           showPhase={true}
+          phase={MISSABLE}
         />
       </PhaseContainer>
       <PhaseContainer>
         <HeaderContainer>RECENTLY UNLOCKED</HeaderContainer>
         <Achievements
-          game={game}
+          game={phaseAddedGame}
           filterOption={phase6Filter}
           searchTerm={phase6Search}
           showPhase={true}

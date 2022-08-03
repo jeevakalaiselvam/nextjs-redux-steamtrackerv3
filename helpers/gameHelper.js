@@ -69,3 +69,28 @@ export const refreshGameDataByGameId = (games, gameId, gameRefreshedData) => {
 
   return newGames;
 };
+
+export const ALL = "ALL";
+export const EASY = "EASY";
+export const HARD = "HARD";
+export const GRIND = "GRIND";
+export const MISSABLE = "MISSABLE";
+
+export const getPhaseAddedGames = (game) => {
+  let newGame = { ...game };
+  if (game && game.achievements) {
+    let phaseAddedAchievements = game.achievements.map((achievement) => {
+      let newAchievement = { ...achievement };
+      if (typeof window !== "undefined") {
+        newAchievement = {
+          ...achievement,
+          phase: localStorage.getItem(`${game.id}_${achievement.name}`) || ALL,
+        };
+      }
+      return newAchievement;
+    });
+    newGame = { ...newGame, achievements: phaseAddedAchievements };
+  }
+
+  return newGame;
+};

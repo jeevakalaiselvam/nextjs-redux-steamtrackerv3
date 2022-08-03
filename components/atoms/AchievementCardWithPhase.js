@@ -3,10 +3,11 @@ import { FaCheck, FaGlobe } from "react-icons/fa";
 import styled from "styled-components";
 import { IoEyeOff } from "react-icons/io5";
 import { getFormattedDate } from "../../helpers/achievementHelper";
+import { ALL, EASY, GRIND, HARD, MISSABLE } from "../../helpers/gameHelper";
 
 const Container = styled.div`
   width: 365px;
-  display: flex;
+  display: ${(props) => (props.show ? "flex" : "none")};
   flex-direction: row;
   padding: 0.5rem 1rem;
   align-items: flex-start;
@@ -143,6 +144,30 @@ const CheckContainer = styled.div`
   color: #6cff5c;
 `;
 
+const PhaseContainer = styled.div`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const PhaseItem = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: ${(props) =>
+    props.active ? "rgba(0,0,0,0.5)" : "rgba(0,0,0,0.5)"};
+  color: ${(props) => (props.active ? "#6cff5c" : "#737c9d;")};
+  padding: 0rem 0.5rem;
+  margin: 0.25rem;
+
+  &:hover {
+    color: #6cff5c;
+  }
+`;
+
 export default function AchievementCardWithPhase(props) {
   const {
     name,
@@ -154,12 +179,14 @@ export default function AchievementCardWithPhase(props) {
     unlocktime,
     displayName,
     description,
+    phase,
   } = props.achievement;
   const hiddenDescription = props.hiddenDescription;
   const gameName = props.gameName;
+  const currentPhase = props.phase;
 
   return (
-    <Container>
+    <Container show={currentPhase == phase}>
       <IconContainer>
         <Icon icon={icon}></Icon>
         {achieved == 1 && (
@@ -193,6 +220,13 @@ export default function AchievementCardWithPhase(props) {
           <IoEyeOff />
         </HiddenContainer>
       )}
+      <PhaseContainer>
+        <PhaseItem active={phase == ALL}>1</PhaseItem>
+        <PhaseItem active={phase == EASY}>2</PhaseItem>
+        <PhaseItem active={phase == HARD}>3</PhaseItem>
+        <PhaseItem active={phase == GRIND}>4</PhaseItem>
+        <PhaseItem active={phase == MISSABLE}>5</PhaseItem>
+      </PhaseContainer>
     </Container>
   );
 }

@@ -9,6 +9,7 @@ import {
   GAMES_SEARCH_CHANGED,
   SET_HIDDEN_DATA,
   GAME_DATA_REFRESH,
+  SET_PHASE_ADDED_GAME,
 } from "../types/games.types";
 import axios from "axios";
 
@@ -40,6 +41,15 @@ export const setGameDataRefresh = (gameId, gameRefreshedData) => {
     return dispatch({
       type: GAME_DATA_REFRESH,
       payload: { gameId, gameRefreshedData },
+    });
+  };
+};
+
+export const setPhaseAddedGames = (phaseAddedGame) => {
+  return (dispatch) => {
+    return dispatch({
+      type: SET_PHASE_ADDED_GAME,
+      payload: phaseAddedGame,
     });
   };
 };

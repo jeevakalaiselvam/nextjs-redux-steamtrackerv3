@@ -25,6 +25,7 @@ export default function Achievements({
   filterOption,
   searchTerm,
   showPhase,
+  phase,
 }) {
   const { achievements, hiddenAchievements, name } = game || {
     hiddenAchievements: [],
@@ -82,6 +83,7 @@ export default function Achievements({
                 achievement={achievement}
                 key={achievement.name}
                 hiddenDescription={hiddenDescription}
+                phase={phase}
               />
             );
           } else {
