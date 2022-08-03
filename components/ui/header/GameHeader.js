@@ -76,14 +76,7 @@ export default function GameHeader() {
     dispatch(changeGamePageSearchTerm(searchTerm));
   };
 
-  useEffect(() => {
-    if (gameId !== "undefined") {
-      console.log("USE EFFECT RUNNING");
-    }
-  }, [gameId]);
-
   const refreshButtonClickHandler = async () => {
-    console.log("REFRESH Clicked");
     const response = await axios.get(`/api/refresh/${gameId}`);
     const gameRefreshedData = response.data.data;
     dispatch(setGameDataRefresh(gameId, gameRefreshedData));

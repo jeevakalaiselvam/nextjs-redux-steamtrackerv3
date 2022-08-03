@@ -11,6 +11,12 @@ import {
   GAME_DATA_REFRESH,
   SET_PHASE_ADDED_GAME,
   UPDATE_PHASE_ACHIEVEMENT,
+  SET_PHASE1_ACHIEVEMENTS,
+  SET_PHASE2_ACHIEVEMENTS,
+  SET_PHASE3_ACHIEVEMENTS,
+  SET_PHASE6_ACHIEVEMENTS,
+  SET_PHASE5_ACHIEVEMENTS,
+  SET_PHASE4_ACHIEVEMENTS,
 } from "../types/games.types";
 import axios from "axios";
 
@@ -60,6 +66,55 @@ export const updatePhaseForAchievement = (achievementName, phaseValue) => {
     return dispatch({
       type: UPDATE_PHASE_ACHIEVEMENT,
       payload: { achievementName, phaseValue },
+    });
+  };
+};
+
+export const setPhase1Achievments = (achievements) => {
+  return (dispatch) => {
+    return dispatch({
+      type: SET_PHASE1_ACHIEVEMENTS,
+      payload: achievements,
+    });
+  };
+};
+export const setPhase2Achievments = (achievements) => {
+  return (dispatch) => {
+    return dispatch({
+      type: SET_PHASE2_ACHIEVEMENTS,
+      payload: achievements,
+    });
+  };
+};
+export const setPhase3Achievments = (achievements) => {
+  return (dispatch) => {
+    return dispatch({
+      type: SET_PHASE3_ACHIEVEMENTS,
+      payload: achievements,
+    });
+  };
+};
+export const setPhase4Achievments = (achievements) => {
+  return (dispatch) => {
+    return dispatch({
+      type: SET_PHASE4_ACHIEVEMENTS,
+      payload: achievements,
+    });
+  };
+};
+export const setPhase5Achievments = (achievements) => {
+  return (dispatch) => {
+    return dispatch({
+      type: SET_PHASE5_ACHIEVEMENTS,
+      payload: achievements,
+    });
+  };
+};
+export const setPhase6Achievments = (achievements) => {
+  return (dispatch) => {
+    return dispatch({
+      type: SET_PHASE6_ACHIEVEMENTS,
+      payload: achievements,
     });
   };
 };

@@ -138,7 +138,7 @@ export default function GameCard({ game }) {
         if (typeof window !== "undefined") {
           localStorage.setItem("SELECTED_GAME", id);
         }
-        router.push(`/games/${id}`);
+        router.push(`/planner/${id}`);
       }}
     >
       <CompletionOverlay>{toGet == 0 && <FaTrophy />}</CompletionOverlay>

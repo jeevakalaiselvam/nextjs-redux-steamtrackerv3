@@ -1,5 +1,5 @@
-import React from "react";
-import { FaCheck, FaGlobe } from "react-icons/fa";
+import React, { useState } from "react";
+import { FaCheck, FaExpandArrowsAlt, FaGlobe } from "react-icons/fa";
 import styled from "styled-components";
 import { IoEyeOff } from "react-icons/io5";
 import { getFormattedDate } from "../../helpers/achievementHelper";
@@ -13,10 +13,11 @@ import {
 } from "../../helpers/gameHelper";
 import { useDispatch } from "react-redux";
 import { updatePhaseForAchievement } from "../../store/actions/games.actions";
+import { HiMenu } from "react-icons/hi";
 
 const Container = styled.div`
   width: 365px;
-  display: ${(props) => (props.show ? "flex" : "none")};
+  display: flex;
   flex-direction: row;
   padding: 0.5rem 1rem;
   align-items: flex-start;
@@ -96,7 +97,7 @@ const Description = styled.div`
 
 const HiddenContainer = styled.div`
   position: absolute;
-  bottom: 0;
+  bottom: 1.5rem;
   left: 0;
   display: flex;
   padding: 0rem 1rem 1rem 1rem;
@@ -153,11 +154,27 @@ const CheckContainer = styled.div`
   color: #6cff5c;
 `;
 
+const PhaseRevealer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  color: ${(props) => (props.active ? "#6cff5c" : "#737c9d;")};
+  padding: 0rem 0.5rem;
+  margin: 0.5rem;
+  font-size: 1.5rem;
+  &:hover {
+    color: #6cff5c;
+  }
+`;
+
 const PhaseContainer = styled.div`
   position: absolute;
   bottom: 0;
   right: 0;
-  display: flex;
+  display: ${(props) => (props.show ? "flex" : "none")};
   align-items: center;
   justify-content: center;
 `;
@@ -206,8 +223,10 @@ export default function AchievementCardWithPhase(props) {
     }
   };
 
+  const [showPhases, setShowPhases] = useState(false);
+
   return (
-    <Container show={currentPhase == phase}>
+    <Container>
       <IconContainer>
         <Icon icon={icon}></Icon>
         {achieved == 1 && (
@@ -241,7 +260,10 @@ export default function AchievementCardWithPhase(props) {
           <IoEyeOff />
         </HiddenContainer>
       )}
-      <PhaseContainer>
+      <PhaseRevealer onClick={() => setShowPhases((old) => true)}>
+        <HiMenu />
+      </PhaseRevealer>
+      <PhaseContainer show={true}>
         <PhaseItem
           active={phase == ALL}
           onClick={() => {

@@ -50,8 +50,6 @@ export default function Filter({
     onFilterChanged(selectedValue);
   };
 
-  console.log("SELECTED OPTION", defaultSelected);
-
   return (
     <Container>
       <select

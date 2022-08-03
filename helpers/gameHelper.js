@@ -75,6 +75,7 @@ export const EASY = "EASY";
 export const HARD = "HARD";
 export const GRIND = "GRIND";
 export const MISSABLE = "MISSABLE";
+export const UNLOCKED = "UNLOCKED";
 
 export const getPhaseAddedGames = (game) => {
   let newGame = { ...game };
@@ -84,15 +85,16 @@ export const getPhaseAddedGames = (game) => {
       if (typeof window !== "undefined") {
         newAchievement = {
           ...achievement,
-          phase: localStorage.getItem(`${game.id}_${achievement.name}`) || ALL,
+          phase: localStorage.getItem(`${game.id}_${achievement.name}_PHASE`)
+            ? localStorage.getItem(`${game.id}_${achievement.name}_PHASE`)
+            : "ALL",
         };
       }
       return newAchievement;
     });
     newGame = { ...newGame, achievements: phaseAddedAchievements };
   }
-  console.log("NEW GAME", newGame);
-
+  console.log("RETURNING NEW GAME", newGame);
   return newGame;
 };
 
@@ -110,4 +112,27 @@ export const updateAchievementPhaseForGame = (game, achievementName, phase) => {
   newGame = { ...game, achievements: newAchievements };
 
   return newGame;
+};
+
+export const tranformGameToIncludeOnlyPhase = (achievements, phaseFilter) => {
+  let newAchievements = [];
+  if (achievements.length > 0) {
+    newAchievements = achievements.filter(
+      (achievement) => achievement.phase == phaseFilter
+    );
+  }
+  return newAchievements;
+};
+
+export const tranformGameToIncludeOnlyUnlockedRecent = (achievements) => {
+  let newAchievements = [];
+  if (achievements) {
+    newAchievements = achievements.filter(
+      (achievement) => +achievement.achieved == 1
+    );
+    newAchievements = newAchievements.sort(
+      (ach1, ach2) => +ach1.unlocktime < +ach2.unlocktime
+    );
+  }
+  return newAchievements;
 };

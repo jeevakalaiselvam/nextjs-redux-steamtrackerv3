@@ -16,17 +16,19 @@ import {
   GRIND,
   HARD,
   MISSABLE,
+  tranformGameToIncludeOnlyPhase,
+  tranformGameToIncludeOnlyUnlockedRecent,
+  UNLOCKED,
 } from "../../../helpers/gameHelper";
 
 const Container = styled.div`
   display: flex;
-  max-width: 90vw;
   flex-direction: row;
   align-items: flex-start;
   justify-content: center;
   padding: 0.25rem;
   height: 100%;
-  overflow: scroll;
+  overflow: hidden;
 `;
 
 const HeaderContainer = styled.div`
@@ -42,6 +44,7 @@ const PhaseContainer = styled.div`
   align-items: flex-start;
   justify-content: flex-start;
   min-width: 300px;
+  flex: 1;
   min-height: 95vw;
   max-height: 95vw;
   overflow: scroll;
@@ -50,7 +53,8 @@ const PhaseContainer = styled.div`
 export default function PlannerContent() {
   const dispatch = useDispatch();
   const steamtracker = useSelector((state) => state.steamtracker);
-  const { games, settings, phaseAddedGame } = steamtracker;
+  const { games, settings, planner } = steamtracker;
+  const { phaseAddedGame } = planner;
   const { plannerPage } = settings;
   const {
     phase1Filter,
@@ -84,10 +88,58 @@ export default function PlannerContent() {
   }, [gameId]);
 
   useEffect(() => {
-    const neGame = getPhaseAddedGames(game);
-    console.log("GAME CHANGED", game);
-    dispatch(setPhaseAddedGames(neGame));
+    const newGame = getPhaseAddedGames(game);
+    dispatch(setPhaseAddedGames(newGame));
   }, [game]);
+
+  const phaseAchievements = phaseAddedGame.achievements || [];
+  const phase1InnerAchievements = tranformGameToIncludeOnlyPhase(
+    phaseAchievements,
+    ALL
+  );
+  const phase2InnerAchievements = tranformGameToIncludeOnlyPhase(
+    phaseAchievements,
+    EASY
+  );
+  const phase3InnerAchievements = tranformGameToIncludeOnlyPhase(
+    phaseAchievements,
+    HARD
+  );
+  const phase4InnerAchievements = tranformGameToIncludeOnlyPhase(
+    phaseAchievements,
+    GRIND
+  );
+  const phase5InnerAchievements = tranformGameToIncludeOnlyPhase(
+    phaseAchievements,
+    MISSABLE
+  );
+  const phase6InnerAchievements =
+    tranformGameToIncludeOnlyUnlockedRecent(phaseAchievements);
+
+  const phase1Game = {
+    ...phaseAddedGame,
+    achievements: phase1InnerAchievements,
+  };
+  const phase2Game = {
+    ...phaseAddedGame,
+    achievements: phase2InnerAchievements,
+  };
+  const phase3Game = {
+    ...phaseAddedGame,
+    achievements: phase3InnerAchievements,
+  };
+  const phase4Game = {
+    ...phaseAddedGame,
+    achievements: phase4InnerAchievements,
+  };
+  const phase5Game = {
+    ...phaseAddedGame,
+    achievements: phase5InnerAchievements,
+  };
+  const phase6Game = {
+    ...phaseAddedGame,
+    achievements: phase6InnerAchievements,
+  };
 
   return (
     <Container>
@@ -96,7 +148,7 @@ export default function PlannerContent() {
           <PhaseContainer>
             <HeaderContainer>ALL</HeaderContainer>
             <Achievements
-              game={phaseAddedGame}
+              game={phase1Game}
               filterOption={phase1Filter}
               searchTerm={phase1Search}
               showPhase={true}
@@ -106,7 +158,7 @@ export default function PlannerContent() {
           <PhaseContainer>
             <HeaderContainer>EASY</HeaderContainer>
             <Achievements
-              game={phaseAddedGame}
+              game={phase2Game}
               filterOption={phase2Filter}
               searchTerm={phase2Search}
               showPhase={true}
@@ -116,7 +168,7 @@ export default function PlannerContent() {
           <PhaseContainer>
             <HeaderContainer>HARD</HeaderContainer>
             <Achievements
-              game={phaseAddedGame}
+              game={phase3Game}
               filterOption={phase3Filter}
               searchTerm={phase3Search}
               showPhase={true}
@@ -126,7 +178,7 @@ export default function PlannerContent() {
           <PhaseContainer>
             <HeaderContainer>GRIND</HeaderContainer>
             <Achievements
-              game={phaseAddedGame}
+              game={phase4Game}
               filterOption={phase4Filter}
               searchTerm={phase4Search}
               showPhase={true}
@@ -136,7 +188,7 @@ export default function PlannerContent() {
           <PhaseContainer>
             <HeaderContainer>MISSABLE</HeaderContainer>
             <Achievements
-              game={phaseAddedGame}
+              game={phase5Game}
               filterOption={phase5Filter}
               searchTerm={phase5Search}
               showPhase={true}
@@ -146,10 +198,11 @@ export default function PlannerContent() {
           <PhaseContainer>
             <HeaderContainer>RECENTLY UNLOCKED</HeaderContainer>
             <Achievements
-              game={phaseAddedGame}
+              game={phase6Game}
               filterOption={phase6Filter}
               searchTerm={phase6Search}
-              showPhase={true}
+              showPhase={false}
+              phase={UNLOCKED}
             />
           </PhaseContainer>
         </>

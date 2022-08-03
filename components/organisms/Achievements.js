@@ -34,8 +34,6 @@ export default function Achievements({
     []
   );
 
-  console.log("PHASE ADDED GAME in Achievements", game);
-
   const router = useRouter();
   const { gameId } = router.query;
 
@@ -91,17 +89,19 @@ export default function Achievements({
             );
           } else {
             return (
-              <AchievementCard
+              <AchievementCardWithPhase
+                gameId={gameId}
                 gameName={name}
                 achievement={achievement}
                 key={achievement.name}
                 hiddenDescription={hiddenDescription}
+                phase={phase}
               />
             );
           }
         })}
       {searchFilteredAchievements.length === 0 && (
-        <h4 style={{ fontWeight: "500" }}>No Achievements</h4>
+        <h5 style={{ fontWeight: "600", color: "#b0bec5" }}>No Achievements</h5>
       )}
     </Container>
   );
