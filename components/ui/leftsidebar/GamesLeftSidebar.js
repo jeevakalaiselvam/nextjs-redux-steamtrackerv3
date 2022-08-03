@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import ProfileImage from "../../atoms/ProfileImage";
 import ProfileLevel from "../../atoms/ProfileLevel";
+import ProfileLevelUp from "../../atoms/ProfileLevelUp";
+import ProfileTrophies from "../../atoms/ProfileTrophies";
 import GamesPageMenu from "../menu/GamesPageMenu";
 
 const Container = styled.div`
@@ -25,6 +27,8 @@ export default function GamesLeftSidebar() {
       />
       <GamesPageMenu />
       <ProfileLevel />
+      <ProfileLevelUp />
+      <ProfileTrophies />
     </Container>
   );
 }
