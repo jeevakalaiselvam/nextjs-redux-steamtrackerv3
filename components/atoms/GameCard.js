@@ -51,9 +51,7 @@ const Title = styled.div`
   padding: 1rem;
   font-size: 1.5rem;
   background-color: rgba(0, 0, 0, 0.75);
-  &:hover {
-    color: #3049d1;
-  }
+  z-index: 6;
 `;
 
 const ToGetContainer = styled.div`
@@ -137,6 +135,9 @@ export default function GameCard({ game }) {
   return (
     <Container
       onClick={() => {
+        if (typeof window !== "undefined") {
+          localStorage.setItem("SELECTED_GAME", id);
+        }
         router.push(`/games/${id}`);
       }}
     >

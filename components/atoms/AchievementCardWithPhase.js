@@ -143,7 +143,7 @@ const CheckContainer = styled.div`
   color: #6cff5c;
 `;
 
-export default function AchievementCard(props) {
+export default function AchievementCardWithPhase(props) {
   const {
     name,
     hidden,

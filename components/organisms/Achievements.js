@@ -5,6 +5,7 @@ import { sortAchievementsByFilterOption } from "../../helpers/achievementHelper"
 import AchievementCard from "../atoms/AchievementCard";
 import { HEADER_IMAGE } from "../../helpers/urlHelper";
 import { useRouter } from "next/router";
+import AchievementCardWithPhase from "../atoms/AchievementCardWithPhase";
 
 const Container = styled.div`
   display: flex;
@@ -19,7 +20,12 @@ const Container = styled.div`
   z-index: 3;
 `;
 
-export default function Achievements({ game, filterOption, searchTerm }) {
+export default function Achievements({
+  game,
+  filterOption,
+  searchTerm,
+  showPhase,
+}) {
   const { achievements, hiddenAchievements, name } = game || {
     hiddenAchievements: [],
   };
@@ -69,14 +75,25 @@ export default function Achievements({ game, filterOption, searchTerm }) {
             hiddenDescription =
               hiddenAchievements[achievement.displayName.toLowerCase().trim()];
           }
-          return (
-            <AchievementCard
-              gameName={name}
-              achievement={achievement}
-              key={achievement.name}
-              hiddenDescription={hiddenDescription}
-            />
-          );
+          if (showPhase) {
+            return (
+              <AchievementCardWithPhase
+                gameName={name}
+                achievement={achievement}
+                key={achievement.name}
+                hiddenDescription={hiddenDescription}
+              />
+            );
+          } else {
+            return (
+              <AchievementCard
+                gameName={name}
+                achievement={achievement}
+                key={achievement.name}
+                hiddenDescription={hiddenDescription}
+              />
+            );
+          }
         })}
       {searchFilteredAchievements.length === 0 && (
         <h4 style={{ fontWeight: "500" }}>No Achievements</h4>
