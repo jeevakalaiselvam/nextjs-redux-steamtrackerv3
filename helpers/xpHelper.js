@@ -32,3 +32,35 @@ export const getAllXPFromAchievements = (achievements) => {
   });
   return { totalXP, completedXP, remainingXP };
 };
+
+export const calculateTotalXPForAllGames = (games) => {
+  let totalXP = 0;
+  if (games.length > 0) {
+    games.forEach((game) => {
+      game.achievements.forEach((achievement) => {
+        if (achievement.achieved == 1) {
+          totalXP += calculateXPFromPercentage(achievement.percentage);
+        }
+      });
+    });
+  }
+  return totalXP;
+};
+
+export const LEVEL_UP_XP = 1000;
+export const calculateLevelFromAllGames = (games) => {
+  let totalXP = 0;
+  if (games.length > 0) {
+    games.forEach((game) => {
+      game.achievements.forEach((achievement) => {
+        if (achievement.achieved == 1) {
+          totalXP += calculateXPFromPercentage(achievement.percentage);
+        }
+      });
+    });
+  }
+  const xpTotal = totalXP;
+  const currentLevel = Math.floor(totalXP / LEVEL_UP_XP);
+  const toNextLevel = xpTotal % LEVEL_UP_XP;
+  return { xpTotal, currentLevel, toNextLevel };
+};

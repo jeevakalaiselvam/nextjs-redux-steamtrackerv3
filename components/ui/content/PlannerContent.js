@@ -72,6 +72,9 @@ const PhaseContainer = styled.div`
   min-height: 95vw;
   max-height: 95vw;
   overflow: scroll;
+  background-color: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  margin: 0.25rem;
 `;
 
 export default function PlannerContent() {

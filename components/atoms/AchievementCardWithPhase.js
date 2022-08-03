@@ -216,7 +216,7 @@ export default function AchievementCardWithPhase(props) {
 
   const [hiddenDescription, setHiddenDescription] = useState("HIDDEN");
   useEffect(() => {
-    if (hiddenGames[gameId] !== "undefined") {
+    if (hiddenGames[gameId] !== "undefined" && gameId) {
       setHiddenDescription(
         (old) => hiddenGames[gameId][displayName.toLowerCase().trim()]
       );
