@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaCheck, FaExpandArrowsAlt, FaGlobe } from "react-icons/fa";
 import styled from "styled-components";
-import { IoEyeOff } from "react-icons/io5";
+import { IoBook, IoChevronUp, IoEyeOff } from "react-icons/io5";
 import { getFormattedDate } from "../../helpers/achievementHelper";
 import {
   ALL,
@@ -13,7 +13,8 @@ import {
 } from "../../helpers/gameHelper";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePhaseForAchievement } from "../../store/actions/games.actions";
-import { HiMenu } from "react-icons/hi";
+import { HiChevronDoubleUp, HiMenu } from "react-icons/hi";
+import JournalInput from "./JournalInput";
 
 const Container = styled.div`
   width: 365px;
@@ -194,6 +195,21 @@ const PhaseItem = styled.div`
   }
 `;
 
+const JournalContainer = styled.div`
+  display: ${(props) => (props.show ? "flex" : "none")};
+  position: absolute;
+  bottom: 0;
+  align-items: center;
+  justify-content: center;
+  height: 500px;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  color: #b0bec5;
+  backdrop-filter: blur(2px);
+  transform: translateY(100%);
+  z-index: 100000;
+`;
+
 export default function AchievementCardWithPhase(props) {
   const {
     name,
@@ -238,6 +254,25 @@ export default function AchievementCardWithPhase(props) {
 
   const [showPhases, setShowPhases] = useState(false);
 
+  const [showJournal, setShowJournal] = useState(false);
+  const [journalData, setJournalData] = useState("");
+
+  const onDataSaved = (journalData) => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem(`${gameId}_${name}_JOURNAL`, journalData);
+    }
+  };
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const journalDataInStore = localStorage.getItem(
+        `${gameId}_${name}_JOURNAL`
+      );
+      if (!journalDataInStore) setJournalData((old) => "");
+      else setJournalData((old) => journalDataInStore);
+    }
+  }, [showJournal]);
+
   return (
     <Container>
       <IconContainer>
@@ -273,8 +308,25 @@ export default function AchievementCardWithPhase(props) {
           <IoEyeOff />
         </HiddenContainer>
       )}
-      <PhaseRevealer onClick={() => setShowPhases((old) => true)}>
-        <HiMenu />
+      <PhaseRevealer
+        onClick={() => {
+          setShowPhases((old) => true);
+        }}
+      >
+        {!showJournal && (
+          <IoBook
+            onClick={() => {
+              setShowJournal((old) => true);
+            }}
+          />
+        )}
+        {showJournal && (
+          <HiChevronDoubleUp
+            onClick={() => {
+              setShowJournal((old) => false);
+            }}
+          />
+        )}
       </PhaseRevealer>
       <PhaseContainer show={true}>
         <PhaseItem
@@ -318,6 +370,9 @@ export default function AchievementCardWithPhase(props) {
           5
         </PhaseItem>
       </PhaseContainer>
+      <JournalContainer show={showJournal}>
+        <JournalInput onDataSaved={onDataSaved} journalData={journalData} />
+      </JournalContainer>
     </Container>
   );
 }
