@@ -20,6 +20,7 @@ import {
   tranformGameToIncludeOnlyUnlockedRecent,
   UNLOCKED,
 } from "../../../helpers/gameHelper";
+import Search from "../../atoms/Search";
 
 const Container = styled.div`
   display: flex;
@@ -35,6 +36,15 @@ const HeaderContainer = styled.div`
   display: flex;
   width: 100%;
   align-items: center;
+  justify-content: flex-start;
+  padding: 0.5rem 1.5rem;
+`;
+
+const SearchContainer = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  padding: 0.5rem 1.5rem;
   justify-content: center;
 `;
 
@@ -141,12 +151,22 @@ export default function PlannerContent() {
     achievements: phase6InnerAchievements,
   };
 
+  const phase1SearchObtained = () => {};
+  const phase2SearchObtained = () => {};
+  const phase3SearchObtained = () => {};
+  const phase4SearchObtained = () => {};
+  const phase5SearchObtained = () => {};
+  const phase6SearchObtained = () => {};
+
   return (
     <Container>
       {phaseAddedGame && (
         <>
           <PhaseContainer>
-            <HeaderContainer>ALL</HeaderContainer>
+            <SearchContainer>
+              <HeaderContainer>ALL</HeaderContainer>
+              <Search onSearchObtained={phase1SearchObtained} />
+            </SearchContainer>
             <Achievements
               game={phase1Game}
               filterOption={phase1Filter}
@@ -156,7 +176,10 @@ export default function PlannerContent() {
             />
           </PhaseContainer>
           <PhaseContainer>
-            <HeaderContainer>EASY</HeaderContainer>
+            <SearchContainer>
+              <HeaderContainer>EASY</HeaderContainer>
+              <Search onSearchObtained={phase2SearchObtained} />
+            </SearchContainer>
             <Achievements
               game={phase2Game}
               filterOption={phase2Filter}
@@ -166,7 +189,10 @@ export default function PlannerContent() {
             />
           </PhaseContainer>
           <PhaseContainer>
-            <HeaderContainer>HARD</HeaderContainer>
+            <SearchContainer>
+              <HeaderContainer>HARD</HeaderContainer>
+              <Search onSearchObtained={phase3SearchObtained} />
+            </SearchContainer>
             <Achievements
               game={phase3Game}
               filterOption={phase3Filter}
@@ -176,7 +202,10 @@ export default function PlannerContent() {
             />
           </PhaseContainer>
           <PhaseContainer>
-            <HeaderContainer>GRIND</HeaderContainer>
+            <SearchContainer>
+              <HeaderContainer>GRIND</HeaderContainer>
+              <Search onSearchObtained={phase4SearchObtained} />
+            </SearchContainer>
             <Achievements
               game={phase4Game}
               filterOption={phase4Filter}
@@ -186,7 +215,10 @@ export default function PlannerContent() {
             />
           </PhaseContainer>
           <PhaseContainer>
-            <HeaderContainer>MISSABLE</HeaderContainer>
+            <SearchContainer>
+              <HeaderContainer>MISSABLE</HeaderContainer>
+              <Search onSearchObtained={phase5SearchObtained} />
+            </SearchContainer>
             <Achievements
               game={phase5Game}
               filterOption={phase5Filter}
@@ -196,7 +228,10 @@ export default function PlannerContent() {
             />
           </PhaseContainer>
           <PhaseContainer>
-            <HeaderContainer>RECENTLY UNLOCKED</HeaderContainer>
+            <SearchContainer>
+              <HeaderContainer>RECENTLY UNLOCKED</HeaderContainer>
+              <Search onSearchObtained={phase6SearchObtained} width="100%" />
+            </SearchContainer>
             <Achievements
               game={phase6Game}
               filterOption={phase6Filter}

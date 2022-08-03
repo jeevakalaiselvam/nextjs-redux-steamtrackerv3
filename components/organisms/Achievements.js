@@ -6,6 +6,7 @@ import AchievementCard from "../atoms/AchievementCard";
 import { HEADER_IMAGE } from "../../helpers/urlHelper";
 import { useRouter } from "next/router";
 import AchievementCardWithPhase from "../atoms/AchievementCardWithPhase";
+import NoAchievements from "../atoms/NoAchievements";
 
 const Container = styled.div`
   display: flex;
@@ -100,9 +101,7 @@ export default function Achievements({
             );
           }
         })}
-      {searchFilteredAchievements.length === 0 && (
-        <h5 style={{ fontWeight: "600", color: "#b0bec5" }}>No Achievements</h5>
-      )}
+      {searchFilteredAchievements.length === 0 && <NoAchievements />}
     </Container>
   );
 }
