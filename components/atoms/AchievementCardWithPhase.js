@@ -3,7 +3,16 @@ import { FaCheck, FaGlobe } from "react-icons/fa";
 import styled from "styled-components";
 import { IoEyeOff } from "react-icons/io5";
 import { getFormattedDate } from "../../helpers/achievementHelper";
-import { ALL, EASY, GRIND, HARD, MISSABLE } from "../../helpers/gameHelper";
+import {
+  ALL,
+  EASY,
+  GRIND,
+  HARD,
+  MISSABLE,
+  updateAchievementPhaseForGame,
+} from "../../helpers/gameHelper";
+import { useDispatch } from "react-redux";
+import { updatePhaseForAchievement } from "../../store/actions/games.actions";
 
 const Container = styled.div`
   width: 365px;
@@ -181,9 +190,21 @@ export default function AchievementCardWithPhase(props) {
     description,
     phase,
   } = props.achievement;
-  const hiddenDescription = props.hiddenDescription;
-  const gameName = props.gameName;
-  const currentPhase = props.phase;
+  const hiddenDescription = props?.hiddenDescription || "";
+  const { gameName } = props?.gameName || "";
+  const currentPhase = props?.phase || "";
+  const gameId = props?.gameId || "";
+
+  const dispatch = useDispatch();
+
+  const setPhaseForAchievement = (achievementName, phaseValue) => {
+    if (props.achievement) {
+      if (typeof window !== "undefined") {
+        localStorage.setItem(`${gameId}_${achievementName}_PHASE`, phaseValue);
+        dispatch(updatePhaseForAchievement(achievementName, phaseValue));
+      }
+    }
+  };
 
   return (
     <Container show={currentPhase == phase}>
@@ -221,11 +242,46 @@ export default function AchievementCardWithPhase(props) {
         </HiddenContainer>
       )}
       <PhaseContainer>
-        <PhaseItem active={phase == ALL}>1</PhaseItem>
-        <PhaseItem active={phase == EASY}>2</PhaseItem>
-        <PhaseItem active={phase == HARD}>3</PhaseItem>
-        <PhaseItem active={phase == GRIND}>4</PhaseItem>
-        <PhaseItem active={phase == MISSABLE}>5</PhaseItem>
+        <PhaseItem
+          active={phase == ALL}
+          onClick={() => {
+            setPhaseForAchievement(name, ALL);
+          }}
+        >
+          1
+        </PhaseItem>
+        <PhaseItem
+          active={phase == EASY}
+          onClick={() => {
+            setPhaseForAchievement(name, EASY);
+          }}
+        >
+          2
+        </PhaseItem>
+        <PhaseItem
+          active={phase == HARD}
+          onClick={() => {
+            setPhaseForAchievement(name, HARD);
+          }}
+        >
+          3
+        </PhaseItem>
+        <PhaseItem
+          active={phase == GRIND}
+          onClick={() => {
+            setPhaseForAchievement(name, GRIND);
+          }}
+        >
+          4
+        </PhaseItem>
+        <PhaseItem
+          active={phase == MISSABLE}
+          onClick={() => {
+            setPhaseForAchievement(name, MISSABLE);
+          }}
+        >
+          5
+        </PhaseItem>
       </PhaseContainer>
     </Container>
   );

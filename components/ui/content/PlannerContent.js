@@ -84,71 +84,76 @@ export default function PlannerContent() {
   }, [gameId]);
 
   useEffect(() => {
-    const phaseAddedGame = getPhaseAddedGames(game);
-    dispatch(setPhaseAddedGames(phaseAddedGame));
+    const neGame = getPhaseAddedGames(game);
+    console.log("GAME CHANGED", game);
+    dispatch(setPhaseAddedGames(neGame));
   }, [game]);
 
   return (
     <Container>
-      <PhaseContainer>
-        <HeaderContainer>ALL</HeaderContainer>
-        <Achievements
-          game={phaseAddedGame}
-          filterOption={phase1Filter}
-          searchTerm={phase1Search}
-          showPhase={true}
-          phase={ALL}
-        />
-      </PhaseContainer>
-      <PhaseContainer>
-        <HeaderContainer>EASY</HeaderContainer>
-        <Achievements
-          game={phaseAddedGame}
-          filterOption={phase2Filter}
-          searchTerm={phase2Search}
-          showPhase={true}
-          phase={EASY}
-        />
-      </PhaseContainer>
-      <PhaseContainer>
-        <HeaderContainer>HARD</HeaderContainer>
-        <Achievements
-          game={phaseAddedGame}
-          filterOption={phase3Filter}
-          searchTerm={phase3Search}
-          showPhase={true}
-          phase={HARD}
-        />
-      </PhaseContainer>
-      <PhaseContainer>
-        <HeaderContainer>GRIND</HeaderContainer>
-        <Achievements
-          game={phaseAddedGame}
-          filterOption={phase4Filter}
-          searchTerm={phase4Search}
-          showPhase={true}
-          phase={GRIND}
-        />
-      </PhaseContainer>
-      <PhaseContainer>
-        <HeaderContainer>MISSABLE</HeaderContainer>
-        <Achievements
-          game={phaseAddedGame}
-          filterOption={phase5Filter}
-          searchTerm={phase5Search}
-          showPhase={true}
-          phase={MISSABLE}
-        />
-      </PhaseContainer>
-      <PhaseContainer>
-        <HeaderContainer>RECENTLY UNLOCKED</HeaderContainer>
-        <Achievements
-          game={phaseAddedGame}
-          filterOption={phase6Filter}
-          searchTerm={phase6Search}
-          showPhase={true}
-        />
-      </PhaseContainer>
+      {phaseAddedGame && (
+        <>
+          <PhaseContainer>
+            <HeaderContainer>ALL</HeaderContainer>
+            <Achievements
+              game={phaseAddedGame}
+              filterOption={phase1Filter}
+              searchTerm={phase1Search}
+              showPhase={true}
+              phase={ALL}
+            />
+          </PhaseContainer>
+          <PhaseContainer>
+            <HeaderContainer>EASY</HeaderContainer>
+            <Achievements
+              game={phaseAddedGame}
+              filterOption={phase2Filter}
+              searchTerm={phase2Search}
+              showPhase={true}
+              phase={EASY}
+            />
+          </PhaseContainer>
+          <PhaseContainer>
+            <HeaderContainer>HARD</HeaderContainer>
+            <Achievements
+              game={phaseAddedGame}
+              filterOption={phase3Filter}
+              searchTerm={phase3Search}
+              showPhase={true}
+              phase={HARD}
+            />
+          </PhaseContainer>
+          <PhaseContainer>
+            <HeaderContainer>GRIND</HeaderContainer>
+            <Achievements
+              game={phaseAddedGame}
+              filterOption={phase4Filter}
+              searchTerm={phase4Search}
+              showPhase={true}
+              phase={GRIND}
+            />
+          </PhaseContainer>
+          <PhaseContainer>
+            <HeaderContainer>MISSABLE</HeaderContainer>
+            <Achievements
+              game={phaseAddedGame}
+              filterOption={phase5Filter}
+              searchTerm={phase5Search}
+              showPhase={true}
+              phase={MISSABLE}
+            />
+          </PhaseContainer>
+          <PhaseContainer>
+            <HeaderContainer>RECENTLY UNLOCKED</HeaderContainer>
+            <Achievements
+              game={phaseAddedGame}
+              filterOption={phase6Filter}
+              searchTerm={phase6Search}
+              showPhase={true}
+            />
+          </PhaseContainer>
+        </>
+      )}
     </Container>
   );
 }

@@ -34,6 +34,8 @@ export default function Achievements({
     []
   );
 
+  console.log("PHASE ADDED GAME in Achievements", game);
+
   const router = useRouter();
   const { gameId } = router.query;
 
@@ -79,6 +81,7 @@ export default function Achievements({
           if (showPhase) {
             return (
               <AchievementCardWithPhase
+                gameId={gameId}
                 gameName={name}
                 achievement={achievement}
                 key={achievement.name}

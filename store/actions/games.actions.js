@@ -10,6 +10,7 @@ import {
   SET_HIDDEN_DATA,
   GAME_DATA_REFRESH,
   SET_PHASE_ADDED_GAME,
+  UPDATE_PHASE_ACHIEVEMENT,
 } from "../types/games.types";
 import axios from "axios";
 
@@ -50,6 +51,15 @@ export const setPhaseAddedGames = (phaseAddedGame) => {
     return dispatch({
       type: SET_PHASE_ADDED_GAME,
       payload: phaseAddedGame,
+    });
+  };
+};
+
+export const updatePhaseForAchievement = (achievementName, phaseValue) => {
+  return (dispatch) => {
+    return dispatch({
+      type: UPDATE_PHASE_ACHIEVEMENT,
+      payload: { achievementName, phaseValue },
     });
   };
 };

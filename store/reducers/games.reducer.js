@@ -7,6 +7,7 @@ import {
 import {
   addHiddenToGames,
   refreshGameDataByGameId,
+  updateAchievementPhaseForGame,
 } from "../../helpers/gameHelper";
 import {
   FETCH_ALL_GAMES_ERROR,
@@ -19,6 +20,7 @@ import {
   GAME_SEARCH_CHANGED,
   SET_HIDDEN_DATA,
   SET_PHASE_ADDED_GAME,
+  UPDATE_PHASE_ACHIEVEMENT,
 } from "../types/games.types";
 
 const INITIAL_STATE = {
@@ -152,6 +154,17 @@ const reducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         phaseAddedGame: payload,
+      };
+
+    case UPDATE_PHASE_ACHIEVEMENT:
+      console.log("REACHING UPDATE");
+      return {
+        ...state,
+        phaseAddedGame: updateAchievementPhaseForGame(
+          state.phaseAddedGame,
+          payload.achievementName,
+          payload.phaseValue
+        ),
       };
 
     default:

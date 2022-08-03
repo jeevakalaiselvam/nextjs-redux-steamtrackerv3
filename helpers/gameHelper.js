@@ -91,6 +91,23 @@ export const getPhaseAddedGames = (game) => {
     });
     newGame = { ...newGame, achievements: phaseAddedAchievements };
   }
+  console.log("NEW GAME", newGame);
+
+  return newGame;
+};
+
+export const updateAchievementPhaseForGame = (game, achievementName, phase) => {
+  let newGame = { ...game };
+
+  let newAchievements = game.achievements.map((achievement) => {
+    let newAchievement = { ...achievement };
+    if (achievement.name == achievementName) {
+      newAchievement = { ...achievement, phase };
+    }
+    return newAchievement;
+  });
+
+  newGame = { ...game, achievements: newAchievements };
 
   return newGame;
 };
