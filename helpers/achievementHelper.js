@@ -82,3 +82,33 @@ export const sortAchievementsByFilterOption = (achievements, filterOption) => {
 export const getFormattedDate = (unlocktime) => {
   return new Date(unlocktime * 1000).toLocaleString("en-US");
 };
+
+export const searchFilteredAchievements = (achievements, searchTerm) =>
+  achievements.filter((achievement) => {
+    if (searchTerm == "") {
+      return true;
+    } else {
+      if (
+        achievement.displayName
+          .toLowerCase()
+          .trim()
+          .includes(searchTerm.toLowerCase().trim()) ||
+        achievement.description
+          .toLowerCase()
+          .trim()
+          .includes(searchTerm.toLowerCase().trim())
+      ) {
+        return true;
+      }
+    }
+  });
+
+export const getPhaseFiltedAchievements = (gameId, achievements, phase) => {
+  let newAchievements = [];
+  if (achievements) {
+    newAchievements = achievements.filter(
+      (achievement) => achievement.phase == phase
+    );
+  }
+  return newAchievements;
+};

@@ -5,6 +5,18 @@ import axios from "axios";
 import styled from "styled-components";
 import {
   setHiddenAchievementsForGame,
+  setPhase1Achievments,
+  setPhase1Search,
+  setPhase2Achievments,
+  setPhase2Search,
+  setPhase3Achievments,
+  setPhase3Search,
+  setPhase4Achievments,
+  setPhase4Search,
+  setPhase5Achievments,
+  setPhase5Search,
+  setPhase6Achievments,
+  setPhase6Search,
   setPhaseAddedGames,
 } from "../../../store/actions/games.actions";
 import AchievementCardWithPhase from "../../atoms/AchievementCardWithPhase";
@@ -21,6 +33,10 @@ import {
   UNLOCKED,
 } from "../../../helpers/gameHelper";
 import Search from "../../atoms/Search";
+import {
+  getPhaseFiltedAchievements,
+  searchFilteredAchievements,
+} from "../../../helpers/achievementHelper";
 
 const Container = styled.div`
   display: flex;
@@ -63,9 +79,9 @@ const PhaseContainer = styled.div`
 export default function PlannerContent() {
   const dispatch = useDispatch();
   const steamtracker = useSelector((state) => state.steamtracker);
-  const { games, settings, planner } = steamtracker;
+  const { games, planner } = steamtracker;
+  const game = games.find((game) => game.id == gameId);
   const { phaseAddedGame } = planner;
-  const { plannerPage } = settings;
   const {
     phase1Filter,
     phase1Search,
@@ -79,12 +95,16 @@ export default function PlannerContent() {
     phase5Search,
     phase6Filter,
     phase6Search,
-  } = plannerPage;
+    phase1Achievements,
+    phase2Achievements,
+    phase3Achievements,
+    phase4Achievements,
+    phase5Achievements,
+    phase6Achievements,
+  } = planner;
 
   const router = useRouter();
   const { gameId } = router.query;
-
-  const game = games.find((game) => game.id == gameId);
 
   useEffect(() => {
     const getHidden = async () => {
@@ -98,65 +118,99 @@ export default function PlannerContent() {
   }, [gameId]);
 
   useEffect(() => {
-    const newGame = getPhaseAddedGames(game);
-    dispatch(setPhaseAddedGames(newGame));
-  }, [game]);
+    const game = games.find((game) => game.id == gameId);
+    const phaseAddedGames = getPhaseAddedGames(game);
+    dispatch(setPhaseAddedGames(phaseAddedGames));
+  }, [gameId]);
 
-  const phaseAchievements = phaseAddedGame.achievements || [];
-  const phase1InnerAchievements = tranformGameToIncludeOnlyPhase(
-    phaseAchievements,
-    ALL
-  );
-  const phase2InnerAchievements = tranformGameToIncludeOnlyPhase(
-    phaseAchievements,
-    EASY
-  );
-  const phase3InnerAchievements = tranformGameToIncludeOnlyPhase(
-    phaseAchievements,
-    HARD
-  );
-  const phase4InnerAchievements = tranformGameToIncludeOnlyPhase(
-    phaseAchievements,
-    GRIND
-  );
-  const phase5InnerAchievements = tranformGameToIncludeOnlyPhase(
-    phaseAchievements,
-    MISSABLE
-  );
-  const phase6InnerAchievements =
-    tranformGameToIncludeOnlyUnlockedRecent(phaseAchievements);
+  useEffect(() => {
+    if (phaseAddedGame.achievements) {
+      let phase1FilteredAchievements = getPhaseFiltedAchievements(
+        gameId,
+        phaseAddedGame.achievements,
+        ALL
+      );
+      let phase2FilteredAchievements = getPhaseFiltedAchievements(
+        gameId,
+        phaseAddedGame.achievements,
+        EASY
+      );
+      let phase3FilteredAchievements = getPhaseFiltedAchievements(
+        gameId,
+        phaseAddedGame.achievements,
+        HARD
+      );
+      let phase4FilteredAchievements = getPhaseFiltedAchievements(
+        gameId,
+        phaseAddedGame.achievements,
+        GRIND
+      );
+      let phase5FilteredAchievements = getPhaseFiltedAchievements(
+        gameId,
+        phaseAddedGame.achievements,
+        MISSABLE
+      );
+      let phase6FilteredAchievements = phaseAddedGame.achievements.filter(
+        (achievement) => achievement.achieved == 1
+      );
 
-  const phase1Game = {
-    ...phaseAddedGame,
-    achievements: phase1InnerAchievements,
-  };
-  const phase2Game = {
-    ...phaseAddedGame,
-    achievements: phase2InnerAchievements,
-  };
-  const phase3Game = {
-    ...phaseAddedGame,
-    achievements: phase3InnerAchievements,
-  };
-  const phase4Game = {
-    ...phaseAddedGame,
-    achievements: phase4InnerAchievements,
-  };
-  const phase5Game = {
-    ...phaseAddedGame,
-    achievements: phase5InnerAchievements,
-  };
-  const phase6Game = {
-    ...phaseAddedGame,
-    achievements: phase6InnerAchievements,
-  };
+      let searchPhase1Achievements = searchFilteredAchievements(
+        phase1FilteredAchievements,
+        phase1Search
+      );
 
-  const phase1SearchObtained = () => {};
-  const phase2SearchObtained = () => {};
-  const phase3SearchObtained = () => {};
-  const phase4SearchObtained = () => {};
-  const phase5SearchObtained = () => {};
-  const phase6SearchObtained = () => {};
+      let searchPhase2Achievements = searchFilteredAchievements(
+        phase2FilteredAchievements,
+        phase2Search
+      );
+
+      let searchPhase3Achievements = searchFilteredAchievements(
+        phase3FilteredAchievements,
+        phase3Search
+      );
+
+      let searchPhase4Achievements = searchFilteredAchievements(
+        phase4FilteredAchievements,
+        phase4Search
+      );
+
+      let searchPhase5Achievements = searchFilteredAchievements(
+        phase5FilteredAchievements,
+        phase5Search
+      );
+
+      let searchPhase6Achievements = searchFilteredAchievements(
+        phase6FilteredAchievements,
+        phase6Search
+      );
+
+      dispatch(setPhase1Achievments(searchPhase1Achievements));
+      dispatch(setPhase2Achievments(searchPhase2Achievements));
+      dispatch(setPhase3Achievments(searchPhase3Achievements));
+      dispatch(setPhase4Achievments(searchPhase4Achievements));
+      dispatch(setPhase5Achievments(searchPhase5Achievements));
+      dispatch(setPhase6Achievments(searchPhase6Achievements));
+    }
+  }, [phaseAddedGame]);
+
+  const phase1SearchObtained = (searchTerm) => {
+    dispatch(setPhase1Search(searchTerm));
+  };
+  const phase2SearchObtained = (searchTerm) => {
+    dispatch(setPhase2Search(searchTerm));
+  };
+  const phase3SearchObtained = (searchTerm) => {
+    dispatch(setPhase3Search(searchTerm));
+  };
+  const phase4SearchObtained = (searchTerm) => {
+    dispatch(setPhase4Search(searchTerm));
+  };
+  const phase5SearchObtained = (searchTerm) => {
+    dispatch(setPhase5Search(searchTerm));
+  };
+  const phase6SearchObtained = (searchTerm) => {
+    dispatch(setPhase6Search(searchTerm));
+  };
 
   return (
     <Container>
@@ -168,7 +222,10 @@ export default function PlannerContent() {
               <Search onSearchObtained={phase1SearchObtained} />
             </SearchContainer>
             <Achievements
-              game={phase1Game}
+              game={{
+                ...phaseAddedGame,
+                achievements: phase1Achievements,
+              }}
               filterOption={phase1Filter}
               searchTerm={phase1Search}
               showPhase={true}
@@ -181,7 +238,10 @@ export default function PlannerContent() {
               <Search onSearchObtained={phase2SearchObtained} />
             </SearchContainer>
             <Achievements
-              game={phase2Game}
+              game={{
+                ...phaseAddedGame,
+                achievements: phase2Achievements,
+              }}
               filterOption={phase2Filter}
               searchTerm={phase2Search}
               showPhase={true}
@@ -194,7 +254,10 @@ export default function PlannerContent() {
               <Search onSearchObtained={phase3SearchObtained} />
             </SearchContainer>
             <Achievements
-              game={phase3Game}
+              game={{
+                ...phaseAddedGame,
+                achievements: phase3Achievements,
+              }}
               filterOption={phase3Filter}
               searchTerm={phase3Search}
               showPhase={true}
@@ -207,7 +270,10 @@ export default function PlannerContent() {
               <Search onSearchObtained={phase4SearchObtained} />
             </SearchContainer>
             <Achievements
-              game={phase4Game}
+              game={{
+                ...phaseAddedGame,
+                achievements: phase4Achievements,
+              }}
               filterOption={phase4Filter}
               searchTerm={phase4Search}
               showPhase={true}
@@ -220,7 +286,10 @@ export default function PlannerContent() {
               <Search onSearchObtained={phase5SearchObtained} />
             </SearchContainer>
             <Achievements
-              game={phase5Game}
+              game={{
+                ...phaseAddedGame,
+                achievements: phase5Achievements,
+              }}
               filterOption={phase5Filter}
               searchTerm={phase5Search}
               showPhase={true}
@@ -233,7 +302,10 @@ export default function PlannerContent() {
               <Search onSearchObtained={phase6SearchObtained} width="100%" />
             </SearchContainer>
             <Achievements
-              game={phase6Game}
+              game={{
+                ...phaseAddedGame,
+                achievements: phase6Achievements,
+              }}
               filterOption={phase6Filter}
               searchTerm={phase6Search}
               showPhase={false}

@@ -17,6 +17,12 @@ import {
   SET_PHASE6_ACHIEVEMENTS,
   SET_PHASE5_ACHIEVEMENTS,
   SET_PHASE4_ACHIEVEMENTS,
+  SET_PHASE1_SEARCH,
+  SET_PHASE2_SEARCH,
+  SET_PHASE3_SEARCH,
+  SET_PHASE4_SEARCH,
+  SET_PHASE5_SEARCH,
+  SET_PHASE6_SEARCH,
 } from "../types/games.types";
 import axios from "axios";
 
@@ -115,6 +121,60 @@ export const setPhase6Achievments = (achievements) => {
     return dispatch({
       type: SET_PHASE6_ACHIEVEMENTS,
       payload: achievements,
+    });
+  };
+};
+
+export const setPhase1Search = (searchTerm) => {
+  return (dispatch) => {
+    return dispatch({
+      type: SET_PHASE1_SEARCH,
+      payload: searchTerm,
+    });
+  };
+};
+
+export const setPhase2Search = (searchTerm) => {
+  return (dispatch) => {
+    return dispatch({
+      type: SET_PHASE2_SEARCH,
+      payload: searchTerm,
+    });
+  };
+};
+
+export const setPhase3Search = (searchTerm) => {
+  return (dispatch) => {
+    return dispatch({
+      type: SET_PHASE3_SEARCH,
+      payload: searchTerm,
+    });
+  };
+};
+
+export const setPhase4Search = (searchTerm) => {
+  return (dispatch) => {
+    return dispatch({
+      type: SET_PHASE4_SEARCH,
+      payload: searchTerm,
+    });
+  };
+};
+
+export const setPhase5Search = (searchTerm) => {
+  return (dispatch) => {
+    return dispatch({
+      type: SET_PHASE5_SEARCH,
+      payload: searchTerm,
+    });
+  };
+};
+
+export const setPhase6Search = (searchTerm) => {
+  return (dispatch) => {
+    return dispatch({
+      type: SET_PHASE6_SEARCH,
+      payload: searchTerm,
     });
   };
 };

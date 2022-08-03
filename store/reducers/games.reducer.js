@@ -22,6 +22,12 @@ import {
   GAME_SEARCH_CHANGED,
   SET_HIDDEN_DATA,
   SET_PHASE1_ACHIEVEMENTS,
+  SET_PHASE1_SEARCH,
+  SET_PHASE2_SEARCH,
+  SET_PHASE3_SEARCH,
+  SET_PHASE4_SEARCH,
+  SET_PHASE5_SEARCH,
+  SET_PHASE6_SEARCH,
   SET_PHASE2_ACHIEVEMENTS,
   SET_PHASE3_ACHIEVEMENTS,
   SET_PHASE4_ACHIEVEMENTS,
@@ -51,18 +57,6 @@ const INITIAL_STATE = {
       rightSidebarWidth: "450px",
     },
     plannerPage: {
-      phase1Filter: GAME_OPTION_PERCENTAGE_DESC_LOCKED,
-      phase1Search: "",
-      phase2Filter: GAME_OPTION_PERCENTAGE_DESC_LOCKED,
-      phase2Search: "",
-      phase3Filter: GAME_OPTION_PERCENTAGE_DESC_LOCKED,
-      phase3Search: "",
-      phase4Filter: GAME_OPTION_PERCENTAGE_DESC_LOCKED,
-      phase4Search: "",
-      phase5Filter: GAME_OPTION_PERCENTAGE_DESC_LOCKED,
-      phase5Search: "",
-      phase6Filter: GAME_OPTION_PERCENTAGE_ASC_UNLOCKTIME,
-      phase6Search: "",
       leftSidebarOpen: true,
       rightSidebarOpen: false,
       leftSidebarWidth: "200px",
@@ -77,6 +71,18 @@ const INITIAL_STATE = {
     phase4Achievements: [],
     phase5Achievements: [],
     phase6Achievements: [],
+    phase1Filter: GAME_OPTION_PERCENTAGE_DESC_LOCKED,
+    phase1Search: "",
+    phase2Filter: GAME_OPTION_PERCENTAGE_DESC_LOCKED,
+    phase2Search: "",
+    phase3Filter: GAME_OPTION_PERCENTAGE_DESC_LOCKED,
+    phase3Search: "",
+    phase4Filter: GAME_OPTION_PERCENTAGE_DESC_LOCKED,
+    phase4Search: "",
+    phase5Filter: GAME_OPTION_PERCENTAGE_DESC_LOCKED,
+    phase5Search: "",
+    phase6Filter: GAME_OPTION_PERCENTAGE_ASC_UNLOCKTIME,
+    phase6Search: "",
   },
 };
 
@@ -237,6 +243,60 @@ const reducer = (state = INITIAL_STATE, action) => {
         planner: {
           ...state.planner,
           phase6Achievements: payload,
+        },
+      };
+
+    case SET_PHASE1_SEARCH:
+      return {
+        ...state,
+        planner: {
+          ...state.planner,
+          phase1Search: payload,
+        },
+      };
+
+    case SET_PHASE2_SEARCH:
+      return {
+        ...state,
+        planner: {
+          ...state.planner,
+          phase2Search: payload,
+        },
+      };
+
+    case SET_PHASE3_SEARCH:
+      return {
+        ...state,
+        planner: {
+          ...state.planner,
+          phase3Search: payload,
+        },
+      };
+
+    case SET_PHASE4_SEARCH:
+      return {
+        ...state,
+        planner: {
+          ...state.planner,
+          phase4Search: payload,
+        },
+      };
+
+    case SET_PHASE5_SEARCH:
+      return {
+        ...state,
+        planner: {
+          ...state.planner,
+          phase5Search: payload,
+        },
+      };
+
+    case SET_PHASE6_SEARCH:
+      return {
+        ...state,
+        planner: {
+          ...state.planner,
+          phase6Search: payload,
         },
       };
 
