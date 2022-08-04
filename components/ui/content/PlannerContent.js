@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
@@ -31,6 +31,7 @@ import {
 } from "../../../helpers/gameHelper";
 import Search from "../../atoms/Search";
 import {
+  getaUnlockedAchievementsByType,
   getPhaseFiltedAchievements,
   searchFilteredAchievements,
 } from "../../../helpers/achievementHelper";
@@ -49,6 +50,7 @@ const Container = styled.div`
 const HeaderContainer = styled.div`
   display: flex;
   width: 100%;
+  cursor: pointer;
   align-items: center;
   justify-content: flex-start;
   padding: 0.5rem 1.5rem;
@@ -124,6 +126,8 @@ export default function PlannerContent() {
     dispatch(setPhaseAddedGames(phaseAddedGames));
   }, [gameId]);
 
+  const [unlockType, setUnlockType] = useState("TODAY");
+
   useEffect(() => {
     if (phaseAddedGame.achievements) {
       let phase1FilteredAchievements = getPhaseFiltedAchievements(
@@ -151,8 +155,10 @@ export default function PlannerContent() {
         phaseAddedGame.achievements,
         MISSABLE
       );
-      let phase6FilteredAchievements = phaseAddedGame.achievements.filter(
-        (achievement) => achievement.achieved == 1
+
+      let phase6FilteredAchievements = getaUnlockedAchievementsByType(
+        phaseAddedGame.achievements,
+        unlockType
       );
 
       let searchPhase1Achievements = searchFilteredAchievements(
@@ -193,6 +199,20 @@ export default function PlannerContent() {
       dispatch(setPhase6Achievments(searchPhase6Achievements));
     }
   }, [phaseAddedGame]);
+
+  useEffect(() => {
+    let phase6FilteredAchievements = getaUnlockedAchievementsByType(
+      phaseAddedGame.achievements,
+      unlockType
+    );
+
+    let searchPhase6Achievements = searchFilteredAchievements(
+      phase6FilteredAchievements,
+      phase6Search
+    );
+
+    dispatch(setPhase6Achievments(searchPhase6Achievements));
+  }, [unlockType]);
 
   const phase1SearchObtained = (searchTerm) => {
     dispatch(setPhase1Search(searchTerm));
@@ -299,7 +319,33 @@ export default function PlannerContent() {
           </PhaseContainer>
           <PhaseContainer>
             <SearchContainer>
-              <HeaderContainer>RECENTLY UNLOCKED</HeaderContainer>
+              {unlockType == "TODAY" && (
+                <HeaderContainer
+                  onClick={() => {
+                    setUnlockType((old) => "WEEK");
+                  }}
+                >
+                  UNLOCKED TODAY
+                </HeaderContainer>
+              )}
+              {unlockType == "WEEK" && (
+                <HeaderContainer
+                  onClick={() => {
+                    setUnlockType((old) => "ALL");
+                  }}
+                >
+                  UNLOCKED THIS WEEK
+                </HeaderContainer>
+              )}
+              {unlockType == "ALL" && (
+                <HeaderContainer
+                  onClick={() => {
+                    setUnlockType((old) => "TODAY");
+                  }}
+                >
+                  UNLOCKED ALL TIME
+                </HeaderContainer>
+              )}
               <Search onSearchObtained={phase6SearchObtained} width="100%" />
             </SearchContainer>
             <Achievements

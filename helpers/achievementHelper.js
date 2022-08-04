@@ -112,3 +112,41 @@ export const getPhaseFiltedAchievements = (gameId, achievements, phase) => {
   }
   return newAchievements;
 };
+
+export const getaUnlockedAchievementsByType = (achievements, type) => {
+  let newAchievements = [];
+
+  if (type == "TODAY") {
+    let date = new Date();
+    date.setHours(0, 0, 0, 0);
+    date.setDate(date.getDate());
+    let timeUTC;
+    timeUTC = date.getTime() / 1000;
+
+    newAchievements = achievements.filter(
+      (achievement) =>
+        achievement.achieved == 1 && achievement.unlocktime > timeUTC
+    );
+  }
+
+  if (type == "WEEK") {
+    let date = new Date();
+    date.setHours(0, 0, 0, 0);
+    date.setDate(date.getDate() - 7);
+    let timeUTC;
+    timeUTC = date.getTime() / 1000;
+
+    newAchievements = achievements.filter(
+      (achievement) =>
+        achievement.achieved == 1 && achievement.unlocktime > timeUTC
+    );
+  }
+
+  if (type == "ALL") {
+    newAchievements = achievements.filter(
+      (achievement) => achievement.achieved == 1
+    );
+  }
+
+  return newAchievements;
+};
