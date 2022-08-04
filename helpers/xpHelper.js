@@ -50,10 +50,18 @@ export const calculateTotalXPForAllGames = (games) => {
 export const LEVEL_UP_XP = 1000;
 export const calculateLevelFromAllGames = (games) => {
   let totalXP = 0;
+  let unlockedToday = 0;
+  let date = new Date();
+  date.setHours(0, 0, 0, 0);
+  let timeUTC;
+  timeUTC = date.getTime() / 1000;
   if (games.length > 0) {
     games.forEach((game) => {
       game.achievements.forEach((achievement) => {
         if (achievement.achieved == 1) {
+          if (achievement.unlocktime > timeUTC) {
+            unlockedToday += calculateXPFromPercentage(achievement.percentage);
+          }
           totalXP += calculateXPFromPercentage(achievement.percentage);
         }
       });
@@ -62,5 +70,5 @@ export const calculateLevelFromAllGames = (games) => {
   const xpTotal = totalXP;
   const currentLevel = Math.floor(totalXP / LEVEL_UP_XP);
   const toNextLevel = xpTotal % LEVEL_UP_XP;
-  return { xpTotal, currentLevel, toNextLevel };
+  return { xpTotal, currentLevel, toNextLevel, unlockedToday };
 };

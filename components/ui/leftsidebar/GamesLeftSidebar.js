@@ -4,6 +4,7 @@ import ProfileImage from "../../atoms/ProfileImage";
 import ProfileLevel from "../../atoms/ProfileLevel";
 import ProfileLevelUp from "../../atoms/ProfileLevelUp";
 import ProfileTrophies from "../../atoms/ProfileTrophies";
+import ProfileXPToday from "../../atoms/ProfileXPToday";
 import GamesPageMenu from "../menu/GamesPageMenu";
 
 const Container = styled.div`
@@ -27,6 +28,7 @@ export default function GamesLeftSidebar() {
       />
       <GamesPageMenu />
       <ProfileLevel />
+      <ProfileXPToday />
       <ProfileLevelUp />
       <ProfileTrophies />
     </Container>

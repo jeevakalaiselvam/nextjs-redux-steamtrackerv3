@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updatePhaseForAchievement } from "../../store/actions/games.actions";
 import { HiChevronDoubleUp, HiMenu } from "react-icons/hi";
 import JournalInput from "./JournalInput";
+import { calculateXPFromPercentage } from "../../helpers/xpHelper";
 
 const Container = styled.div`
   width: 365px;
@@ -36,9 +37,8 @@ const Container = styled.div`
 
 const IconContainer = styled.div`
   display: flex;
-  width: 60px;
-  height: 60px;
-  flex-direction: row;
+  height: 100%;
+  flex-direction: column;
   padding: 0.5rem 0;
   align-items: flex-start;
   justify-content: center;
@@ -55,6 +55,15 @@ const Icon = styled.div`
   flex-direction: row;
   padding: 0.5rem;
   align-items: flex-start;
+  justify-content: center;
+`;
+
+const XPData = styled.div`
+  display: flex;
+  width: 100%;
+  padding: 0.25rem 1rem;
+  color: #b0bec5;
+  align-items: center;
   justify-content: center;
 `;
 
@@ -329,6 +338,7 @@ export default function AchievementCardWithPhase(props) {
         )}
       </PhaseRevealer>
       <PhaseContainer show={true}>
+        <XPData>{calculateXPFromPercentage(percentage)} XP</XPData>
         <PhaseItem
           active={phase == ALL}
           onClick={() => {

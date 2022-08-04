@@ -19,6 +19,7 @@ const Container = styled.div`
   align-items: center;
   padding: 1rem;
   justify-content: center;
+  margin-top: 0.5rem;
   flex-direction: column;
   width: 95%;
   cursor: pointer;
@@ -59,15 +60,16 @@ const CurrentLevel = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  font-size: 1.75rem;
+  font-size: 1.5rem;
 `;
 
-const ProfileLevel = (props) => {
+const ProfileXPToday = (props) => {
   const dispatch = useDispatch();
   const steamtracker = useSelector((state) => state.steamtracker);
   const { games, planner } = steamtracker;
 
-  const { xpTotal, currentLevel, toNextLevel } =
+  console.clear();
+  const { xpTotal, currentLevel, toNextLevel, unlockedToday } =
     calculateLevelFromAllGames(games);
 
   return (
@@ -77,17 +79,17 @@ const ProfileLevel = (props) => {
           <HiOutlineChevronDoubleUp
             style={{ marginRight: "0.5rem", color: "#6cff5c" }}
           />
-          <Title>LEVEL</Title>
+          <Title>TODAY</Title>
           <HiOutlineChevronDoubleUp
             style={{ marginLeft: "0.5rem", color: "#6cff5c" }}
           />
         </Header>
         <LevelContainer>
-          <CurrentLevel>{currentLevel}</CurrentLevel>
+          <CurrentLevel>{unlockedToday} XP</CurrentLevel>
         </LevelContainer>
       </LevelFragment>
     </Container>
   );
 };
 
-export default ProfileLevel;
+export default ProfileXPToday;
