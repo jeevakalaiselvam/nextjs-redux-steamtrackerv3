@@ -304,7 +304,10 @@ export default function AchievementCardWithPhase(props) {
         >
           {displayName}
         </Title>
-        <Description>{description || hiddenDescription}</Description>
+        <Description>
+          {description.slice(0, 74) + "..." ||
+            hiddenDescription.slice(0, 74) + "..."}
+        </Description>
       </DataContainer>
       <PercentageContainer>
         <PercentageIcon>
