@@ -2,8 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import { HEADER_IMAGE } from "../../helpers/urlHelper";
 import { FaTrophy } from "react-icons/fa";
-import { HiClock, HiCollection } from "react-icons/hi";
-import { getAllXPFromAchievements } from "../../helpers/xpHelper";
+import {
+  HiArchive,
+  HiClock,
+  HiCollection,
+  HiPresentationChartLine,
+} from "react-icons/hi";
+import { getAllXPFromAchievements, XP_FOR_LEVEL } from "../../helpers/xpHelper";
 import { useRouter } from "next/router";
 
 const Container = styled.div`
@@ -39,7 +44,7 @@ const Overlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.5);
 `;
 
 const Title = styled.div`
@@ -61,6 +66,7 @@ const ToGetContainer = styled.div`
   top: 0;
   left: 0;
   padding: 1rem;
+  z-index: 8;
   transition: all 0.5s;
   background-color: rgba(0, 0, 0, 0.75);
   transform: translateX("0%");
@@ -71,12 +77,14 @@ const ToGetIcon = styled.div`
   align-items: center;
   color: #f1b51b;
   font-size: 2rem;
+  z-index: 8;
   justify-content: center;
 `;
 
 const ToGetData = styled.div`
   display: flex;
   align-items: center;
+  z-index: 8;
   justify-content: center;
   color: #f1b51b;
   font-size: 1.5rem;
@@ -84,10 +92,13 @@ const ToGetData = styled.div`
 
 const XPContainer = styled.div`
   position: absolute;
-  display: "flex";
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-direction: column;
   top: 0;
   right: 0;
+  z-index: 8;
   padding: 1rem;
   transition: all 0.5s;
   background-color: rgba(0, 0, 0, 0.75);
@@ -98,7 +109,9 @@ const XPIcon = styled.div`
   display: flex;
   align-items: center;
   color: #fefefe;
-  font-size: 2rem;
+  font-size: 1.75rem;
+  margin-right: 0.5rem;
+  z-index: 8;
   justify-content: center;
 `;
 
@@ -107,6 +120,7 @@ const XPData = styled.div`
   align-items: center;
   justify-content: center;
   color: #fefefe;
+  z-index: 8;
   font-size: 1.5rem;
 `;
 
@@ -116,11 +130,12 @@ const CompletionOverlay = styled.div`
   left: 0px;
   width: 100%;
   height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
   color: #f5b81c;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 6;
+  z-index: 7;
   font-size: 5rem;
 `;
 
@@ -132,6 +147,9 @@ export default function GameCard({ game }) {
 
   const router = useRouter();
 
+  const completed = completedXP / XP_FOR_LEVEL;
+  const needed = (totalXP * 1) / XP_FOR_LEVEL;
+
   return (
     <Container
       onClick={() => {
@@ -141,23 +159,32 @@ export default function GameCard({ game }) {
         router.push(`/planner/${id}`);
       }}
     >
-      <CompletionOverlay>{toGet == 0 && <FaTrophy />}</CompletionOverlay>
-
-      <Image image={HEADER_IMAGE(id)} />
       <Overlay />
-      <Title>{name}</Title>
-      <ToGetContainer>
-        <ToGetIcon>
+      <Image image={HEADER_IMAGE(id)} />
+      {completed >= needed && (
+        <CompletionOverlay>
           <FaTrophy />
-        </ToGetIcon>
-        <ToGetData>{toGet}</ToGetData>
-      </ToGetContainer>
-      <XPContainer>
-        <XPIcon>
-          <HiCollection />
-        </XPIcon>
-        <XPData>{remainingXP} XP</XPData>
-      </XPContainer>
+        </CompletionOverlay>
+      )}
+      <Title>{name}</Title>
+      {completed < needed && (
+        <ToGetContainer>
+          <ToGetIcon>
+            <FaTrophy />
+          </ToGetIcon>
+          <ToGetData>{toGet}</ToGetData>
+        </ToGetContainer>
+      )}
+      {completed <= needed && (
+        <XPContainer>
+          <XPIcon>
+            <HiPresentationChartLine />
+          </XPIcon>
+          <XPData>
+            {Math.floor(Math.floor(totalXP * 1) - completedXP)} XP
+          </XPData>
+        </XPContainer>
+      )}
     </Container>
   );
 }

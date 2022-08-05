@@ -305,7 +305,7 @@ export default function AchievementCardWithPhase(props) {
           {displayName}
         </Title>
         <Description>
-          {description.slice(0, 74) + "..." ||
+          {(description && description.slice(0, 74) + "...") ||
             hiddenDescription.slice(0, 74) + "..."}
         </Description>
       </DataContainer>

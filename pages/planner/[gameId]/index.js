@@ -8,6 +8,7 @@ import GameHeader from "../../../components/ui/header/GameHeader";
 import GameContent from "../../../components/ui/content/GameContent";
 import GameRightSidebar from "../../../components/ui/rightsidebar/GameRightSidebar";
 import PlannerContent from "../../../components/ui/content/PlannerContent";
+import PlannerHeader from "../../../components/ui/header/PlannerHeader";
 
 const Container = styled.div`
   display: flex;
@@ -37,7 +38,7 @@ export default function GamesPage() {
   return (
     <Page
       leftSidebar={<GamesLeftSidebar />}
-      header={<GameHeader />}
+      header={<PlannerHeader />}
       content={<PlannerContent />}
       rightSidebar={<GameRightSidebar />}
       leftSidebarOpen={leftSidebarOpen}

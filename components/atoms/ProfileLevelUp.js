@@ -61,6 +61,7 @@ const CurrentLevel = styled.div`
   flex-direction: column;
   justify-content: center;
   font-size: 1.5rem;
+  padding: 1rem;
 `;
 
 const ProfileLevelUp = (props) => {
@@ -78,7 +79,7 @@ const ProfileLevelUp = (props) => {
           <HiOutlineChevronDoubleUp
             style={{ marginRight: "0.5rem", color: "#6cff5c" }}
           />
-          <Title>LEVEL UP</Title>
+          <Title>NEXT</Title>
           <HiOutlineChevronDoubleUp
             style={{ marginLeft: "0.5rem", color: "#6cff5c" }}
           />

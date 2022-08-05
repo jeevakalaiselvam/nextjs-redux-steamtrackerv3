@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import React from "react";
 import styled from "styled-components";
 import ProfileHistory from "../../atoms/ProfileHistory";
@@ -5,6 +6,7 @@ import ProfileHistoryTrophies from "../../atoms/ProfileHistoryTrophies";
 import ProfileImage from "../../atoms/ProfileImage";
 import ProfileLevel from "../../atoms/ProfileLevel";
 import ProfileLevelUp from "../../atoms/ProfileLevelUp";
+import ProfileToGet from "../../atoms/ProfileToGet";
 import ProfileTrophies from "../../atoms/ProfileTrophies";
 import ProfileXPToday from "../../atoms/ProfileXPToday";
 import GamesPageMenu from "../menu/GamesPageMenu";
@@ -22,6 +24,9 @@ const Container = styled.div`
 `;
 
 export default function GamesLeftSidebar() {
+  const router = useRouter();
+  const { gameId } = router.query;
+
   return (
     <Container>
       <ProfileImage
@@ -34,6 +39,7 @@ export default function GamesLeftSidebar() {
       {/* <ProfileLevel /> */}
       {/* <ProfileXPToday /> */}
       <ProfileHistoryTrophies />
+      {gameId && <ProfileToGet />}
       {/* <ProfileHistory /> */}
     </Container>
   );

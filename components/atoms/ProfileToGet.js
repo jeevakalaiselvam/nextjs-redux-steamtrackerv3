@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import React from "react";
 import { FaTrophy } from "react-icons/fa";
 import {
@@ -11,6 +12,7 @@ import { openLinkInNewTab } from "../../helpers/browserHelper";
 import {
   calculateLevelFromAllGames,
   calculateTotalXPForAllGames,
+  getAllXPFromAchievements,
   XP_FOR_LEVEL,
 } from "../../helpers/xpHelper";
 
@@ -53,69 +55,65 @@ const Title = styled.div`
 const LevelContainer = styled.div`
   display: flex;
   align-items: center;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
+`;
+
+const CurrentLevel = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 1.5rem;
   padding: 1rem;
 `;
 
-const GoldTrophy = styled.div`
+const XPContainer = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-direction: row;
-  justify-content: center;
-  margin-right: 2rem;
-  color: #f1b51b;
-  font-size: 2rem;
+  z-index: 8;
+  padding: 1rem;
+  transition: all 0.5s;
+  transform: translateX("0%");
 `;
 
-const PurpleTrophy = styled.div`
+const XPIcon = styled.div`
   display: flex;
   align-items: center;
-  flex-direction: row;
+  color: #fefefe;
+  font-size: 1.75rem;
+  margin-right: 0.5rem;
+  z-index: 8;
   justify-content: center;
-  color: #b55af2;
+`;
+
+const XPData = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fefefe;
+  z-index: 8;
   font-size: 1.5rem;
 `;
 
-const Icon = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  margin-right: 1rem;
-  justify-content: center;
-  font-size: 1.5rem;
-`;
-
-const Text = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-  font-size: 1.5rem;
-`;
-
-const ProfileTrophies = (props) => {
+const ProfileToGet = (props) => {
   const dispatch = useDispatch();
   const steamtracker = useSelector((state) => state.steamtracker);
   const { games, planner } = steamtracker;
 
-  const { xpTotal, currentLevel, toNextLevel } =
-    calculateLevelFromAllGames(games);
+  const router = useRouter();
+  const { gameId } = router.query;
 
-  const goldTrophies = games.reduce((acc, game) => {
-    if (+game.completion == 100) {
-      return acc + 1;
-    } else {
-      return acc;
-    }
-  }, 0);
-  const purpleTrophies = games.reduce((acc, game) => {
-    if (+game.completion >= 80 && +game.completion < 100) {
-      return acc + 1;
-    } else {
-      return acc;
-    }
-  }, 0);
+  const game = games.find((game) => game.id == gameId);
+  const { id, playtime, name, version, achievements, completion, toGet } = game;
+
+  const xpData = getAllXPFromAchievements(achievements);
+  const { totalXP, completedXP, remainingXP } = xpData;
+
+  const completed = completedXP / XP_FOR_LEVEL;
+  const needed = (totalXP * 1) / XP_FOR_LEVEL;
 
   return (
     <Container onClick={() => {}}>
@@ -124,22 +122,21 @@ const ProfileTrophies = (props) => {
           <HiOutlineChevronDoubleUp
             style={{ marginRight: "0.5rem", color: "#6cff5c" }}
           />
-          <Title>TROPHIES</Title>
+          <Title>REMAINING</Title>
           <HiOutlineChevronDoubleUp
             style={{ marginLeft: "0.5rem", color: "#6cff5c" }}
           />
         </Header>
         <LevelContainer>
-          <GoldTrophy>
-            <Icon>
-              <FaTrophy />
-            </Icon>
-            <Text>{Math.floor(xpTotal / XP_FOR_LEVEL)}</Text>
-          </GoldTrophy>
+          <XPContainer>
+            <XPData>
+              {Math.floor(Math.floor(totalXP * 1) - completedXP)} XP
+            </XPData>
+          </XPContainer>
         </LevelContainer>
       </LevelFragment>
     </Container>
   );
 };
 
-export default ProfileTrophies;
+export default ProfileToGet;

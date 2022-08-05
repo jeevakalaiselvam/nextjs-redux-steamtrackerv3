@@ -17,6 +17,8 @@ import { openLinkInNewTab } from "../../helpers/browserHelper";
 import {
   calculateLevelFromAllGames,
   calculateTotalXPForAllGames,
+  calculateXPFromPercentage,
+  XP_FOR_LEVEL,
 } from "../../helpers/xpHelper";
 
 const Container = styled.div`
@@ -69,7 +71,7 @@ const GoldTrophy = styled.div`
   flex-direction: row;
   justify-content: center;
   margin-right: 2rem;
-  color: #b55af2;
+  color: #f1b51b;
   font-size: 1.5rem;
 `;
 
@@ -147,7 +149,15 @@ const ProfileHistoryTrophies = (props) => {
             <Icon>
               <FaTrophy />
             </Icon>
-            <Text>{todayTrophies.length}</Text>
+            <Text>
+              {Math.floor(
+                todayTrophies.reduce(
+                  (acc, trophy) =>
+                    acc + calculateXPFromPercentage(trophy.percentage),
+                  0
+                ) / XP_FOR_LEVEL
+              )}
+            </Text>
           </GoldTrophy>
         </LevelContainer>
       </LevelFragment>
