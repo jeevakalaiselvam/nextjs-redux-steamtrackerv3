@@ -154,20 +154,32 @@ export const getaUnlockedAchievementsByType = (achievements, type) => {
 export const getaUnlockedAchievementsByRecent30Days = (achievements) => {
   let newAchievements = [];
 
-  let last30Days = new Array(31).fill(0).map((item, index) => index);
+  let last30Days = new Array(30).fill(0).map((item, index) => index);
+  console.log("LAST 30 DAYS", last30Days);
 
   let achievementMapper = {};
 
-  last30Days.map((dayIndex) => {
-    let date = new Date();
-    date.setHours(0, 0, 0, 0);
-    date.setDate(date.getDate() - dayIndex);
-    let timeUTC;
-    timeUTC = date.getTime() / 1000;
+  last30Days.forEach((dayIndex) => {
+    let dateStart = new Date();
+    let dateOld = new Date();
+
+    dateStart.setHours(0, 0, 0, 0);
+    dateOld.setHours(0, 0, 0, 0);
+
+    dateStart.setDate(dateStart.getDate() - dayIndex);
+    dateOld.setDate(dateStart.getDate() - dayIndex - 1);
+
+    let timeUTCStart = dateStart.getTime() / 1000 + 40000;
+    let timeUTCOld = dateOld.getTime() / 1000 + 40000;
+
+    console.log("TIME STATUS", { timeUTCStart, timeUTCOld });
+    console.log("ALL UNLOCKED ACHIVEMENTSS", achievements);
 
     newAchievements = achievements.filter(
       (achievement) =>
-        achievement.achieved == 1 && achievement.unlocktime > timeUTC
+        achievement.achieved == 1 &&
+        achievement.unlocktime < timeUTCStart &&
+        achievement.unlocktime >= timeUTCOld
     );
     achievementMapper[dayIndex] = newAchievements;
   });

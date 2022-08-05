@@ -41,24 +41,20 @@ export default function AchievementCalendarHistory() {
 
   const game = games.find((game) => game.id == gameId);
 
-  const allUnlockedAchievements = getAllUnlockedAchievements(games);
-  const achievmentsMapper = getaUnlockedAchievementsByRecent30Days(
-    allUnlockedAchievements
-  );
-
-  console.log("ALL UNLOCKED ACHIVEMENTS", allUnlockedAchievements);
-  console.log("ACHIEVEMENTS MAPPER", achievmentsMapper);
-
   return (
     <Container>
-      {/* {games &&
-        last30DaysUTCStartTimes.map((startUTCTime) => {
+      {games &&
+        Object.keys(achievmentsMapper).map((key) => {
           return (
-            <AchievementDayCount onClick={() => {}}>
-              {achievementCountInDayMapper[startUTCTime].length}
+            <AchievementDayCount
+              onClick={() => {
+                console.log(achievmentsMapper[key]);
+              }}
+            >
+              {achievmentsMapper[key].length || 0}
             </AchievementDayCount>
           );
-        })} */}
+        })}
     </Container>
   );
 }

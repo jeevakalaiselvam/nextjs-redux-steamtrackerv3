@@ -1,16 +1,7 @@
 import React from "react";
-import {
-  HiFastForward,
-  HiOutlineChevronDoubleUp,
-  HiOutlineChevronUp,
-} from "react-icons/hi";
-import { useDispatch, useSelector } from "react-redux";
+import { HiOutlineChevronDoubleUp } from "react-icons/hi";
 import styled from "styled-components";
-import { openLinkInNewTab } from "../../helpers/browserHelper";
-import {
-  calculateLevelFromAllGames,
-  calculateTotalXPForAllGames,
-} from "../../helpers/xpHelper";
+
 import AchievementCalendarHistory from "./AchievementCalendarHistory";
 
 const Container = styled.div`
