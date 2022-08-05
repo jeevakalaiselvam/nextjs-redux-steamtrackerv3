@@ -69,8 +69,7 @@ const GoldTrophy = styled.div`
   flex-direction: row;
   justify-content: center;
   margin-right: 2rem;
-  margin-left: 2rem;
-  color: #f1b51b;
+  color: #b55af2;
   font-size: 1.5rem;
 `;
 
@@ -149,9 +148,6 @@ const ProfileHistoryTrophies = (props) => {
               <FaTrophy />
             </Icon>
             <Text>{todayTrophies.length}</Text>
-            <Icon>
-              <FaTrophy />
-            </Icon>
           </GoldTrophy>
         </LevelContainer>
       </LevelFragment>

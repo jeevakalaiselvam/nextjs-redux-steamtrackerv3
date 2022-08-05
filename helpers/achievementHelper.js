@@ -115,37 +115,38 @@ export const getPhaseFiltedAchievements = (gameId, achievements, phase) => {
 
 export const getaUnlockedAchievementsByType = (achievements, type) => {
   let newAchievements = [];
+  if (achievements) {
+    if (type == "TODAY") {
+      let date = new Date();
+      date.setHours(0, 0, 0, 0);
+      date.setDate(date.getDate());
+      let timeUTC;
+      timeUTC = date.getTime() / 1000;
 
-  if (type == "TODAY") {
-    let date = new Date();
-    date.setHours(0, 0, 0, 0);
-    date.setDate(date.getDate());
-    let timeUTC;
-    timeUTC = date.getTime() / 1000;
+      newAchievements = achievements.filter(
+        (achievement) =>
+          achievement.achieved == 1 && achievement.unlocktime > timeUTC
+      );
+    }
 
-    newAchievements = achievements.filter(
-      (achievement) =>
-        achievement.achieved == 1 && achievement.unlocktime > timeUTC
-    );
-  }
+    if (type == "WEEK") {
+      let date = new Date();
+      date.setHours(0, 0, 0, 0);
+      date.setDate(date.getDate() - 7);
+      let timeUTC;
+      timeUTC = date.getTime() / 1000;
 
-  if (type == "WEEK") {
-    let date = new Date();
-    date.setHours(0, 0, 0, 0);
-    date.setDate(date.getDate() - 7);
-    let timeUTC;
-    timeUTC = date.getTime() / 1000;
+      newAchievements = achievements.filter(
+        (achievement) =>
+          achievement.achieved == 1 && achievement.unlocktime > timeUTC
+      );
+    }
 
-    newAchievements = achievements.filter(
-      (achievement) =>
-        achievement.achieved == 1 && achievement.unlocktime > timeUTC
-    );
-  }
-
-  if (type == "ALL") {
-    newAchievements = achievements.filter(
-      (achievement) => achievement.achieved == 1
-    );
+    if (type == "ALL") {
+      newAchievements = achievements.filter(
+        (achievement) => achievement.achieved == 1
+      );
+    }
   }
 
   return newAchievements;
@@ -153,36 +154,37 @@ export const getaUnlockedAchievementsByType = (achievements, type) => {
 
 export const getaUnlockedAchievementsByRecent30Days = (achievements) => {
   let newAchievements = [];
-
-  let last30Days = new Array(30).fill(0).map((item, index) => index);
-  console.log("LAST 30 DAYS", last30Days);
-
   let achievementMapper = {};
 
-  last30Days.forEach((dayIndex) => {
-    let dateStart = new Date();
-    let dateOld = new Date();
+  if (achievements.length) {
+    let last30Days = new Array(30).fill(0).map((item, index) => index);
+    console.log("LAST 30 DAYS", last30Days);
 
-    dateStart.setHours(0, 0, 0, 0);
-    dateOld.setHours(0, 0, 0, 0);
+    last30Days.forEach((dayIndex) => {
+      let dateStart = new Date();
+      let dateOld = new Date();
 
-    dateStart.setDate(dateStart.getDate() - dayIndex);
-    dateOld.setDate(dateStart.getDate() - dayIndex - 1);
+      dateStart.setHours(0, 0, 0, 0);
+      dateOld.setHours(0, 0, 0, 0);
 
-    let timeUTCStart = dateStart.getTime() / 1000 + 40000;
-    let timeUTCOld = dateOld.getTime() / 1000 + 40000;
+      dateStart.setDate(dateStart.getDate() - dayIndex);
+      dateOld.setDate(dateStart.getDate() - dayIndex - 1);
 
-    console.log("TIME STATUS", { timeUTCStart, timeUTCOld });
-    console.log("ALL UNLOCKED ACHIVEMENTSS", achievements);
+      let timeUTCStart = dateStart.getTime() / 1000 + 40000;
+      let timeUTCOld = dateOld.getTime() / 1000 + 40000;
 
-    newAchievements = achievements.filter(
-      (achievement) =>
-        achievement.achieved == 1 &&
-        achievement.unlocktime < timeUTCStart &&
-        achievement.unlocktime >= timeUTCOld
-    );
-    achievementMapper[dayIndex] = newAchievements;
-  });
+      console.log("TIME STATUS", { timeUTCStart, timeUTCOld });
+      console.log("ALL UNLOCKED ACHIVEMENTSS", achievements);
+
+      newAchievements = achievements.filter(
+        (achievement) =>
+          achievement.achieved == 1 &&
+          achievement.unlocktime < timeUTCStart &&
+          achievement.unlocktime >= timeUTCOld
+      );
+      achievementMapper[dayIndex] = newAchievements;
+    });
+  }
 
   return achievementMapper;
 };

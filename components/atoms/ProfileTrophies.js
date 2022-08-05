@@ -11,6 +11,7 @@ import { openLinkInNewTab } from "../../helpers/browserHelper";
 import {
   calculateLevelFromAllGames,
   calculateTotalXPForAllGames,
+  XP_FOR_LEVEL,
 } from "../../helpers/xpHelper";
 
 const Container = styled.div`
@@ -133,14 +134,8 @@ const ProfileTrophies = (props) => {
             <Icon>
               <FaTrophy />
             </Icon>
-            <Text>{goldTrophies}</Text>
+            <Text>{Math.floor(xpTotal / XP_FOR_LEVEL)}</Text>
           </GoldTrophy>
-          <PurpleTrophy>
-            <Icon>
-              <FaTrophy />
-            </Icon>
-            <Text>{purpleTrophies}</Text>
-          </PurpleTrophy>
         </LevelContainer>
       </LevelFragment>
     </Container>
