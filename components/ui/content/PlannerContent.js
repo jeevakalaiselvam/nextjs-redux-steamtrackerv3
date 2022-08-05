@@ -77,7 +77,7 @@ const PhaseContainer = styled.div`
   background-color: rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
   margin: 0.25rem;
-  padding-bottom: 3rem;
+  padding-bottom: 10rem;
 `;
 
 export default function PlannerContent() {
