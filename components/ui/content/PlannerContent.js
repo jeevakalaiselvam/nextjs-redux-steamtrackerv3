@@ -198,7 +198,15 @@ export default function PlannerContent() {
       dispatch(setPhase5Achievments(searchPhase5Achievements));
       dispatch(setPhase6Achievments(searchPhase6Achievements));
     }
-  }, [phaseAddedGame]);
+  }, [
+    phaseAddedGame,
+    phase1Search,
+    phase2Search,
+    phase3Search,
+    phase4Search,
+    phase5Search,
+    phase6Search,
+  ]);
 
   useEffect(() => {
     let phase6FilteredAchievements = getaUnlockedAchievementsByType(
