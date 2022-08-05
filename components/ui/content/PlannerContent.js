@@ -69,15 +69,14 @@ const PhaseContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  min-width: 300px;
   flex: 1;
-  min-height: 95vw;
-  max-height: 95vw;
+  min-width: 300px;
+  min-height: 94vh;
+  max-height: 94vh;
   overflow: scroll;
   background-color: rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
   margin: 0.25rem;
-  padding-bottom: 20rem;
 `;
 
 export default function PlannerContent() {
