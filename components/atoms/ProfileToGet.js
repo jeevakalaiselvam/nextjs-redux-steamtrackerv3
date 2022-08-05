@@ -12,6 +12,7 @@ import { openLinkInNewTab } from "../../helpers/browserHelper";
 import {
   calculateLevelFromAllGames,
   calculateTotalXPForAllGames,
+  COMPLETION_TARGET,
   getAllXPFromAchievements,
   XP_FOR_LEVEL,
 } from "../../helpers/xpHelper";
@@ -113,7 +114,7 @@ const ProfileToGet = (props) => {
   const { totalXP, completedXP, remainingXP } = xpData;
 
   const completed = completedXP / XP_FOR_LEVEL;
-  const needed = (totalXP * 1) / XP_FOR_LEVEL;
+  const needed = (totalXP * COMPLETION_TARGET) / XP_FOR_LEVEL;
 
   return (
     <Container onClick={() => {}}>
@@ -130,7 +131,10 @@ const ProfileToGet = (props) => {
         <LevelContainer>
           <XPContainer>
             <XPData>
-              {Math.floor(Math.floor(totalXP * 1) - completedXP)} XP
+              {Math.floor(
+                Math.floor(totalXP * COMPLETION_TARGET) - completedXP
+              )}{" "}
+              XP
             </XPData>
           </XPContainer>
         </LevelContainer>

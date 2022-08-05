@@ -8,7 +8,11 @@ import {
   HiCollection,
   HiPresentationChartLine,
 } from "react-icons/hi";
-import { getAllXPFromAchievements, XP_FOR_LEVEL } from "../../helpers/xpHelper";
+import {
+  COMPLETION_TARGET,
+  getAllXPFromAchievements,
+  XP_FOR_LEVEL,
+} from "../../helpers/xpHelper";
 import { useRouter } from "next/router";
 
 const Container = styled.div`
@@ -148,7 +152,7 @@ export default function GameCard({ game }) {
   const router = useRouter();
 
   const completed = completedXP / XP_FOR_LEVEL;
-  const needed = (totalXP * 1) / XP_FOR_LEVEL;
+  const needed = (totalXP * COMPLETION_TARGET) / XP_FOR_LEVEL;
 
   return (
     <Container
@@ -181,7 +185,8 @@ export default function GameCard({ game }) {
             <HiPresentationChartLine />
           </XPIcon>
           <XPData>
-            {Math.floor(Math.floor(totalXP * 1) - completedXP)} XP
+            {Math.floor(Math.floor(totalXP * COMPLETION_TARGET) - completedXP)}{" "}
+            XP
           </XPData>
         </XPContainer>
       )}

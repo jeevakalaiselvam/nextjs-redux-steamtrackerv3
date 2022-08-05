@@ -4,7 +4,6 @@ import styled from "styled-components";
 
 const Container = styled.div`
   width: 100%;
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -35,6 +34,7 @@ const Button = styled.div`
   background-color: #3049d1;
   padding: 0rem 1rem;
   color: #fefefe;
+  cursor: pointer;
 
   &:hover {
     background-color: #1e33a6;
@@ -51,8 +51,9 @@ const InputContainer = styled.div`
 
   & textarea {
     width: 100%;
-    height: 100%;
     outline: none;
+    flex: 1;
+    height: 400px;
     border: none;
     background: rgba(0, 0, 0, 0);
     padding: 1rem;

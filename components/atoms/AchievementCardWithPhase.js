@@ -18,6 +18,13 @@ import JournalInput from "./JournalInput";
 import { calculateXPFromPercentage } from "../../helpers/xpHelper";
 
 const Container = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+`;
+
+const MainContainer = styled.div`
   width: 365px;
   display: flex;
   flex-direction: row;
@@ -33,6 +40,19 @@ const Container = styled.div`
   &:hover {
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
   }
+`;
+
+const JournalContainer = styled.div`
+  display: ${(props) => (props.show ? "flex" : "none")};
+  transition: 0.5s all;
+  min-height: ${(props) => (props.show ? "400px" : "0px")};
+  align-items: flex-start;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.9);
+  color: #b0bec5;
+  backdrop-filter: blur(2px);
+  z-index: 100000;
+  width: 100%;
 `;
 
 const IconContainer = styled.div`
@@ -204,21 +224,6 @@ const PhaseItem = styled.div`
   }
 `;
 
-const JournalContainer = styled.div`
-  display: ${(props) => (props.show ? "flex" : "none")};
-  position: absolute;
-  bottom: 0;
-  align-items: center;
-  justify-content: center;
-  height: 500px;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.9);
-  color: #b0bec5;
-  backdrop-filter: blur(2px);
-  transform: translateY(100%);
-  z-index: 100000;
-`;
-
 export default function AchievementCardWithPhase(props) {
   const {
     name,
@@ -241,7 +246,7 @@ export default function AchievementCardWithPhase(props) {
 
   const [hiddenDescription, setHiddenDescription] = useState("HIDDEN");
   useEffect(() => {
-    if (hiddenGames[gameId] !== "undefined" && gameId) {
+    if (hiddenGames[gameId] && gameId) {
       setHiddenDescription(
         (old) => hiddenGames[gameId][displayName.toLowerCase().trim()]
       );
@@ -284,105 +289,107 @@ export default function AchievementCardWithPhase(props) {
 
   return (
     <Container>
-      <IconContainer>
-        <Icon icon={icon}></Icon>
-        {achieved == 1 && (
-          <CheckContainer>
-            <FaCheck />
-          </CheckContainer>
-        )}
-      </IconContainer>
-      <DataContainer>
-        <Title
-          onClick={() => {
-            if (window !== "undefined") {
-              const searchQuery = `${displayName} achievement ${game.name} `;
-              window.open(`https://www.google.com/search?q=${searchQuery}`);
-              // window.open(`https://www.youtube.com/results?search_query=${searchQuery}`);
-            }
-          }}
-        >
-          {displayName}
-        </Title>
-        <Description>
-          {(description && description.slice(0, 74) + "...") ||
-            hiddenDescription.slice(0, 74) + "..."}
-        </Description>
-      </DataContainer>
-      <PercentageContainer>
-        <PercentageIcon>
-          <FaGlobe />
-        </PercentageIcon>
-        <PercentageText>{percentage.toFixed(2)}%</PercentageText>
-      </PercentageContainer>
-      {hidden == "1" && (
-        <HiddenContainer>
-          <IoEyeOff />
-        </HiddenContainer>
-      )}
-      <PhaseRevealer
-        onClick={() => {
-          setShowPhases((old) => true);
-        }}
-      >
-        {!showJournal && (
-          <IoBook
+      <MainContainer>
+        <IconContainer>
+          <Icon icon={icon}></Icon>
+          {achieved == 1 && (
+            <CheckContainer>
+              <FaCheck />
+            </CheckContainer>
+          )}
+        </IconContainer>
+        <DataContainer>
+          <Title
             onClick={() => {
-              setShowJournal((old) => true);
+              if (window !== "undefined") {
+                const searchQuery = `${displayName} achievement ${game.name} `;
+                window.open(`https://www.google.com/search?q=${searchQuery}`);
+                // window.open(`https://www.youtube.com/results?search_query=${searchQuery}`);
+              }
             }}
-          />
+          >
+            {displayName}
+          </Title>
+          <Description>
+            {(description && description.slice(0, 74) + "...") ||
+              hiddenDescription.slice(0, 74) + "..."}
+          </Description>
+        </DataContainer>
+        <PercentageContainer>
+          <PercentageIcon>
+            <FaGlobe />
+          </PercentageIcon>
+          <PercentageText>{percentage.toFixed(2)}%</PercentageText>
+        </PercentageContainer>
+        {hidden == "1" && (
+          <HiddenContainer>
+            <IoEyeOff />
+          </HiddenContainer>
         )}
-        {showJournal && (
-          <HiChevronDoubleUp
+        <PhaseRevealer
+          onClick={() => {
+            setShowPhases((old) => true);
+          }}
+        >
+          {!showJournal && (
+            <IoBook
+              onClick={() => {
+                setShowJournal((old) => true);
+              }}
+            />
+          )}
+          {showJournal && (
+            <HiChevronDoubleUp
+              onClick={() => {
+                setShowJournal((old) => false);
+              }}
+            />
+          )}
+        </PhaseRevealer>
+        <PhaseContainer show={true}>
+          <XPData>{calculateXPFromPercentage(percentage)} XP</XPData>
+          <PhaseItem
+            active={phase == ALL}
             onClick={() => {
-              setShowJournal((old) => false);
+              setPhaseForAchievement(name, ALL);
             }}
-          />
-        )}
-      </PhaseRevealer>
-      <PhaseContainer show={true}>
-        <XPData>{calculateXPFromPercentage(percentage)} XP</XPData>
-        <PhaseItem
-          active={phase == ALL}
-          onClick={() => {
-            setPhaseForAchievement(name, ALL);
-          }}
-        >
-          1
-        </PhaseItem>
-        <PhaseItem
-          active={phase == EASY}
-          onClick={() => {
-            setPhaseForAchievement(name, EASY);
-          }}
-        >
-          2
-        </PhaseItem>
-        <PhaseItem
-          active={phase == HARD}
-          onClick={() => {
-            setPhaseForAchievement(name, HARD);
-          }}
-        >
-          3
-        </PhaseItem>
-        <PhaseItem
-          active={phase == GRIND}
-          onClick={() => {
-            setPhaseForAchievement(name, GRIND);
-          }}
-        >
-          4
-        </PhaseItem>
-        <PhaseItem
-          active={phase == MISSABLE}
-          onClick={() => {
-            setPhaseForAchievement(name, MISSABLE);
-          }}
-        >
-          5
-        </PhaseItem>
-      </PhaseContainer>
+          >
+            1
+          </PhaseItem>
+          <PhaseItem
+            active={phase == EASY}
+            onClick={() => {
+              setPhaseForAchievement(name, EASY);
+            }}
+          >
+            2
+          </PhaseItem>
+          <PhaseItem
+            active={phase == HARD}
+            onClick={() => {
+              setPhaseForAchievement(name, HARD);
+            }}
+          >
+            3
+          </PhaseItem>
+          <PhaseItem
+            active={phase == GRIND}
+            onClick={() => {
+              setPhaseForAchievement(name, GRIND);
+            }}
+          >
+            4
+          </PhaseItem>
+          <PhaseItem
+            active={phase == MISSABLE}
+            onClick={() => {
+              setPhaseForAchievement(name, MISSABLE);
+            }}
+          >
+            5
+          </PhaseItem>
+        </PhaseContainer>
+      </MainContainer>
       <JournalContainer show={showJournal}>
         <JournalInput onDataSaved={onDataSaved} journalData={journalData} />
       </JournalContainer>
