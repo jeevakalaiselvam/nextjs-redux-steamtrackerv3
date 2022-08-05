@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import ProfileHistory from "../../atoms/ProfileHistory";
 import ProfileImage from "../../atoms/ProfileImage";
 import ProfileLevel from "../../atoms/ProfileLevel";
 import ProfileLevelUp from "../../atoms/ProfileLevelUp";
@@ -31,6 +32,7 @@ export default function GamesLeftSidebar() {
       <ProfileXPToday />
       <ProfileLevelUp />
       <ProfileTrophies />
+      <ProfileHistory />
     </Container>
   );
 }

@@ -150,3 +150,45 @@ export const getaUnlockedAchievementsByType = (achievements, type) => {
 
   return newAchievements;
 };
+
+export const getaUnlockedAchievementsByRecent30Days = (achievements) => {
+  let newAchievements = [];
+
+  let last30Days = new Array(31).fill(0).map((item, index) => index);
+
+  let achievementMapper = {};
+
+  last30Days.map((dayIndex) => {
+    let date = new Date();
+    date.setHours(0, 0, 0, 0);
+    date.setDate(date.getDate() - dayIndex);
+    let timeUTC;
+    timeUTC = date.getTime() / 1000;
+
+    newAchievements = achievements.filter(
+      (achievement) =>
+        achievement.achieved == 1 && achievement.unlocktime > timeUTC
+    );
+    achievementMapper[dayIndex] = newAchievements;
+  });
+
+  return achievementMapper;
+};
+
+export const getAllUnlockedAchievements = (games) => {
+  let unlockedAchievements = [];
+  if (games.length) {
+    games.forEach((game) => {
+      game.achievements.forEach((achievement) => {
+        if (achievement.achieved == 1) {
+          unlockedAchievements.push(achievement);
+        }
+      });
+    });
+
+    unlockedAchievements = unlockedAchievements.sort(
+      (ach1, ach2) => +ach1.unlocktime < +ach2.unlocktime
+    );
+  }
+  return unlockedAchievements;
+};
