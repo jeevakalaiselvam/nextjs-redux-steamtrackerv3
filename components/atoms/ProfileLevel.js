@@ -19,6 +19,7 @@ const Container = styled.div`
   align-items: center;
   padding: 1rem;
   justify-content: center;
+  margin-top: 0.5rem;
   flex-direction: column;
   width: 95%;
   cursor: pointer;
