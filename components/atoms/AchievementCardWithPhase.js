@@ -218,6 +218,21 @@ const PhaseItem = styled.div`
   }
 `;
 
+const PhaseItemIgnore = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: ${(props) =>
+    props.active ? "rgba(0,0,0,0.5)" : "rgba(0,0,0,0.5)"};
+  color: ${(props) => (props.active ? "#FF4858" : "#737c9d;")};
+  padding: 0rem 0.5rem;
+  margin: 0.25rem;
+
+  &:hover {
+    color: #bd2a2e;
+  }
+`;
+
 const XPText = styled.div`
   display: flex;
   align-items: center;
@@ -296,6 +311,33 @@ export default function AchievementCardWithPhase(props) {
       else setJournalData((old) => journalDataInStore);
     }
   }, [showJournal]);
+
+  const addToIgnoreList = () => {
+    if (typeof window !== "undefined") {
+      let ignoreListInStorage =
+        localStorage.getItem(`${gameId}_IGNORE`) || JSON.stringify([]);
+      let ignoredAchievements = JSON.parse(ignoreListInStorage);
+      ignoredAchievements = [...ignoredAchievements, name];
+
+      localStorage.setItem(
+        `${gameId}_IGNORE`,
+        JSON.stringify(ignoredAchievements)
+      );
+    }
+  };
+
+  const [ignoreListForGame, setIgnoreListForGame] = useState([]);
+  const [ignoreActive, setIgnoreActive] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      let ignoreListInStorage =
+        localStorage.getItem(`${gameId}_IGNORE`) || JSON.stringify([]);
+      let ignoredAchievements = JSON.parse(ignoreListInStorage);
+      setIgnoreListForGame((old) => ignoredAchievements);
+      setIgnoreActive((old) => ignoreListForGame.includes(name));
+    }
+  }, []);
 
   return (
     <Container>
@@ -401,6 +443,10 @@ export default function AchievementCardWithPhase(props) {
           >
             5
           </PhaseItem>
+          <PhaseItemIgnore active={ignoreActive} onClick={addToIgnoreList}>
+            {ignoreActive && "IGNORED"}
+            {!ignoreActive && "IGNORE"}
+          </PhaseItemIgnore>
         </PhaseContainer>
       </MainContainer>
       <JournalContainer show={showJournal}>
