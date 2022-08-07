@@ -14,6 +14,7 @@ import {
   XP_FOR_LEVEL,
 } from "../../helpers/xpHelper";
 import { useRouter } from "next/router";
+import { AiFillGold } from "react-icons/ai";
 
 const Container = styled.div`
   display: flex;
@@ -99,9 +100,9 @@ const XPContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
+  flex-direction: row;
   top: 0;
-  right: 0;
+  left: 0;
   z-index: 8;
   padding: 1rem;
   transition: all 0.5s;
@@ -112,7 +113,7 @@ const XPContainer = styled.div`
 const XPIcon = styled.div`
   display: flex;
   align-items: center;
-  color: #fefefe;
+  color: #f5b81c;
   font-size: 1.75rem;
   margin-right: 0.5rem;
   z-index: 8;
@@ -123,7 +124,7 @@ const XPData = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fefefe;
+  color: #f5b81c;
   z-index: 8;
   font-size: 1.5rem;
 `;
@@ -171,22 +172,21 @@ export default function GameCard({ game }) {
         </CompletionOverlay>
       )}
       <Title>{name}</Title>
-      {completed < needed && (
+      {/* {completed < needed && (
         <ToGetContainer>
           <ToGetIcon>
             <FaTrophy />
           </ToGetIcon>
           <ToGetData>{toGet}</ToGetData>
         </ToGetContainer>
-      )}
+      )} */}
       {completed <= needed && (
         <XPContainer>
           <XPIcon>
-            <HiPresentationChartLine />
+            <AiFillGold />
           </XPIcon>
           <XPData>
-            {Math.floor(Math.floor(totalXP * COMPLETION_TARGET) - completedXP)}{" "}
-            XP
+            {Math.floor(Math.floor(totalXP * COMPLETION_TARGET) - completedXP)}
           </XPData>
         </XPContainer>
       )}

@@ -46,6 +46,7 @@ const Header = styled.div`
 const Title = styled.div`
   display: flex;
   align-items: center;
+  width: 100px;
   justify-content: center;
   font-size: 1.5rem;
 `;

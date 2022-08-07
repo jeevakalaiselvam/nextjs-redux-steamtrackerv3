@@ -20,6 +20,7 @@ import {
   calculateXPFromPercentage,
   XP_FOR_LEVEL,
 } from "../../helpers/xpHelper";
+import { AiFillGold } from "react-icons/ai";
 
 const Container = styled.div`
   display: flex;
@@ -51,6 +52,7 @@ const Header = styled.div`
 `;
 
 const Title = styled.div`
+  width: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -82,7 +84,7 @@ const Icon = styled.div`
   margin-right: 1rem;
   margin-left: 1rem;
   justify-content: center;
-  font-size: 1.5rem;
+  font-size: 2rem;
 `;
 
 const Text = styled.div`
@@ -147,7 +149,7 @@ const ProfileHistoryTrophies = (props) => {
         <LevelContainer>
           <GoldTrophy>
             <Icon>
-              <FaTrophy />
+              <AiFillGold />
             </Icon>
             <Text>
               {Math.floor(
@@ -155,7 +157,7 @@ const ProfileHistoryTrophies = (props) => {
                   (acc, trophy) =>
                     acc + calculateXPFromPercentage(trophy.percentage),
                   0
-                ) / XP_FOR_LEVEL
+                )
               )}
             </Text>
           </GoldTrophy>

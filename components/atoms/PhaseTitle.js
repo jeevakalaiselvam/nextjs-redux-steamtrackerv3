@@ -57,7 +57,7 @@ export default function PhaseTitle({ gameId, phase, defaultTitle }) {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const newTitle =
-        localStorage.getItem(`${gameId}_PHASETITLE_${phase}`) || "...";
+        localStorage.getItem(`${gameId}_PHASETITLE_${phase}`) || defaultTitle;
       console.log("SETTING TITLE");
       setTitleData(newTitle);
     }
@@ -66,7 +66,7 @@ export default function PhaseTitle({ gameId, phase, defaultTitle }) {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const newTitle =
-        localStorage.getItem(`${gameId}_PHASETITLE_${phase}`) || "...";
+        localStorage.getItem(`${gameId}_PHASETITLE_${phase}`) || defaultTitle;
       console.log("SETTING TITLE");
       setTitleData(newTitle);
     }

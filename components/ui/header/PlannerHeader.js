@@ -20,6 +20,7 @@ import {
 } from "../../../helpers/xpHelper";
 import { HiViewBoards, HiXCircle } from "react-icons/hi";
 import { ALL } from "../../../helpers/gameHelper";
+import { AiFillGold } from "react-icons/ai";
 
 const Container = styled.div`
   display: flex;
@@ -157,17 +158,20 @@ export default function PlannerHeader() {
     }
   };
 
+  // const game = games.find((game) => game.id == gameId);
+  // const xpData = getAllXPFromAchievements(game.achievements);
+  // const { totalXP, completedXP, remainingXP } = xpData;
+
   return (
     <Container>
       <FilterContainer>
         {/* <XPDataContainer>
-          TO GET
           <XPContainer>
             <XPIcon>
-              <FaTrophy />
+              <AiFillGold />
             </XPIcon>
             <XPData>
-              {Math.floor(Math.floor(totalXP * 0.5) - completedXP)} XP
+              {Math.floor(Math.floor(totalXP * 0.5) - completedXP)}
             </XPData>
           </XPContainer>
         </XPDataContainer> */}

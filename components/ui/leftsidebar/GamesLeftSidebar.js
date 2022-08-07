@@ -35,10 +35,10 @@ export default function GamesLeftSidebar() {
       />
       <GamesPageMenu />
       <ProfileTrophies />
-      <ProfileLevelUp />
+      <ProfileHistoryTrophies />
+      {/* <ProfileLevelUp /> */}
       {/* <ProfileLevel /> */}
       {/* <ProfileXPToday /> */}
-      <ProfileHistoryTrophies />
       {gameId && <ProfileToGet />}
       {/* <ProfileHistory /> */}
     </Container>

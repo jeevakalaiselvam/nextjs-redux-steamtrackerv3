@@ -87,7 +87,7 @@ export const getPhaseAddedGames = (game) => {
           ...achievement,
           phase: localStorage.getItem(`${game.id}_${achievement.name}_PHASE`)
             ? localStorage.getItem(`${game.id}_${achievement.name}_PHASE`)
-            : "ALL",
+            : ALL,
         };
       }
       return newAchievement;

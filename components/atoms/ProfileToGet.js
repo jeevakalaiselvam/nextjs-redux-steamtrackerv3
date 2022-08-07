@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import React from "react";
+import { AiFillGold } from "react-icons/ai";
 import { FaTrophy } from "react-icons/fa";
 import {
   HiFastForward,
@@ -80,16 +81,6 @@ const XPContainer = styled.div`
   transform: translateX("0%");
 `;
 
-const XPIcon = styled.div`
-  display: flex;
-  align-items: center;
-  color: #fefefe;
-  font-size: 1.75rem;
-  margin-right: 0.5rem;
-  z-index: 8;
-  justify-content: center;
-`;
-
 const XPData = styled.div`
   display: flex;
   align-items: center;
@@ -97,6 +88,22 @@ const XPData = styled.div`
   color: #fefefe;
   z-index: 8;
   font-size: 1.5rem;
+`;
+
+const XPText = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f1b51b;
+`;
+
+const XPIcon = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f1b51b;
+  margin-right: 0.75rem;
+  font-size: 2rem;
 `;
 
 const ProfileToGet = (props) => {
@@ -131,10 +138,14 @@ const ProfileToGet = (props) => {
         <LevelContainer>
           <XPContainer>
             <XPData>
-              {Math.floor(
-                Math.floor(totalXP * COMPLETION_TARGET) - completedXP
-              )}{" "}
-              XP
+              <XPIcon>
+                <AiFillGold />
+              </XPIcon>
+              <XPText>
+                {Math.floor(
+                  Math.floor(totalXP * COMPLETION_TARGET) - completedXP
+                )}
+              </XPText>
             </XPData>
           </XPContainer>
         </LevelContainer>

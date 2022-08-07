@@ -1,4 +1,5 @@
 import React from "react";
+import { AiFillGold } from "react-icons/ai";
 import {
   HiFastForward,
   HiOutlineChevronDoubleUp,
@@ -58,10 +59,26 @@ const LevelContainer = styled.div`
 const CurrentLevel = styled.div`
   display: flex;
   align-items: center;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   font-size: 1.5rem;
   padding: 1rem;
+`;
+
+const XPText = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f1b51b;
+`;
+
+const XPIcon = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f1b51b;
+  margin-right: 0.75rem;
+  font-size: 2rem;
 `;
 
 const ProfileLevelUp = (props) => {
@@ -85,7 +102,12 @@ const ProfileLevelUp = (props) => {
           />
         </Header>
         <LevelContainer>
-          <CurrentLevel>{toNextLevel} XP</CurrentLevel>
+          <CurrentLevel>
+            <XPIcon>
+              <AiFillGold />
+            </XPIcon>
+            <XPText>{toNextLevel}</XPText>
+          </CurrentLevel>
         </LevelContainer>
       </LevelFragment>
     </Container>

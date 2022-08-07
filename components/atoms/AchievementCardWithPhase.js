@@ -2,15 +2,9 @@ import React, { useEffect, useState } from "react";
 import { FaCheck, FaExpandArrowsAlt, FaGlobe } from "react-icons/fa";
 import styled from "styled-components";
 import { IoBook, IoChevronUp, IoEyeOff } from "react-icons/io5";
-import { getFormattedDate } from "../../helpers/achievementHelper";
-import {
-  ALL,
-  EASY,
-  GRIND,
-  HARD,
-  MISSABLE,
-  updateAchievementPhaseForGame,
-} from "../../helpers/gameHelper";
+import { AiFillGold } from "react-icons/ai";
+
+import { ALL, EASY, GRIND, HARD, MISSABLE } from "../../helpers/gameHelper";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePhaseForAchievement } from "../../store/actions/games.actions";
 import { HiChevronDoubleUp, HiMenu } from "react-icons/hi";
@@ -224,6 +218,20 @@ const PhaseItem = styled.div`
   }
 `;
 
+const XPText = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.25rem;
+`;
+
+const XPIcon = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+`;
+
 export default function AchievementCardWithPhase(props) {
   const {
     name,
@@ -347,7 +355,12 @@ export default function AchievementCardWithPhase(props) {
           )}
         </PhaseRevealer>
         <PhaseContainer show={true}>
-          <XPData>{calculateXPFromPercentage(percentage)} XP</XPData>
+          <XPData>
+            <XPText>{calculateXPFromPercentage(percentage)}</XPText>
+            <XPIcon>
+              <AiFillGold />
+            </XPIcon>
+          </XPData>
           <PhaseItem
             active={phase == ALL}
             onClick={() => {
