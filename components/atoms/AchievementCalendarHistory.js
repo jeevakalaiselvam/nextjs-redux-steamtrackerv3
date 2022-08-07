@@ -46,11 +46,7 @@ export default function AchievementCalendarHistory() {
       {games &&
         Object.keys(achievmentsMapper).map((key) => {
           return (
-            <AchievementDayCount
-              onClick={() => {
-                console.log(achievmentsMapper[key]);
-              }}
-            >
+            <AchievementDayCount onClick={() => {}}>
               {achievmentsMapper[key].length || 0}
             </AchievementDayCount>
           );

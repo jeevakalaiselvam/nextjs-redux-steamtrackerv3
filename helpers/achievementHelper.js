@@ -173,7 +173,6 @@ export const getaUnlockedAchievementsByRecent30Days = (achievements) => {
 
   if (achievements.length) {
     let last30Days = new Array(30).fill(0).map((item, index) => index);
-    console.log("LAST 30 DAYS", last30Days);
 
     last30Days.forEach((dayIndex) => {
       let dateStart = new Date();
@@ -187,9 +186,6 @@ export const getaUnlockedAchievementsByRecent30Days = (achievements) => {
 
       let timeUTCStart = dateStart.getTime() / 1000 + 40000;
       let timeUTCOld = dateOld.getTime() / 1000 + 40000;
-
-      console.log("TIME STATUS", { timeUTCStart, timeUTCOld });
-      console.log("ALL UNLOCKED ACHIVEMENTSS", achievements);
 
       newAchievements = achievements.filter(
         (achievement) =>
@@ -219,14 +215,7 @@ export const getAllUnlockedAchievementsTodayAndYesterday = (games) => {
       (ach1, ach2) => +ach1.unlocktime < +ach2.unlocktime
     );
   }
-  console.log(
-    "YESTERDAY",
-    getaUnlockedAchievementsByType(unlockedAchievements, "YESTERDAY")
-  );
-  console.log(
-    "TODAY",
-    getaUnlockedAchievementsByType(unlockedAchievements, "TODAY")
-  );
+
   return {
     allAchievementsToday: getaUnlockedAchievementsByType(
       unlockedAchievements,

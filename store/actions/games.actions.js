@@ -227,7 +227,6 @@ export const resetKanbanBoard = (gameId, game, phaseAddedGame) => {
       achievements: achievementForPhaseAddedGame,
     };
 
-    console.log("NEW PHASE ADDED GAME", newPhaseAddedGame);
     return dispatch({
       type: RESET_KANBAN_BOARD,
       payload: { newPhaseAddedGame },

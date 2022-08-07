@@ -209,12 +209,12 @@ const PhaseItem = styled.div`
   justify-content: center;
   background-color: ${(props) =>
     props.active ? "rgba(0,0,0,0.5)" : "rgba(0,0,0,0.5)"};
-  color: ${(props) => (props.active ? "#6cff5c" : "#737c9d;")};
+  color: ${(props) => (props.active ? "#FFFFFF" : "#737c9d;")};
   padding: 0rem 0.5rem;
   margin: 0.25rem;
 
   &:hover {
-    color: #6cff5c;
+    color: #ffffff;
   }
 `;
 

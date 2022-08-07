@@ -157,7 +157,6 @@ export default function AchievementCard(props) {
   } = props.achievement;
   const hiddenDescription = props.hiddenDescription;
   const gameName = props.gameName;
-  console.log("ACHIEVMENT CARD");
   return (
     <Container>
       <IconContainer>

@@ -6,7 +6,6 @@ export const getLast30DaysUTCTimes = () => {
     let timeUTC = date.getTime() / 1000;
     return timeUTC;
   });
-  console.log("LAST 30 DAY UTC", last30DaysUTCStartTimes);
   return last30DaysUTCStartTimes;
 };
 

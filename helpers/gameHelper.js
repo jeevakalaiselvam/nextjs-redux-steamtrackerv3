@@ -94,7 +94,6 @@ export const getPhaseAddedGames = (game) => {
     });
     newGame = { ...newGame, achievements: phaseAddedAchievements };
   }
-  console.log("RETURNING NEW GAME", newGame);
   return newGame;
 };
 

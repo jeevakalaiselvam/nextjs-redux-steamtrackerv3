@@ -58,7 +58,6 @@ export default function PhaseTitle({ gameId, phase, defaultTitle }) {
     if (typeof window !== "undefined") {
       const newTitle =
         localStorage.getItem(`${gameId}_PHASETITLE_${phase}`) || defaultTitle;
-      console.log("SETTING TITLE");
       setTitleData(newTitle);
     }
   }, [gameId]);
@@ -67,13 +66,11 @@ export default function PhaseTitle({ gameId, phase, defaultTitle }) {
     if (typeof window !== "undefined") {
       const newTitle =
         localStorage.getItem(`${gameId}_PHASETITLE_${phase}`) || defaultTitle;
-      console.log("SETTING TITLE");
       setTitleData(newTitle);
     }
   }, [editModeActive]);
 
   const titleDateChanged = (e) => {
-    console.log("SETTING TITLE");
     const data = e.target.value;
     setTitleData((old) => data);
   };
