@@ -265,7 +265,7 @@ export default function AchievementCardWithPhase(props) {
   const { gameName } = props?.gameName || "";
   const currentPhase = props?.phase || "";
   const gameId = props?.gameId || "";
-  const showIgnore = props.showIgnore || true;
+  const showIgnore = props.showIgnore;
 
   const steamtracker = useSelector((state) => state.steamtracker);
   const { hiddenGames, games } = steamtracker;
