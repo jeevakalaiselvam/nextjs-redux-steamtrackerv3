@@ -109,6 +109,7 @@ const DownArrow = styled.div`
   flex-direction: column;
   justify-content: center;
   padding: 1rem;
+  font-size: 1.5rem;
 `;
 
 const LevelItem = styled.div`
