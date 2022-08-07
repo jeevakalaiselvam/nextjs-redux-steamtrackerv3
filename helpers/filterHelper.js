@@ -6,6 +6,10 @@ export const GAMES_OPTION_COMPLETION_PINNED = "GAMES_OPTION_COMPLETION_PINNED";
 
 export const FILTER_OPTIONS_GAMES_PAGE = [
   {
+    id: GAMES_OPTION_COMPLETION_PINNED,
+    title: "Sort By Pinned",
+  },
+  {
     id: GAMES_OPTION_COMPLETION_STARTED,
     title: "Sort By Started",
   },

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { HEADER_IMAGE } from "../../helpers/urlHelper";
-import { FaTrophy } from "react-icons/fa";
+import { FaPinterest, FaTrophy } from "react-icons/fa";
 import {
   HiArchive,
   HiClock,
@@ -14,7 +14,7 @@ import {
   XP_FOR_LEVEL,
 } from "../../helpers/xpHelper";
 import { useRouter } from "next/router";
-import { AiFillGold } from "react-icons/ai";
+import { AiFillGold, AiFillPushpin } from "react-icons/ai";
 import { getIcon } from "../../helpers/iconHelper";
 
 const Container = styled.div`
@@ -145,6 +145,25 @@ const CompletionOverlay = styled.div`
   font-size: 5rem;
 `;
 
+const PinIcon = styled.div`
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  background-color: rgba(0, 0, 0, 0.9);
+  color: ${(props) => (props.active ? "#f5b81c" : "#fefefe")};
+  cursor: pointer;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 7;
+  font-size: 2rem;
+
+  &:hover {
+    color: #f5b81c;
+  }
+`;
+
 export default function GameCard({ game }) {
   const { id, playtime, name, version, achievements, completion, toGet } = game;
 
@@ -157,20 +176,22 @@ export default function GameCard({ game }) {
   const needed = (totalXP * COMPLETION_TARGET) / XP_FOR_LEVEL;
 
   return (
-    <Container
-      onClick={() => {
-        if (typeof window !== "undefined") {
-          localStorage.setItem("SELECTED_GAME", id);
-        }
-        router.push(`/planner/${id}`);
-      }}
-    >
+    <Container>
       <Overlay />
       <Image image={HEADER_IMAGE(id)} />
       {completed >= needed && (
         <CompletionOverlay>{getIcon("trophy")}</CompletionOverlay>
       )}
-      <Title>{name}</Title>
+      <Title
+        onClick={() => {
+          if (typeof window !== "undefined") {
+            localStorage.setItem("SELECTED_GAME", id);
+          }
+          router.push(`/planner/${id}`);
+        }}
+      >
+        {name}
+      </Title>
       {/* {completed < needed && (
         <ToGetContainer>
           <ToGetIcon>
@@ -187,6 +208,38 @@ export default function GameCard({ game }) {
           </XPData>
         </XPContainer>
       )}
+
+      <PinIcon
+        active={
+          typeof window !== "undefined" &&
+          JSON.parse(
+            localStorage.getItem("GAMES_PINNED") || JSON.stringify([])
+          ).includes(id)
+        }
+        onClick={() => {
+          if (typeof window !== "undefined") {
+            if (!localStorage.getItem("GAMES_PINNED")) {
+              let alreadyPresentGames = [];
+              alreadyPresentGames = [...alreadyPresentGames, id];
+              localStorage.setItem(
+                "GAMES_PINNED",
+                JSON.stringify(alreadyPresentGames)
+              );
+            } else {
+              let alreadyPresentGames = JSON.parse(
+                localStorage.getItem("GAMES_PINNED") || JSON.stringify([])
+              );
+              alreadyPresentGames = [...alreadyPresentGames, id];
+              localStorage.setItem(
+                "GAMES_PINNED",
+                JSON.stringify(alreadyPresentGames)
+              );
+            }
+          }
+        }}
+      >
+        <AiFillPushpin />
+      </PinIcon>
     </Container>
   );
 }
