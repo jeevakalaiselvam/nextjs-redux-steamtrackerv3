@@ -218,22 +218,15 @@ export default function GameCard({ game }) {
         }
         onClick={() => {
           if (typeof window !== "undefined") {
-            if (!localStorage.getItem("GAMES_PINNED")) {
-              let alreadyPresentGames = [];
-              alreadyPresentGames = [...alreadyPresentGames, id];
-              localStorage.setItem(
-                "GAMES_PINNED",
-                JSON.stringify(alreadyPresentGames)
-              );
+            let oldGamesInStorage =
+              localStorage.getItem("GAMES_PINNED") || JSON.stringify([]);
+            let oldGames = JSON.parse(oldGamesInStorage);
+            if (oldGames.includes(id)) {
+              oldGames = oldGames.filter((game) => game !== id);
+              localStorage.setItem("GAMES_PINNED", JSON.stringify(oldGames));
             } else {
-              let alreadyPresentGames = JSON.parse(
-                localStorage.getItem("GAMES_PINNED") || JSON.stringify([])
-              );
-              alreadyPresentGames = [...alreadyPresentGames, id];
-              localStorage.setItem(
-                "GAMES_PINNED",
-                JSON.stringify(alreadyPresentGames)
-              );
+              oldGames = [...oldGames, id];
+              localStorage.setItem("GAMES_PINNED", JSON.stringify(oldGames));
             }
           }
         }}
