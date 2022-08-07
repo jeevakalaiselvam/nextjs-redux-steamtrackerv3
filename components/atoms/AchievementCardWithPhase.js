@@ -355,6 +355,11 @@ export default function AchievementCardWithPhase(props) {
       let ignoredAchievements = JSON.parse(ignoreListInStorage);
       setIgnoreListForGame((old) => ignoredAchievements);
       setIgnoreActive((old) => ignoreListForGame.includes(name));
+      console.log(
+        "IGNORED",
+        ignoredAchievements,
+        ignoreListForGame.includes(name)
+      );
     }
   }, [gameId]);
 
