@@ -1,5 +1,3 @@
-export const XP_FOR_LEVEL = 500;
-
 export const calculateXPFromPercentage = (percentage) => {
   if (percentage <= 5) {
     return 100;
@@ -75,7 +73,9 @@ export const calculateTotalXPForAllGames = (games) => {
   return totalXP;
 };
 
-export const LEVEL_UP_XP = 1000;
+export const LEVEL_UP_XP = 100;
+export const XP_FOR_LEVEL = 100;
+
 export const COMPLETION_TARGET = 0.5;
 export const calculateLevelFromAllGames = (games) => {
   let totalXP = 0;

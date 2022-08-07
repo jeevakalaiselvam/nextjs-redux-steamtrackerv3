@@ -103,6 +103,14 @@ const Text = styled.div`
   font-size: 1.5rem;
 `;
 
+const DownArrow = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem;
+`;
+
 const LevelItem = styled.div`
   display: flex;
   align-items: center;
@@ -152,7 +160,6 @@ const ProfileTrophyProgress = (props) => {
               <Icon>{getIcon("trophy")}</Icon>
               <Text>{Math.floor(totalXPUntilYesterday / XP_FOR_LEVEL)}</Text>
             </LevelItem>
-            <HiOutlineArrowNarrowDown />
             {new Array(
               Math.floor(
                 (totalXPUntilYesterday + totalXPToday) / XP_FOR_LEVEL
@@ -162,6 +169,9 @@ const ProfileTrophyProgress = (props) => {
               .map((level, index) => {
                 return (
                   <>
+                    <DownArrow>
+                      <HiOutlineArrowNarrowDown />
+                    </DownArrow>
                     <LevelItem>
                       <Icon>{getIcon("trophy")}</Icon>
                       <Text>
