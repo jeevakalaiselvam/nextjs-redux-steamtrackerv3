@@ -63,7 +63,8 @@ export default function Achievements({
 
       const filteredAchievements = sortAchievementsByFilterOption(
         searchFilteredAchievements,
-        filterOption
+        filterOption,
+        gameId
       );
 
       setSearchFilteredAchievements((old) => filteredAchievements);
