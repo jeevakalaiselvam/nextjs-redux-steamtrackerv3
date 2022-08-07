@@ -9,13 +9,15 @@ export const sortGamesByFilterOption = (games, filterOption) => {
   let newGames = [];
   switch (filterOption) {
     case GAMES_OPTION_COMPLETION_PINNED:
-      console.log("HERE");
+      newGames = games.sort(
+        (game1, game2) => +game1.completion < +game2.completion
+      );
       let pinnedGames = [];
       if (typeof window !== "undefined") {
         let pinnedGamesInStorage =
           localStorage.getItem(`GAMES_PINNED`) || JSON.stringify([]);
         pinnedGames = JSON.parse(pinnedGamesInStorage);
-        newGames = games.filter((game) => {
+        newGames = newGames.filter((game) => {
           return pinnedGames.includes(game.id);
         });
       } else {

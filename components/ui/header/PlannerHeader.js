@@ -138,9 +138,6 @@ export default function PlannerHeader() {
     const response = await axios.get(`/api/refresh/${gameId}`);
     const gameRefreshedData = response.data.data;
     dispatch(setGameDataRefresh(gameId, gameRefreshedData));
-    setTimeout(() => {
-      router.push(`/planner/${gameId}`);
-    }, 2000);
   };
 
   const steamtracker = useSelector((state) => state.steamtracker);

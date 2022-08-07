@@ -125,7 +125,7 @@ export default function PlannerContent() {
     const game = games.find((game) => game.id == gameId);
     const phaseAddedGames = getPhaseAddedGames(game);
     dispatch(setPhaseAddedGames(phaseAddedGames));
-  }, [gameId]);
+  }, [gameId, games, game]);
 
   const [unlockType, setUnlockType] = useState("TODAY");
 
