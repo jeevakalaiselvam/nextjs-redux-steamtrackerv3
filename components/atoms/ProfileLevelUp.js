@@ -8,6 +8,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { openLinkInNewTab } from "../../helpers/browserHelper";
+import { getIcon } from "../../helpers/iconHelper";
 import {
   calculateLevelFromAllGames,
   calculateTotalXPForAllGames,
@@ -103,9 +104,7 @@ const ProfileLevelUp = (props) => {
         </Header>
         <LevelContainer>
           <CurrentLevel>
-            <XPIcon>
-              <AiFillGold />
-            </XPIcon>
+            <XPIcon>{getIcon("xp")}</XPIcon>
             <XPText>{toNextLevel}</XPText>
           </CurrentLevel>
         </LevelContainer>

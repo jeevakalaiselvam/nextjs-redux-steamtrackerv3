@@ -21,6 +21,7 @@ import {
   XP_FOR_LEVEL,
 } from "../../helpers/xpHelper";
 import { AiFillGold } from "react-icons/ai";
+import { getIcon } from "../../helpers/iconHelper";
 
 const Container = styled.div`
   display: flex;
@@ -148,9 +149,7 @@ const ProfileHistoryTrophies = (props) => {
         </Header>
         <LevelContainer>
           <GoldTrophy>
-            <Icon>
-              <AiFillGold />
-            </Icon>
+            <Icon>{getIcon("xp")}</Icon>
             <Text>
               {Math.floor(
                 todayTrophies.reduce(

@@ -8,6 +8,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { openLinkInNewTab } from "../../helpers/browserHelper";
+import { getIcon } from "../../helpers/iconHelper";
 import {
   calculateLevelFromAllGames,
   calculateTotalXPForAllGames,
@@ -132,9 +133,7 @@ const ProfileTrophies = (props) => {
         </Header>
         <LevelContainer>
           <GoldTrophy>
-            <Icon>
-              <FaTrophy />
-            </Icon>
+            <Icon>{getIcon("trophy")}</Icon>
             <Text>{Math.floor(xpTotal / XP_FOR_LEVEL)}</Text>
           </GoldTrophy>
         </LevelContainer>

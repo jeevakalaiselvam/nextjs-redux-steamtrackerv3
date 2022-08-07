@@ -10,6 +10,7 @@ import { updatePhaseForAchievement } from "../../store/actions/games.actions";
 import { HiChevronDoubleUp, HiMenu } from "react-icons/hi";
 import JournalInput from "./JournalInput";
 import { calculateXPFromPercentage } from "../../helpers/xpHelper";
+import { getIcon } from "../../helpers/iconHelper";
 
 const Container = styled.div`
   display: flex;
@@ -223,6 +224,7 @@ const XPText = styled.div`
   align-items: center;
   justify-content: center;
   margin-right: 0.25rem;
+  color: #f1b51b;
 `;
 
 const XPIcon = styled.div`
@@ -230,6 +232,7 @@ const XPIcon = styled.div`
   align-items: center;
   justify-content: center;
   font-size: 1.75rem;
+  color: #f1b51b;
 `;
 
 export default function AchievementCardWithPhase(props) {
@@ -357,9 +360,7 @@ export default function AchievementCardWithPhase(props) {
         <PhaseContainer show={true}>
           <XPData>
             <XPText>{calculateXPFromPercentage(percentage)}</XPText>
-            <XPIcon>
-              <AiFillGold />
-            </XPIcon>
+            <XPIcon>{getIcon("xp")}</XPIcon>
           </XPData>
           <PhaseItem
             active={phase == ALL}

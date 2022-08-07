@@ -15,6 +15,7 @@ import {
 } from "../../helpers/xpHelper";
 import { useRouter } from "next/router";
 import { AiFillGold } from "react-icons/ai";
+import { getIcon } from "../../helpers/iconHelper";
 
 const Container = styled.div`
   display: flex;
@@ -167,24 +168,20 @@ export default function GameCard({ game }) {
       <Overlay />
       <Image image={HEADER_IMAGE(id)} />
       {completed >= needed && (
-        <CompletionOverlay>
-          <FaTrophy />
-        </CompletionOverlay>
+        <CompletionOverlay>{getIcon("trophy")}</CompletionOverlay>
       )}
       <Title>{name}</Title>
       {/* {completed < needed && (
         <ToGetContainer>
           <ToGetIcon>
-            <FaTrophy />
+            {getIcon("trophy")}
           </ToGetIcon>
           <ToGetData>{toGet}</ToGetData>
         </ToGetContainer>
       )} */}
       {completed <= needed && (
         <XPContainer>
-          <XPIcon>
-            <AiFillGold />
-          </XPIcon>
+          <XPIcon>{getIcon("xp")}</XPIcon>
           <XPData>
             {Math.floor(Math.floor(totalXP * COMPLETION_TARGET) - completedXP)}
           </XPData>

@@ -168,7 +168,7 @@ export default function PlannerHeader() {
         {/* <XPDataContainer>
           <XPContainer>
             <XPIcon>
-              <AiFillGold />
+             {getIcon("xp")}
             </XPIcon>
             <XPData>
               {Math.floor(Math.floor(totalXP * 0.5) - completedXP)}

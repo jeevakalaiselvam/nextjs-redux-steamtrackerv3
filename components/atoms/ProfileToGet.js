@@ -10,6 +10,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { openLinkInNewTab } from "../../helpers/browserHelper";
+import { getIcon } from "../../helpers/iconHelper";
 import {
   calculateLevelFromAllGames,
   calculateTotalXPForAllGames,
@@ -51,6 +52,7 @@ const Title = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100px;
   font-size: 1.5rem;
 `;
 
@@ -130,7 +132,7 @@ const ProfileToGet = (props) => {
           <HiOutlineChevronDoubleUp
             style={{ marginRight: "0.5rem", color: "#6cff5c" }}
           />
-          <Title>REMAINING</Title>
+          <Title>TOTAL</Title>
           <HiOutlineChevronDoubleUp
             style={{ marginLeft: "0.5rem", color: "#6cff5c" }}
           />
@@ -138,9 +140,7 @@ const ProfileToGet = (props) => {
         <LevelContainer>
           <XPContainer>
             <XPData>
-              <XPIcon>
-                <AiFillGold />
-              </XPIcon>
+              <XPIcon>{getIcon("xp")}</XPIcon>
               <XPText>
                 {Math.floor(
                   Math.floor(totalXP * COMPLETION_TARGET) - completedXP

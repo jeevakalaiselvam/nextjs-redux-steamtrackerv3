@@ -1,18 +1,46 @@
-export const XP_FOR_LEVEL = 1000;
+export const XP_FOR_LEVEL = 500;
 
 export const calculateXPFromPercentage = (percentage) => {
   if (percentage <= 5) {
-    return 500;
-  } else if (percentage <= 10 && percentage > 5) {
-    return 250;
-  } else if (percentage <= 25 && percentage > 10) {
     return 100;
-  } else if (percentage <= 50 && percentage > 25) {
+  } else if (percentage <= 10 && percentage > 5) {
+    return 95;
+  } else if (percentage <= 15 && percentage > 10) {
+    return 90;
+  } else if (percentage <= 20 && percentage > 15) {
+    return 85;
+  } else if (percentage <= 25 && percentage > 20) {
+    return 80;
+  } else if (percentage <= 30 && percentage > 25) {
     return 75;
-  } else if (percentage <= 75 && percentage > 50) {
+  } else if (percentage <= 35 && percentage > 30) {
+    return 70;
+  } else if (percentage <= 40 && percentage > 35) {
+    return 65;
+  } else if (percentage <= 45 && percentage > 40) {
+    return 60;
+  } else if (percentage <= 50 && percentage > 45) {
+    return 55;
+  } else if (percentage <= 55 && percentage > 50) {
     return 50;
-  } else {
+  } else if (percentage <= 60 && percentage > 55) {
+    return 45;
+  } else if (percentage <= 65 && percentage > 60) {
+    return 40;
+  } else if (percentage <= 70 && percentage > 70) {
+    return 35;
+  } else if (percentage <= 75 && percentage > 70) {
+    return 30;
+  } else if (percentage <= 80 && percentage > 75) {
     return 25;
+  } else if (percentage <= 85 && percentage > 80) {
+    return 20;
+  } else if (percentage <= 90 && percentage > 85) {
+    return 15;
+  } else if (percentage <= 95 && percentage > 90) {
+    return 10;
+  } else {
+    return 5;
   }
 };
 
