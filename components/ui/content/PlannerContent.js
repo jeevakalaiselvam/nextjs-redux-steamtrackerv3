@@ -272,7 +272,9 @@ export default function PlannerContent() {
           </PhaseContainer>
           <PhaseContainer>
             <SearchContainer>
-              <HeaderContainer>{phase2Title}</HeaderContainer>
+              <HeaderContainer>
+                <PhaseTitle gameId={gameId} phase={2} defaultTitle="EASY" />
+              </HeaderContainer>
               <Search onSearchObtained={phase2SearchObtained} />
             </SearchContainer>
             <Achievements
@@ -288,7 +290,9 @@ export default function PlannerContent() {
           </PhaseContainer>
           <PhaseContainer>
             <SearchContainer>
-              <HeaderContainer>{phase3Title}</HeaderContainer>
+              <HeaderContainer>
+                <PhaseTitle gameId={gameId} phase={3} defaultTitle="HARD" />
+              </HeaderContainer>
               <Search onSearchObtained={phase3SearchObtained} />
             </SearchContainer>
             <Achievements
@@ -304,7 +308,9 @@ export default function PlannerContent() {
           </PhaseContainer>
           <PhaseContainer>
             <SearchContainer>
-              <HeaderContainer>{phase4Title}</HeaderContainer>
+              <HeaderContainer>
+                <PhaseTitle gameId={gameId} phase={4} defaultTitle="GRIND" />
+              </HeaderContainer>
               <Search onSearchObtained={phase4SearchObtained} />
             </SearchContainer>
             <Achievements
@@ -320,7 +326,9 @@ export default function PlannerContent() {
           </PhaseContainer>
           <PhaseContainer>
             <SearchContainer>
-              <HeaderContainer>{phase5Title}</HeaderContainer>
+              <HeaderContainer>
+                <PhaseTitle gameId={gameId} phase={5} defaultTitle="MISSABLE" />
+              </HeaderContainer>
               <Search onSearchObtained={phase5SearchObtained} />
             </SearchContainer>
             <Achievements
