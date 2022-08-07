@@ -265,7 +265,7 @@ export default function AchievementCardWithPhase(props) {
   const { gameName } = props?.gameName || "";
   const currentPhase = props?.phase || "";
   const gameId = props?.gameId || "";
-  const showIgnore = props.showIgnore || false;
+  const showIgnore = props.showIgnore || true;
 
   const steamtracker = useSelector((state) => state.steamtracker);
   const { hiddenGames, games } = steamtracker;
@@ -356,7 +356,7 @@ export default function AchievementCardWithPhase(props) {
       setIgnoreListForGame((old) => ignoredAchievements);
       setIgnoreActive((old) => ignoreListForGame.includes(name));
     }
-  }, [gameId, name]);
+  }, [gameId]);
 
   return (
     <Container>

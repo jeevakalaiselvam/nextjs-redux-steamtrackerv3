@@ -70,7 +70,7 @@ export default function Achievements({
 
       setSearchFilteredAchievements((old) => filteredAchievements);
     }
-  }, [searchTerm, filterOption, game]);
+  }, [searchTerm, filterOption, game, showIgnore]);
 
   return (
     <Container>
