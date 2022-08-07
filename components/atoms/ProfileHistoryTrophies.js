@@ -85,7 +85,7 @@ const Icon = styled.div`
   margin-right: 1rem;
   margin-left: 1rem;
   justify-content: center;
-  font-size: 2rem;
+  font-size: 1.5rem;
 `;
 
 const Text = styled.div`
@@ -149,14 +149,14 @@ const ProfileHistoryTrophies = (props) => {
         </Header>
         <LevelContainer>
           <GoldTrophy>
-            <Icon>{getIcon("xp")}</Icon>
+            <Icon>{getIcon("trophy")}</Icon>
             <Text>
               {Math.floor(
                 todayTrophies.reduce(
                   (acc, trophy) =>
                     acc + calculateXPFromPercentage(trophy.percentage),
                   0
-                )
+                ) / XP_FOR_LEVEL
               )}
             </Text>
           </GoldTrophy>
