@@ -107,6 +107,16 @@ export const getPhaseAddedGames = (game) => {
       }
       return newAchievement;
     });
+    phaseAddedAchievements = phaseAddedAchievements.filter((achievement) => {
+      if (typeof window !== "undefined") {
+        let ignoredAchievementsInStorage =
+          localStorage.getItem(`${game.id}_IGNORE`) || JSON.stringify([]);
+        let ignoredAchievements = JSON.parse(ignoredAchievementsInStorage);
+        if (!ignoredAchievements.includes(achievement.name)) {
+          return true;
+        }
+      }
+    });
     newGame = { ...newGame, achievements: phaseAddedAchievements };
   }
   return newGame;

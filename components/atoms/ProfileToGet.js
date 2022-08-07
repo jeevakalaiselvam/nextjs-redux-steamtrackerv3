@@ -112,6 +112,7 @@ const ProfileToGet = (props) => {
   const dispatch = useDispatch();
   const steamtracker = useSelector((state) => state.steamtracker);
   const { games, planner } = steamtracker;
+  const { phaseAddedGame } = planner;
 
   const router = useRouter();
   const { gameId } = router.query;
@@ -119,7 +120,7 @@ const ProfileToGet = (props) => {
   const game = games.find((game) => game.id == gameId);
   const { id, playtime, name, version, achievements, completion, toGet } = game;
 
-  const xpData = getAllXPFromAchievements(achievements);
+  const xpData = getAllXPFromAchievements(phaseAddedGame.achievements);
   const { totalXP, completedXP, remainingXP } = xpData;
 
   const completed = completedXP / XP_FOR_LEVEL;

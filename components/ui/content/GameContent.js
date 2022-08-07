@@ -46,6 +46,7 @@ export default function GameContent() {
         game={game}
         filterOption={filterOption}
         searchTerm={searchTerm}
+        showIgnore={true}
       />
     </Container>
   );

@@ -262,6 +262,7 @@ export default function PlannerContent() {
               searchTerm={phase1Search}
               showPhase={true}
               phase={ALL}
+              showIgnore={false}
             />
           </PhaseContainer>
           <PhaseContainer>
@@ -280,6 +281,7 @@ export default function PlannerContent() {
               searchTerm={phase2Search}
               showPhase={true}
               phase={EASY}
+              showIgnore={false}
             />
           </PhaseContainer>
           <PhaseContainer>
@@ -298,6 +300,7 @@ export default function PlannerContent() {
               searchTerm={phase3Search}
               showPhase={true}
               phase={HARD}
+              showIgnore={false}
             />
           </PhaseContainer>
           <PhaseContainer>
@@ -316,6 +319,7 @@ export default function PlannerContent() {
               searchTerm={phase4Search}
               showPhase={true}
               phase={GRIND}
+              showIgnore={false}
             />
           </PhaseContainer>
           <PhaseContainer>
@@ -334,6 +338,7 @@ export default function PlannerContent() {
               searchTerm={phase5Search}
               showPhase={true}
               phase={MISSABLE}
+              showIgnore={false}
             />
           </PhaseContainer>
           <PhaseContainer>
@@ -376,6 +381,7 @@ export default function PlannerContent() {
               searchTerm={phase6Search}
               showPhase={false}
               phase={UNLOCKED}
+              showIgnore={false}
             />
           </PhaseContainer>
         </>

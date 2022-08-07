@@ -53,7 +53,7 @@ export default function GamesPageMenu() {
         <MenuItemContainer>
           <MenuItem
             to={`/games/${selectedGame}`}
-            title="Ongoing"
+            title="Planner"
             icon={<HiChartBar />}
           />
         </MenuItemContainer>
@@ -61,7 +61,7 @@ export default function GamesPageMenu() {
       <MenuItemContainer>
         <MenuItem
           to={`/planner/${selectedGame}`}
-          title="Planner"
+          title="Kanban"
           icon={<HiChartBar />}
         />
       </MenuItemContainer>
