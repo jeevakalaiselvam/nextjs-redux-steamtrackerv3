@@ -35,6 +35,7 @@ import {
   getPhaseFiltedAchievements,
   searchFilteredAchievements,
 } from "../../../helpers/achievementHelper";
+import PhaseTitle from "../../atoms/PhaseTitle";
 
 const Container = styled.div`
   display: flex;
@@ -241,13 +242,21 @@ export default function PlannerContent() {
     dispatch(setPhase6Search(searchTerm));
   };
 
+  const [phase1Title, setPhase1Title] = useState("");
+  const [phase2Title, setPhase2Title] = useState("");
+  const [phase3Title, setPhase3Title] = useState("");
+  const [phase4Title, setPhase4Title] = useState("");
+  const [phase5Title, setPhase5Title] = useState("");
+
   return (
     <Container>
       {phaseAddedGame && (
         <>
           <PhaseContainer>
             <SearchContainer>
-              <HeaderContainer>ALL</HeaderContainer>
+              <HeaderContainer>
+                <PhaseTitle gameId={gameId} phase={1} defaultTitle="ALL" />
+              </HeaderContainer>
               <Search onSearchObtained={phase1SearchObtained} />
             </SearchContainer>
             <Achievements
@@ -263,7 +272,7 @@ export default function PlannerContent() {
           </PhaseContainer>
           <PhaseContainer>
             <SearchContainer>
-              <HeaderContainer>EASY</HeaderContainer>
+              <HeaderContainer>{phase2Title}</HeaderContainer>
               <Search onSearchObtained={phase2SearchObtained} />
             </SearchContainer>
             <Achievements
@@ -279,7 +288,7 @@ export default function PlannerContent() {
           </PhaseContainer>
           <PhaseContainer>
             <SearchContainer>
-              <HeaderContainer>HARD</HeaderContainer>
+              <HeaderContainer>{phase3Title}</HeaderContainer>
               <Search onSearchObtained={phase3SearchObtained} />
             </SearchContainer>
             <Achievements
@@ -295,7 +304,7 @@ export default function PlannerContent() {
           </PhaseContainer>
           <PhaseContainer>
             <SearchContainer>
-              <HeaderContainer>GRIND</HeaderContainer>
+              <HeaderContainer>{phase4Title}</HeaderContainer>
               <Search onSearchObtained={phase4SearchObtained} />
             </SearchContainer>
             <Achievements
@@ -311,7 +320,7 @@ export default function PlannerContent() {
           </PhaseContainer>
           <PhaseContainer>
             <SearchContainer>
-              <HeaderContainer>MISSABLE</HeaderContainer>
+              <HeaderContainer>{phase5Title}</HeaderContainer>
               <Search onSearchObtained={phase5SearchObtained} />
             </SearchContainer>
             <Achievements
