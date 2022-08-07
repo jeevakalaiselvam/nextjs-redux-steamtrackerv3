@@ -44,17 +44,19 @@ export default function Achievements({
         if (searchTerm == "") {
           return true;
         } else {
-          if (
-            achievement.displayName
-              .toLowerCase()
-              .trim()
-              .includes(searchTerm.toLowerCase().trim()) ||
-            achievement.description
-              .toLowerCase()
-              .trim()
-              .includes(searchTerm.toLowerCase().trim())
-          ) {
-            return true;
+          if (achievement?.displayName && achievement?.description) {
+            if (
+              achievement.displayName
+                .toLowerCase()
+                .trim()
+                .includes(searchTerm.toLowerCase().trim()) ||
+              achievement.description
+                .toLowerCase()
+                .trim()
+                .includes(searchTerm.toLowerCase().trim())
+            ) {
+              return true;
+            }
           }
         }
       });
