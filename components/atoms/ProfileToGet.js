@@ -132,7 +132,7 @@ const ProfileToGet = (props) => {
           <HiOutlineChevronDoubleUp
             style={{ marginRight: "0.5rem", color: "#6cff5c" }}
           />
-          <Title>TOTAL</Title>
+          <Title>REMAINING</Title>
           <HiOutlineChevronDoubleUp
             style={{ marginLeft: "0.5rem", color: "#6cff5c" }}
           />
@@ -144,7 +144,11 @@ const ProfileToGet = (props) => {
               <XPText>
                 {Math.floor(
                   Math.floor(totalXP * COMPLETION_TARGET) - completedXP
-                )}
+                ) < 0
+                  ? 0
+                  : Math.floor(
+                      Math.floor(totalXP * COMPLETION_TARGET) - completedXP
+                    )}
               </XPText>
             </XPData>
           </XPContainer>

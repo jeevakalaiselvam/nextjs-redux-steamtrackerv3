@@ -131,6 +131,19 @@ export const getaUnlockedAchievementsByType = (achievements, type) => {
       );
     }
 
+    if (type == "UNTILYESTERDAY") {
+      let date = new Date();
+      date.setHours(0, 0, 0, 0);
+      date.setDate(date.getDate() - 1);
+      let timeUTC;
+      timeUTC = date.getTime() / 1000;
+
+      newAchievements = achievements.filter(
+        (achievement) =>
+          achievement.achieved == 1 && achievement.unlocktime <= timeUTC
+      );
+    }
+
     if (type == "WEEK") {
       let date = new Date();
       date.setHours(0, 0, 0, 0);
@@ -189,6 +202,41 @@ export const getaUnlockedAchievementsByRecent30Days = (achievements) => {
   }
 
   return achievementMapper;
+};
+
+export const getAllUnlockedAchievementsTodayAndYesterday = (games) => {
+  let unlockedAchievements = [];
+  if (games.length) {
+    games.forEach((game) => {
+      game.achievements.forEach((achievement) => {
+        if (achievement.achieved == 1) {
+          unlockedAchievements.push(achievement);
+        }
+      });
+    });
+
+    unlockedAchievements = unlockedAchievements.sort(
+      (ach1, ach2) => +ach1.unlocktime < +ach2.unlocktime
+    );
+  }
+  console.log(
+    "YESTERDAY",
+    getaUnlockedAchievementsByType(unlockedAchievements, "YESTERDAY")
+  );
+  console.log(
+    "TODAY",
+    getaUnlockedAchievementsByType(unlockedAchievements, "TODAY")
+  );
+  return {
+    allAchievementsToday: getaUnlockedAchievementsByType(
+      unlockedAchievements,
+      "TODAY"
+    ),
+    allAchievementsYesterday: getaUnlockedAchievementsByType(
+      unlockedAchievements,
+      "UNTILYESTERDAY"
+    ),
+  };
 };
 
 export const getAllUnlockedAchievements = (games) => {

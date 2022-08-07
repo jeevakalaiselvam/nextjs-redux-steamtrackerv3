@@ -94,14 +94,13 @@ const DataContainer = styled.div`
 const Title = styled.div`
   display: flex;
   flex: 1;
-  max-width: 150px;
+  max-width: 200px;
   align-self: flex-start;
   padding: 0.5rem;
   flex-direction: row;
   align-items: flex-start;
   justify-content: flex-start;
   font-size: 1.5rem;
-  word-wrap: break-word;
 
   &:hover {
     color: #ffffff;
@@ -319,7 +318,7 @@ export default function AchievementCardWithPhase(props) {
               }
             }}
           >
-            {displayName}
+            {displayName.slice(0, 50) + (displayName.length > 50 ? "..." : "")}
           </Title>
           <Description>
             {(description && description.slice(0, 74) + "...") ||
