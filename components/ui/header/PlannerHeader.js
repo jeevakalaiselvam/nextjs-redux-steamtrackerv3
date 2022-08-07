@@ -36,7 +36,7 @@ const FilterContainer = styled.div`
   display: flex;
   align-items: center;
   flex: 1;
-  justify-content: center;
+  justify-content: flex-start;
   width: 100%;
 `;
 
@@ -138,6 +138,9 @@ export default function PlannerHeader() {
     const response = await axios.get(`/api/refresh/${gameId}`);
     const gameRefreshedData = response.data.data;
     dispatch(setGameDataRefresh(gameId, gameRefreshedData));
+    setTimeout(() => {
+      router.push(`/planner/${gameId}`);
+    }, 2000);
   };
 
   const steamtracker = useSelector((state) => state.steamtracker);
@@ -165,6 +168,10 @@ export default function PlannerHeader() {
   return (
     <Container>
       <FilterContainer>
+        <ResetContainer onClick={resetButtonClickHandler}>
+          <HiXCircle />
+          <RefreshText>RESET BOARD</RefreshText>
+        </ResetContainer>
         {/* <XPDataContainer>
           <XPContainer>
             <XPIcon>
@@ -181,10 +188,6 @@ export default function PlannerHeader() {
           <TbRefresh />
           <RefreshText>REFRESH</RefreshText>
         </RefreshContainer>
-        <ResetContainer onClick={resetButtonClickHandler}>
-          <HiXCircle />
-          <RefreshText>RESET BOARD</RefreshText>
-        </ResetContainer>
       </SearchContainer>
     </Container>
   );
