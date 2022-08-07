@@ -242,12 +242,6 @@ export default function PlannerContent() {
     dispatch(setPhase6Search(searchTerm));
   };
 
-  const [phase1Title, setPhase1Title] = useState("");
-  const [phase2Title, setPhase2Title] = useState("");
-  const [phase3Title, setPhase3Title] = useState("");
-  const [phase4Title, setPhase4Title] = useState("");
-  const [phase5Title, setPhase5Title] = useState("");
-
   return (
     <Container>
       {phaseAddedGame && (

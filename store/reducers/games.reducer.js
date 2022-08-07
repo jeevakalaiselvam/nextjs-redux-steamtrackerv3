@@ -1,3 +1,4 @@
+import { getPhaseFiltedAchievements } from "../../helpers/achievementHelper";
 import {
   GAMES_OPTION_COMPLETION_DESC,
   GAMES_OPTION_COMPLETION_STARTED,
@@ -8,6 +9,7 @@ import {
 } from "../../helpers/filterHelper";
 import {
   addHiddenToGames,
+  ALL,
   refreshGameDataByGameId,
   updateAchievementPhaseForGame,
 } from "../../helpers/gameHelper";
@@ -35,6 +37,7 @@ import {
   SET_PHASE6_ACHIEVEMENTS,
   SET_PHASE_ADDED_GAME,
   UPDATE_PHASE_ACHIEVEMENT,
+  RESET_KANBAN_BOARD,
 } from "../types/games.types";
 
 const INITIAL_STATE = {
@@ -297,6 +300,15 @@ const reducer = (state = INITIAL_STATE, action) => {
         planner: {
           ...state.planner,
           phase6Search: payload,
+        },
+      };
+
+    case RESET_KANBAN_BOARD:
+      return {
+        ...state,
+        planner: {
+          ...state.planner,
+          phaseAddedGame: payload.newPhaseAddedGame,
         },
       };
 

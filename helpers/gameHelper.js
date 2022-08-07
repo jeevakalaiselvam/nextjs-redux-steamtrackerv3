@@ -70,11 +70,11 @@ export const refreshGameDataByGameId = (games, gameId, gameRefreshedData) => {
   return newGames;
 };
 
-export const ALL = "ALL";
-export const EASY = "EASY";
-export const HARD = "HARD";
-export const GRIND = "GRIND";
-export const MISSABLE = "MISSABLE";
+export const ALL = "1";
+export const EASY = "2";
+export const HARD = "3";
+export const GRIND = "4";
+export const MISSABLE = "5";
 export const UNLOCKED = "UNLOCKED";
 
 export const getPhaseAddedGames = (game) => {

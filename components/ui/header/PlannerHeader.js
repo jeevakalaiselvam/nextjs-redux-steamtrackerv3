@@ -5,6 +5,7 @@ import { FILTER_OPTIONS_GAME_PAGE } from "../../../helpers/filterHelper";
 import {
   changeGamePageFilterOption,
   changeGamePageSearchTerm,
+  resetKanbanBoard,
   setGameDataRefresh,
 } from "../../../store/actions/games.actions";
 import Filter from "../../atoms/Filter";
@@ -17,6 +18,8 @@ import {
   getAllXPFromAchievements,
   XP_FOR_LEVEL,
 } from "../../../helpers/xpHelper";
+import { HiViewBoards, HiXCircle } from "react-icons/hi";
+import { ALL } from "../../../helpers/gameHelper";
 
 const Container = styled.div`
   display: flex;
@@ -54,7 +57,26 @@ const RefreshContainer = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  width: 100px;
+  width: 150px;
+  padding: 0.5rem;
+  color: #fefefe;
+  cursor: pointer;
+  background-color: rgba(48, 73, 209, 0.8);
+  backdrop-filter: blur(6px);
+  margin-left: 1rem;
+
+  &:hover {
+    background-color: rgba(30, 51, 166, 0.8);
+    backdrop-filter: blur(6px);
+  }
+`;
+
+const ResetContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
   padding: 0.5rem;
   color: #fefefe;
   cursor: pointer;
@@ -119,6 +141,21 @@ export default function PlannerHeader() {
 
   const steamtracker = useSelector((state) => state.steamtracker);
   const { games, planner } = steamtracker;
+  const { phaseAddedGame } = planner;
+
+  const resetButtonClickHandler = async () => {
+    if (games) {
+      const game = games.find((game) => game.id == gameId);
+      if (game) {
+        game.achievements.forEach((achievement) => {
+          if (typeof window !== "undefined") {
+            localStorage.setItem(`${gameId}_${achievement.name}_PHASE`, ALL);
+          }
+        });
+        dispatch(resetKanbanBoard(gameId, game, phaseAddedGame));
+      }
+    }
+  };
 
   return (
     <Container>
@@ -140,6 +177,10 @@ export default function PlannerHeader() {
           <TbRefresh />
           <RefreshText>REFRESH</RefreshText>
         </RefreshContainer>
+        <ResetContainer onClick={resetButtonClickHandler}>
+          <HiXCircle />
+          <RefreshText>RESET BOARD</RefreshText>
+        </ResetContainer>
       </SearchContainer>
     </Container>
   );

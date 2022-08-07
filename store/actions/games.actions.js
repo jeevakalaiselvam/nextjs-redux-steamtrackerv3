@@ -23,8 +23,11 @@ import {
   SET_PHASE4_SEARCH,
   SET_PHASE5_SEARCH,
   SET_PHASE6_SEARCH,
+  RESET_KANBAN_BOARD,
 } from "../types/games.types";
 import axios from "axios";
+import { getPhaseFiltedAchievements } from "../../helpers/achievementHelper";
+import { ALL } from "../../helpers/gameHelper";
 
 export const fetchAllGames = () => {
   return (dispatch) => {
@@ -200,5 +203,34 @@ export const changeGamePageFilterOption = (filterOption) => {
 export const changeGamePageSearchTerm = (searchTerm) => {
   return (dispatch) => {
     return dispatch({ type: GAME_SEARCH_CHANGED, payload: searchTerm });
+  };
+};
+
+export const resetKanbanBoard = (gameId, game, phaseAddedGame) => {
+  return (dispatch) => {
+    game.achievements.forEach((achievement) => {
+      if (typeof window !== "undefined") {
+        localStorage.setItem(`${gameId}_${achievement.name}_PHASE`, ALL);
+      }
+    });
+
+    const achievementForPhaseAddedGame = phaseAddedGame.achievements.map(
+      (achievement) => {
+        const newAchievement = { ...achievement, phase: ALL };
+
+        return newAchievement;
+      }
+    );
+
+    const newPhaseAddedGame = {
+      ...phaseAddedGame,
+      achievements: achievementForPhaseAddedGame,
+    };
+
+    console.log("NEW PHASE ADDED GAME", newPhaseAddedGame);
+    return dispatch({
+      type: RESET_KANBAN_BOARD,
+      payload: { newPhaseAddedGame },
+    });
   };
 };
