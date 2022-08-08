@@ -28,6 +28,7 @@ export default function Achievements({
   showPhase,
   phase,
   showIgnore,
+  totalXP,
 }) {
   const { achievements, hiddenAchievements, name } = game || {
     hiddenAchievements: [],

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaCheck } from "react-icons/fa";
 import styled from "styled-components";
+import { getIcon } from "../../helpers/iconHelper";
 
 const Container = styled.div`
   display: flex;
@@ -10,6 +11,32 @@ const Container = styled.div`
 `;
 
 const Title = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const TitleIcon = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 1rem;
+  color: #f1b51b;
+`;
+
+const Icon = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const IconCount = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const TitleData = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -50,7 +77,7 @@ const EditSave = styled.div`
   padding: 0.5rem;
 `;
 
-export default function PhaseTitle({ gameId, phase, defaultTitle }) {
+export default function PhaseTitle({ gameId, phase, defaultTitle, totalXP }) {
   const [editModeActive, setEditModeActive] = useState(false);
   const [titleData, setTitleData] = useState("");
 
@@ -90,7 +117,11 @@ export default function PhaseTitle({ gameId, phase, defaultTitle }) {
             setEditModeActive((old) => true);
           }}
         >
-          {titleData}
+          <TitleData>{titleData}</TitleData>
+          <TitleIcon>
+            <Icon>{getIcon("xp")}</Icon>
+            <IconCount>{JSON.stringify(totalXP)}</IconCount>
+          </TitleIcon>
         </Title>
       )}
       {editModeActive && (

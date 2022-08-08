@@ -36,6 +36,11 @@ import {
   searchFilteredAchievements,
 } from "../../../helpers/achievementHelper";
 import PhaseTitle from "../../atoms/PhaseTitle";
+import {
+  calculateTotalXPForAllGames,
+  getAllXPFromAchievements,
+  getXPFromAchievements,
+} from "../../../helpers/xpHelper";
 
 const Container = styled.div`
   display: flex;
@@ -249,7 +254,12 @@ export default function PlannerContent() {
           <PhaseContainer>
             <SearchContainer>
               <HeaderContainer>
-                <PhaseTitle gameId={gameId} phase={1} defaultTitle="ALL" />
+                <PhaseTitle
+                  gameId={gameId}
+                  phase={1}
+                  defaultTitle="ALL"
+                  totalXP={getXPFromAchievements(phase1Achievements)}
+                />
               </HeaderContainer>
               <Search onSearchObtained={phase1SearchObtained} />
             </SearchContainer>
@@ -268,7 +278,12 @@ export default function PlannerContent() {
           <PhaseContainer>
             <SearchContainer>
               <HeaderContainer>
-                <PhaseTitle gameId={gameId} phase={2} defaultTitle="EASY" />
+                <PhaseTitle
+                  gameId={gameId}
+                  phase={2}
+                  defaultTitle="EASY"
+                  totalXP={getXPFromAchievements(phase2Achievements)}
+                />
               </HeaderContainer>
               <Search onSearchObtained={phase2SearchObtained} />
             </SearchContainer>
@@ -287,7 +302,12 @@ export default function PlannerContent() {
           <PhaseContainer>
             <SearchContainer>
               <HeaderContainer>
-                <PhaseTitle gameId={gameId} phase={3} defaultTitle="HARD" />
+                <PhaseTitle
+                  gameId={gameId}
+                  phase={3}
+                  defaultTitle="HARD"
+                  totalXP={getXPFromAchievements(phase3Achievements)}
+                />
               </HeaderContainer>
               <Search onSearchObtained={phase3SearchObtained} />
             </SearchContainer>
@@ -306,7 +326,12 @@ export default function PlannerContent() {
           <PhaseContainer>
             <SearchContainer>
               <HeaderContainer>
-                <PhaseTitle gameId={gameId} phase={4} defaultTitle="GRIND" />
+                <PhaseTitle
+                  gameId={gameId}
+                  phase={4}
+                  defaultTitle="GRIND"
+                  totalXP={getXPFromAchievements(phase4Achievements)}
+                />
               </HeaderContainer>
               <Search onSearchObtained={phase4SearchObtained} />
             </SearchContainer>
@@ -325,7 +350,12 @@ export default function PlannerContent() {
           <PhaseContainer>
             <SearchContainer>
               <HeaderContainer>
-                <PhaseTitle gameId={gameId} phase={5} defaultTitle="MISSABLE" />
+                <PhaseTitle
+                  gameId={gameId}
+                  phase={5}
+                  defaultTitle="MISSABLE"
+                  totalXP={getXPFromAchievements(phase5Achievements)}
+                />
               </HeaderContainer>
               <Search onSearchObtained={phase5SearchObtained} />
             </SearchContainer>

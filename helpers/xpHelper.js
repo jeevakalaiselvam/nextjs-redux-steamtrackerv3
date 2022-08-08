@@ -42,6 +42,16 @@ export const calculateXPFromPercentage = (percentage) => {
   }
 };
 
+export const getXPFromAchievements = (achievements) => {
+  let totalXP = 0;
+  if (achievements) {
+    achievements.forEach((achievement) => {
+      totalXP = totalXP + +calculateXPFromPercentage(+achievement.percentage);
+    });
+  }
+  return totalXP;
+};
+
 export const getAllXPFromAchievements = (achievements) => {
   let xpData = { totalXP: 0, completedXP: 0, remainingXP: 0 };
   let { totalXP, completedXP, remainingXP } = xpData;
