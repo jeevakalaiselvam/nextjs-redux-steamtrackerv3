@@ -124,24 +124,30 @@ const ProfileTrophyProgress = (props) => {
   const dispatch = useDispatch();
   const steamtracker = useSelector((state) => state.steamtracker);
   const { games, planner } = steamtracker;
+  const { phaseAddedGames } = planner;
 
   const { xpTotal, currentLevel, toNextLevel } =
     calculateLevelFromAllGames(games);
 
-  const { allAchievementsToday } =
-    getAllUnlockedAchievementsTodayAndYesterday(games);
-  const { allAchievementsYesterday } =
-    getAllUnlockedAchievementsTodayAndYesterday(games);
+  let totalXPToday = 0;
+  let totalXPUntilYesterday = 0;
 
-  const totalXPToday = allAchievementsToday.reduce((acc, achievement) => {
-    return acc + calculateXPFromPercentage(achievement.percentage);
-  }, 0);
-  const totalXPUntilYesterday = allAchievementsYesterday.reduce(
-    (acc, achievement) => {
+  if (games) {
+    const { allAchievementsToday } =
+      getAllUnlockedAchievementsTodayAndYesterday(games);
+    const { allAchievementsYesterday } =
+      getAllUnlockedAchievementsTodayAndYesterday(games);
+
+    totalXPToday = allAchievementsToday.reduce((acc, achievement) => {
       return acc + calculateXPFromPercentage(achievement.percentage);
-    },
-    0
-  );
+    }, 0);
+    totalXPUntilYesterday = allAchievementsYesterday.reduce(
+      (acc, achievement) => {
+        return acc + calculateXPFromPercentage(achievement.percentage);
+      },
+      0
+    );
+  }
 
   return (
     <Container onClick={() => {}}>
@@ -161,6 +167,7 @@ const ProfileTrophyProgress = (props) => {
               <Icon>{getIcon("trophy")}</Icon>
               <Text>{Math.floor(totalXPUntilYesterday / XP_FOR_LEVEL)}</Text>
             </LevelItem>
+
             {new Array(
               Math.floor(
                 (totalXPUntilYesterday + totalXPToday) / XP_FOR_LEVEL

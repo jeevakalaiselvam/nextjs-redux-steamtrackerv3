@@ -157,7 +157,7 @@ export const getaUnlockedAchievementsByType = (achievements, type) => {
     if (type == "UNTILYESTERDAY") {
       let date = new Date();
       date.setHours(0, 0, 0, 0);
-      date.setDate(date.getDate() - 1);
+      date.setDate(date.getDate());
       let timeUTC;
       timeUTC = date.getTime() / 1000;
 
@@ -267,4 +267,8 @@ export const getAllUnlockedAchievements = (games) => {
     );
   }
   return unlockedAchievements;
+};
+
+export const removeIgnoredAchievements = (games) => {
+  return games;
 };

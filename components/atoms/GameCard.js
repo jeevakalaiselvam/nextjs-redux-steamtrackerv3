@@ -167,7 +167,18 @@ const PinIcon = styled.div`
 export default function GameCard({ game }) {
   const { id, playtime, name, version, achievements, completion, toGet } = game;
 
-  const xpData = getAllXPFromAchievements(achievements);
+  let newAchievements = achievements.filter((achievement) => {
+    if (typeof window !== "undefined") {
+      let ignoredAchievementsInStorage =
+        localStorage.getItem(`${id}_IGNORE`) || JSON.stringify([]);
+      let ignoredAchievements = JSON.parse(ignoredAchievementsInStorage);
+      if (!ignoredAchievements.includes(achievement.name)) {
+        return true;
+      }
+    }
+  });
+
+  const xpData = getAllXPFromAchievements(newAchievements);
   const { totalXP, completedXP, remainingXP } = xpData;
 
   const router = useRouter();

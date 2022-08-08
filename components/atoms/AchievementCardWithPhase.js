@@ -327,7 +327,6 @@ export default function AchievementCardWithPhase(props) {
           `${gameId}_IGNORE`,
           JSON.stringify(ignoredAchievements)
         );
-        setIgnoreListForGame((old) => ignoredAchievements);
         setIgnoreActive((old) => false);
       } else {
         let ignoreListInStorage =
@@ -339,13 +338,11 @@ export default function AchievementCardWithPhase(props) {
           `${gameId}_IGNORE`,
           JSON.stringify(ignoredAchievements)
         );
-        setIgnoreListForGame((old) => ignoredAchievements);
         setIgnoreActive((old) => true);
       }
     }
   };
 
-  const [ignoreListForGame, setIgnoreListForGame] = useState([]);
   const [ignoreActive, setIgnoreActive] = useState(false);
 
   useEffect(() => {
@@ -353,15 +350,18 @@ export default function AchievementCardWithPhase(props) {
       let ignoreListInStorage =
         localStorage.getItem(`${gameId}_IGNORE`) || JSON.stringify([]);
       let ignoredAchievements = JSON.parse(ignoreListInStorage);
-      setIgnoreListForGame((old) => ignoredAchievements);
-      setIgnoreActive((old) => ignoreListForGame.includes(name));
-      console.log(
-        "IGNORED",
-        ignoredAchievements,
-        ignoreListForGame.includes(name)
-      );
+      setIgnoreActive((old) => ignoredAchievements.includes(name));
     }
-  }, [gameId]);
+  }, [gameId, name]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      let ignoreListInStorage =
+        localStorage.getItem(`${gameId}_IGNORE`) || JSON.stringify([]);
+      let ignoredAchievements = JSON.parse(ignoreListInStorage);
+      setIgnoreActive((old) => ignoredAchievements.includes(name));
+    }
+  }, []);
 
   return (
     <Container>
