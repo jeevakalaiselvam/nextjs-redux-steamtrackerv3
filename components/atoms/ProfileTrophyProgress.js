@@ -91,7 +91,6 @@ const Icon = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  margin-right: 1rem;
   justify-content: center;
   font-size: 1.5rem;
 `;
@@ -167,7 +166,7 @@ const ProfileTrophyProgress = (props) => {
         <LevelContainer>
           <GoldTrophy>
             <LevelItem>
-              <Icon>{getIcon("trophy")}</Icon>
+              <Icon style={{ marginRight: "1rem" }}>{getIcon("trophy")}</Icon>
               <Text>{Math.floor(totalXPUntilYesterday / XP_FOR_LEVEL)}</Text>
             </LevelItem>
 
@@ -184,7 +183,9 @@ const ProfileTrophyProgress = (props) => {
                       <TbArrowNarrowDown />
                     </DownArrow>
                     <LevelItem>
-                      <Icon>{getIcon("trophy")}</Icon>
+                      <Icon style={{ marginRight: "1rem" }}>
+                        {getIcon("trophy")}
+                      </Icon>
                       <Text>
                         {" "}
                         {Math.floor(totalXPUntilYesterday / XP_FOR_LEVEL) +

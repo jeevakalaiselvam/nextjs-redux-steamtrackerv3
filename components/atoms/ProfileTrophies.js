@@ -84,7 +84,6 @@ const Icon = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  margin-right: 1rem;
   justify-content: center;
   font-size: 1.5rem;
 `;
@@ -127,14 +126,20 @@ const ProfileTrophies = (props) => {
           <HiOutlineChevronDoubleUp
             style={{ marginRight: "0.5rem", color: "#6cff5c" }}
           />
-          <Title>TROPHIES</Title>
+          <Title>LEVEL</Title>
           <HiOutlineChevronDoubleUp
             style={{ marginLeft: "0.5rem", color: "#6cff5c" }}
           />
         </Header>
         <LevelContainer>
           <GoldTrophy>
-            <Icon>{getIcon("trophy")}</Icon>
+            <Icon
+              style={{
+                marginRight: "1rem",
+              }}
+            >
+              {getIcon("trophy")}
+            </Icon>
             <Text>{Math.floor(xpTotal / XP_FOR_LEVEL)}</Text>
           </GoldTrophy>
         </LevelContainer>
