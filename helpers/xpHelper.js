@@ -25,7 +25,7 @@ export const calculateXPFromPercentage = (percentage) => {
     return 45;
   } else if (percentage <= 65 && percentage > 60) {
     return 40;
-  } else if (percentage <= 70 && percentage > 70) {
+  } else if (percentage <= 70 && percentage > 65) {
     return 35;
   } else if (percentage <= 75 && percentage > 70) {
     return 30;
@@ -85,8 +85,8 @@ export const calculateTotalXPForAllGames = (games) => {
   return totalXP;
 };
 
-export const LEVEL_UP_XP = 250;
-export const XP_FOR_LEVEL = 250;
+export const LEVEL_UP_XP = 100;
+export const XP_FOR_LEVEL = 100;
 
 export const COMPLETION_TARGET = 1;
 export const calculateLevelFromAllGames = (games) => {

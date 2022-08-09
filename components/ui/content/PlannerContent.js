@@ -34,6 +34,7 @@ import {
   getaUnlockedAchievementsByType,
   getPhaseFiltedAchievements,
   searchFilteredAchievements,
+  sortAchievementsByFilterOption,
 } from "../../../helpers/achievementHelper";
 import PhaseTitle from "../../atoms/PhaseTitle";
 import {
@@ -258,7 +259,13 @@ export default function PlannerContent() {
                   gameId={gameId}
                   phase={1}
                   defaultTitle="ALL"
-                  totalXP={getXPFromAchievements(phase1Achievements)}
+                  totalXP={getXPFromAchievements(
+                    sortAchievementsByFilterOption(
+                      phase1Achievements,
+                      phase1Filter,
+                      gameId
+                    )
+                  )}
                 />
               </HeaderContainer>
               <Search onSearchObtained={phase1SearchObtained} />
@@ -282,7 +289,13 @@ export default function PlannerContent() {
                   gameId={gameId}
                   phase={2}
                   defaultTitle="EASY"
-                  totalXP={getXPFromAchievements(phase2Achievements)}
+                  totalXP={getXPFromAchievements(
+                    sortAchievementsByFilterOption(
+                      phase2Achievements,
+                      phase2Filter,
+                      gameId
+                    )
+                  )}
                 />
               </HeaderContainer>
               <Search onSearchObtained={phase2SearchObtained} />
@@ -306,7 +319,13 @@ export default function PlannerContent() {
                   gameId={gameId}
                   phase={3}
                   defaultTitle="HARD"
-                  totalXP={getXPFromAchievements(phase3Achievements)}
+                  totalXP={getXPFromAchievements(
+                    sortAchievementsByFilterOption(
+                      phase3Achievements,
+                      phase3Filter,
+                      gameId
+                    )
+                  )}
                 />
               </HeaderContainer>
               <Search onSearchObtained={phase3SearchObtained} />
@@ -330,7 +349,13 @@ export default function PlannerContent() {
                   gameId={gameId}
                   phase={4}
                   defaultTitle="GRIND"
-                  totalXP={getXPFromAchievements(phase4Achievements)}
+                  totalXP={getXPFromAchievements(
+                    sortAchievementsByFilterOption(
+                      phase4Achievements,
+                      phase4Filter,
+                      gameId
+                    )
+                  )}
                 />
               </HeaderContainer>
               <Search onSearchObtained={phase4SearchObtained} />
@@ -354,7 +379,13 @@ export default function PlannerContent() {
                   gameId={gameId}
                   phase={5}
                   defaultTitle="MISSABLE"
-                  totalXP={getXPFromAchievements(phase5Achievements)}
+                  totalXP={getXPFromAchievements(
+                    sortAchievementsByFilterOption(
+                      phase5Achievements,
+                      phase5Filter,
+                      gameId
+                    )
+                  )}
                 />
               </HeaderContainer>
               <Search onSearchObtained={phase5SearchObtained} />
