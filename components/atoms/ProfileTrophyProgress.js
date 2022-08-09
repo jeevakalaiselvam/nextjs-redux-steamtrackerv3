@@ -21,6 +21,7 @@ import {
   calculateXPFromPercentage,
   XP_FOR_LEVEL,
 } from "../../helpers/xpHelper";
+import { TbArrowNarrowDown } from "react-icons/tb";
 
 const Container = styled.div`
   display: flex;
@@ -109,7 +110,9 @@ const DownArrow = styled.div`
   flex-direction: column;
   justify-content: center;
   padding: 1rem;
-  font-size: 1.5rem;
+  color: #b0bec5;
+  margin-left: 1.5rem;
+  font-size: 1.75rem;
 `;
 
 const LevelItem = styled.div`
@@ -178,7 +181,7 @@ const ProfileTrophyProgress = (props) => {
                 return (
                   <>
                     <DownArrow>
-                      <HiOutlineArrowNarrowDown />
+                      <TbArrowNarrowDown />
                     </DownArrow>
                     <LevelItem>
                       <Icon>{getIcon("trophy")}</Icon>
