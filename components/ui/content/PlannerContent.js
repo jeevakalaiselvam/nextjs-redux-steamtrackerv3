@@ -42,6 +42,7 @@ import {
   getAllXPFromAchievements,
   getXPFromAchievements,
 } from "../../../helpers/xpHelper";
+import { getIcon } from "../../../helpers/iconHelper";
 
 const Container = styled.div`
   display: flex;
@@ -84,6 +85,26 @@ const PhaseContainer = styled.div`
   background-color: rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
   margin: 0.25rem;
+`;
+
+const TitleIcon = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 1rem;
+  color: #f1b51b;
+`;
+
+const Icon = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const IconCount = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export default function PlannerContent() {
@@ -410,7 +431,19 @@ export default function PlannerContent() {
                     setUnlockType((old) => "WEEK");
                   }}
                 >
-                  UNLOCKED TODAY
+                  UNLOCKED TODAY{" "}
+                  <TitleIcon>
+                    <Icon>{getIcon("xp")}</Icon>
+                    <IconCount>
+                      {getXPFromAchievements(
+                        sortAchievementsByFilterOption(
+                          phase6Achievements,
+                          phase6Filter,
+                          gameId
+                        )
+                      )}
+                    </IconCount>
+                  </TitleIcon>
                 </HeaderContainer>
               )}
               {unlockType == "WEEK" && (
@@ -419,7 +452,19 @@ export default function PlannerContent() {
                     setUnlockType((old) => "ALL");
                   }}
                 >
-                  UNLOCKED THIS WEEK
+                  UNLOCKED THIS WEEK{" "}
+                  <TitleIcon>
+                    <Icon>{getIcon("xp")}</Icon>
+                    <IconCount>
+                      {getXPFromAchievements(
+                        sortAchievementsByFilterOption(
+                          phase6Achievements,
+                          phase6Filter,
+                          gameId
+                        )
+                      )}
+                    </IconCount>
+                  </TitleIcon>
                 </HeaderContainer>
               )}
               {unlockType == "ALL" && (
@@ -428,7 +473,19 @@ export default function PlannerContent() {
                     setUnlockType((old) => "TODAY");
                   }}
                 >
-                  UNLOCKED ALL TIME
+                  UNLOCKED ALL TIME{" "}
+                  <TitleIcon>
+                    <Icon>{getIcon("xp")}</Icon>
+                    <IconCount>
+                      {getXPFromAchievements(
+                        sortAchievementsByFilterOption(
+                          phase6Achievements,
+                          phase6Filter,
+                          gameId
+                        )
+                      )}
+                    </IconCount>
+                  </TitleIcon>
                 </HeaderContainer>
               )}
               <Search onSearchObtained={phase6SearchObtained} width="100%" />

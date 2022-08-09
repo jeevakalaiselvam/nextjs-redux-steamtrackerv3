@@ -109,7 +109,7 @@ const XPIcon = styled.div`
   font-size: 2rem;
 `;
 
-const ProfileToGet = (props) => {
+const ProfileToTotal = (props) => {
   const dispatch = useDispatch();
   const steamtracker = useSelector((state) => state.steamtracker);
   const { games, planner } = steamtracker;
@@ -124,8 +124,8 @@ const ProfileToGet = (props) => {
   const xpData = getAllXPFromAchievements(phaseAddedGame.achievements);
   const { totalXP, completedXP, remainingXP } = xpData;
 
-  const completed = completedXP;
-  const needed = totalXP * COMPLETION_TARGET;
+  const completed = completedXP / XP_FOR_LEVEL;
+  const needed = (totalXP * COMPLETION_TARGET) / XP_FOR_LEVEL;
 
   return (
     <Container onClick={() => {}}>
@@ -134,7 +134,7 @@ const ProfileToGet = (props) => {
           <HiOutlineChevronDoubleUp
             style={{ marginRight: "0.5rem", color: "#6cff5c" }}
           />
-          <Title>REMAINING</Title>
+          <Title>TOTAL</Title>
           <HiOutlineChevronDoubleUp
             style={{ marginLeft: "0.5rem", color: "#6cff5c" }}
           />
@@ -143,7 +143,7 @@ const ProfileToGet = (props) => {
           <XPContainer>
             <XPData>
               <XPIcon>{getIcon("xp")}</XPIcon>
-              <XPText>{Math.floor(needed)}</XPText>
+              <XPText>{totalXP}</XPText>
             </XPData>
           </XPContainer>
         </LevelContainer>
@@ -152,4 +152,4 @@ const ProfileToGet = (props) => {
   );
 };
 
-export default ProfileToGet;
+export default ProfileToTotal;

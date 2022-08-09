@@ -4,6 +4,7 @@ import { HEADER_IMAGE } from "../../helpers/urlHelper";
 import { FaPinterest, FaTrophy } from "react-icons/fa";
 import {
   HiArchive,
+  HiCheck,
   HiClock,
   HiCollection,
   HiPresentationChartLine,
@@ -14,7 +15,7 @@ import {
   XP_FOR_LEVEL,
 } from "../../helpers/xpHelper";
 import { useRouter } from "next/router";
-import { AiFillGold, AiFillPushpin } from "react-icons/ai";
+import { AiFillCheckSquare, AiFillGold, AiFillPushpin } from "react-icons/ai";
 import { getIcon } from "../../helpers/iconHelper";
 
 const Container = styled.div`
@@ -56,13 +57,27 @@ const Overlay = styled.div`
 const Title = styled.div`
   position: absolute;
   width: 100%;
-  display: "flex";
+  display: flex;
+  flex-direction: row;
   bottom: 0;
   left: 0;
   padding: 1rem;
   font-size: 1.5rem;
   background-color: rgba(0, 0, 0, 0.75);
   z-index: 6;
+`;
+
+const TitleData = styled.div`
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
+
+const CompletionIcon = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const ToGetContainer = styled.div`
@@ -164,6 +179,25 @@ const PinIcon = styled.div`
   }
 `;
 
+const CompleteIcon = styled.div`
+  position: absolute;
+  top: 0px;
+  right: 45px;
+  background-color: rgba(0, 0, 0, 0.9);
+  color: #fefefe;
+  cursor: pointer;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 7;
+  font-size: 2rem;
+
+  &:hover {
+    color: #0cf25d;
+  }
+`;
+
 export default function GameCard({ game }) {
   const { id, playtime, name, version, achievements, completion, toGet } = game;
 
@@ -201,7 +235,7 @@ export default function GameCard({ game }) {
           router.push(`/planner/${id}`);
         }}
       >
-        {name}
+        <TitleData> {name}</TitleData>
       </Title>
       {/* {completed < needed && (
         <ToGetContainer>
@@ -244,6 +278,9 @@ export default function GameCard({ game }) {
       >
         <AiFillPushpin />
       </PinIcon>
+      {/* <CompleteIcon active={true} onClick={() => {}}>
+        <HiCheck />
+      </CompleteIcon> */}
     </Container>
   );
 }
