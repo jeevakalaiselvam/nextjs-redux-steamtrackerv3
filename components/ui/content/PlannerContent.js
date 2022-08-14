@@ -63,6 +63,8 @@ const RecentSection = styled.div`
   justify-content: center;
   padding: 0.25rem;
   overflow: scroll;
+  min-height: 95vh;
+  max-height: 95vh;
   flex: 1;
 `;
 
@@ -304,7 +306,6 @@ export default function PlannerContent() {
     <Container>
       {plannerViewActive && (
         <RecentSection>
-          <RecentTitle>RECENTLY UNLOCKED</RecentTitle>
           <RecentAchievementsSmall games={games} />
         </RecentSection>
       )}

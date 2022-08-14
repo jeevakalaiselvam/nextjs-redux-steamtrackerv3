@@ -17,6 +17,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  opacity: ${(props) => (props.achieved == 1 ? "0.1" : "1.0")};
 `;
 
 const MainContainer = styled.div`
@@ -364,7 +365,7 @@ export default function AchievementCardWithPhase(props) {
   }, []);
 
   return (
-    <Container>
+    <Container achieved={achieved}>
       <MainContainer>
         <IconContainer>
           <Icon icon={icon}></Icon>
@@ -422,7 +423,7 @@ export default function AchievementCardWithPhase(props) {
             />
           )}
         </PhaseRevealer>
-        <PhaseContainer show={true}>
+        <PhaseContainer show={false}>
           <XPData>
             <XPText>{calculateXPFromPercentage(percentage)}</XPText>
             <XPIcon>{getIcon("xp")}</XPIcon>
@@ -468,7 +469,10 @@ export default function AchievementCardWithPhase(props) {
             5
           </PhaseItem>
           {showIgnore && (
-            <PhaseItemIgnore active={ignoreActive} onClick={addToIgnoreList}>
+            <PhaseItemIgnore
+              active={ignoreActive && false}
+              onClick={addToIgnoreList}
+            >
               {ignoreActive && "REMOVE"}
               {!ignoreActive && "IGNORE"}
             </PhaseItemIgnore>

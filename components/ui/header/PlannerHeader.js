@@ -169,28 +169,32 @@ export default function PlannerHeader() {
 
   return (
     <Container>
-      <FilterContainer>
-        <ResetContainer onClick={resetButtonClickHandler}>
-          <HiXCircle />
-          <RefreshText>RESET BOARD</RefreshText>
-        </ResetContainer>
-        {/* <XPDataContainer>
-          <XPContainer>
-            <XPIcon>
-             {getIcon("xp")}
-            </XPIcon>
-            <XPData>
-              {Math.floor(Math.floor(totalXP * 0.5) - completedXP)}
-            </XPData>
-          </XPContainer>
-        </XPDataContainer> */}
-      </FilterContainer>
-      <SearchContainer>
-        <RefreshContainer onClick={switchViewHandler}>
-          <HiDuplicate />
-          <RefreshText>SWITCH VIEW</RefreshText>
-        </RefreshContainer>
-      </SearchContainer>
+      {true && (
+        <FilterContainer>
+          <ResetContainer onClick={resetButtonClickHandler}>
+            <HiXCircle />
+            <RefreshText>RESET BOARD</RefreshText>
+          </ResetContainer>
+          {false && (
+            <XPDataContainer>
+              <XPContainer>
+                <XPIcon>{getIcon("xp")}</XPIcon>
+                <XPData>
+                  {Math.floor(Math.floor(totalXP * 0.5) - completedXP)}
+                </XPData>
+              </XPContainer>
+            </XPDataContainer>
+          )}
+        </FilterContainer>
+      )}
+      {false && (
+        <SearchContainer>
+          <RefreshContainer onClick={switchViewHandler}>
+            <HiDuplicate />
+            <RefreshText>SWITCH VIEW</RefreshText>
+          </RefreshContainer>
+        </SearchContainer>
+      )}
       <SearchContainer>
         <RefreshContainer onClick={refreshButtonClickHandler}>
           <TbRefresh />

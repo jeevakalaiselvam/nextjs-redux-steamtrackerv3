@@ -69,6 +69,7 @@ const Title = styled.div`
 
 const TitleData = styled.div`
   display: flex;
+  z-index: 8;
   flex: 1;
   align-items: center;
   justify-content: center;
@@ -156,7 +157,7 @@ const CompletionOverlay = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 7;
+  z-index: 1;
   font-size: 5rem;
 `;
 
@@ -245,7 +246,7 @@ export default function GameCard({ game }) {
           <ToGetData>{toGet}</ToGetData>
         </ToGetContainer>
       )} */}
-      {completed <= needed && (
+      {completed <= needed && false && (
         <XPContainer>
           <XPIcon>{getIcon("xp")}</XPIcon>
           <XPData>

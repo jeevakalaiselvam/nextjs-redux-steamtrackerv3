@@ -85,7 +85,7 @@ const Icon = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  font-size: 1.5rem;
+  font-size: 3rem;
 `;
 
 const Text = styled.div`
@@ -93,7 +93,7 @@ const Text = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  font-size: 1.5rem;
+  font-size: 3rem;
 `;
 
 const ProfileTrophies = (props) => {
@@ -101,7 +101,7 @@ const ProfileTrophies = (props) => {
   const steamtracker = useSelector((state) => state.steamtracker);
   const { games, planner } = steamtracker;
 
-  const { xpTotal, currentLevel, toNextLevel } =
+  const { xpTotal, currentLevel, toNextLevel, unlockedAll } =
     calculateLevelFromAllGames(games);
 
   const goldTrophies = games.reduce((acc, game) => {
@@ -126,7 +126,7 @@ const ProfileTrophies = (props) => {
           <HiOutlineChevronDoubleUp
             style={{ marginRight: "0.5rem", color: "#6cff5c" }}
           />
-          <Title>LEVEL</Title>
+          <Title>TOTAL</Title>
           <HiOutlineChevronDoubleUp
             style={{ marginLeft: "0.5rem", color: "#6cff5c" }}
           />
@@ -140,7 +140,7 @@ const ProfileTrophies = (props) => {
             >
               {getIcon("trophy")}
             </Icon>
-            <Text>{Math.floor(xpTotal / XP_FOR_LEVEL)}</Text>
+            <Text>{unlockedAll}</Text>
           </GoldTrophy>
         </LevelContainer>
       </LevelFragment>

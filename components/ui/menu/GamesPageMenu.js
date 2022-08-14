@@ -49,7 +49,7 @@ export default function GamesPageMenu() {
       <MenuItemContainer>
         <MenuItem to="/games" title="Games" icon={<HiViewGrid />} />
       </MenuItemContainer>
-      {selectedGame && (
+      {/* {selectedGame && (
         <MenuItemContainer>
           <MenuItem
             to={`/games/${selectedGame}`}
@@ -57,7 +57,7 @@ export default function GamesPageMenu() {
             icon={<HiChartBar />}
           />
         </MenuItemContainer>
-      )}
+      )} */}
       <MenuItemContainer>
         <MenuItem
           to={`/planner/${selectedGame}`}

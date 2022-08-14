@@ -125,7 +125,7 @@ const ProfileToGet = (props) => {
   const { totalXP, completedXP, remainingXP } = xpData;
 
   const completed = completedXP;
-  const needed = totalXP * COMPLETION_TARGET;
+  const needed = Math.floor(totalXP * COMPLETION_TARGET - completed);
 
   return (
     <Container onClick={() => {}}>
@@ -143,7 +143,7 @@ const ProfileToGet = (props) => {
           <XPContainer>
             <XPData>
               <XPIcon>{getIcon("xp")}</XPIcon>
-              <XPText>{remainingXP}</XPText>
+              <XPText>{needed < 0 ? 0 : needed}</XPText>
             </XPData>
           </XPContainer>
         </LevelContainer>

@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import AchievementCard from "./AchievementCard";
 import AchievementIcon from "./AchievementIcon";
 const Container = styled.div`
   display: flex;
@@ -28,7 +29,7 @@ export default function RecentAchievementsSmall({ games }) {
     <Container>
       {unlockedAchievements.length &&
         unlockedAchievements.map((achievement) => {
-          return <AchievementIcon achievement={achievement} />;
+          return <AchievementCard achievement={achievement} />;
         })}
     </Container>
   );

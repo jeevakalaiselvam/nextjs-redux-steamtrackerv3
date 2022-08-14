@@ -95,6 +95,19 @@ const HiddenContainer = styled.div`
   justify-content: flex-start;
 `;
 
+const UnlockedContainer = styled.div`
+  position: absolute;
+  bottom: 0;
+  color: #b0bec5;
+  right: 0;
+  display: flex;
+  padding: 0rem 1rem 1rem 1rem;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  opacity: 0.5;
+`;
+
 const PercentageContainer = styled.div`
   position: absolute;
   top: 0;
@@ -161,7 +174,7 @@ export default function AchievementCard(props) {
     <Container>
       <IconContainer>
         <Icon icon={icon}></Icon>
-        {achieved == 1 && (
+        {achieved == 1 && false && (
           <CheckContainer>
             <FaCheck />
           </CheckContainer>
@@ -192,6 +205,15 @@ export default function AchievementCard(props) {
           <IoEyeOff />
         </HiddenContainer>
       )}
+      <UnlockedContainer>
+        {`${new Date(unlocktime * 1000).toString().slice(0, -40)}, ${new Date(
+          unlocktime * 1000
+        ).toLocaleString("en-US", {
+          hour: "numeric",
+          minute: "numeric",
+          hour12: true,
+        })}`}
+      </UnlockedContainer>
     </Container>
   );
 }
