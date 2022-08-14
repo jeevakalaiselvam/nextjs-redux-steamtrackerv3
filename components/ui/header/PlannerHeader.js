@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { FILTER_OPTIONS_GAME_PAGE } from "../../../helpers/filterHelper";
@@ -7,6 +7,7 @@ import {
   changeGamePageSearchTerm,
   resetKanbanBoard,
   setGameDataRefresh,
+  setSwitchPlannerViewType,
 } from "../../../store/actions/games.actions";
 import Filter from "../../atoms/Filter";
 import Search from "../../atoms/Search";
@@ -18,7 +19,7 @@ import {
   getAllXPFromAchievements,
   XP_FOR_LEVEL,
 } from "../../../helpers/xpHelper";
-import { HiViewBoards, HiXCircle } from "react-icons/hi";
+import { HiDuplicate, HiViewBoards, HiXCircle } from "react-icons/hi";
 import { ALL } from "../../../helpers/gameHelper";
 import { AiFillGold } from "react-icons/ai";
 
@@ -142,7 +143,7 @@ export default function PlannerHeader() {
 
   const steamtracker = useSelector((state) => state.steamtracker);
   const { games, planner } = steamtracker;
-  const { phaseAddedGame } = planner;
+  const { phaseAddedGame, plannerViewActive } = planner;
 
   const resetButtonClickHandler = async () => {
     if (games) {
@@ -162,6 +163,10 @@ export default function PlannerHeader() {
   // const xpData = getAllXPFromAchievements(game.achievements);
   // const { totalXP, completedXP, remainingXP } = xpData;
 
+  const switchViewHandler = () => {
+    dispatch(setSwitchPlannerViewType());
+  };
+
   return (
     <Container>
       <FilterContainer>
@@ -180,6 +185,12 @@ export default function PlannerHeader() {
           </XPContainer>
         </XPDataContainer> */}
       </FilterContainer>
+      <SearchContainer>
+        <RefreshContainer onClick={switchViewHandler}>
+          <HiDuplicate />
+          <RefreshText>SWITCH VIEW</RefreshText>
+        </RefreshContainer>
+      </SearchContainer>
       <SearchContainer>
         <RefreshContainer onClick={refreshButtonClickHandler}>
           <TbRefresh />

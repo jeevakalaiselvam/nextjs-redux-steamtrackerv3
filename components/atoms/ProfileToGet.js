@@ -121,20 +121,7 @@ const ProfileToGet = (props) => {
   const game = games.find((game) => game.id == gameId);
   const { id, playtime, name, version, achievements, completion, toGet } = game;
 
-  const notIgnoredAchievements = phaseAddedGame.achievements.filter(
-    (achievement) => {
-      if (typeof window !== "undefined") {
-        let ignoredAchievementsForGame =
-          JSON.parse(localStorage.getItem(`${gameId}_IGNORE`)) || [];
-        if (ignoredAchievementsForGame.includes(achievement.name)) {
-          return false;
-        } else {
-          return true;
-        }
-      }
-    }
-  );
-  const xpData = getAllXPFromAchievements(notIgnoredAchievements);
+  const xpData = getAllXPFromAchievements(phaseAddedGame.achievements);
   const { totalXP, completedXP, remainingXP } = xpData;
 
   const completed = completedXP;
