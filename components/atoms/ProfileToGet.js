@@ -121,7 +121,20 @@ const ProfileToGet = (props) => {
   const game = games.find((game) => game.id == gameId);
   const { id, playtime, name, version, achievements, completion, toGet } = game;
 
-  const xpData = getAllXPFromAchievements(phaseAddedGame.achievements);
+  const notIgnoredAchievements = phaseAddedGame.achievements.filter(
+    (achievement) => {
+      if (typeof window !== "undefined") {
+        let ignoredAchievementsForGame =
+          JSON.parse(localStorage.getItem(`${gameId}_IGNORE`)) || [];
+        if (ignoredAchievementsForGame.includes(achievement.name)) {
+          return false;
+        } else {
+          return true;
+        }
+      }
+    }
+  );
+  const xpData = getAllXPFromAchievements(notIgnoredAchievements);
   const { totalXP, completedXP, remainingXP } = xpData;
 
   const completed = completedXP;
@@ -143,7 +156,7 @@ const ProfileToGet = (props) => {
           <XPContainer>
             <XPData>
               <XPIcon>{getIcon("xp")}</XPIcon>
-              <XPText>{Math.floor(needed)}</XPText>
+              <XPText>{remainingXP}</XPText>
             </XPData>
           </XPContainer>
         </LevelContainer>

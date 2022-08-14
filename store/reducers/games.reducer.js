@@ -1,4 +1,7 @@
-import { getPhaseFiltedAchievements } from "../../helpers/achievementHelper";
+import {
+  getPhaseFiltedAchievements,
+  removeIgnoredAchievements,
+} from "../../helpers/achievementHelper";
 import {
   GAMES_OPTION_COMPLETION_DESC,
   GAMES_OPTION_COMPLETION_STARTED,
