@@ -18,7 +18,6 @@ const Container = styledC.div`
   position: relative;
   padding: 0.5rem;
   background-color: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(5px);
 
   &:hover {
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
@@ -52,10 +51,10 @@ const BootstrapTooltip = styled(({ className, ...props }) => (
   <Tooltip {...props} arrow classes={{ popper: className }} />
 ))(({ theme }) => ({
   [`& .${tooltipClasses.arrow}`]: {
-    color: "rgba(0,0,0,0.5)",
+    color: "black",
   },
   [`& .${tooltipClasses.tooltip}`]: {
-    backgroundColor: "rgba(0,0,0,0.5)",
+    backgroundColor: "black",
     fontSize: "1.25rem",
     color: "#b0bec5",
     fontFamily: "PT Sans",
@@ -64,6 +63,7 @@ const BootstrapTooltip = styled(({ className, ...props }) => (
 
 export default function AchievementIcon({ achievement }) {
   const { icon, id } = achievement;
+
   return (
     <BootstrapTooltip
       title={<AchievementCardTooltip achievement={achievement} />}
