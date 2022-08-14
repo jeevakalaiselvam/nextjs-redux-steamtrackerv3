@@ -95,6 +95,23 @@ const Icon = styled.div`
   font-size: 1.5rem;
 `;
 
+const IconAndCount = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  font-size: 1.5rem;
+`;
+
+const Count = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: "#6cff5c";
+`;
+
 const Text = styled.div`
   display: flex;
   align-items: center;
@@ -106,7 +123,7 @@ const Text = styled.div`
 const DownArrow = styled.div`
   display: flex;
   align-items: center;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   padding: 1rem;
   color: #b0bec5;
@@ -177,24 +194,43 @@ const ProfileTrophyProgress = (props) => {
             )
               .fill(1)
               .map((level, index) => {
-                return (
-                  <>
-                    <DownArrow>
-                      <TbArrowNarrowDown />
-                    </DownArrow>
-                    <LevelItem>
-                      <Icon style={{ marginRight: "1rem" }}>
-                        {getIcon("trophy")}
-                      </Icon>
-                      <Text>
-                        {" "}
-                        {Math.floor(totalXPUntilYesterday / XP_FOR_LEVEL) +
-                          index +
-                          1}
-                      </Text>
-                    </LevelItem>
-                  </>
-                );
+                if (
+                  index ==
+                  new Array(
+                    Math.floor(
+                      (totalXPUntilYesterday + totalXPToday) / XP_FOR_LEVEL
+                    ) - Math.floor(totalXPUntilYesterday / XP_FOR_LEVEL)
+                  ).fill(1).length -
+                    1
+                )
+                  return (
+                    <>
+                      <DownArrow>
+                        <TbArrowNarrowDown />
+                        <Count style={{ marginRight: "1rem" }}>
+                          {
+                            new Array(
+                              Math.floor(
+                                (totalXPUntilYesterday + totalXPToday) /
+                                  XP_FOR_LEVEL
+                              ) -
+                                Math.floor(totalXPUntilYesterday / XP_FOR_LEVEL)
+                            ).fill(1).length
+                          }
+                        </Count>
+                      </DownArrow>
+                      <LevelItem>
+                        <Icon style={{ marginRight: "1rem" }}>
+                          {getIcon("trophy")}
+                        </Icon>
+                        <Text>
+                          {Math.floor(totalXPUntilYesterday / XP_FOR_LEVEL) +
+                            index +
+                            1}
+                        </Text>
+                      </LevelItem>
+                    </>
+                  );
               })}
           </GoldTrophy>
         </LevelContainer>
