@@ -27,7 +27,7 @@ export default function RecentAchievementsSmall({ games }) {
   return (
     <Container>
       {unlockedAchievements.length &&
-        unlockedAchievements.slice(0, 10).map((achievement) => {
+        unlockedAchievements.map((achievement) => {
           return <AchievementIcon achievement={achievement} />;
         })}
     </Container>
