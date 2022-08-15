@@ -17,6 +17,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  position: relative;
   opacity: ${(props) =>
     props.achieved == 1 && props.activateCompletionOpacity ? "0.25" : "1.0"};
 `;
@@ -32,7 +33,6 @@ const MainContainer = styled.div`
   margin: 0.5rem;
   min-height: 120px;
   border-radius: 4px;
-  position: relative;
   cursor: pointer;
   &:hover {
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
@@ -66,7 +66,7 @@ const UnlockedContainer = styled.div`
   position: absolute;
   bottom: 0;
   color: #b0bec5;
-  right: 100px;
+  right: 55px;
   display: flex;
   z-index: 100000;
   padding: 0rem 1rem 1rem 1rem;
@@ -148,7 +148,7 @@ const HiddenContainer = styled.div`
 
 const PercentageContainer = styled.div`
   position: absolute;
-  top: 0;
+  top: 5px;
   right: 0;
   display: flex;
   padding: 0rem 1rem 1rem 1rem;
@@ -199,7 +199,7 @@ const PhaseRevealer = styled.div`
   align-items: center;
   justify-content: center;
   position: absolute;
-  bottom: 0;
+  bottom: 7px;
   left: 0;
   color: ${(props) => (props.active ? "#6cff5c" : "#737c9d;")};
   padding: 0rem 0.5rem;
@@ -212,7 +212,7 @@ const PhaseRevealer = styled.div`
 
 const PhaseContainer = styled.div`
   position: absolute;
-  bottom: 0;
+  bottom: 7px;
   right: 0;
   display: ${(props) => (props.show ? "flex" : "none")};
   align-items: center;

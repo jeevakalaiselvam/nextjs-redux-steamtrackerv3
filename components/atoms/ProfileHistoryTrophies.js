@@ -117,9 +117,6 @@ const ProfileHistoryTrophies = (props) => {
     allUnlockedAchievements
   );
 
-  const { xpTotal, currentLevel, toNextLevel } =
-    calculateLevelFromAllGames(games);
-
   const goldTrophies = games.reduce((acc, game) => {
     if (+game.completion == 100) {
       return acc + 1;
@@ -134,6 +131,9 @@ const ProfileHistoryTrophies = (props) => {
       return acc;
     }
   }, 0);
+
+  const { xpTotal, currentLevel, toNextLevel, unlockedToday } =
+    calculateLevelFromAllGames(games);
 
   return (
     <Container onClick={() => {}}>
@@ -150,12 +150,7 @@ const ProfileHistoryTrophies = (props) => {
         <LevelContainer>
           <GoldTrophy>
             <Icon>{getIcon("gold")}</Icon>
-            <Text>
-              {todayTrophies.reduce(
-                (acc, item) => acc + calculateXPFromPercentage(item.percentage),
-                0
-              )}
-            </Text>
+            <Text>{unlockedToday}</Text>
           </GoldTrophy>
         </LevelContainer>
       </LevelFragment>
