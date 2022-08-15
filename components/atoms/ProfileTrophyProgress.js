@@ -92,7 +92,7 @@ const Icon = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  font-size: 1.5rem;
+  font-size: 2rem;
 `;
 
 const IconAndCount = styled.div`
@@ -100,7 +100,7 @@ const IconAndCount = styled.div`
   align-items: center;
   flex-direction: row;
   justify-content: center;
-  font-size: 1.5rem;
+  font-size: 2rem;
 `;
 
 const Count = styled.div`
@@ -117,7 +117,7 @@ const Text = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  font-size: 1.5rem;
+  font-size: 2rem;
 `;
 
 const DownArrow = styled.div`
@@ -183,7 +183,7 @@ const ProfileTrophyProgress = (props) => {
         <LevelContainer>
           <GoldTrophy>
             <LevelItem>
-              <Icon style={{ marginRight: "1rem" }}>{getIcon("trophy")}</Icon>
+              <Icon style={{ marginRight: "1rem" }}>{getIcon("medal")}</Icon>
               <Text>{Math.floor(totalXPUntilYesterday / XP_FOR_LEVEL)}</Text>
             </LevelItem>
 
@@ -222,7 +222,7 @@ const ProfileTrophyProgress = (props) => {
                       </DownArrow>
                       <LevelItem>
                         <Icon style={{ marginRight: "1rem" }}>
-                          {getIcon("trophy")}
+                          {getIcon("medal")}
                         </Icon>
                         <Text>
                           {Math.floor(totalXPUntilYesterday / XP_FOR_LEVEL) +

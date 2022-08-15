@@ -29,6 +29,7 @@ export default function Achievements({
   phase,
   showIgnore,
   totalXP,
+  activateCompletionOpacity,
 }) {
   const { achievements, hiddenAchievements, name } = game || {
     hiddenAchievements: [],
@@ -92,6 +93,7 @@ export default function Achievements({
                 hiddenDescription={hiddenDescription}
                 phase={phase}
                 showIgnore={showIgnore}
+                activateCompletionOpacity={activateCompletionOpacity}
               />
             );
           } else {
@@ -104,6 +106,7 @@ export default function Achievements({
                 hiddenDescription={hiddenDescription}
                 phase={phase}
                 showIgnore={showIgnore}
+                activateCompletionOpacity={activateCompletionOpacity}
               />
             );
           }

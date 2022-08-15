@@ -85,7 +85,7 @@ const Icon = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  font-size: 3rem;
+  font-size: 2rem;
 `;
 
 const Text = styled.div`
@@ -93,7 +93,7 @@ const Text = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  font-size: 3rem;
+  font-size: 2rem;
 `;
 
 const ProfileTrophies = (props) => {
@@ -126,7 +126,7 @@ const ProfileTrophies = (props) => {
           <HiOutlineChevronDoubleUp
             style={{ marginRight: "0.5rem", color: "#6cff5c" }}
           />
-          <Title>TOTAL</Title>
+          <Title>TROPHIES</Title>
           <HiOutlineChevronDoubleUp
             style={{ marginLeft: "0.5rem", color: "#6cff5c" }}
           />

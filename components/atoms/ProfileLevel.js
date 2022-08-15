@@ -1,4 +1,5 @@
 import React from "react";
+import { FaTrophy } from "react-icons/fa";
 import {
   HiFastForward,
   HiOutlineChevronDoubleUp,
@@ -7,9 +8,11 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { openLinkInNewTab } from "../../helpers/browserHelper";
+import { getIcon } from "../../helpers/iconHelper";
 import {
   calculateLevelFromAllGames,
   calculateTotalXPForAllGames,
+  XP_FOR_LEVEL,
 } from "../../helpers/xpHelper";
 
 const Container = styled.div`
@@ -44,6 +47,7 @@ const Header = styled.div`
 const Title = styled.div`
   display: flex;
   align-items: center;
+  width: 100px;
   justify-content: center;
   font-size: 1.5rem;
 `;
@@ -51,16 +55,45 @@ const Title = styled.div`
 const LevelContainer = styled.div`
   display: flex;
   align-items: center;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
+  padding: 1rem;
 `;
 
-const CurrentLevel = styled.div`
+const GoldTrophy = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  margin-right: 2rem;
+  color: #f1b51b;
+  margin-left: 1rem;
+  font-size: 2rem;
+`;
+
+const PurpleTrophy = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  color: #b55af2;
+  font-size: 1.5rem;
+`;
+
+const Icon = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  font-size: 1.75rem;
+  font-size: 3rem;
+`;
+
+const Text = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 3rem;
 `;
 
 const ProfileLevel = (props) => {
@@ -68,8 +101,23 @@ const ProfileLevel = (props) => {
   const steamtracker = useSelector((state) => state.steamtracker);
   const { games, planner } = steamtracker;
 
-  const { xpTotal, currentLevel, toNextLevel } =
+  const { xpTotal, currentLevel, toNextLevel, unlockedAll } =
     calculateLevelFromAllGames(games);
+
+  const goldTrophies = games.reduce((acc, game) => {
+    if (+game.completion == 100) {
+      return acc + 1;
+    } else {
+      return acc;
+    }
+  }, 0);
+  const purpleTrophies = games.reduce((acc, game) => {
+    if (+game.completion >= 80 && +game.completion < 100) {
+      return acc + 1;
+    } else {
+      return acc;
+    }
+  }, 0);
 
   return (
     <Container onClick={() => {}}>
@@ -84,7 +132,16 @@ const ProfileLevel = (props) => {
           />
         </Header>
         <LevelContainer>
-          <CurrentLevel>{currentLevel}</CurrentLevel>
+          <GoldTrophy>
+            <Icon
+              style={{
+                marginRight: "1rem",
+              }}
+            >
+              {getIcon("medal")}
+            </Icon>
+            <Text>{Math.floor(xpTotal / XP_FOR_LEVEL)}</Text>
+          </GoldTrophy>
         </LevelContainer>
       </LevelFragment>
     </Container>

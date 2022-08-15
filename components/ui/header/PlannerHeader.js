@@ -22,6 +22,7 @@ import {
 import { HiDuplicate, HiViewBoards, HiXCircle } from "react-icons/hi";
 import { ALL } from "../../../helpers/gameHelper";
 import { AiFillGold } from "react-icons/ai";
+import { getIcon } from "../../../helpers/iconHelper";
 
 const Container = styled.div`
   display: flex;
@@ -158,10 +159,11 @@ export default function PlannerHeader() {
       }
     }
   };
-
-  // const game = games.find((game) => game.id == gameId);
-  // const xpData = getAllXPFromAchievements(game.achievements);
-  // const { totalXP, completedXP, remainingXP } = xpData;
+  let xpData = { totalXP: 0, completedXP: 0, remainingXP: 0 };
+  if (gameId) {
+    const game = games.find((game) => game.id == gameId);
+    xpData = getAllXPFromAchievements(game.achievements);
+  }
 
   const switchViewHandler = () => {
     dispatch(setSwitchPlannerViewType());
@@ -169,7 +171,7 @@ export default function PlannerHeader() {
 
   return (
     <Container>
-      {true && (
+      {gameId && (
         <FilterContainer>
           <ResetContainer onClick={resetButtonClickHandler}>
             <HiXCircle />
@@ -180,7 +182,10 @@ export default function PlannerHeader() {
               <XPContainer>
                 <XPIcon>{getIcon("xp")}</XPIcon>
                 <XPData>
-                  {Math.floor(Math.floor(totalXP * 0.5) - completedXP)}
+                  {Math.floor(
+                    Math.floor((xpData.totalXP || 0) * 0.5) -
+                      (xpData.completedXP || 0)
+                  )}
                 </XPData>
               </XPContainer>
             </XPDataContainer>

@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import AchievementCard from "./AchievementCard";
+import AchievementCardWithPhase from "./AchievementCardWithPhase";
 import AchievementIcon from "./AchievementIcon";
 const Container = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   flex-direction: row;
   width: 100%;
   justify-content: center;
@@ -30,7 +31,7 @@ export default function RecentAchievementsSmall({ games }) {
     <Container>
       {unlockedAchievements.length &&
         unlockedAchievements.map((achievement) => {
-          return <AchievementCard achievement={achievement} />;
+          return <AchievementCardWithPhase achievement={achievement} />;
         })}
     </Container>
   );

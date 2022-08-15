@@ -40,6 +40,17 @@ export default function GameContent() {
     }
   }, [gameId]);
 
+  useEffect(() => {
+    const getHidden = async () => {
+      const hiddenResponse = await axios.get(`/api/hidden/${gameId}`);
+      const hiddenData = hiddenResponse.data.hiddenMapper;
+      dispatch(setHiddenAchievementsForGame(gameId, hiddenData));
+    };
+    if (game && !game.hiddenAchivements) {
+      getHidden();
+    }
+  }, []);
+
   return (
     <Container>
       <Achievements
@@ -47,6 +58,7 @@ export default function GameContent() {
         filterOption={filterOption}
         searchTerm={searchTerm}
         showIgnore={true}
+        activateCompletionOpacity={true}
       />
     </Container>
   );

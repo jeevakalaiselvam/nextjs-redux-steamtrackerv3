@@ -17,7 +17,8 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  opacity: ${(props) => (props.achieved == 1 ? "0.1" : "1.0")};
+  opacity: ${(props) =>
+    props.achieved == 1 && props.activateCompletionOpacity ? "0.25" : "1.0"};
 `;
 
 const MainContainer = styled.div`
@@ -169,7 +170,7 @@ const PercentageIcon = styled.div`
 const CheckContainer = styled.div`
   position: absolute;
   width: 100%;
-  height: 100%;
+  height: 90%;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -267,6 +268,7 @@ export default function AchievementCardWithPhase(props) {
   const currentPhase = props?.phase || "";
   const gameId = props?.gameId || "";
   const showIgnore = props.showIgnore;
+  const activateCompletionOpacity = props.activateCompletionOpacity;
 
   const steamtracker = useSelector((state) => state.steamtracker);
   const { hiddenGames, games } = steamtracker;
@@ -278,7 +280,7 @@ export default function AchievementCardWithPhase(props) {
         (old) => hiddenGames[gameId][displayName.toLowerCase().trim()]
       );
     }
-  }, [gameId]);
+  }, [gameId, hiddenGames]);
 
   const dispatch = useDispatch();
 
@@ -365,7 +367,10 @@ export default function AchievementCardWithPhase(props) {
   }, []);
 
   return (
-    <Container achieved={achieved}>
+    <Container
+      achieved={achieved}
+      activateCompletionOpacity={activateCompletionOpacity}
+    >
       <MainContainer>
         <IconContainer>
           <Icon icon={icon}></Icon>
@@ -423,59 +428,63 @@ export default function AchievementCardWithPhase(props) {
             />
           )}
         </PhaseRevealer>
-        <PhaseContainer show={false}>
+        <PhaseContainer show={true}>
           <XPData>
             <XPText>{calculateXPFromPercentage(percentage)}</XPText>
             <XPIcon>{getIcon("xp")}</XPIcon>
           </XPData>
-          <PhaseItem
-            active={phase == ALL}
-            onClick={() => {
-              setPhaseForAchievement(name, ALL);
-            }}
-          >
-            1
-          </PhaseItem>
-          <PhaseItem
-            active={phase == EASY}
-            onClick={() => {
-              setPhaseForAchievement(name, EASY);
-            }}
-          >
-            2
-          </PhaseItem>
-          <PhaseItem
-            active={phase == HARD}
-            onClick={() => {
-              setPhaseForAchievement(name, HARD);
-            }}
-          >
-            3
-          </PhaseItem>
-          <PhaseItem
-            active={phase == GRIND}
-            onClick={() => {
-              setPhaseForAchievement(name, GRIND);
-            }}
-          >
-            4
-          </PhaseItem>
-          <PhaseItem
-            active={phase == MISSABLE}
-            onClick={() => {
-              setPhaseForAchievement(name, MISSABLE);
-            }}
-          >
-            5
-          </PhaseItem>
-          {showIgnore && (
-            <PhaseItemIgnore
-              active={ignoreActive && false}
-              onClick={addToIgnoreList}
-            >
-              {ignoreActive && "REMOVE"}
-              {!ignoreActive && "IGNORE"}
-            </PhaseItemIgnore>
+          {false && (
+            <>
+              <PhaseItem
+                active={phase == ALL}
+                onClick={() => {
+                  setPhaseForAchievement(name, ALL);
+                }}
+              >
+                1
+              </PhaseItem>
+              <PhaseItem
+                active={phase == EASY}
+                onClick={() => {
+                  setPhaseForAchievement(name, EASY);
+                }}
+              >
+                2
+              </PhaseItem>
+              <PhaseItem
+                active={phase == HARD}
+                onClick={() => {
+                  setPhaseForAchievement(name, HARD);
+                }}
+              >
+                3
+              </PhaseItem>
+              <PhaseItem
+                active={phase == GRIND}
+                onClick={() => {
+                  setPhaseForAchievement(name, GRIND);
+                }}
+              >
+                4
+              </PhaseItem>
+              <PhaseItem
+                active={phase == MISSABLE}
+                onClick={() => {
+                  setPhaseForAchievement(name, MISSABLE);
+                }}
+              >
+                5
+              </PhaseItem>
+              {showIgnore && (
+                <PhaseItemIgnore
+                  active={ignoreActive && false}
+                  onClick={addToIgnoreList}
+                >
+                  {ignoreActive && "REMOVE"}
+                  {!ignoreActive && "IGNORE"}
+                </PhaseItemIgnore>
+              )}
+            </>
           )}
         </PhaseContainer>
       </MainContainer>
