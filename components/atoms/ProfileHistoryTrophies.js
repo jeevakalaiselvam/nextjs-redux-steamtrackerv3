@@ -85,7 +85,7 @@ const Icon = styled.div`
   margin-right: 1rem;
   margin-left: 1rem;
   justify-content: center;
-  font-size: 2.5rem;
+  font-size: 2.25rem;
 `;
 
 const Text = styled.div`
@@ -93,7 +93,7 @@ const Text = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  font-size: 2rem;
+  font-size: 1.75rem;
 `;
 
 const ProfileHistoryTrophies = (props) => {
@@ -150,7 +150,12 @@ const ProfileHistoryTrophies = (props) => {
         <LevelContainer>
           <GoldTrophy>
             <Icon>{getIcon("gold")}</Icon>
-            <Text>{todayTrophies.length}</Text>
+            <Text>
+              {todayTrophies.reduce(
+                (acc, item) => acc + calculateXPFromPercentage(item.percentage),
+                0
+              )}
+            </Text>
           </GoldTrophy>
         </LevelContainer>
       </LevelFragment>
