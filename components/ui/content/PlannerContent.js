@@ -60,7 +60,7 @@ const RecentSection = styled.div`
   flex-direction: column;
   width: 100%;
   align-items: flex-start;
-  justify-content: center;
+  justify-content: flex-start;
   padding: 0.25rem;
   overflow: scroll;
   min-height: 95vh;
@@ -165,6 +165,7 @@ export default function PlannerContent() {
     phase4Achievements,
     phase5Achievements,
     phase6Achievements,
+    unlockedShowToday,
   } = planner;
 
   const router = useRouter();
@@ -306,7 +307,10 @@ export default function PlannerContent() {
     <Container>
       {plannerViewActive && (
         <RecentSection>
-          <RecentAchievementsSmall games={games} />
+          <RecentAchievementsSmall
+            games={games}
+            unlockedShowToday={unlockedShowToday}
+          />
         </RecentSection>
       )}
 

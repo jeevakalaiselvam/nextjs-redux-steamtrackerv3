@@ -218,7 +218,6 @@ const ProfileTrophyProgress = (props) => {
                             ).fill(1).length
                           }
                         </Count>
-                        <TbArrowNarrowDown />
                       </DownArrow>
                       <LevelItem>
                         <Icon style={{ marginRight: "1rem" }}>

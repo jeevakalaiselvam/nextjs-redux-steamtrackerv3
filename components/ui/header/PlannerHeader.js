@@ -7,6 +7,7 @@ import {
   changeGamePageSearchTerm,
   resetKanbanBoard,
   setGameDataRefresh,
+  setPlannerUnlockedType,
   setSwitchPlannerViewType,
 } from "../../../store/actions/games.actions";
 import Filter from "../../atoms/Filter";
@@ -19,7 +20,14 @@ import {
   getAllXPFromAchievements,
   XP_FOR_LEVEL,
 } from "../../../helpers/xpHelper";
-import { HiDuplicate, HiViewBoards, HiXCircle } from "react-icons/hi";
+import {
+  HiDuplicate,
+  HiOutlineArrowCircleDown,
+  HiOutlineArrowsExpand,
+  HiPencilAlt,
+  HiViewBoards,
+  HiXCircle,
+} from "react-icons/hi";
 import { ALL } from "../../../helpers/gameHelper";
 import { AiFillGold } from "react-icons/ai";
 import { getIcon } from "../../../helpers/iconHelper";
@@ -169,14 +177,26 @@ export default function PlannerHeader() {
     dispatch(setSwitchPlannerViewType());
   };
 
+  const showAllAchievementsUnlocked = () => {
+    dispatch(setPlannerUnlockedType());
+  };
+
   return (
     <Container>
       {gameId && (
         <FilterContainer>
-          <ResetContainer onClick={resetButtonClickHandler}>
-            <HiXCircle />
-            <RefreshText>RESET BOARD</RefreshText>
-          </ResetContainer>
+          {!plannerViewActive && (
+            <ResetContainer onClick={resetButtonClickHandler}>
+              <HiXCircle />
+              <RefreshText>RESET BOARD</RefreshText>
+            </ResetContainer>
+          )}
+          {plannerViewActive && (
+            <ResetContainer onClick={showAllAchievementsUnlocked}>
+              <HiOutlineArrowsExpand />
+              <RefreshText>SHOW ALL</RefreshText>
+            </ResetContainer>
+          )}
           {false && (
             <XPDataContainer>
               <XPContainer>

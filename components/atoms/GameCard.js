@@ -225,7 +225,7 @@ export default function GameCard({ game }) {
     <Container>
       <Overlay />
       <Image image={HEADER_IMAGE(id)} />
-      {completed >= needed && (
+      {completed >= needed && false && (
         <CompletionOverlay>{getIcon("trophy")}</CompletionOverlay>
       )}
       <Title

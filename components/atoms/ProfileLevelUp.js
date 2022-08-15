@@ -46,6 +46,7 @@ const Header = styled.div`
 const Title = styled.div`
   display: flex;
   align-items: center;
+  width: 100px;
   justify-content: center;
   font-size: 1.5rem;
 `;
@@ -71,6 +72,8 @@ const XPText = styled.div`
   align-items: center;
   justify-content: center;
   color: #f1b51b;
+  font-size: 2rem;
+  margin-right: 2rem;
 `;
 
 const XPIcon = styled.div`
@@ -79,7 +82,7 @@ const XPIcon = styled.div`
   justify-content: center;
   color: #f1b51b;
   margin-right: 0.75rem;
-  font-size: 2rem;
+  font-size: 2.5rem;
 `;
 
 const ProfileLevelUp = (props) => {
@@ -97,7 +100,7 @@ const ProfileLevelUp = (props) => {
           <HiOutlineChevronDoubleUp
             style={{ marginRight: "0.5rem", color: "#6cff5c" }}
           />
-          <Title>NEXT</Title>
+          <Title>NEEDED</Title>
           <HiOutlineChevronDoubleUp
             style={{ marginLeft: "0.5rem", color: "#6cff5c" }}
           />

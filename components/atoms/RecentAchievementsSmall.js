@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { getaUnlockedAchievementsByType } from "../../helpers/achievementHelper";
 import AchievementCard from "./AchievementCard";
 import AchievementCardWithPhase from "./AchievementCardWithPhase";
 import AchievementIcon from "./AchievementIcon";
@@ -14,7 +15,7 @@ const Container = styled.div`
   height: 100%;
 `;
 
-export default function RecentAchievementsSmall({ games }) {
+export default function RecentAchievementsSmall({ games, unlockedShowToday }) {
   let unlockedAchievements = [];
   games.forEach((game) => {
     game.achievements.forEach((achievement) => {
@@ -26,6 +27,13 @@ export default function RecentAchievementsSmall({ games }) {
   unlockedAchievements = unlockedAchievements.sort(
     (ach1, ach2) => +ach1.unlocktime < +ach2.unlocktime
   );
+
+  if (unlockedShowToday) {
+    unlockedAchievements = getaUnlockedAchievementsByType(
+      unlockedAchievements,
+      "TODAY"
+    );
+  }
 
   return (
     <Container>

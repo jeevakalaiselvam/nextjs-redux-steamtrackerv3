@@ -42,6 +42,7 @@ import {
   UPDATE_PHASE_ACHIEVEMENT,
   RESET_KANBAN_BOARD,
   SET_PLANNER_VIEW_TYPE,
+  SET_PLANNER_UNLOCKED_TYPE,
 } from "../types/games.types";
 
 const INITIAL_STATE = {
@@ -92,6 +93,7 @@ const INITIAL_STATE = {
     phase6Filter: GAME_OPTION_PERCENTAGE_ASC_UNLOCKTIME,
     phase6Search: "",
     plannerViewActive: true,
+    unlockedShowToday: true,
   },
 };
 
@@ -323,6 +325,15 @@ const reducer = (state = INITIAL_STATE, action) => {
         planner: {
           ...state.planner,
           plannerViewActive: !state.planner.plannerViewActive,
+        },
+      };
+
+    case SET_PLANNER_UNLOCKED_TYPE:
+      return {
+        ...state,
+        planner: {
+          ...state.planner,
+          unlockedShowToday: !state.planner.unlockedShowToday,
         },
       };
 

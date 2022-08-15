@@ -25,6 +25,7 @@ import {
   SET_PHASE6_SEARCH,
   RESET_KANBAN_BOARD,
   SET_PLANNER_VIEW_TYPE,
+  SET_PLANNER_UNLOCKED_TYPE,
 } from "../types/games.types";
 import axios from "axios";
 import { getPhaseFiltedAchievements } from "../../helpers/achievementHelper";
@@ -41,6 +42,14 @@ export const fetchAllGames = () => {
         dispatch({ type: FETCH_ALL_GAMES_ERROR, payload: error });
       }
     );
+  };
+};
+
+export const setPlannerUnlockedType = () => {
+  return (dispatch) => {
+    return dispatch({
+      type: SET_PLANNER_UNLOCKED_TYPE,
+    });
   };
 };
 
