@@ -71,29 +71,38 @@ export default function GameRightSidebar() {
   const router = useRouter();
   const { gameId } = router.query;
 
-  const game = games.find((game) => game.id == gameId);
-  const todayOnly = getaUnlockedAchievementsByType(game.achievements, "TODAY");
+  let game;
+  let todayOnly = [];
+  if (gameId) {
+    game = games.find((game) => game.id == gameId);
+    todayOnly = getaUnlockedAchievementsByType(game.achievements, "TODAY");
+  }
 
   return (
     <Container>
-      <TitleContainer>
-        <Title>UNLOCKED TODAY</Title>
-        <Data>
-          <Icon>{getIcon("gold")}</Icon>
-          <Text>
-            {todayOnly.reduce(
-              (acc, item) => acc + calculateXPFromPercentage(item.percentage),
-              0
-            )}
-          </Text>
-        </Data>
-      </TitleContainer>
-      <Achievements
-        game={game}
-        filterOption={GAME_OPTION_PERCENTAGE_ASC_UNLOCKTIME}
-        searchTerm={""}
-        showOnly="TODAY"
-      />
+      {game && (
+        <>
+          <TitleContainer>
+            <Title>UNLOCKED TODAY</Title>
+            <Data>
+              <Icon>{getIcon("gold")}</Icon>
+              <Text>
+                {todayOnly.reduce(
+                  (acc, item) =>
+                    acc + calculateXPFromPercentage(item.percentage),
+                  0
+                )}
+              </Text>
+            </Data>
+          </TitleContainer>
+          <Achievements
+            game={game}
+            filterOption={GAME_OPTION_PERCENTAGE_ASC_UNLOCKTIME}
+            searchTerm={""}
+            showOnly="TODAY"
+          />
+        </>
+      )}
     </Container>
   );
 }

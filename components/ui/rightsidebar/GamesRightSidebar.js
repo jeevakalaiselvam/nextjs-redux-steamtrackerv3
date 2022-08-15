@@ -34,16 +34,23 @@ export default function GamesRightSidebar() {
   const router = useRouter();
   const { gameId } = router.query;
 
-  const game = games.find((game) => game.id == gameId);
+  let game;
+  if (gameId) {
+    game = games.find((game) => game.id == gameId);
+  }
 
   return (
     <Container>
-      <Title>RECENTLY UNLOCKED</Title>
-      <Achievements
-        game={game}
-        filterOption={GAME_OPTION_PERCENTAGE_DESC_UNLOCKED}
-        searchTerm={""}
-      />
+      {game && (
+        <>
+          <Title>RECENTLY UNLOCKED</Title>
+          <Achievements
+            game={game}
+            filterOption={GAME_OPTION_PERCENTAGE_DESC_UNLOCKED}
+            searchTerm={""}
+          />
+        </>
+      )}
     </Container>
   );
 }
