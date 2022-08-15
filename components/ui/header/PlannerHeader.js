@@ -152,7 +152,7 @@ export default function PlannerHeader() {
 
   const steamtracker = useSelector((state) => state.steamtracker);
   const { games, planner } = steamtracker;
-  const { phaseAddedGame, plannerViewActive } = planner;
+  const { phaseAddedGame, plannerViewActive, unlockedShowToday } = planner;
 
   const resetButtonClickHandler = async () => {
     if (games) {
@@ -194,7 +194,8 @@ export default function PlannerHeader() {
           {plannerViewActive && (
             <ResetContainer onClick={showAllAchievementsUnlocked}>
               <HiOutlineArrowsExpand />
-              <RefreshText>SHOW ALL</RefreshText>
+              {unlockedShowToday && <RefreshText>SHOW ALL</RefreshText>}
+              {!unlockedShowToday && <RefreshText>SHOW TODAY</RefreshText>}
             </ResetContainer>
           )}
           {false && (
