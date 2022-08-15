@@ -62,6 +62,20 @@ const IconContainer = styled.div`
   position: relative;
 `;
 
+const UnlockedContainer = styled.div`
+  position: absolute;
+  bottom: 0;
+  color: #b0bec5;
+  right: 100px;
+  display: flex;
+  z-index: 100000;
+  padding: 0rem 1rem 1rem 1rem;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  opacity: 0.5;
+`;
+
 const Icon = styled.div`
   display: flex;
   width: 60px;
@@ -374,7 +388,7 @@ export default function AchievementCardWithPhase(props) {
       <MainContainer>
         <IconContainer>
           <Icon icon={icon}></Icon>
-          {achieved == 1 && (
+          {achieved == 1 && false && (
             <CheckContainer>
               <FaCheck />
             </CheckContainer>
@@ -491,6 +505,15 @@ export default function AchievementCardWithPhase(props) {
       <JournalContainer show={showJournal}>
         <JournalInput onDataSaved={onDataSaved} journalData={journalData} />
       </JournalContainer>
+      <UnlockedContainer>
+        {`${new Date(unlocktime * 1000).toString().slice(0, -40)}, ${new Date(
+          unlocktime * 1000
+        ).toLocaleString("en-US", {
+          hour: "numeric",
+          minute: "numeric",
+          hour12: true,
+        })}`}
+      </UnlockedContainer>
     </Container>
   );
 }

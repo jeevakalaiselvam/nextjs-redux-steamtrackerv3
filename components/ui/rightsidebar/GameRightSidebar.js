@@ -3,11 +3,17 @@ import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import {
+  getAllUnlockedAchievements,
+  getaUnlockedAchievementsByType,
+} from "../../../helpers/achievementHelper";
+import {
   GAME_OPTION_PERCENTAGE_ASC_UNLOCKTIME,
   GAME_OPTION_PERCENTAGE_DESC,
   GAME_OPTION_PERCENTAGE_DESC_UNLOCKED,
   GAME_OPTION_PERCENTAGE_DESC_UNLOCKTIME,
 } from "../../../helpers/filterHelper";
+import { getIcon } from "../../../helpers/iconHelper";
+import { calculateXPFromPercentage } from "../../../helpers/xpHelper";
 import Achievements from "../../organisms/Achievements";
 
 const Container = styled.div`
@@ -16,17 +22,46 @@ const Container = styled.div`
   justify-content: flex-start;
   flex-direction: column;
   width: 100%;
-  padding: 0.25rem;
+  padding: 0.25rem 0;
   min-height: 100vh;
   max-height: 100vh;
   overflow: hidden;
 `;
 
-const Title = styled.div`
+const TitleContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem;
+  padding: 2.15rem;
+`;
+
+const Title = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+  justify-content: center;
+`;
+
+const Data = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f1b51b;
+`;
+
+const Icon = styled.div`
+  display: flex;
+  margin-right: 0.25rem;
+  align-items: center;
+  color: #f1b51b;
+  justify-content: center;
+`;
+
+const Text = styled.div`
+  color: #f1b51b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export default function GameRightSidebar() {
@@ -37,14 +72,27 @@ export default function GameRightSidebar() {
   const { gameId } = router.query;
 
   const game = games.find((game) => game.id == gameId);
+  const todayOnly = getaUnlockedAchievementsByType(game.achievements, "TODAY");
 
   return (
     <Container>
-      <Title>RECENTLY UNLOCKED</Title>
+      <TitleContainer>
+        <Title>UNLOCKED TODAY</Title>
+        <Data>
+          <Icon>{getIcon("gold")}</Icon>
+          <Text>
+            {todayOnly.reduce(
+              (acc, item) => acc + calculateXPFromPercentage(item.percentage),
+              0
+            )}
+          </Text>
+        </Data>
+      </TitleContainer>
       <Achievements
         game={game}
         filterOption={GAME_OPTION_PERCENTAGE_ASC_UNLOCKTIME}
         searchTerm={""}
+        showOnly="TODAY"
       />
     </Container>
   );

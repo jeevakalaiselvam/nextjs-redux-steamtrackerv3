@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import * as Loaders from "react-spinners";
-import { sortAchievementsByFilterOption } from "../../helpers/achievementHelper";
+import {
+  getaUnlockedAchievementsByType,
+  sortAchievementsByFilterOption,
+} from "../../helpers/achievementHelper";
 import AchievementCard from "../atoms/AchievementCard";
 import { HEADER_IMAGE } from "../../helpers/urlHelper";
 import { useRouter } from "next/router";
@@ -30,6 +33,7 @@ export default function Achievements({
   showIgnore,
   totalXP,
   activateCompletionOpacity,
+  showOnly,
 }) {
   const { achievements, hiddenAchievements, name } = game || {
     hiddenAchievements: [],
@@ -74,9 +78,15 @@ export default function Achievements({
     }
   }, [searchTerm, filterOption, game, showIgnore]);
 
+  const todayOnly = getaUnlockedAchievementsByType(
+    searchFilteredAchievements,
+    "TODAY"
+  );
+
   return (
     <Container>
-      {searchFilteredAchievements.length > 0 &&
+      {showOnly !== "TODAY" &&
+        searchFilteredAchievements.length > 0 &&
         searchFilteredAchievements.map((achievement) => {
           let hiddenDescription = "HIDDEN";
           if (hiddenAchievements) {
@@ -107,6 +117,42 @@ export default function Achievements({
                 phase={phase}
                 showIgnore={showIgnore}
                 activateCompletionOpacity={activateCompletionOpacity}
+              />
+            );
+          }
+        })}
+      {showOnly == "TODAY" &&
+        todayOnly.length > 0 &&
+        todayOnly.map((achievement) => {
+          let hiddenDescription = "HIDDEN";
+          if (hiddenAchievements) {
+            hiddenDescription =
+              hiddenAchievements[achievement.displayName.toLowerCase().trim()];
+          }
+          if (showPhase) {
+            return (
+              <AchievementCardWithPhase
+                gameId={gameId}
+                gameName={name}
+                achievement={achievement}
+                key={achievement.name}
+                hiddenDescription={hiddenDescription}
+                phase={phase}
+                showIgnore={showIgnore}
+                activateCompletionOpacity={false}
+              />
+            );
+          } else {
+            return (
+              <AchievementCardWithPhase
+                gameId={gameId}
+                gameName={name}
+                achievement={achievement}
+                key={achievement.name}
+                hiddenDescription={hiddenDescription}
+                phase={phase}
+                showIgnore={showIgnore}
+                activateCompletionOpacity={false}
               />
             );
           }
