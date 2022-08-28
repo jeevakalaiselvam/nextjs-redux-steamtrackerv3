@@ -61,12 +61,31 @@ const Title = styled.div`
   font-size: 1.5rem;
 `;
 
-const LevelContainer = styled.div`
+const HistoryContainer = styled.div`
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   flex-direction: row;
   justify-content: center;
   padding: 1rem;
+`;
+
+const HistoryItem = styled.div`
+  display: flex;
+  width: 25px;
+  height: 25px;
+  align-items: center;
+  margin: 0.5rem;
+  flex-direction: row;
+  justify-content: center;
+  padding: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fefefe;
+
+  &:hover {
+    background-color: #3049d1;
+    color: #fefefe;
+  }
 `;
 
 const GoldTrophy = styled.div`
@@ -97,7 +116,7 @@ const Text = styled.div`
   font-size: 1.75rem;
 `;
 
-const ProfileHistoryTrophies = (props) => {
+const ProfileHistoryGraph = (props) => {
   const dispatch = useDispatch();
   const steamtracker = useSelector((state) => state.steamtracker);
   const { games, planner } = steamtracker;
@@ -150,20 +169,21 @@ const ProfileHistoryTrophies = (props) => {
           <HiOutlineChevronDoubleUp
             style={{ marginRight: "0.5rem", color: "#6cff5c" }}
           />
-          <Title>TODAY</Title>
+          <Title>HISTORY</Title>
           <HiOutlineChevronDoubleUp
             style={{ marginLeft: "0.5rem", color: "#6cff5c" }}
           />
         </Header>
-        <LevelContainer>
-          <GoldTrophy>
-            <Icon>{getIcon("trophy")}</Icon>
-            <Text>{unlockedTodayCount}</Text>
-          </GoldTrophy>
-        </LevelContainer>
+        <HistoryContainer>
+          {Object.keys(recentHistory).map((key, index) => {
+            return (
+              <HistoryItem id={index}>{recentHistory[key].length}</HistoryItem>
+            );
+          })}
+        </HistoryContainer>
       </LevelFragment>
     </Container>
   );
 };
 
-export default ProfileHistoryTrophies;
+export default ProfileHistoryGraph;

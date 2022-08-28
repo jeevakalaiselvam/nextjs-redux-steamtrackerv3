@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import styled from "styled-components";
 import ProfileHistory from "../../atoms/ProfileHistory";
+import ProfileHistoryGraph from "../../atoms/ProfileHistoryGraph";
 import ProfileHistoryTrophies from "../../atoms/ProfileHistoryTrophies";
 import ProfileImage from "../../atoms/ProfileImage";
 import ProfileLevel from "../../atoms/ProfileLevel";
@@ -36,13 +37,14 @@ export default function GamesLeftSidebar() {
         profileImageLink="https://avatars.cloudflare.steamstatic.com/3984d41a867b9b4eca056cdfcd1134bd591d9100_full.jpg"
       />
       <GamesPageMenu />
-      <ProfileLevel />
+      {/* <ProfileLevel /> */}
       <ProfileTrophies />
       {/* {gameId && <ProfileToGet />} */}
       {/* {gameId && <ProfileToTotal />} */}
-      {/* <ProfileHistoryTrophies /> */}
-      <ProfileLevelUp />
-      <ProfileTrophyProgress />
+      <ProfileHistoryTrophies />
+      <ProfileHistoryGraph />
+      {/* <ProfileLevelUp /> */}
+      {/* <ProfileTrophyProgress /> */}
       {/* <ProfileHistory /> */}
     </Container>
   );

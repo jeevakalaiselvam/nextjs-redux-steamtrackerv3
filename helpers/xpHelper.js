@@ -66,6 +66,7 @@ export const COMPLETION_TARGET = 0.75;
 export const calculateLevelFromAllGames = (games) => {
   let totalXP = 0;
   let unlockedToday = 0;
+  let unlockedTodayCount = 0;
   let unlockedAll = 0;
   let date = new Date();
   date.setHours(0, 0, 0, 0);
@@ -77,6 +78,7 @@ export const calculateLevelFromAllGames = (games) => {
         if (achievement.achieved == 1) {
           unlockedAll++;
           if (achievement.unlocktime > timeUTC) {
+            unlockedTodayCount += 1;
             unlockedToday += calculateXPFromPercentage(achievement.percentage);
           }
           totalXP += calculateXPFromPercentage(achievement.percentage);
@@ -87,5 +89,52 @@ export const calculateLevelFromAllGames = (games) => {
   const xpTotal = totalXP;
   const currentLevel = Math.floor(totalXP / LEVEL_UP_XP);
   const toNextLevel = xpTotal % LEVEL_UP_XP;
-  return { xpTotal, currentLevel, toNextLevel, unlockedToday, unlockedAll };
+  return {
+    xpTotal,
+    currentLevel,
+    toNextLevel,
+    unlockedToday,
+    unlockedAll,
+    unlockedTodayCount,
+  };
+};
+
+export const calculateRecentHistory = (games) => {
+  let recentHistory = {};
+
+  let recent30Dates = new Array(30).fill(1).map((item, index) => index);
+
+  recent30Dates.forEach((dayIndex) => {
+    recentHistory[dayIndex] = [];
+    let dateOld = new Date();
+    dateOld.setHours(0, 0, 0, 0);
+    dateOld.setDate(dateOld.getDate() - dayIndex);
+    let timeUTCOld;
+    timeUTCOld = dateOld.getTime() / 1000;
+
+    let dateNew = new Date();
+    dateNew.setHours(0, 0, 0, 0);
+    dateNew.setDate(dateNew.getDate() - dayIndex + 1);
+    let timeUTCNew;
+    timeUTCNew = dateNew.getTime() / 1000;
+
+    if (games.length > 0) {
+      games.forEach((game) => {
+        game.achievements.forEach((achievement) => {
+          if (achievement.achieved == 1) {
+            if (
+              achievement.unlocktime > timeUTCOld &&
+              achievement.unlocktime < timeUTCNew
+            ) {
+              recentHistory[dayIndex].push(achievement);
+            }
+          }
+        });
+      });
+    }
+  });
+
+  console.log("RECENT DATESS", recentHistory);
+
+  return { recentHistory };
 };
