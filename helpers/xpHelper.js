@@ -59,8 +59,8 @@ export const calculateTotalXPForAllGames = (games) => {
   return totalXP;
 };
 
-export const LEVEL_UP_XP = 1000;
-export const XP_FOR_LEVEL = 1000;
+export const LEVEL_UP_XP = 500;
+export const XP_FOR_LEVEL = 500;
 
 export const COMPLETION_TARGET = 0.75;
 export const calculateLevelFromAllGames = (games) => {
