@@ -23,6 +23,7 @@ import {
 } from "../../helpers/xpHelper";
 import { AiFillGold } from "react-icons/ai";
 import { getIcon } from "../../helpers/iconHelper";
+import { setShowHistoryModal } from "../../store/actions/games.actions";
 
 const Container = styled.div`
   display: flex;
@@ -164,6 +165,10 @@ const ProfileHistoryGraph = (props) => {
 
   const { recentHistory } = calculateRecentHistory(games);
 
+  const historyDayClicked = (achievements) => {
+    dispatch(setShowHistoryModal(achievements));
+  };
+
   return (
     <Container onClick={() => {}}>
       <LevelFragment>
@@ -179,7 +184,16 @@ const ProfileHistoryGraph = (props) => {
         <HistoryContainer>
           {Object.keys(recentHistory).map((key, index) => {
             return (
-              <HistoryItem id={index} current={false}>
+              <HistoryItem
+                id={index}
+                current={false}
+                onClick={() => {
+                  historyDayClicked(
+                    recentHistory[key],
+                    recentHistory[key][0].unlocktime
+                  );
+                }}
+              >
                 {recentHistory[key].length}
               </HistoryItem>
             );

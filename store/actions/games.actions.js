@@ -26,6 +26,8 @@ import {
   RESET_KANBAN_BOARD,
   SET_PLANNER_VIEW_TYPE,
   SET_PLANNER_UNLOCKED_TYPE,
+  HIDE_HISTORY_ACHIEVEMENTS,
+  SHOW_HISTORY_ACHIEVEMENTS,
 } from "../types/games.types";
 import axios from "axios";
 import { getPhaseFiltedAchievements } from "../../helpers/achievementHelper";
@@ -42,6 +44,24 @@ export const fetchAllGames = () => {
         dispatch({ type: FETCH_ALL_GAMES_ERROR, payload: error });
       }
     );
+  };
+};
+
+export const setShowHistoryModal = (achievements, modalTitle) => {
+  return (dispatch) => {
+    return dispatch({
+      type: SHOW_HISTORY_ACHIEVEMENTS,
+      payload: { achievements, modalTitle },
+    });
+  };
+};
+
+export const setHideHistoryModal = () => {
+  return (dispatch) => {
+    return dispatch({
+      type: HIDE_HISTORY_ACHIEVEMENTS,
+      payload: { achievements: [], modalTitle: "" },
+    });
   };
 };
 

@@ -43,6 +43,8 @@ import {
   RESET_KANBAN_BOARD,
   SET_PLANNER_VIEW_TYPE,
   SET_PLANNER_UNLOCKED_TYPE,
+  SHOW_HISTORY_ACHIEVEMENTS,
+  HIDE_HISTORY_ACHIEVEMENTS,
 } from "../types/games.types";
 
 const INITIAL_STATE = {
@@ -64,6 +66,9 @@ const INITIAL_STATE = {
       rightSidebarOpen: true,
       leftSidebarWidth: "200px",
       rightSidebarWidth: "450px",
+      showHistoryModal: false,
+      historyModalAchievements: [],
+      historyModalTitle: "",
     },
     plannerPage: {
       leftSidebarOpen: true,
@@ -159,6 +164,33 @@ const reducer = (state = INITIAL_STATE, action) => {
           gamePage: {
             ...state.settings.gamePage,
             searchTerm: payload,
+          },
+        },
+      };
+
+    case SHOW_HISTORY_ACHIEVEMENTS:
+      return {
+        ...state,
+        settings: {
+          ...state.settings,
+          gamePage: {
+            ...state.settings.gamePage,
+            showHistoryModal: true,
+            historyModalAchievements: payload.achievements,
+            historyModalTitle: payload.modalTitle,
+          },
+        },
+      };
+    case HIDE_HISTORY_ACHIEVEMENTS:
+      return {
+        ...state,
+        settings: {
+          ...state.settings,
+          gamePage: {
+            ...state.settings.gamePage,
+            showHistoryModal: false,
+            historyModalAchievements: payload.achievements,
+            historyModalTitle: payload.modalTitle,
           },
         },
       };

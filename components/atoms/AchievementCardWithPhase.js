@@ -15,6 +15,7 @@ import { getIcon } from "../../helpers/iconHelper";
 const Container = styled.div`
   display: flex;
   align-items: center;
+  z-index: 10000;
   justify-content: center;
   flex-direction: column;
   position: relative;
