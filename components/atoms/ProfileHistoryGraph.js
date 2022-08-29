@@ -29,7 +29,7 @@ const Container = styled.div`
   background-color: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(10px);
   align-items: center;
-  padding: 1rem;
+  padding: 1rem 0.25rem;
   justify-content: center;
   margin-top: 0.5rem;
   flex-direction: column;
@@ -67,7 +67,8 @@ const HistoryContainer = styled.div`
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: center;
-  padding: 1rem;
+  padding: 1rem 0.25rem;
+  overflow: scroll;
 `;
 
 const HistoryItem = styled.div`

@@ -55,6 +55,14 @@ const Title = styled.div`
 const LevelContainer = styled.div`
   display: flex;
   align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem;
+`;
+
+const ToLevel = styled.div`
+  display: flex;
+  align-items: center;
   flex-direction: row;
   justify-content: center;
   padding: 1rem;
@@ -67,7 +75,6 @@ const GoldTrophy = styled.div`
   justify-content: center;
   margin-right: 2rem;
   color: #f1b51b;
-  margin-left: 1rem;
   font-size: 2rem;
 `;
 
@@ -104,21 +111,6 @@ const ProfileLevel = (props) => {
   const { xpTotal, currentLevel, toNextLevel, unlockedAll } =
     calculateLevelFromAllGames(games);
 
-  const goldTrophies = games.reduce((acc, game) => {
-    if (+game.completion == 100) {
-      return acc + 1;
-    } else {
-      return acc;
-    }
-  }, 0);
-  const purpleTrophies = games.reduce((acc, game) => {
-    if (+game.completion >= 80 && +game.completion < 100) {
-      return acc + 1;
-    } else {
-      return acc;
-    }
-  }, 0);
-
   return (
     <Container onClick={() => {}}>
       <LevelFragment>
@@ -142,6 +134,7 @@ const ProfileLevel = (props) => {
             </Icon>
             <Text>{Math.floor(xpTotal / XP_FOR_LEVEL)}</Text>
           </GoldTrophy>
+          {/* <ToLevel>{toNextLevel}</ToLevel> */}
         </LevelContainer>
       </LevelFragment>
     </Container>
