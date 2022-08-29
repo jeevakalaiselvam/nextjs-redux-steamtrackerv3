@@ -79,8 +79,9 @@ const HistoryItem = styled.div`
   flex-direction: row;
   justify-content: center;
   padding: 0.5rem;
-  background-color: rgba(0, 0, 0, 0.5);
-  color: #fefefe;
+  background-color: ${(props) =>
+    props.current ? "rgba(0, 0, 0, 0.5)" : "rgba(0, 0, 0, 0.5)"};
+  color: ${(props) => (props.current ? "#fefefe" : "#737c9d")};
 
   &:hover {
     background-color: #3049d1;
@@ -177,7 +178,9 @@ const ProfileHistoryGraph = (props) => {
         <HistoryContainer>
           {Object.keys(recentHistory).map((key, index) => {
             return (
-              <HistoryItem id={index}>{recentHistory[key].length}</HistoryItem>
+              <HistoryItem id={index} current={index === 0}>
+                {recentHistory[key].length}
+              </HistoryItem>
             );
           })}
         </HistoryContainer>
