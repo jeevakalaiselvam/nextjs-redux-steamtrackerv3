@@ -179,7 +179,7 @@ const ProfileHistoryGraph = (props) => {
         <HistoryContainer>
           {Object.keys(recentHistory).map((key, index) => {
             return (
-              <HistoryItem id={index} current={index === 0}>
+              <HistoryItem id={index} current={false}>
                 {recentHistory[key].length}
               </HistoryItem>
             );
