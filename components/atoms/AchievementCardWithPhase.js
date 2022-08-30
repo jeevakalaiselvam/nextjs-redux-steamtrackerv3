@@ -20,7 +20,7 @@ const Container = styled.div`
   flex-direction: column;
   position: relative;
   opacity: ${(props) =>
-    props.achieved == 1 && props.activateCompletionOpacity ? "0.25" : "1.0"};
+    props.achieved == 1 && props.activateCompletionOpacity ? "0.15" : "1.0"};
 `;
 
 const MainContainer = styled.div`
@@ -67,7 +67,7 @@ const UnlockedContainer = styled.div`
   position: absolute;
   bottom: 0;
   color: #b0bec5;
-  right: 55px;
+  right: 0px;
   display: flex;
   z-index: 100000;
   padding: 0rem 1rem 1rem 1rem;
@@ -444,10 +444,10 @@ export default function AchievementCardWithPhase(props) {
           )}
         </PhaseRevealer>
         <PhaseContainer show={true}>
-          <XPData>
+          {/* <XPData>
             <XPText>{calculateXPFromPercentage(percentage)}</XPText>
             <XPIcon>{getIcon("xp")}</XPIcon>
-          </XPData>
+          </XPData> */}
           {false && (
             <>
               <PhaseItem
