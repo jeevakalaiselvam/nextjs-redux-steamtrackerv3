@@ -63,7 +63,7 @@ const Title = styled.div`
 const LevelContainer = styled.div`
   display: flex;
   align-items: center;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   padding: 1rem;
 `;
@@ -137,6 +137,16 @@ const LevelItem = styled.div`
   flex-direction: row;
   justify-content: center;
   font-size: 1.5rem;
+`;
+
+const ToNext = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: #b0bec5;
+  margin-top: 1rem;
 `;
 
 const ProfileTrophyProgress = (props) => {
@@ -233,6 +243,7 @@ const ProfileTrophyProgress = (props) => {
                   );
               })}
           </GoldTrophy>
+          <ToNext>+ {toNextLevel} needed..</ToNext>
         </LevelContainer>
       </LevelFragment>
     </Container>
