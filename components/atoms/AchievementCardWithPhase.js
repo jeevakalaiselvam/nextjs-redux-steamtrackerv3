@@ -67,7 +67,7 @@ const UnlockedContainer = styled.div`
   position: absolute;
   bottom: 0;
   color: #b0bec5;
-  right: 0px;
+  right: 50px;
   display: flex;
   z-index: 100000;
   padding: 0rem 1rem 1rem 1rem;
@@ -431,7 +431,7 @@ export default function AchievementCardWithPhase(props) {
           {!showJournal && (
             <IoBook
               onClick={() => {
-                setShowJournal((old) => true);
+                // setShowJournal((old) => true);
               }}
             />
           )}
@@ -444,10 +444,10 @@ export default function AchievementCardWithPhase(props) {
           )}
         </PhaseRevealer>
         <PhaseContainer show={true}>
-          {/* <XPData>
+          <XPData>
             <XPText>{calculateXPFromPercentage(percentage)}</XPText>
             <XPIcon>{getIcon("xp")}</XPIcon>
-          </XPData> */}
+          </XPData>
           {false && (
             <>
               <PhaseItem
@@ -506,15 +506,17 @@ export default function AchievementCardWithPhase(props) {
       <JournalContainer show={showJournal}>
         <JournalInput onDataSaved={onDataSaved} journalData={journalData} />
       </JournalContainer>
-      <UnlockedContainer>
-        {`${new Date(unlocktime * 1000).toString().slice(0, -40)}, ${new Date(
-          unlocktime * 1000
-        ).toLocaleString("en-US", {
-          hour: "numeric",
-          minute: "numeric",
-          hour12: true,
-        })}`}
-      </UnlockedContainer>
+      {achieved == 1 && (
+        <UnlockedContainer>
+          {`${new Date(unlocktime * 1000).toString().slice(0, -40)}, ${new Date(
+            unlocktime * 1000
+          ).toLocaleString("en-US", {
+            hour: "numeric",
+            minute: "numeric",
+            hour12: true,
+          })}`}
+        </UnlockedContainer>
+      )}
     </Container>
   );
 }

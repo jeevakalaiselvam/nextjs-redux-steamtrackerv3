@@ -73,7 +73,7 @@ const GoldTrophy = styled.div`
   align-items: center;
   flex-direction: row;
   justify-content: center;
-  margin-right: 2rem;
+  margin-right: 1.5rem;
   color: #f1b51b;
   font-size: 2rem;
 `;
@@ -92,7 +92,7 @@ const Icon = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  font-size: 3rem;
+  font-size: 2rem;
 `;
 
 const Text = styled.div`
@@ -100,7 +100,7 @@ const Text = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  font-size: 3rem;
+  font-size: 2rem;
 `;
 
 const ProfileLevel = (props) => {

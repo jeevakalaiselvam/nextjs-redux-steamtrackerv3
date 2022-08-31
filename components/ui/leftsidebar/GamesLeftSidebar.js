@@ -37,14 +37,14 @@ export default function GamesLeftSidebar() {
         profileImageLink="https://avatars.cloudflare.steamstatic.com/3984d41a867b9b4eca056cdfcd1134bd591d9100_full.jpg"
       />
       <GamesPageMenu />
-      {/* <ProfileLevel />
-      <ProfileLevelUp /> */}
+      <ProfileTrophyProgress />
+      {/* <ProfileLevel /> */}
+      {/* <ProfileLevelUp /> */}
       <ProfileTrophies />
       {/* {gameId && <ProfileToGet />} */}
       {/* {gameId && <ProfileToTotal />} */}
       <ProfileHistoryTrophies />
       <ProfileHistoryGraph />
-      {/* <ProfileTrophyProgress /> */}
       {/* <ProfileHistory /> */}
     </Container>
   );
