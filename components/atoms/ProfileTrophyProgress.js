@@ -117,7 +117,7 @@ const Text = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  font-size: 2rem;
+  font-size: 1.75rem;
 `;
 
 const DownArrow = styled.div`
@@ -175,7 +175,7 @@ const ProfileTrophyProgress = (props) => {
           <HiOutlineChevronDoubleUp
             style={{ marginRight: "0.5rem", color: "#6cff5c" }}
           />
-          <Title>PROGRESS</Title>
+          <Title>LEVEL</Title>
           <HiOutlineChevronDoubleUp
             style={{ marginLeft: "0.5rem", color: "#6cff5c" }}
           />

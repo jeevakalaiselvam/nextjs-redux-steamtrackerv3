@@ -86,7 +86,7 @@ const Icon = styled.div`
   margin-right: 1rem;
   margin-left: 1rem;
   justify-content: center;
-  font-size: 2.25rem;
+  font-size: 2rem;
 `;
 
 const Text = styled.div`
