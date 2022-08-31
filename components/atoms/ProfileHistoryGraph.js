@@ -84,7 +84,7 @@ const HistoryItem = styled.div`
   background-color: ${(props) =>
     props.current ? "rgba(0, 0, 0, 0.5)" : "rgba(0, 0, 0, 0.5)"};
   color: ${(props) => (props.current ? "#fefefe" : "#737c9d")};
-
+  opacity: ${(props) => (props.transparent ? "0.25" : "1.0")};
   &:hover {
     background-color: #3049d1;
     color: #fefefe;
@@ -185,6 +185,7 @@ const ProfileHistoryGraph = (props) => {
           {Object.keys(recentHistory).map((key, index) => {
             return (
               <HistoryItem
+                transparent={recentHistory[key].length == 0}
                 id={index}
                 current={false}
                 onClick={() => {
