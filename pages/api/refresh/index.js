@@ -67,7 +67,7 @@ const handler = async (req, res) => {
             );
             const newAchievement = {
               ...achievement,
-              percentage: achievementFound.percent,
+              percentage: achievementFound?.percent || 0,
             };
             return newAchievement;
           });
