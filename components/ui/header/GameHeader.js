@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { FILTER_OPTIONS_GAME_PAGE } from "../../../helpers/filterHelper";
 import {
@@ -12,6 +12,8 @@ import Search from "../../atoms/Search";
 import { TbRefresh } from "react-icons/tb";
 import { useRouter } from "next/router";
 import axios from "axios";
+import { getAllXPFromAchievements } from "../../../helpers/xpHelper";
+import { getIcon } from "../../../helpers/iconHelper";
 
 const Container = styled.div`
   display: flex;
@@ -35,6 +37,13 @@ const SearchContainer = styled.div`
   flex: 1;
   align-items: center;
   justify-content: flex-end;
+`;
+
+const TrophyContainer = styled.div`
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
 `;
 
 const RefreshContainer = styled.div`
@@ -63,10 +72,59 @@ const RefreshText = styled.div`
   justify-content: center;
 `;
 
+const ToGetContainer = styled.div`
+  display: "flex";
+  min-width: 100px;
+  flex-direction: column;
+  padding: 1rem;
+  z-index: 8;
+  transition: all 0.5s;
+  background-color: rgba(0, 0, 0, 0.1);
+  transform: translateX("0%");
+`;
+
+const ToGetIcon = styled.div`
+  display: flex;
+  align-items: center;
+  color: #f1b51b;
+  font-size: 2rem;
+  z-index: 8;
+  justify-content: center;
+`;
+
+const ToGetData = styled.div`
+  display: flex;
+  align-items: center;
+  z-index: 8;
+  justify-content: center;
+  color: #f1b51b;
+  font-size: 1.5rem;
+`;
+
 export default function GameHeader() {
   const dispatch = useDispatch();
   const router = useRouter();
   const { gameId } = router.query;
+
+  const steamtracker = useSelector((state) => state.steamtracker);
+  const { games, settings } = steamtracker;
+
+  const game = games.find((game) => game.id == gameId);
+  const { id, playtime, name, version, achievements, completion, toGet } = game;
+
+  let newAchievements = achievements.filter((achievement) => {
+    if (typeof window !== "undefined") {
+      let ignoredAchievementsInStorage =
+        localStorage.getItem(`${id}_IGNORE`) || JSON.stringify([]);
+      let ignoredAchievements = JSON.parse(ignoredAchievementsInStorage);
+      if (!ignoredAchievements.includes(achievement.name)) {
+        return true;
+      }
+    }
+  });
+
+  const xpData = getAllXPFromAchievements(newAchievements);
+  const { totalXP, completedXP, remainingXP, completedTotal, total } = xpData;
 
   const onFilterChanged = (filterOption) => {
     dispatch(changeGamePageFilterOption(filterOption));
@@ -90,6 +148,17 @@ export default function GameHeader() {
           onFilterChanged={onFilterChanged}
         />
       </FilterContainer>
+      <TrophyContainer>
+        {" "}
+        <ToGetContainer>
+          <ToGetIcon>{getIcon("trophy")}</ToGetIcon>
+          <ToGetData>
+            {Math.floor(total * 0.5) - completedTotal > 0
+              ? Math.floor(total * 0.5) - completedTotal
+              : 0}
+          </ToGetData>
+        </ToGetContainer>
+      </TrophyContainer>
       <SearchContainer>
         <Search onSearchObtained={onSearchObtained} />
         <RefreshContainer onClick={refreshButtonClickHandler}>
