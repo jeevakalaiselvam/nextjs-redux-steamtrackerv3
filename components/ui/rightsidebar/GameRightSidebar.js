@@ -94,9 +94,44 @@ export default function GameRightSidebar() {
     todayOnly = getaUnlockedAchievementsByType(game.achievements, "TODAY");
   }
 
+  const [showJournal, setShowJournal] = useState(false);
+  const [journalData, setJournalData] = useState("");
+  const [saveStatus, setSavedStatus] = useState("");
+
+  const onDataSaved = (journalData) => {
+    if (typeof window !== "undefined") {
+      setSavedStatus((old) => "Saving..");
+      localStorage.setItem(`${gameId}_${name}_JOURNAL`, journalData);
+      setSavedStatus((old) => "Saved!");
+      setTimeout(() => {
+        setSavedStatus((old) => "");
+      }, 1000);
+    }
+  };
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const journalDataInStore = localStorage.getItem(
+        `${gameId}_${name}_JOURNAL`
+      );
+      if (!journalDataInStore) setJournalData((old) => "");
+      else setJournalData((old) => journalDataInStore);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const journalDataInStore = localStorage.getItem(
+        `${gameId}_${name}_JOURNAL`
+      );
+      if (!journalDataInStore) setJournalData((old) => "");
+      else setJournalData((old) => journalDataInStore);
+    }
+  }, [achievement]);
+
   return (
     <Container>
-      {game && (
+      {/* {game && (
         <>
           <TitleContainer>
             <Title>UNLOCKED TODAY</Title>
@@ -118,7 +153,16 @@ export default function GameRightSidebar() {
             showOnly="TODAY"
           />
         </>
-      )}
+      )} */}
+
+      <JournalContainer show={true}>
+        <JournalInput
+          onDataSaved={onDataSaved}
+          journalData={journalData}
+          achievement={achievement}
+          saveStatus={saveStatus}
+        />
+      </JournalContainer>
     </Container>
   );
 }

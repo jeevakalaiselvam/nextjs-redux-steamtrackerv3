@@ -165,44 +165,9 @@ export default function GameContent() {
     }
   }, []);
 
-  const [showJournal, setShowJournal] = useState(false);
-  const [journalData, setJournalData] = useState("");
-  const [saveStatus, setSavedStatus] = useState("");
-
-  const onDataSaved = (journalData) => {
-    if (typeof window !== "undefined") {
-      setSavedStatus((old) => "Saving..");
-      localStorage.setItem(`${gameId}_${name}_JOURNAL`, journalData);
-      setSavedStatus((old) => "Saved!");
-      setTimeout(() => {
-        setSavedStatus((old) => "");
-      }, 1000);
-    }
-  };
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const journalDataInStore = localStorage.getItem(
-        `${gameId}_${name}_JOURNAL`
-      );
-      if (!journalDataInStore) setJournalData((old) => "");
-      else setJournalData((old) => journalDataInStore);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const journalDataInStore = localStorage.getItem(
-        `${gameId}_${name}_JOURNAL`
-      );
-      if (!journalDataInStore) setJournalData((old) => "");
-      else setJournalData((old) => journalDataInStore);
-    }
-  }, [achievement]);
-
   return (
     <RootContainer>
-      {journalContainerVisible && (
+      {journalContainerVisible && false && (
         <JournalContainer show={true}>
           <JournalInput
             onDataSaved={onDataSaved}

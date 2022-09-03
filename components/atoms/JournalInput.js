@@ -101,7 +101,9 @@ export default function JournalInput({
 
   return (
     <Container>
-      {achievement && <AchievementCardWithPhase achievement={achievement} />}
+      {achievement && false && (
+        <AchievementCardWithPhase achievement={achievement} />
+      )}
       <Header>
         <Title>JOURNAL</Title>
         <SaveStatus>{saveStatus}</SaveStatus>
