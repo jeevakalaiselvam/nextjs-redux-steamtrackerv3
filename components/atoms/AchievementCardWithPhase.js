@@ -45,6 +45,8 @@ const JournalContainer = styled.div`
   transition: 0.5s all;
   min-height: ${(props) => (props.show ? "400px" : "0px")};
   align-items: flex-start;
+  top: 0;
+  left: 0;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.9);
   color: #b0bec5;
@@ -205,6 +207,7 @@ const PhaseRevealer = styled.div`
   color: ${(props) => (props.active ? "#6cff5c" : "#737c9d;")};
   padding: 0rem 0.5rem;
   margin: 0.5rem;
+  z-index: 10000000;
   font-size: 1.5rem;
   &:hover {
     color: #6cff5c;
@@ -431,7 +434,7 @@ export default function AchievementCardWithPhase(props) {
           {!showJournal && (
             <IoBook
               onClick={() => {
-                // setShowJournal((old) => true);
+                setShowJournal((old) => true);
               }}
             />
           )}
