@@ -424,7 +424,7 @@ export default function AchievementCardWithPhase(props) {
           </PercentageIcon>
           <PercentageText>{percentage.toFixed(2)}%</PercentageText>
         </PercentageContainer>
-        {hidden == "1" && (
+        {hidden == "1" && false && (
           <HiddenContainer>
             <IoEyeOff />
           </HiddenContainer>

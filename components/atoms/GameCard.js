@@ -214,7 +214,7 @@ export default function GameCard({ game }) {
   });
 
   const xpData = getAllXPFromAchievements(newAchievements);
-  const { totalXP, completedXP, remainingXP } = xpData;
+  const { totalXP, completedXP, remainingXP, completedTotal } = xpData;
 
   const router = useRouter();
 
@@ -238,14 +238,12 @@ export default function GameCard({ game }) {
       >
         <TitleData> {name}</TitleData>
       </Title>
-      {/* {completed < needed && (
+      {
         <ToGetContainer>
-          <ToGetIcon>
-            {getIcon("trophy")}
-          </ToGetIcon>
+          <ToGetIcon>{getIcon("trophy")}</ToGetIcon>
           <ToGetData>{toGet}</ToGetData>
         </ToGetContainer>
-      )} */}
+      }
       {completed <= needed && false && (
         <XPContainer>
           <XPIcon>{getIcon("xp")}</XPIcon>
