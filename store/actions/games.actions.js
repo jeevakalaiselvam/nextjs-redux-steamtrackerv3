@@ -28,6 +28,8 @@ import {
   SET_PLANNER_UNLOCKED_TYPE,
   HIDE_HISTORY_ACHIEVEMENTS,
   SHOW_HISTORY_ACHIEVEMENTS,
+  SHOW_JOURNAL_RIGHTSIDEBAR,
+  HIDE_JOURNAL_RIGHTSIDEBAR,
 } from "../types/games.types";
 import axios from "axios";
 import { getPhaseFiltedAchievements } from "../../helpers/achievementHelper";
@@ -44,6 +46,24 @@ export const fetchAllGames = () => {
         dispatch({ type: FETCH_ALL_GAMES_ERROR, payload: error });
       }
     );
+  };
+};
+
+export const setShowJournalRightSidebar = (selectedAchievement) => {
+  return (dispatch) => {
+    return dispatch({
+      type: SHOW_JOURNAL_RIGHTSIDEBAR,
+      payload: { selectedAchievement, rightSidebarOpen: true },
+    });
+  };
+};
+
+export const setHideJournalRightSidebar = () => {
+  return (dispatch) => {
+    return dispatch({
+      type: HIDE_JOURNAL_RIGHTSIDEBAR,
+      payload: { rightSidebarOpen: false },
+    });
   };
 };
 

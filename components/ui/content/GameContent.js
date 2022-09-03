@@ -13,17 +13,43 @@ import AchievementCard from "../../atoms/AchievementCard";
 import { HEADER_IMAGE } from "../../../helpers/urlHelper";
 import { FaClosedCaptioning } from "react-icons/fa";
 import { HiX, HiXCircle } from "react-icons/hi";
+import JournalInput from "../../atoms/JournalInput";
 
-const Container = styled.div`
+const RootContainer = styled.div`
   display: flex;
   width: 100%;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: flex-start;
   padding: 0.25rem;
-  height: 100%;
+  height: 95vh;
+`;
+
+const DataContainer = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  max-height: 100%;
+  min-height: 100%;
   overflow: scroll;
   position: relative;
+`;
+
+const JournalContainer = styled.div`
+  display: flex;
+  transition: 0.5s all;
+  align-items: flex-start;
+  padding: 1rem;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #b0bec5;
+  backdrop-filter: blur(2px);
+  min-width: 400px;
+  max-width: 400px;
+  max-height: 100%;
+  min-height: 100%;
 `;
 
 const HistoryModal = styled.div`
@@ -95,7 +121,22 @@ export default function GameContent() {
     showHistoryModal,
     historyModalAchievements,
     historyModalTitle,
+    journalContainerVisible,
+    selectedAchievement: achievement,
   } = gamePage;
+
+  const {
+    name,
+    hidden,
+    icon,
+    icongray,
+    percentage,
+    achieved,
+    unlocktime,
+    displayName,
+    description,
+    phase,
+  } = achievement;
 
   const router = useRouter();
   const { gameId } = router.query;
@@ -124,37 +165,84 @@ export default function GameContent() {
     }
   }, []);
 
+  const [showJournal, setShowJournal] = useState(false);
+  const [journalData, setJournalData] = useState("");
+  const [saveStatus, setSavedStatus] = useState("");
+
+  const onDataSaved = (journalData) => {
+    if (typeof window !== "undefined") {
+      setSavedStatus((old) => "Saving..");
+      localStorage.setItem(`${gameId}_${name}_JOURNAL`, journalData);
+      setSavedStatus((old) => "Saved!");
+      setTimeout(() => {
+        setSavedStatus((old) => "");
+      }, 1000);
+    }
+  };
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const journalDataInStore = localStorage.getItem(
+        `${gameId}_${name}_JOURNAL`
+      );
+      if (!journalDataInStore) setJournalData((old) => "");
+      else setJournalData((old) => journalDataInStore);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const journalDataInStore = localStorage.getItem(
+        `${gameId}_${name}_JOURNAL`
+      );
+      if (!journalDataInStore) setJournalData((old) => "");
+      else setJournalData((old) => journalDataInStore);
+    }
+  }, [achievement]);
+
   return (
-    <Container>
-      {showHistoryModal && (
-        <HistoryModal image={HEADER_IMAGE(gameId || "381210")}>
-          <CloseButton
-            onClick={() => {
-              dispatch(setHideHistoryModal());
-            }}
-          >
-            <HiXCircle />
-          </CloseButton>
-          {/* <HistoryTitle>Unlocked Achievements</HistoryTitle> */}
-          <HistoryContainer>
-            {historyModalAchievements.length &&
-              Object.keys(historyModalAchievements).map((achievementKey) => {
-                return (
-                  <AchievementCard
-                    achievement={historyModalAchievements[achievementKey]}
-                  />
-                );
-              })}
-          </HistoryContainer>
-        </HistoryModal>
+    <RootContainer>
+      {journalContainerVisible && (
+        <JournalContainer show={true}>
+          <JournalInput
+            onDataSaved={onDataSaved}
+            journalData={journalData}
+            achievement={achievement}
+            saveStatus={saveStatus}
+          />
+        </JournalContainer>
       )}
-      <Achievements
-        game={game}
-        filterOption={filterOption}
-        searchTerm={searchTerm}
-        showIgnore={true}
-        activateCompletionOpacity={true}
-      />
-    </Container>
+      <DataContainer>
+        {showHistoryModal && (
+          <HistoryModal image={HEADER_IMAGE(gameId || "381210")}>
+            <CloseButton
+              onClick={() => {
+                dispatch(setHideHistoryModal());
+              }}
+            >
+              <HiXCircle />
+            </CloseButton>
+            {/* <HistoryTitle>Unlocked Achievements</HistoryTitle> */}
+            <HistoryContainer>
+              {historyModalAchievements.length &&
+                Object.keys(historyModalAchievements).map((achievementKey) => {
+                  return (
+                    <AchievementCard
+                      achievement={historyModalAchievements[achievementKey]}
+                    />
+                  );
+                })}
+            </HistoryContainer>
+          </HistoryModal>
+        )}
+        <Achievements
+          game={game}
+          filterOption={filterOption}
+          searchTerm={searchTerm}
+          showIgnore={true}
+          activateCompletionOpacity={true}
+        />
+      </DataContainer>
+    </RootContainer>
   );
 }

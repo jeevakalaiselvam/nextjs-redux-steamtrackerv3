@@ -45,6 +45,8 @@ import {
   SET_PLANNER_UNLOCKED_TYPE,
   SHOW_HISTORY_ACHIEVEMENTS,
   HIDE_HISTORY_ACHIEVEMENTS,
+  SHOW_JOURNAL_RIGHTSIDEBAR,
+  HIDE_JOURNAL_RIGHTSIDEBAR,
 } from "../types/games.types";
 
 const INITIAL_STATE = {
@@ -69,6 +71,8 @@ const INITIAL_STATE = {
       showHistoryModal: false,
       historyModalAchievements: [],
       historyModalTitle: "",
+      selectedAchievement: "",
+      journalContainerVisible: false,
     },
     plannerPage: {
       leftSidebarOpen: true,
@@ -191,6 +195,31 @@ const reducer = (state = INITIAL_STATE, action) => {
             showHistoryModal: false,
             historyModalAchievements: payload.achievements,
             historyModalTitle: payload.modalTitle,
+          },
+        },
+      };
+
+    case SHOW_JOURNAL_RIGHTSIDEBAR:
+      return {
+        ...state,
+        settings: {
+          ...state.settings,
+          gamePage: {
+            ...state.settings.gamePage,
+            journalContainerVisible: payload.rightSidebarOpen,
+            selectedAchievement: payload.selectedAchievement,
+          },
+        },
+      };
+
+    case HIDE_JOURNAL_RIGHTSIDEBAR:
+      return {
+        ...state,
+        settings: {
+          ...state.settings,
+          gamePage: {
+            ...state.settings.gamePage,
+            journalContainerVisible: payload.rightSidebarOpen,
           },
         },
       };

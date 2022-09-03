@@ -6,7 +6,10 @@ import { AiFillGold } from "react-icons/ai";
 
 import { ALL, EASY, GRIND, HARD, MISSABLE } from "../../helpers/gameHelper";
 import { useDispatch, useSelector } from "react-redux";
-import { updatePhaseForAchievement } from "../../store/actions/games.actions";
+import {
+  setShowJournalRightSidebar,
+  updatePhaseForAchievement,
+} from "../../store/actions/games.actions";
 import { HiChevronDoubleUp, HiMenu } from "react-icons/hi";
 import JournalInput from "./JournalInput";
 import { calculateXPFromPercentage } from "../../helpers/xpHelper";
@@ -434,7 +437,9 @@ export default function AchievementCardWithPhase(props) {
           {!showJournal && (
             <IoBook
               onClick={() => {
-                setShowJournal((old) => true);
+                // setShowJournal((old) => true);
+                //Activate Right Sidebar with Journal Content
+                dispatch(setShowJournalRightSidebar(props.achievement));
               }}
             />
           )}

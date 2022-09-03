@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import {
@@ -14,6 +14,7 @@ import {
 } from "../../../helpers/filterHelper";
 import { getIcon } from "../../../helpers/iconHelper";
 import { calculateXPFromPercentage } from "../../../helpers/xpHelper";
+import JournalInput from "../../atoms/JournalInput";
 import Achievements from "../../organisms/Achievements";
 
 const Container = styled.div`
@@ -25,6 +26,7 @@ const Container = styled.div`
   padding: 0.25rem 0;
   min-height: 100vh;
   max-height: 100vh;
+  padding: 1rem;
   overflow: hidden;
 `;
 
@@ -64,9 +66,23 @@ const Text = styled.div`
   justify-content: center;
 `;
 
+const JournalContainer = styled.div`
+  display: flex;
+  transition: 0.5s all;
+  align-items: flex-start;
+  padding: 1rem;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.2);
+  color: #b0bec5;
+  backdrop-filter: blur(2px);
+  width: 100%;
+`;
+
 export default function GameRightSidebar() {
   const steamtracker = useSelector((state) => state.steamtracker);
   const { games, settings } = steamtracker;
+  const { gamePage } = settings;
+  const { selectedAchievement: achievement } = gamePage;
 
   const router = useRouter();
   const { gameId } = router.query;

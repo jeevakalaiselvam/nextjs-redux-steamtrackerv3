@@ -30,6 +30,7 @@ const Title = styled.div`
 export default function GamesRightSidebar() {
   const steamtracker = useSelector((state) => state.steamtracker);
   const { games, settings } = steamtracker;
+  const { gamePage } = settings;
 
   const router = useRouter();
   const { gameId } = router.query;

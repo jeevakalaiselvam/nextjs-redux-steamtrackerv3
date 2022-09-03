@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 
 import styled from "styled-components";
+import AchievementCardWithPhase from "./AchievementCardWithPhase";
 
 const Container = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  min-height: 93vh;
   flex-direction: column;
   transition: 0.5s all;
 `;
@@ -27,6 +29,13 @@ const Title = styled.div`
   color: #f1b51b;
 `;
 
+const SaveStatus = styled.div`
+  display: flex;
+  padding: 0rem 1rem;
+  align-items: center;
+  justify-content: flex-start;
+`;
+
 const Button = styled.div`
   display: flex;
   align-items: center;
@@ -45,24 +54,31 @@ const InputContainer = styled.div`
   display: flex;
   width: 100%;
   flex: 1;
-  align-items: center;
+  margin-top: 1rem;
+  align-items: flex-start;
+  min-height: 100%;
   justify-content: center;
-  background: rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.2);
 
   & textarea {
     width: 100%;
     outline: none;
     flex: 1;
-    height: 400px;
     border: none;
-    background: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
     padding: 1rem;
     resize: none;
+    min-height: 80vh;
     font-size: 1.5rem;
   }
 `;
 
-export default function JournalInput({ onDataSaved, journalData }) {
+export default function JournalInput({
+  onDataSaved,
+  journalData,
+  achievement,
+  saveStatus,
+}) {
   const [journal, setJournal] = useState(journalData);
 
   //   useEffect(() => {
@@ -85,8 +101,10 @@ export default function JournalInput({ onDataSaved, journalData }) {
 
   return (
     <Container>
+      {achievement && <AchievementCardWithPhase achievement={achievement} />}
       <Header>
         <Title>JOURNAL</Title>
+        <SaveStatus>{saveStatus}</SaveStatus>
         <Button
           onClick={() => {
             onDataSaved(journal);
