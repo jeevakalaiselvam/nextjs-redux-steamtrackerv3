@@ -112,63 +112,69 @@ export default function GameHeader() {
   const steamtracker = useSelector((state) => state.steamtracker);
   const { games, settings } = steamtracker;
 
-  const game = games.find((game) => game.id == gameId);
-  const { id, playtime, name, version, achievements, completion, toGet } = game;
+  let game;
 
-  let newAchievements = achievements.filter((achievement) => {
-    if (typeof window !== "undefined") {
-      let ignoredAchievementsInStorage =
-        localStorage.getItem(`${id}_IGNORE`) || JSON.stringify([]);
-      let ignoredAchievements = JSON.parse(ignoredAchievementsInStorage);
-      if (!ignoredAchievements.includes(achievement.name)) {
-        return true;
+  if (gameId) {
+    game = games.find((game) => game.id == gameId);
+    const { id, playtime, name, version, achievements, completion, toGet } =
+      game;
+
+    let newAchievements = achievements.filter((achievement) => {
+      if (typeof window !== "undefined") {
+        let ignoredAchievementsInStorage =
+          localStorage.getItem(`${id}_IGNORE`) || JSON.stringify([]);
+        let ignoredAchievements = JSON.parse(ignoredAchievementsInStorage);
+        if (!ignoredAchievements.includes(achievement.name)) {
+          return true;
+        }
       }
-    }
-  });
+    });
 
-  const xpData = getAllXPFromAchievements(newAchievements);
-  const { totalXP, completedXP, remainingXP, completedTotal, total } = xpData;
+    const xpData = getAllXPFromAchievements(newAchievements);
+    const { totalXP, completedXP, remainingXP, completedTotal, total } = xpData;
 
-  const onFilterChanged = (filterOption) => {
-    dispatch(changeGamePageFilterOption(filterOption));
-  };
+    const onFilterChanged = (filterOption) => {
+      dispatch(changeGamePageFilterOption(filterOption));
+    };
 
-  const onSearchObtained = (searchTerm) => {
-    dispatch(changeGamePageSearchTerm(searchTerm));
-  };
+    const onSearchObtained = (searchTerm) => {
+      dispatch(changeGamePageSearchTerm(searchTerm));
+    };
 
-  const refreshButtonClickHandler = async () => {
-    const response = await axios.get(`/api/refresh/${gameId}`);
-    const gameRefreshedData = response.data.data;
-    dispatch(setGameDataRefresh(gameId, gameRefreshedData));
-  };
+    const refreshButtonClickHandler = async () => {
+      const response = await axios.get(`/api/refresh/${gameId}`);
+      const gameRefreshedData = response.data.data;
+      dispatch(setGameDataRefresh(gameId, gameRefreshedData));
+    };
 
-  return (
-    <Container>
-      <FilterContainer>
-        <Filter
-          filterOptions={FILTER_OPTIONS_GAME_PAGE}
-          onFilterChanged={onFilterChanged}
-        />
-      </FilterContainer>
-      <TrophyContainer>
-        {" "}
-        <ToGetContainer>
-          <ToGetIcon>{getIcon("trophy")}</ToGetIcon>
-          <ToGetData>
-            {Math.floor(total * COMPLETION_TARGET) - completedTotal > 0
-              ? Math.floor(total * COMPLETION_TARGET) - completedTotal
-              : 0}
-          </ToGetData>
-        </ToGetContainer>
-      </TrophyContainer>
-      <SearchContainer>
-        <Search onSearchObtained={onSearchObtained} />
-        <RefreshContainer onClick={refreshButtonClickHandler}>
-          <TbRefresh />
-          <RefreshText>REFRESH</RefreshText>
-        </RefreshContainer>
-      </SearchContainer>
-    </Container>
-  );
+    return (
+      <Container>
+        <FilterContainer>
+          <Filter
+            filterOptions={FILTER_OPTIONS_GAME_PAGE}
+            onFilterChanged={onFilterChanged}
+          />
+        </FilterContainer>
+        {gameId && (
+          <TrophyContainer>
+            <ToGetContainer>
+              <ToGetIcon>{getIcon("trophy")}</ToGetIcon>
+              <ToGetData>
+                {Math.floor(total * COMPLETION_TARGET) - completedTotal > 0
+                  ? Math.floor(total * COMPLETION_TARGET) - completedTotal
+                  : 0}
+              </ToGetData>
+            </ToGetContainer>
+          </TrophyContainer>
+        )}
+        <SearchContainer>
+          <Search onSearchObtained={onSearchObtained} />
+          <RefreshContainer onClick={refreshButtonClickHandler}>
+            <TbRefresh />
+            <RefreshText>REFRESH</RefreshText>
+          </RefreshContainer>
+        </SearchContainer>
+      </Container>
+    );
+  }
 }
