@@ -12,7 +12,10 @@ import Search from "../../atoms/Search";
 import { TbRefresh } from "react-icons/tb";
 import { useRouter } from "next/router";
 import axios from "axios";
-import { getAllXPFromAchievements } from "../../../helpers/xpHelper";
+import {
+  COMPLETION_TARGET,
+  getAllXPFromAchievements,
+} from "../../../helpers/xpHelper";
 import { getIcon } from "../../../helpers/iconHelper";
 
 const Container = styled.div`
@@ -153,8 +156,8 @@ export default function GameHeader() {
         <ToGetContainer>
           <ToGetIcon>{getIcon("trophy")}</ToGetIcon>
           <ToGetData>
-            {Math.floor(total * 0.5) - completedTotal > 0
-              ? Math.floor(total * 0.5) - completedTotal
+            {Math.floor(total * COMPLETION_TARGET) - completedTotal > 0
+              ? Math.floor(total * COMPLETION_TARGET) - completedTotal
               : 0}
           </ToGetData>
         </ToGetContainer>

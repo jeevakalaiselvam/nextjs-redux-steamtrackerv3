@@ -129,12 +129,20 @@ export default function GameRightSidebar() {
     }
   }, [achievement]);
 
+  const [journalVisible, setJournalVisible] = useState(false);
+
   return (
     <Container>
-      {/* {game && (
+      {game && !journalVisible && (
         <>
           <TitleContainer>
-            <Title>UNLOCKED TODAY</Title>
+            <Title
+              onClick={() => {
+                setJournalVisible((old) => true);
+              }}
+            >
+              UNLOCKED TODAY
+            </Title>
             <Data>
               <Icon>{getIcon("gold")}</Icon>
               <Text>
@@ -153,16 +161,19 @@ export default function GameRightSidebar() {
             showOnly="TODAY"
           />
         </>
-      )} */}
+      )}
 
-      <JournalContainer show={true}>
-        <JournalInput
-          onDataSaved={onDataSaved}
-          journalData={journalData}
-          achievement={achievement}
-          saveStatus={saveStatus}
-        />
-      </JournalContainer>
+      {journalVisible && (
+        <JournalContainer show={true}>
+          <JournalInput
+            hideJournal={() => setJournalVisible((old) => false)}
+            onDataSaved={onDataSaved}
+            journalData={journalData}
+            achievement={achievement}
+            saveStatus={saveStatus}
+          />
+        </JournalContainer>
+      )}
     </Container>
   );
 }

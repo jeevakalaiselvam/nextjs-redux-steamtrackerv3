@@ -145,6 +145,8 @@ const PercentageIcon = styled.div`
 
 const CheckContainer = styled.div`
   position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   display: flex;
@@ -152,7 +154,7 @@ const CheckContainer = styled.div`
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.5);
-  font-size: 1.5rem;
+  font-size: 2rem;
   color: #6cff5c;
 `;
 
@@ -174,7 +176,7 @@ export default function AchievementCard(props) {
     <Container>
       <IconContainer>
         <Icon icon={icon}></Icon>
-        {achieved == 1 && false && (
+        {achieved == 1 && (
           <CheckContainer>
             <FaCheck />
           </CheckContainer>

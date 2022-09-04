@@ -78,6 +78,7 @@ export default function JournalInput({
   journalData,
   achievement,
   saveStatus,
+  hideJournal,
 }) {
   const [journal, setJournal] = useState(journalData);
 
@@ -105,7 +106,13 @@ export default function JournalInput({
         <AchievementCardWithPhase achievement={achievement} />
       )}
       <Header>
-        <Title>JOURNAL</Title>
+        <Title
+          onClick={() => {
+            hideJournal();
+          }}
+        >
+          JOURNAL
+        </Title>
         <SaveStatus>{saveStatus}</SaveStatus>
         <Button
           onClick={() => {

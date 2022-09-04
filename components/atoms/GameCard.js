@@ -242,8 +242,8 @@ export default function GameCard({ game }) {
         <ToGetContainer>
           <ToGetIcon>{getIcon("trophy")}</ToGetIcon>
           <ToGetData>
-            {Math.floor(total * 0.5) - completedTotal > 0
-              ? Math.floor(total * 0.5) - completedTotal
+            {Math.floor(total * COMPLETION_TARGET) - completedTotal > 0
+              ? Math.floor(total * COMPLETION_TARGET) - completedTotal
               : 0}
           </ToGetData>
         </ToGetContainer>
