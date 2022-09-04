@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { HEADER_IMAGE } from "../../helpers/urlHelper";
 import { FaPinterest, FaTrophy } from "react-icons/fa";
@@ -27,6 +27,7 @@ const Container = styled.div`
   height: 165px;
   margin: 1rem;
   position: relative;
+  overflow: hidden;
   cursor: pointer;
 
   &:hover {
@@ -64,7 +65,7 @@ const Title = styled.div`
   padding: 1rem;
   font-size: 1.5rem;
   background-color: rgba(0, 0, 0, 0.75);
-  z-index: 6;
+  z-index: 60;
 `;
 
 const TitleData = styled.div`
@@ -163,8 +164,8 @@ const CompletionOverlay = styled.div`
 
 const PinIcon = styled.div`
   position: absolute;
-  top: 0px;
-  right: 0px;
+  bottom: 0px;
+  right: ${(props) => (props.movePinRight ? "-100px" : "0px")};
   background-color: rgba(0, 0, 0, 0.9);
   color: ${(props) => (props.active ? "#f5b81c" : "#fefefe")};
   cursor: pointer;
@@ -172,8 +173,9 @@ const PinIcon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 7;
+  z-index: 70;
   font-size: 2rem;
+  transition: 0.25s all;
 
   &:hover {
     color: #f5b81c;
@@ -183,20 +185,18 @@ const PinIcon = styled.div`
 const CompleteIcon = styled.div`
   position: absolute;
   top: 0px;
-  right: 45px;
-  background-color: rgba(0, 0, 0, 0.9);
-  color: #fefefe;
+  left: 0px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #f5b81c;
   cursor: pointer;
   padding: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 7;
-  font-size: 2rem;
-
-  &:hover {
-    color: #0cf25d;
-  }
+  font-size: 5rem;
+  width: 100%;
+  height: 100%;
 `;
 
 export default function GameCard({ game }) {
@@ -221,6 +221,8 @@ export default function GameCard({ game }) {
   const completed = completedXP / XP_FOR_LEVEL;
   const needed = (totalXP * COMPLETION_TARGET) / XP_FOR_LEVEL;
 
+  const [movePinRight, setMovePinRight] = useState(true);
+
   return (
     <Container>
       <Overlay />
@@ -236,9 +238,19 @@ export default function GameCard({ game }) {
           router.push(`/games/${id}`);
         }}
       >
-        <TitleData> {name}</TitleData>
+        <TitleData
+          onMouseEnter={() => {
+            setMovePinRight((old) => false);
+          }}
+          onMouseLeave={() => {
+            setMovePinRight((old) => true);
+          }}
+        >
+          {" "}
+          {name}
+        </TitleData>
       </Title>
-      {
+      {Math.floor(total * COMPLETION_TARGET) - completedTotal > 0 && (
         <ToGetContainer>
           <ToGetIcon>{getIcon("trophy")}</ToGetIcon>
           <ToGetData>
@@ -247,7 +259,7 @@ export default function GameCard({ game }) {
               : 0}
           </ToGetData>
         </ToGetContainer>
-      }
+      )}
       {completed <= needed && false && (
         <XPContainer>
           <XPIcon>{getIcon("xp")}</XPIcon>
@@ -258,6 +270,7 @@ export default function GameCard({ game }) {
       )}
 
       <PinIcon
+        movePinRight={movePinRight}
         active={
           typeof window !== "undefined" &&
           JSON.parse(
@@ -281,9 +294,11 @@ export default function GameCard({ game }) {
       >
         <AiFillPushpin />
       </PinIcon>
-      {/* <CompleteIcon active={true} onClick={() => {}}>
-        <HiCheck />
-      </CompleteIcon> */}
+      {Math.floor(total * COMPLETION_TARGET) - completedTotal <= 0 && (
+        <CompleteIcon active={true} onClick={() => {}}>
+          <FaTrophy />
+        </CompleteIcon>
+      )}
     </Container>
   );
 }
