@@ -176,7 +176,7 @@ export default function AchievementCard(props) {
     <Container>
       <IconContainer>
         <Icon icon={icon}></Icon>
-        {achieved == 1 && (
+        {achieved == 1 && false && (
           <CheckContainer>
             <FaCheck />
           </CheckContainer>
@@ -195,8 +195,9 @@ export default function AchievementCard(props) {
           {displayName}
         </Title>
         <Description>
-          {(description && description.slice(0, 74) + "...") ||
-            hiddenDescription.slice(0, 74) + "..."}
+          {(description && description.slice(0, 74) + "...") ??
+            hiddenDescription?.slice(0, 74) + "..." ??
+            ""}
         </Description>
       </DataContainer>
       <PercentageContainer>
