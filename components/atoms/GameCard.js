@@ -72,6 +72,7 @@ const TitleData = styled.div`
   display: flex;
   z-index: 8;
   flex: 1;
+  width: 100%;
   align-items: center;
   justify-content: center;
 `;
@@ -270,6 +271,12 @@ export default function GameCard({ game }) {
       )}
 
       <PinIcon
+        onMouseEnter={() => {
+          setMovePinRight((old) => false);
+        }}
+        onMouseLeave={() => {
+          setMovePinRight((old) => true);
+        }}
         movePinRight={movePinRight}
         active={
           typeof window !== "undefined" &&
