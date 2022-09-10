@@ -15,11 +15,7 @@ export const FILTER_OPTIONS_GAMES_PAGE = [
   },
   {
     id: GAMES_OPTION_COMPLETION_DESC,
-    title: "Sort By Completion [High to Low]",
-  },
-  {
-    id: GAMES_OPTION_COMPLETION_ASC,
-    title: "Sort By Completion [Low to High]",
+    title: "Sort By Completion",
   },
 ];
 
