@@ -251,7 +251,7 @@ export default function GameCard({ game }) {
           {name}
         </TitleData>
       </Title>
-      {Math.floor(total * COMPLETION_TARGET) - completedTotal > 0 && (
+      {Math.floor(total * COMPLETION_TARGET) - completedTotal >= 0 && (
         <ToGetContainer>
           <ToGetIcon>{getIcon("trophy")}</ToGetIcon>
           <ToGetData>
@@ -301,7 +301,7 @@ export default function GameCard({ game }) {
       >
         <AiFillPushpin />
       </PinIcon>
-      {Math.floor(total * COMPLETION_TARGET) - completedTotal <= 0 && (
+      {Math.floor(total * COMPLETION_TARGET) - completedTotal <= 0 && false && (
         <CompleteIcon active={true} onClick={() => {}}>
           <FaTrophy />
         </CompleteIcon>
