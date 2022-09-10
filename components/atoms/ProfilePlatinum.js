@@ -86,7 +86,7 @@ const Icon = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  font-size: 3rem;
+  font-size: 2.5rem;
 `;
 
 const Text = styled.div`
@@ -94,7 +94,7 @@ const Text = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  font-size: 3rem;
+  font-size: 2.5rem;
 `;
 
 const ProfilePlatinum = (props) => {
