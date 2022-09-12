@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { FILTER_OPTIONS_GAME_PAGE } from "../../../helpers/filterHelper";
@@ -104,7 +104,55 @@ const ToGetData = styled.div`
   font-size: 1.5rem;
 `;
 
+const RefreshIcon = styled.div`
+  display: flex;
+  align-items: center;
+  z-index: 8;
+  justify-content: center;
+  font-size: 1.5rem;
+  -webkit-animation: ${(props) =>
+    props.rotate ? "rotating 0.25s linear infinite" : ""};
+  -moz-animation: ${(props) =>
+    props.rotate ? "rotating 0.25s linear infinite" : ""};
+  -ms-animation: ${(props) =>
+    props.rotate ? "rotating 0.25s linear infinite" : ""};
+  -o-animation: ${(props) =>
+    props.rotate ? "rotating 0.25s linear infinite" : ""};
+  animation: ${(props) => (props.rotate ? "rotating 2s linear infinite" : "")};
+
+  @-webkit-keyframes rotating /* Safari and Chrome */ {
+    from {
+      -webkit-transform: rotate(0deg);
+      -o-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    to {
+      -webkit-transform: rotate(360deg);
+      -o-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes rotating {
+    from {
+      -ms-transform: rotate(0deg);
+      -moz-transform: rotate(0deg);
+      -webkit-transform: rotate(0deg);
+      -o-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    to {
+      -ms-transform: rotate(360deg);
+      -moz-transform: rotate(360deg);
+      -webkit-transform: rotate(360deg);
+      -o-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+`;
+
 export default function GameHeader() {
+  const [rotate, setRotate] = useState(false);
+
   const dispatch = useDispatch();
   const router = useRouter();
   const { gameId } = router.query;
@@ -142,8 +190,10 @@ export default function GameHeader() {
     };
 
     const refreshButtonClickHandler = async () => {
+      setRotate((old) => true);
       const response = await axios.get(`/api/refresh/${gameId}`);
       const gameRefreshedData = response.data.data;
+      setRotate((old) => false);
       dispatch(setGameDataRefresh(gameId, gameRefreshedData));
     };
 
@@ -170,7 +220,9 @@ export default function GameHeader() {
         <SearchContainer>
           <Search onSearchObtained={onSearchObtained} />
           <RefreshContainer onClick={refreshButtonClickHandler}>
-            <TbRefresh />
+            <RefreshIcon rotate={rotate}>
+              <TbRefresh />
+            </RefreshIcon>
             <RefreshText>REFRESH</RefreshText>
           </RefreshContainer>
         </SearchContainer>
