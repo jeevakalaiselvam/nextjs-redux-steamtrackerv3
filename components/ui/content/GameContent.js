@@ -189,7 +189,7 @@ export default function GameContent() {
             </CloseButton>
             {/* <HistoryTitle>Unlocked Achievements</HistoryTitle> */}
             <HistoryContainer>
-              {historyModalAchievements.length &&
+              {historyModalAchievements.length > 0 &&
                 Object.keys(historyModalAchievements).map((achievementKey) => {
                   return (
                     <AchievementCard
@@ -197,6 +197,9 @@ export default function GameContent() {
                     />
                   );
                 })}
+              {historyModalAchievements.length === 0 && (
+                <h3>{"No Achievements"}</h3>
+              )}
             </HistoryContainer>
           </HistoryModal>
         )}

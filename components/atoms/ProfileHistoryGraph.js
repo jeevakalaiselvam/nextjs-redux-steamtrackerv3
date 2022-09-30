@@ -190,8 +190,8 @@ const ProfileHistoryGraph = (props) => {
                 current={false}
                 onClick={() => {
                   historyDayClicked(
-                    recentHistory[key],
-                    recentHistory[key][0].unlocktime
+                    recentHistory[key] ?? 0,
+                    recentHistory[key][0]?.unlocktime ?? ""
                   );
                 }}
               >
