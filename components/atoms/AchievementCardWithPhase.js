@@ -175,7 +175,7 @@ const CheckContainer = styled.div`
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.5);
   font-size: 1.5rem;
-  color: #6cff5c;
+  color: #ffffff;
 `;
 
 const PhaseRevealer = styled.div`
