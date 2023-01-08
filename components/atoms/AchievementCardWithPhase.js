@@ -119,6 +119,19 @@ const Description = styled.div`
   font-size: 1.5rem;
 `;
 
+const JournalOneline = styled.div`
+  display: flex;
+  flex: 1;
+  width: 100%;
+  padding: 0.5rem;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  color: #b0bec5;
+  font-size: 1.5rem;
+  opacity: 0.5;
+`;
+
 const HiddenContainer = styled.div`
   position: absolute;
   bottom: 1.5rem;
@@ -391,6 +404,12 @@ export default function AchievementCardWithPhase(props) {
             {(description && description.slice(0, 74) + "...") ||
               hiddenDescription.slice(0, 74) + "..."}
           </Description>
+          {journalData.length > 0 && (
+            <JournalOneline>{journalData}</JournalOneline>
+          )}
+          {journalData.length == 0 && (
+            <JournalOneline>No Journal Data</JournalOneline>
+          )}
         </DataContainer>
         <PercentageContainer>
           <PercentageIcon>

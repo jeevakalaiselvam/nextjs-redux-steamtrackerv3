@@ -85,7 +85,7 @@ const Icon = styled.div`
   margin-right: 1rem;
   margin-left: 1rem;
   justify-content: center;
-  font-size: 3rem;
+  font-size: 1.5rem;
 `;
 
 const Text = styled.div`
@@ -93,7 +93,7 @@ const Text = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  font-size: 3rem;
+  font-size: 1.5rem;
 `;
 
 const ProfileHistoryTrophies = (props) => {

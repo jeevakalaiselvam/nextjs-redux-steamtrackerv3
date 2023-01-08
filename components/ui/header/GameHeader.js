@@ -56,6 +56,20 @@ const RefreshContainer = styled.div`
   }
 `;
 
+const RefreshIcon = styled.div`
+  display: flex;
+  margin-left: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  animation: ${(props) => (props.refreshing ? "rotate 5s infinite" : "")};
+
+  @keyframes rotate {
+    50% {
+      transform: rotate(180deg);
+    }
+  }
+`;
+
 const RefreshText = styled.div`
   display: flex;
   margin-left: 0.5rem;
@@ -68,6 +82,8 @@ export default function GameHeader() {
   const router = useRouter();
   const { gameId } = router.query;
 
+  const [refreshing, setRefreshing] = useState(false);
+
   const onFilterChanged = (filterOption) => {
     dispatch(changeGamePageFilterOption(filterOption));
   };
@@ -77,9 +93,11 @@ export default function GameHeader() {
   };
 
   const refreshButtonClickHandler = async () => {
+    setRefreshing(true);
     const response = await axios.get(`/api/refresh/${gameId}`);
     const gameRefreshedData = response.data.data;
     dispatch(setGameDataRefresh(gameId, gameRefreshedData));
+    setRefreshing(false);
   };
 
   return (
@@ -93,7 +111,9 @@ export default function GameHeader() {
       <SearchContainer>
         <Search onSearchObtained={onSearchObtained} />
         <RefreshContainer onClick={refreshButtonClickHandler}>
-          <TbRefresh />
+          <RefreshIcon refreshing={refreshing}>
+            <TbRefresh />
+          </RefreshIcon>
           <RefreshText>REFRESH</RefreshText>
         </RefreshContainer>
       </SearchContainer>
