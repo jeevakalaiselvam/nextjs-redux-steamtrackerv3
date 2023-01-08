@@ -405,7 +405,7 @@ export default function AchievementCardWithPhase(props) {
               hiddenDescription.slice(0, 74) + "..."}
           </Description>
           {journalData.length > 0 && (
-            <JournalOneline>{journalData}</JournalOneline>
+            <JournalOneline>{journalData.split("-")[0]}</JournalOneline>
           )}
           {journalData.length == 0 && (
             <JournalOneline>No Journal Data</JournalOneline>
