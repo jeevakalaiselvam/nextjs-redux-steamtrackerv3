@@ -154,8 +154,8 @@ const CheckContainer = styled.div`
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.5);
-  font-size: 2rem;
-  color: #6cff5c;
+  font-size: 1.5rem;
+  color: #ffffff;
 `;
 
 export default function AchievementCard(props) {

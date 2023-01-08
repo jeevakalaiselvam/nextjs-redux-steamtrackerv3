@@ -157,76 +157,39 @@ export default function GameHeader() {
   const router = useRouter();
   const { gameId } = router.query;
 
-  const steamtracker = useSelector((state) => state.steamtracker);
-  const { games, settings } = steamtracker;
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onFilterChanged = (filterOption) => {
+    dispatch(changeGamePageFilterOption(filterOption));
+  };
 
   let game;
 
-  if (gameId) {
-    game = games.find((game) => game.id == gameId);
-    const { id, playtime, name, version, achievements, completion, toGet } =
-      game;
+  const refreshButtonClickHandler = async () => {
+    setRefreshing(true);
+    const response = await axios.get(`/api/refresh/${gameId}`);
+    const gameRefreshedData = response.data.data;
+    dispatch(setGameDataRefresh(gameId, gameRefreshedData));
+    setRefreshing(false);
+  };
 
-    let newAchievements = achievements.filter((achievement) => {
-      if (typeof window !== "undefined") {
-        let ignoredAchievementsInStorage =
-          localStorage.getItem(`${id}_IGNORE`) || JSON.stringify([]);
-        let ignoredAchievements = JSON.parse(ignoredAchievementsInStorage);
-        if (!ignoredAchievements.includes(achievement.name)) {
-          return true;
-        }
-      }
-    });
-
-    const xpData = getAllXPFromAchievements(newAchievements);
-    const { totalXP, completedXP, remainingXP, completedTotal, total } = xpData;
-
-    const onFilterChanged = (filterOption) => {
-      dispatch(changeGamePageFilterOption(filterOption));
-    };
-
-    const onSearchObtained = (searchTerm) => {
-      dispatch(changeGamePageSearchTerm(searchTerm));
-    };
-
-    const refreshButtonClickHandler = async () => {
-      setRotate((old) => true);
-      const response = await axios.get(`/api/refresh/${gameId}`);
-      const gameRefreshedData = response.data.data;
-      setRotate((old) => false);
-      dispatch(setGameDataRefresh(gameId, gameRefreshedData));
-    };
-
-    return (
-      <Container>
-        <FilterContainer>
-          <Filter
-            filterOptions={FILTER_OPTIONS_GAME_PAGE}
-            onFilterChanged={onFilterChanged}
-          />
-        </FilterContainer>
-        {gameId && (
-          <TrophyContainer>
-            <ToGetContainer>
-              <ToGetIcon>{getIcon("trophy")}</ToGetIcon>
-              <ToGetData>
-                {Math.floor(total * COMPLETION_TARGET) - completedTotal > 0
-                  ? Math.floor(total * COMPLETION_TARGET) - completedTotal
-                  : 0}
-              </ToGetData>
-            </ToGetContainer>
-          </TrophyContainer>
-        )}
-        <SearchContainer>
-          <Search onSearchObtained={onSearchObtained} />
-          <RefreshContainer onClick={refreshButtonClickHandler}>
-            <RefreshIcon rotate={rotate}>
-              <TbRefresh />
-            </RefreshIcon>
-            <RefreshText>REFRESH</RefreshText>
-          </RefreshContainer>
-        </SearchContainer>
-      </Container>
-    );
-  }
+  return (
+    <Container>
+      <FilterContainer>
+        <Filter
+          filterOptions={FILTER_OPTIONS_GAME_PAGE}
+          onFilterChanged={onFilterChanged}
+        />
+      </FilterContainer>
+      <SearchContainer>
+        <Search onSearchObtained={onSearchObtained} />
+        <RefreshContainer onClick={refreshButtonClickHandler}>
+          <RefreshIcon refreshing={refreshing}>
+            <TbRefresh />
+          </RefreshIcon>
+          <RefreshText>REFRESH</RefreshText>
+        </RefreshContainer>
+      </SearchContainer>
+    </Container>
+  );
 }

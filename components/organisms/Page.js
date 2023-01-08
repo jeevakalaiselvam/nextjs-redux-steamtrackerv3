@@ -110,7 +110,7 @@ export default function Page({
 
   return (
     <Container>
-      <ImageOverlay image={HEADER_IMAGE(gameId || "381210")} />
+      <ImageOverlay image={HEADER_IMAGE("1328670")} />
       {leftSidebar && (
         <LeftSidebarContainer
           leftSidebarOpen={leftSidebarOpen}

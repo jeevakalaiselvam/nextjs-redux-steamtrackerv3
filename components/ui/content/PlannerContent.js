@@ -384,11 +384,41 @@ export default function PlannerContent() {
                     <PhaseTitle
                       gameId={gameId}
                       phase={3}
-                      defaultTitle="HARD"
+                      defaultTitle="MISSABLE"
                       totalXP={getXPFromAchievements(
                         sortAchievementsByFilterOption(
                           phase3Achievements,
                           phase3Filter,
+                          gameId
+                        )
+                      )}
+                    />
+                  </HeaderContainer>
+                  <Search onSearchObtained={phase5SearchObtained} />
+                </SearchContainer>
+                <Achievements
+                  game={{
+                    ...phaseAddedGame,
+                    achievements: phase5Achievements,
+                  }}
+                  filterOption={phase5Filter}
+                  searchTerm={phase5Search}
+                  showPhase={true}
+                  phase={MISSABLE}
+                  showIgnore={false}
+                />
+              </PhaseContainer>
+              <PhaseContainer>
+                <SearchContainer>
+                  <HeaderContainer>
+                    <PhaseTitle
+                      gameId={gameId}
+                      phase={4}
+                      defaultTitle="GRIND"
+                      totalXP={getXPFromAchievements(
+                        sortAchievementsByFilterOption(
+                          phase4Achievements,
+                          phase4Filter,
                           gameId
                         )
                       )}
@@ -413,12 +443,12 @@ export default function PlannerContent() {
                   <HeaderContainer>
                     <PhaseTitle
                       gameId={gameId}
-                      phase={4}
-                      defaultTitle="GRIND"
+                      phase={5}
+                      defaultTitle="HARD"
                       totalXP={getXPFromAchievements(
                         sortAchievementsByFilterOption(
-                          phase4Achievements,
-                          phase4Filter,
+                          phase5Achievements,
+                          phase5Filter,
                           gameId
                         )
                       )}
@@ -438,36 +468,7 @@ export default function PlannerContent() {
                   showIgnore={false}
                 />
               </PhaseContainer>
-              <PhaseContainer>
-                <SearchContainer>
-                  <HeaderContainer>
-                    <PhaseTitle
-                      gameId={gameId}
-                      phase={5}
-                      defaultTitle="MISSABLE"
-                      totalXP={getXPFromAchievements(
-                        sortAchievementsByFilterOption(
-                          phase5Achievements,
-                          phase5Filter,
-                          gameId
-                        )
-                      )}
-                    />
-                  </HeaderContainer>
-                  <Search onSearchObtained={phase5SearchObtained} />
-                </SearchContainer>
-                <Achievements
-                  game={{
-                    ...phaseAddedGame,
-                    achievements: phase5Achievements,
-                  }}
-                  filterOption={phase5Filter}
-                  searchTerm={phase5Search}
-                  showPhase={true}
-                  phase={MISSABLE}
-                  showIgnore={false}
-                />
-              </PhaseContainer>
+
               <PhaseContainer>
                 <SearchContainer>
                   {unlockType == "TODAY" && (
