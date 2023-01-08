@@ -212,6 +212,7 @@ const PhaseItem = styled.div`
   color: ${(props) => (props.active ? "#FFFFFF" : "#737c9d;")};
   padding: 0rem 0.5rem;
   margin: 0.25rem;
+  opacity: 0.5;
 
   &:hover {
     color: #ffffff;
@@ -444,25 +445,25 @@ export default function AchievementCardWithPhase(props) {
             2
           </PhaseItem>
           <PhaseItem
-            active={phase == HARD}
+            active={phase == MISSABLE}
             onClick={() => {
-              setPhaseForAchievement(name, HARD);
+              setPhaseForAchievement(name, MISSABLE);
             }}
           >
             3
           </PhaseItem>
           <PhaseItem
-            active={phase == GRIND}
+            active={phase == HARD}
             onClick={() => {
-              setPhaseForAchievement(name, GRIND);
+              setPhaseForAchievement(name, HARD);
             }}
           >
             4
           </PhaseItem>
           <PhaseItem
-            active={phase == MISSABLE}
+            active={phase == GRIND}
             onClick={() => {
-              setPhaseForAchievement(name, MISSABLE);
+              setPhaseForAchievement(name, GRIND);
             }}
           >
             5
