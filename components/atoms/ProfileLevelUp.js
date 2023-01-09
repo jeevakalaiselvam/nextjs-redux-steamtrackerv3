@@ -72,7 +72,7 @@ const XPText = styled.div`
   align-items: center;
   justify-content: center;
   color: #f1b51b;
-  font-size: 2rem;
+  font-size: 1.75rem;
   margin-right: 2rem;
 `;
 

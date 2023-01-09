@@ -76,6 +76,7 @@ const GoldTrophy = styled.div`
   justify-content: center;
   margin-right: 2rem;
   color: #f1b51b;
+  width: 100%;
   font-size: 2.5rem;
 `;
 
@@ -86,7 +87,7 @@ const Icon = styled.div`
   margin-right: 1rem;
   margin-left: 1rem;
   justify-content: center;
-  font-size: 1.5rem;
+  font-size: 2rem;
 `;
 
 const Text = styled.div`
@@ -94,7 +95,7 @@ const Text = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  font-size: 1.5rem;
+  font-size: 1.75rem;
 `;
 
 const ProfileHistoryTrophies = (props) => {

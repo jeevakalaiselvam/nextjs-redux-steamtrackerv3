@@ -163,6 +163,8 @@ export default function GameHeader() {
     dispatch(changeGamePageFilterOption(filterOption));
   };
 
+  const onSearchObtained = (searchTerm) => {};
+
   let game;
 
   const refreshButtonClickHandler = async () => {
@@ -184,7 +186,7 @@ export default function GameHeader() {
       <SearchContainer>
         <Search onSearchObtained={onSearchObtained} />
         <RefreshContainer onClick={refreshButtonClickHandler}>
-          <RefreshIcon refreshing={refreshing}>
+          <RefreshIcon rotate={refreshing}>
             <TbRefresh />
           </RefreshIcon>
           <RefreshText>REFRESH</RefreshText>

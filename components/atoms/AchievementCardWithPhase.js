@@ -35,7 +35,7 @@ const MainContainer = styled.div`
   justify-content: center;
   background: rgba(0, 0, 0, 0.25);
   margin: 0.5rem;
-  min-height: 120px;
+  min-height: 125px;
   border-radius: 4px;
   cursor: pointer;
   &:hover {
@@ -237,6 +237,7 @@ const PhaseContainer = styled.div`
   display: ${(props) => (props.show ? "flex" : "none")};
   align-items: center;
   justify-content: center;
+  padding-right: 0.5rem;
 `;
 
 const PhaseItem = styled.div`
@@ -247,7 +248,7 @@ const PhaseItem = styled.div`
     props.active ? "rgba(0,0,0,0.5)" : "rgba(0,0,0,0.5)"};
   color: ${(props) => (props.active ? "#FFFFFF" : "#737c9d;")};
   padding: 0rem 0.5rem;
-  margin: 0.25rem;
+  margin: 0.25rem 0.5rem 0.25rem 0.25rem;
   opacity: 0.5;
 
   &:hover {
@@ -516,7 +517,7 @@ export default function AchievementCardWithPhase(props) {
           >
             5
           </PhaseItem>
-          {showIgnore && (
+          {false && (
             <PhaseItemIgnore active={ignoreActive} onClick={addToIgnoreList}>
               {ignoreActive && "REMOVE"}
               {!ignoreActive && "IGNORE"}
