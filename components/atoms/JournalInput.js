@@ -58,6 +58,7 @@ const InputContainer = styled.div`
     background: rgba(0, 0, 0, 0);
     padding: 1rem;
     resize: none;
+    font-weight: 600;
     font-size: 1.5rem;
   }
 `;

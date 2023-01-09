@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { FILTER_OPTIONS_GAME_PAGE } from "../../../helpers/filterHelper";
