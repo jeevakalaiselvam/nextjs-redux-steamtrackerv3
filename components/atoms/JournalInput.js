@@ -8,7 +8,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 93vh;
+  min-height: 500px;
   flex-direction: column;
   transition: 0.5s all;
 `;
@@ -56,7 +56,6 @@ const InputContainer = styled.div`
   flex: 1;
   margin-top: 1rem;
   align-items: flex-start;
-  min-height: 100%;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.2);
 
@@ -68,7 +67,8 @@ const InputContainer = styled.div`
     background-color: rgba(0, 0, 0, 0);
     padding: 1rem;
     resize: none;
-    min-height: 80vh;
+    min-height: 400px;
+    overflow: scroll;
     font-size: 1.5rem;
   }
 `;

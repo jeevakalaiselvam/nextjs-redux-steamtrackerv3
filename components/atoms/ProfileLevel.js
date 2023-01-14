@@ -92,7 +92,7 @@ const Icon = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  font-size: 2rem;
+  font-size: 1.75rem;
 `;
 
 const Text = styled.div`
@@ -100,7 +100,7 @@ const Text = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  font-size: 2rem;
+  font-size: 1.75rem;
 `;
 
 const ProfileLevel = (props) => {

@@ -46,10 +46,11 @@ const MainContainer = styled.div`
 const JournalContainer = styled.div`
   display: ${(props) => (props.show ? "flex" : "none")};
   transition: 0.5s all;
-  min-height: ${(props) => (props.show ? "400px" : "0px")};
+  min-height: ${(props) => (props.show ? "500px" : "0px")};
   align-items: flex-start;
   top: 0;
   left: 0;
+  height: 500px;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.9);
   color: #b0bec5;
@@ -72,7 +73,7 @@ const UnlockedContainer = styled.div`
   position: absolute;
   bottom: 0;
   color: #b0bec5;
-  right: 50px;
+  right: ${(props) => (props.achieved ? "5px" : "50px")};
   display: flex;
   z-index: 100000;
   padding: 0rem 1rem 1rem 1rem;
@@ -458,7 +459,7 @@ export default function AchievementCardWithPhase(props) {
           {!showJournal && (
             <IoBook
               onClick={() => {
-                // setShowJournal((old) => true);
+                setShowJournal((old) => true);
                 //Activate Right Sidebar with Journal Content
                 dispatch(setShowJournalRightSidebar(props.achievement));
               }}
@@ -472,7 +473,7 @@ export default function AchievementCardWithPhase(props) {
             />
           )}
         </PhaseRevealer>
-        <PhaseContainer show={true}>
+        <PhaseContainer show={achieved != 1}>
           <XPData>
             <XPText>{calculateXPFromPercentage(percentage)}</XPText>
             <XPIcon>{getIcon("xp")}</XPIcon>
@@ -529,7 +530,7 @@ export default function AchievementCardWithPhase(props) {
         <JournalInput onDataSaved={onDataSaved} journalData={journalData} />
       </JournalContainer>
       {achieved == 1 && (
-        <UnlockedContainer>
+        <UnlockedContainer achieved={achieved}>
           {`${new Date(unlocktime * 1000).toString().slice(0, -40)}, ${new Date(
             unlocktime * 1000
           ).toLocaleString("en-US", {
