@@ -17,6 +17,7 @@ import {
 import { useRouter } from "next/router";
 import { AiFillCheckSquare, AiFillGold, AiFillPushpin } from "react-icons/ai";
 import { getIcon } from "../../helpers/iconHelper";
+import chroma from "chroma-js";
 
 const Container = styled.div`
   display: flex;
@@ -198,6 +199,7 @@ const CompleteIcon = styled.div`
   font-size: 5rem;
   width: 100%;
   height: 100%;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 `;
 
 export default function GameCard({ game }) {
@@ -233,13 +235,13 @@ export default function GameCard({ game }) {
 
   const getColorForOverlay = (percentage) => {
     if (percentage == 100) {
-      return "#b55af2";
-    } else if (percentage < 100 && percentage > 80) {
-      return "#f5b81c";
-    } else if (percentage < 80 && percentage > 50) {
-      return "#fefefe";
-    } else if (percentage < 50 && percentage > 25) {
-      return "#CD7F32";
+      return chroma("#b55af2");
+    } else if (percentage < 100 && percentage >= 80) {
+      return chroma("#f5b81c");
+    } else if (percentage < 80 && percentage >= 50) {
+      return "#C0C0C0";
+    } else if (percentage < 50 && percentage >= 25) {
+      return chroma("#B87333");
     } else {
       return "#00000000";
     }

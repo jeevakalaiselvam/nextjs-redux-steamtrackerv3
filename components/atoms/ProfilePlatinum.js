@@ -56,6 +56,14 @@ const Title = styled.div`
 const LevelContainer = styled.div`
   display: flex;
   align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem;
+`;
+
+const LevelContainerRow = styled.div`
+  display: flex;
+  align-items: center;
   flex-direction: row;
   justify-content: center;
   padding: 1rem;
@@ -64,21 +72,38 @@ const LevelContainer = styled.div`
 const GoldTrophy = styled.div`
   display: flex;
   align-items: center;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
-  margin-right: 2rem;
   color: #f1b51b;
-  margin-left: 1rem;
   font-size: 2rem;
+  margin-right: 2rem;
 `;
 
 const PurpleTrophy = styled.div`
   display: flex;
   align-items: center;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   color: #b55af2;
   font-size: 3rem;
+`;
+
+const SilverTrophy = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  color: #c0c0c0;
+  font-size: 3rem;
+`;
+
+const BronzeTrophy = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  color: #b87333;
+  font-size: 2rem;
 `;
 
 const Icon = styled.div`
@@ -86,7 +111,7 @@ const Icon = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  font-size: 2rem;
+  font-size: ${(props) => (props.fontSize ? props.fontSize : "2.1rem")};
 `;
 
 const Text = styled.div`
@@ -94,7 +119,7 @@ const Text = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  font-size: 2rem;
+  font-size: ${(props) => (props.fontSize ? props.fontSize : "2.1rem")};
 `;
 
 const ProfilePlatinum = (props) => {
@@ -106,7 +131,40 @@ const ProfilePlatinum = (props) => {
     calculateLevelFromAllGames(games);
 
   const platinumCount = games.reduce((acc, game) => {
-    if (+game.completion >= COMPLETION_TARGET * 100) {
+    if (+game.completion == COMPLETION_TARGET * 100) {
+      return acc + 1;
+    } else {
+      return acc;
+    }
+  }, 0);
+
+  const goldCount = games.reduce((acc, game) => {
+    if (
+      +game.completion >= COMPLETION_TARGET * 80 &&
+      +game.completion < COMPLETION_TARGET * 100
+    ) {
+      return acc + 1;
+    } else {
+      return acc;
+    }
+  }, 0);
+
+  const silverCount = games.reduce((acc, game) => {
+    if (
+      +game.completion >= COMPLETION_TARGET * 50 &&
+      +game.completion < COMPLETION_TARGET * 80
+    ) {
+      return acc + 1;
+    } else {
+      return acc;
+    }
+  }, 0);
+
+  const bronzeCount = games.reduce((acc, game) => {
+    if (
+      +game.completion >= COMPLETION_TARGET * 25 &&
+      +game.completion < COMPLETION_TARGET * 50
+    ) {
       return acc + 1;
     } else {
       return acc;
@@ -127,16 +185,20 @@ const ProfilePlatinum = (props) => {
         </Header>
         <LevelContainer>
           <PurpleTrophy>
-            <Icon
-              style={{
-                marginRight: "1rem",
-              }}
-            >
-              {getIcon("trophy")}
-            </Icon>
+            <Icon fontSize="3rem">{getIcon("trophy")}</Icon>
             <Text>{platinumCount}</Text>
           </PurpleTrophy>
         </LevelContainer>
+        <LevelContainerRow>
+          <GoldTrophy>
+            <Icon>{getIcon("trophy")}</Icon>
+            <Text>{goldCount}</Text>
+          </GoldTrophy>
+          <SilverTrophy>
+            <Icon>{getIcon("trophy")}</Icon>
+            <Text>{silverCount}</Text>
+          </SilverTrophy>
+        </LevelContainerRow>
       </LevelFragment>
     </Container>
   );
