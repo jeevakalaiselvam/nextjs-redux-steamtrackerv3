@@ -236,9 +236,9 @@ export default function GameCard({ game }) {
   const getColorForOverlay = (percentage) => {
     if (percentage == 100) {
       return chroma("#b55af2");
-    } else if (percentage < 100 && percentage >= 80) {
+    } else if (percentage < 100 && percentage >= 75) {
       return chroma("#f5b81c");
-    } else if (percentage < 80 && percentage >= 50) {
+    } else if (percentage < 75 && percentage >= 50) {
       return "#C0C0C0";
     } else if (percentage < 50 && percentage >= 25) {
       return chroma("#B87333");

@@ -56,9 +56,10 @@ const Title = styled.div`
 const LevelContainer = styled.div`
   display: flex;
   align-items: center;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   padding: 1rem;
+  margin-top: "1rem";
 `;
 
 const LevelContainerRow = styled.div`
@@ -76,7 +77,6 @@ const GoldTrophy = styled.div`
   justify-content: center;
   color: #f1b51b;
   font-size: 2rem;
-  margin-right: 2rem;
 `;
 
 const PurpleTrophy = styled.div`
@@ -85,7 +85,8 @@ const PurpleTrophy = styled.div`
   flex-direction: column;
   justify-content: center;
   color: #b55af2;
-  font-size: 3rem;
+  font-size: 2rem;
+  margin-right: 3rem;
 `;
 
 const SilverTrophy = styled.div`
@@ -95,7 +96,7 @@ const SilverTrophy = styled.div`
   justify-content: center;
   color: #c0c0c0;
   font-size: 3rem;
-  margin-right: 2rem;
+  margin-right: 3rem;
 `;
 
 const BronzeTrophy = styled.div`
@@ -141,7 +142,7 @@ const ProfilePlatinum = (props) => {
 
   const goldCount = games.reduce((acc, game) => {
     if (
-      +game.completion >= COMPLETION_TARGET * 80 &&
+      +game.completion >= COMPLETION_TARGET * 75 &&
       +game.completion < COMPLETION_TARGET * 100
     ) {
       return acc + 1;
@@ -153,7 +154,7 @@ const ProfilePlatinum = (props) => {
   const silverCount = games.reduce((acc, game) => {
     if (
       +game.completion >= COMPLETION_TARGET * 50 &&
-      +game.completion < COMPLETION_TARGET * 80
+      +game.completion < COMPLETION_TARGET * 75
     ) {
       return acc + 1;
     } else {
@@ -186,21 +187,21 @@ const ProfilePlatinum = (props) => {
         </Header>
         <LevelContainer>
           <PurpleTrophy>
-            <Icon fontSize="3rem">{getIcon("trophy")}</Icon>
+            <Icon fontSize={"2.5rem"}>{getIcon("trophy")}</Icon>
             <Text>{platinumCount}</Text>
           </PurpleTrophy>
-        </LevelContainer>
-        <LevelContainerRow>
           <GoldTrophy>
-            <Icon>{getIcon("trophy")}</Icon>
+            <Icon fontSize={"2.5rem"}>{getIcon("trophy")}</Icon>
             <Text>{goldCount}</Text>
           </GoldTrophy>
+        </LevelContainer>
+        <LevelContainerRow>
           <SilverTrophy>
-            <Icon>{getIcon("trophy")}</Icon>
+            <Icon fontSize={"2.5rem"}>{getIcon("trophy")}</Icon>
             <Text>{silverCount}</Text>
           </SilverTrophy>
           <BronzeTrophy>
-            <Icon>{getIcon("trophy")}</Icon>
+            <Icon fontSize={"2.5rem"}>{getIcon("trophy")}</Icon>
             <Text>{silverCount}</Text>
           </BronzeTrophy>
         </LevelContainerRow>
