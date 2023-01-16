@@ -188,7 +188,7 @@ const CompleteIcon = styled.div`
   top: 0px;
   left: 0px;
   background-color: rgba(0, 0, 0, 0.5);
-  color: #f5b81c;
+  color: ${(props) => props.color};
   cursor: pointer;
   padding: 1rem;
   display: flex;
@@ -215,7 +215,14 @@ export default function GameCard({ game }) {
   });
 
   const xpData = getAllXPFromAchievements(newAchievements);
-  const { totalXP, completedXP, remainingXP, completedTotal, total } = xpData;
+  const {
+    totalXP,
+    completedXP,
+    remainingXP,
+    completedTotal,
+    total,
+    percentageCompletion,
+  } = xpData;
 
   const router = useRouter();
 
@@ -223,6 +230,20 @@ export default function GameCard({ game }) {
   const needed = (totalXP * COMPLETION_TARGET) / XP_FOR_LEVEL;
 
   const [movePinRight, setMovePinRight] = useState(true);
+
+  const getColorForOverlay = (percentage) => {
+    if (percentage == 100) {
+      return "#b55af2";
+    } else if (percentage < 100 && percentage > 80) {
+      return "#f5b81c";
+    } else if (percentage < 80 && percentage > 50) {
+      return "#fefefe";
+    } else if (percentage < 50 && percentage > 25) {
+      return "#CD7F32";
+    } else {
+      return "#00000000";
+    }
+  };
 
   return (
     <Container>
@@ -236,7 +257,7 @@ export default function GameCard({ game }) {
           if (typeof window !== "undefined") {
             localStorage.setItem("SELECTED_GAME", id);
           }
-          router.push(`/games/${id}`);
+          router.push(`/planner/${id}`);
         }}
       >
         <TitleData
@@ -301,11 +322,15 @@ export default function GameCard({ game }) {
       >
         <AiFillPushpin />
       </PinIcon>
-      {Math.floor(total * COMPLETION_TARGET) - completedTotal <= 0 && (
-        <CompleteIcon active={true} onClick={() => {}}>
+      {
+        <CompleteIcon
+          active={true}
+          onClick={() => {}}
+          color={getColorForOverlay(percentageCompletion)}
+        >
           <FaTrophy />
         </CompleteIcon>
-      )}
+      }
     </Container>
   );
 }

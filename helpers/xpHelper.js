@@ -46,7 +46,17 @@ export const getAllXPFromAchievements = (achievements) => {
       }
     });
   }
-  return { totalXP, completedXP, remainingXP, completedTotal, total };
+
+  let percentageCompletion = (completedTotal / total) * 100;
+
+  return {
+    totalXP,
+    completedXP,
+    remainingXP,
+    completedTotal,
+    total,
+    percentageCompletion,
+  };
 };
 
 export const calculateTotalXPForAllGames = (games) => {
@@ -66,7 +76,7 @@ export const calculateTotalXPForAllGames = (games) => {
 export const LEVEL_UP_XP = 1000;
 export const XP_FOR_LEVEL = 1000;
 
-export const COMPLETION_TARGET = 1.0;
+export const COMPLETION_TARGET = 1;
 export const calculateLevelFromAllGames = (games) => {
   let totalXP = 0;
   let unlockedToday = 0;
