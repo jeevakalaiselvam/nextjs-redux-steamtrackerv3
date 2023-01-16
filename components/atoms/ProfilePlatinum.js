@@ -95,6 +95,7 @@ const SilverTrophy = styled.div`
   justify-content: center;
   color: #c0c0c0;
   font-size: 3rem;
+  margin-right: 2rem;
 `;
 
 const BronzeTrophy = styled.div`
@@ -103,7 +104,7 @@ const BronzeTrophy = styled.div`
   flex-direction: column;
   justify-content: center;
   color: #b87333;
-  font-size: 2rem;
+  font-size: 3rem;
 `;
 
 const Icon = styled.div`
@@ -198,6 +199,10 @@ const ProfilePlatinum = (props) => {
             <Icon>{getIcon("trophy")}</Icon>
             <Text>{silverCount}</Text>
           </SilverTrophy>
+          <BronzeTrophy>
+            <Icon>{getIcon("trophy")}</Icon>
+            <Text>{silverCount}</Text>
+          </BronzeTrophy>
         </LevelContainerRow>
       </LevelFragment>
     </Container>
