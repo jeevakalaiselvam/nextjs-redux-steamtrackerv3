@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import React from "react";
 import { FaTrophy } from "react-icons/fa";
 import {
@@ -129,6 +130,11 @@ const ProfilePlatinum = (props) => {
   const steamtracker = useSelector((state) => state.steamtracker);
   const { games, planner } = steamtracker;
 
+  const router = useRouter();
+  const { gameId } = router.query;
+
+  const game = games.find((game) => game.id == gameId);
+
   const { xpTotal, currentLevel, toNextLevel, unlockedAll } =
     calculateLevelFromAllGames(games);
 
@@ -174,7 +180,15 @@ const ProfilePlatinum = (props) => {
   }, 0);
 
   return (
-    <Container onClick={() => {}}>
+    <Container
+      onClick={() => {
+        if (window !== "undefined") {
+          const searchQuery = `${game.name} trophy guide `;
+          window.open(`https://www.google.com/search?q=${searchQuery}`);
+          // window.open(`https://www.youtube.com/results?search_query=${searchQuery}`);
+        }
+      }}
+    >
       <LevelFragment>
         <Header>
           <HiOutlineChevronDoubleUp
