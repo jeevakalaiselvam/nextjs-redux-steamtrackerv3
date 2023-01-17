@@ -122,7 +122,7 @@ const Text = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  font-size: ${(props) => (props.fontSize ? props.fontSize : "2.1rem")};
+  font-size: ${(props) => (props.fontSize ? props.fontSize : "1.75rem")};
 `;
 
 const ProfilePlatinum = (props) => {
@@ -201,21 +201,21 @@ const ProfilePlatinum = (props) => {
         </Header>
         <LevelContainer>
           <PurpleTrophy>
-            <Icon fontSize={"2.5rem"}>{getIcon("trophy")}</Icon>
+            <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
             <Text>{platinumCount}</Text>
           </PurpleTrophy>
           <GoldTrophy>
-            <Icon fontSize={"2.5rem"}>{getIcon("trophy")}</Icon>
+            <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
             <Text>{goldCount}</Text>
           </GoldTrophy>
         </LevelContainer>
         <LevelContainerRow>
           <SilverTrophy>
-            <Icon fontSize={"2.5rem"}>{getIcon("trophy")}</Icon>
+            <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
             <Text>{silverCount}</Text>
           </SilverTrophy>
           <BronzeTrophy>
-            <Icon fontSize={"2.5rem"}>{getIcon("trophy")}</Icon>
+            <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
             <Text>{silverCount}</Text>
           </BronzeTrophy>
         </LevelContainerRow>
