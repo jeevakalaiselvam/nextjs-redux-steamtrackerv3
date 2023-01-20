@@ -216,7 +216,7 @@ const ProfilePlatinum = (props) => {
           </SilverTrophy>
           <BronzeTrophy>
             <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
-            <Text>{silverCount}</Text>
+            <Text>{bronzeCount}</Text>
           </BronzeTrophy>
         </LevelContainerRow>
       </LevelFragment>
