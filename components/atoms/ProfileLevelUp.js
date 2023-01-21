@@ -82,7 +82,7 @@ const XPIcon = styled.div`
   justify-content: center;
   color: #f1b51b;
   margin-right: 0.75rem;
-  font-size: 2.5rem;
+  font-size: 2rem;
 `;
 
 const ProfileLevelUp = (props) => {

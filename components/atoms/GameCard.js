@@ -100,7 +100,7 @@ const ToGetContainer = styled.div`
 const ToGetIcon = styled.div`
   display: flex;
   align-items: center;
-  color: #f1b51b;
+  color: ${(props) => (props.iconColor ? props.iconColor : "red")};
   font-size: 2rem;
   z-index: 8;
   justify-content: center;
@@ -111,7 +111,7 @@ const ToGetData = styled.div`
   align-items: center;
   z-index: 8;
   justify-content: center;
-  color: #f1b51b;
+  color: ${(props) => (props.iconColor ? props.iconColor : "red")};
   font-size: 1.5rem;
 `;
 
@@ -247,6 +247,34 @@ export default function GameCard({ game }) {
     }
   };
 
+  const calculateTrophiesToNextStage = () => {
+    if (percentageCompletion < 25) {
+      return {
+        next: Math.ceil(total * 0.25) - completedTotal,
+        iconColor: "#B87333",
+      };
+    } else if (percentageCompletion >= 25 && percentageCompletion < 50) {
+      return {
+        next: Math.ceil(total * 0.5) - completedTotal,
+        iconColor: "#C0C0C0",
+      };
+    } else if (percentageCompletion >= 50 && percentageCompletion < 75) {
+      return {
+        next: Math.ceil(total * 0.75) - completedTotal,
+        iconColor: "#f5b81c",
+      };
+    } else if (percentageCompletion >= 75) {
+      return {
+        next: Math.ceil(total * 1) - completedTotal,
+        iconColor: "#b55af2",
+      };
+    }
+  };
+
+  const { next, iconColor } = calculateTrophiesToNextStage();
+
+  console.log(name, " - ", { next, iconColor });
+
   return (
     <Container>
       <Overlay />
@@ -274,24 +302,20 @@ export default function GameCard({ game }) {
           {name}
         </TitleData>
       </Title>
-      {Math.floor(total * COMPLETION_TARGET) - completedTotal > 0 && (
+      {
         <ToGetContainer>
-          <ToGetIcon>{getIcon("trophy")}</ToGetIcon>
-          <ToGetData>
-            {Math.floor(total * COMPLETION_TARGET) - completedTotal > 0
-              ? Math.floor(total * COMPLETION_TARGET) - completedTotal
-              : 0}
-          </ToGetData>
+          <ToGetIcon iconColor={iconColor}>{getIcon("trophy")}</ToGetIcon>
+          <ToGetData iconColor={iconColor}>{next}</ToGetData>
         </ToGetContainer>
-      )}
-      {completed <= needed && (
+      }
+      {
         <XPContainer>
           <XPIcon>{getIcon("xp")}</XPIcon>
           <XPData>
             {Math.floor(Math.floor(totalXP * COMPLETION_TARGET) - completedXP)}
           </XPData>
         </XPContainer>
-      )}
+      }
 
       <PinIcon
         onMouseEnter={() => {
