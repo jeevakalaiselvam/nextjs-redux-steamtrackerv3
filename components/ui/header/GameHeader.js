@@ -150,6 +150,8 @@ const RefreshIcon = styled.div`
   }
 `;
 
+export const PLAYER_LEVEL_KEY = "PLAYER_LEVEL_KEY";
+
 export default function GameHeader() {
   const [rotate, setRotate] = useState(false);
 
@@ -163,11 +165,23 @@ export default function GameHeader() {
     dispatch(changeGamePageFilterOption(filterOption));
   };
 
+  const steamtracker = useSelector((state) => state.steamtracker);
+  const { games, planner } = steamtracker;
+
+  const { xpTotal, currentLevel, toNextLevel, unlockedAll } =
+    calculateLevelFromAllGames(games);
+
   const onSearchObtained = (searchTerm) => {};
 
   let game;
 
   const refreshButtonClickHandler = async () => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem(
+        PLAYER_LEVEL_KEY,
+        Math.floor(xpTotal / XP_FOR_LEVEL)
+      );
+    }
     setRefreshing(true);
     const response = await axios.get(`/api/refresh/${gameId}`);
     const gameRefreshedData = response.data.data;

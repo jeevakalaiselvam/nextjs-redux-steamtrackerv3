@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaTrophy } from "react-icons/fa";
 import {
   HiFastForward,
@@ -14,6 +14,7 @@ import {
   calculateTotalXPForAllGames,
   XP_FOR_LEVEL,
 } from "../../helpers/xpHelper";
+import { PLAYER_LEVEL_KEY } from "../ui/header/GameHeader";
 
 const Container = styled.div`
   display: flex;
@@ -60,7 +61,7 @@ const LevelContainer = styled.div`
   padding: 1rem;
 `;
 
-const ToLevel = styled.div`
+const LevelUp = styled.div`
   display: flex;
   align-items: center;
   flex-direction: row;
@@ -108,8 +109,29 @@ const ProfileLevel = (props) => {
   const steamtracker = useSelector((state) => state.steamtracker);
   const { games, planner } = steamtracker;
 
-  const { xpTotal, currentLevel, toNextLevel, unlockedAll } =
+  const { xpTotal, toNextLevel, unlockedAll } =
     calculateLevelFromAllGames(games);
+
+  const currentLevel = Math.floor(xpTotal / XP_FOR_LEVEL);
+
+  const [levelInStorage, setLevelInStorage] = useState(0);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      let levelInStorage = localStorage.getItem(PLAYER_LEVEL_KEY) || 0;
+      setLevelInStorage(levelInStorage);
+    }
+  }, []);
+
+  const resetlevelInStorage = () => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem(
+        PLAYER_LEVEL_KEY,
+        Math.floor(xpTotal / XP_FOR_LEVEL)
+      );
+      setLevelInStorage(Math.floor(xpTotal / XP_FOR_LEVEL));
+    }
+  };
 
   return (
     <Container onClick={() => {}}>
@@ -132,9 +154,11 @@ const ProfileLevel = (props) => {
             >
               {getIcon("medal")}
             </Icon>
-            <Text>{Math.floor(xpTotal / XP_FOR_LEVEL)}</Text>
+            <Text>{currentLevel}</Text>
           </GoldTrophy>
-          {/* <ToLevel>{toNextLevel}</ToLevel> */}
+          {levelInStorage < currentLevel && (
+            <LevelUp onClick={resetlevelInStorage}>LEVEL UP</LevelUp>
+          )}
         </LevelContainer>
       </LevelFragment>
     </Container>

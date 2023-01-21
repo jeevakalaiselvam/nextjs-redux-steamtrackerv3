@@ -411,6 +411,10 @@ export default function AchievementCardWithPhase(props) {
       <MainContainer>
         <IconContainer>
           <Icon icon={icon}></Icon>
+          <XPData>
+            <XPText>{calculateXPFromPercentage(percentage)}</XPText>
+            <XPIcon>{getIcon("xp")}</XPIcon>
+          </XPData>
           {achieved == 1 && false && (
             <CheckContainer>
               <FaCheck />
@@ -474,10 +478,6 @@ export default function AchievementCardWithPhase(props) {
           )}
         </PhaseRevealer>
         <PhaseContainer show={achieved != 1}>
-          <XPData>
-            <XPText>{calculateXPFromPercentage(percentage)}</XPText>
-            <XPIcon>{getIcon("xp")}</XPIcon>
-          </XPData>
           <PhaseItem
             active={phase == ALL}
             onClick={() => {

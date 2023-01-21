@@ -17,6 +17,7 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { FaTrophy } from "react-icons/fa";
 import {
+  calculateLevelFromAllGames,
   getAllXPFromAchievements,
   XP_FOR_LEVEL,
 } from "../../../helpers/xpHelper";
@@ -31,6 +32,7 @@ import {
 import { ALL } from "../../../helpers/gameHelper";
 import { AiFillGold } from "react-icons/ai";
 import { getIcon } from "../../../helpers/iconHelper";
+import { PLAYER_LEVEL_KEY } from "./GameHeader";
 
 const Container = styled.div`
   display: flex;
@@ -139,20 +141,64 @@ const RefreshText = styled.div`
   justify-content: center;
 `;
 
+const RefreshIcon = styled.div`
+  display: flex;
+  align-items: center;
+  z-index: 8;
+  justify-content: center;
+  font-size: 1.5rem;
+  -webkit-animation: ${(props) =>
+    props.rotate ? "rotating 0.25s linear infinite" : ""};
+  -moz-animation: ${(props) =>
+    props.rotate ? "rotating 0.25s linear infinite" : ""};
+  -ms-animation: ${(props) =>
+    props.rotate ? "rotating 0.25s linear infinite" : ""};
+  -o-animation: ${(props) =>
+    props.rotate ? "rotating 0.25s linear infinite" : ""};
+  animation: ${(props) => (props.rotate ? "rotating 2s linear infinite" : "")};
+
+  @-webkit-keyframes rotating /* Safari and Chrome */ {
+    from {
+      -webkit-transform: rotate(0deg);
+      -o-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    to {
+      -webkit-transform: rotate(360deg);
+      -o-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes rotating {
+    from {
+      -ms-transform: rotate(0deg);
+      -moz-transform: rotate(0deg);
+      -webkit-transform: rotate(0deg);
+      -o-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    to {
+      -ms-transform: rotate(360deg);
+      -moz-transform: rotate(360deg);
+      -webkit-transform: rotate(360deg);
+      -o-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+`;
+
 export default function PlannerHeader() {
   const dispatch = useDispatch();
   const router = useRouter();
   const { gameId } = router.query;
 
-  const refreshButtonClickHandler = async () => {
-    const response = await axios.get(`/api/refresh/${gameId}`);
-    const gameRefreshedData = response.data.data;
-    dispatch(setGameDataRefresh(gameId, gameRefreshedData));
-  };
-
   const steamtracker = useSelector((state) => state.steamtracker);
   const { games, planner } = steamtracker;
   const { phaseAddedGame, plannerViewActive, unlockedShowToday } = planner;
+  const [rotate, setRotate] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+  const { xpTotal, currentLevel, toNextLevel, unlockedAll } =
+    calculateLevelFromAllGames(games);
 
   const resetButtonClickHandler = async () => {
     if (games) {
@@ -179,6 +225,20 @@ export default function PlannerHeader() {
 
   const showAllAchievementsUnlocked = () => {
     dispatch(setPlannerUnlockedType());
+  };
+
+  const refreshButtonClickHandler = async () => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem(
+        PLAYER_LEVEL_KEY,
+        Math.floor(xpTotal / XP_FOR_LEVEL)
+      );
+    }
+    setRefreshing(true);
+    const response = await axios.get(`/api/refresh/${gameId}`);
+    const gameRefreshedData = response.data.data;
+    dispatch(setGameDataRefresh(gameId, gameRefreshedData));
+    setRefreshing(false);
   };
 
   return (
@@ -223,7 +283,9 @@ export default function PlannerHeader() {
       )}
       <SearchContainer>
         <RefreshContainer onClick={refreshButtonClickHandler}>
-          <TbRefresh />
+          <RefreshIcon rotate={refreshing}>
+            <TbRefresh />
+          </RefreshIcon>
           <RefreshText>REFRESH</RefreshText>
         </RefreshContainer>
       </SearchContainer>
