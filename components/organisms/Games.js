@@ -8,6 +8,7 @@ import {
   sortGamesBySearchTerm,
   sortGamesByFilterOption,
 } from "../../helpers/gameHelper";
+import e from "cors";
 
 const Container = styled.div`
   display: flex;
@@ -39,10 +40,16 @@ export default function Games({ games, filterOption, searchTerm }) {
       }
     });
 
-    const filteredGames = sortGamesByFilterOption(
-      searchFilteredGames,
-      filterOption
-    );
+    let filteredGames = [];
+
+    if (searchTerm !== "") {
+      filteredGames = searchFilteredGames;
+    } else {
+      filteredGames = sortGamesByFilterOption(
+        searchFilteredGames,
+        filterOption
+      );
+    }
 
     setSearchFilteredGames((old) => filteredGames);
   }, [searchTerm, filterOption]);

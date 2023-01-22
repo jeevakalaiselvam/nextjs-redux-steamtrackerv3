@@ -302,20 +302,20 @@ export default function GameCard({ game }) {
           {name}
         </TitleData>
       </Title>
-      {
+      {next !== 0 && (
         <ToGetContainer>
           <ToGetIcon iconColor={iconColor}>{getIcon("trophy")}</ToGetIcon>
           <ToGetData iconColor={iconColor}>{next}</ToGetData>
         </ToGetContainer>
-      }
-      {
+      )}
+      {false && (
         <XPContainer>
           <XPIcon>{getIcon("xp")}</XPIcon>
           <XPData>
             {Math.floor(Math.floor(totalXP * COMPLETION_TARGET) - completedXP)}
           </XPData>
         </XPContainer>
-      }
+      )}
 
       <PinIcon
         onMouseEnter={() => {
