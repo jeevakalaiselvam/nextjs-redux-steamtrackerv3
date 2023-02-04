@@ -42,7 +42,7 @@ export const sortGamesByFilterOption = (games, filterOption) => {
           return !pinnedGames.includes(game.id);
         });
       }
-      newGames = [...pinnedGamesInner, ...notPinnedGamesInner];
+      // newGames = [...pinnedGamesInner, ...notPinnedGamesInner];
       break;
     case GAMES_OPTION_COMPLETION_ASC:
       newGames = games.sort(
@@ -59,7 +59,7 @@ export const sortGamesByFilterOption = (games, filterOption) => {
           return !pinnedGames.includes(game.id);
         });
       }
-      newGames = [...pinnedGamesInner, ...notPinnedGamesInner];
+      // newGames = [...pinnedGamesInner, ...notPinnedGamesInner];
       break;
     case GAMES_OPTION_COMPLETION_STARTED:
       newGames = games.filter(

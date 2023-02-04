@@ -13,8 +13,10 @@ import { TbRefresh } from "react-icons/tb";
 import { useRouter } from "next/router";
 import axios from "axios";
 import {
+  calculateLevelFromAllGames,
   COMPLETION_TARGET,
   getAllXPFromAchievements,
+  XP_FOR_LEVEL,
 } from "../../../helpers/xpHelper";
 import { getIcon } from "../../../helpers/iconHelper";
 

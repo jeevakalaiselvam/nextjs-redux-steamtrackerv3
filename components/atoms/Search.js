@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { HiSearch } from "react-icons/hi";
+import { HiSearch, HiX } from "react-icons/hi";
 
 const Container = styled.div`
   display: flex;
@@ -14,6 +14,21 @@ const SearchIcon = styled.div`
   backdrop-filter: blur(6px);
   padding: 0.5rem 1rem;
   border-radius: 8px 0px 0px 8px;
+  cursor: pointer;
+
+  &:hover {
+  }
+`;
+
+const SearchCross = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(6px);
+  padding: 0.5rem 1rem;
+  border-radius: 8px 0px 0px 8px;
+  cursor: pointer;
 `;
 
 const SearchInput = styled.div`
@@ -68,6 +83,13 @@ const Search = (props) => {
           placeholder="Search..."
         />
       </SearchInput>
+      <SearchCross
+        onClick={() => {
+          setSearchTerm((old) => "");
+        }}
+      >
+        <HiX />
+      </SearchCross>
     </Container>
   );
 };
