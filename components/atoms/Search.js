@@ -27,7 +27,7 @@ const SearchCross = styled.div`
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(6px);
   padding: 0.5rem 1rem;
-  border-radius: 8px 0px 0px 8px;
+  border-radius: 0px 8px 8px 0px;
   cursor: pointer;
 `;
 
@@ -44,7 +44,7 @@ const SearchInput = styled.div`
     backdrop-filter: blur(6px);
     color: #9caabe;
     border: none;
-    border-radius: 0px 8px 8px 0px;
+    border-radius: 0px 0px 0px 0px;
 
     &::placeholder {
       color: #9caabe;
