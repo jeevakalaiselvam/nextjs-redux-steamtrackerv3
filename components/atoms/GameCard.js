@@ -216,6 +216,8 @@ export default function GameCard({ game }) {
     }
   });
 
+  const router = useRouter();
+
   const xpData = getAllXPFromAchievements(newAchievements);
   const {
     totalXP,
@@ -225,9 +227,6 @@ export default function GameCard({ game }) {
     total,
     percentageCompletion,
   } = xpData;
-
-  const router = useRouter();
-
   const completed = completedXP / XP_FOR_LEVEL;
   const needed = (totalXP * COMPLETION_TARGET) / XP_FOR_LEVEL;
 

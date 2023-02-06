@@ -19,6 +19,8 @@ import {
   XP_FOR_LEVEL,
 } from "../../../helpers/xpHelper";
 import { getIcon } from "../../../helpers/iconHelper";
+import { FaTrophy } from "react-icons/fa";
+import chroma from "chroma-js";
 
 const Container = styled.div`
   display: flex;
@@ -37,18 +39,41 @@ const FilterContainer = styled.div`
   justify-content: flex-start;
 `;
 
+const RemainingContainer = styled.div`
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
+
+const TrophyContainer = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const TrophyIcon = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  color: ${(props) => (props.color ? props.color : "#b55af2")};
+`;
+
+const TrophyCount = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: ${(props) => (props.color ? props.color : "#b55af2")};
+  font-size: 1.5rem;
+`;
+
 const SearchContainer = styled.div`
   display: flex;
   flex: 1;
   align-items: center;
   justify-content: flex-end;
-`;
-
-const TrophyContainer = styled.div`
-  display: flex;
-  flex: 1;
-  align-items: center;
-  justify-content: center;
 `;
 
 const RefreshContainer = styled.div`
@@ -175,7 +200,27 @@ export default function GameHeader() {
 
   const onSearchObtained = (searchTerm) => {};
 
-  let game;
+  const game = games.length && games.find((game) => game.id == gameId);
+  const { id, playtime, name, version, achievements, completion, toGet } = game;
+
+  const xpData = getAllXPFromAchievements(achievements);
+  const {
+    totalXP,
+    completedXP,
+    remainingXP,
+    completedTotal,
+    total,
+    percentageCompletion,
+  } = xpData;
+
+  console.log("JEEVA - ", {
+    totalXP,
+    completedXP,
+    remainingXP,
+    completedTotal,
+    total,
+    percentageCompletion,
+  });
 
   const refreshButtonClickHandler = async () => {
     if (typeof window !== "undefined") {
@@ -191,6 +236,33 @@ export default function GameHeader() {
     setRefreshing(false);
   };
 
+  const calculateTrophiesToNextStage = (percentageNow) => {
+    if (percentageNow < 25) {
+      return {
+        next: Math.ceil(total * 0.25) - completedTotal,
+        iconColor: "#B87333",
+      };
+    } else if (percentageNow >= 25 && percentageNow < 50) {
+      return {
+        next: Math.ceil(total * 0.5) - completedTotal,
+        iconColor: "#C0C0C0",
+      };
+    } else if (percentageNow >= 50 && percentageNow < 75) {
+      return {
+        next: Math.ceil(total * 0.75) - completedTotal,
+        iconColor: "#f5b81c",
+      };
+    } else if (percentageNow >= 75) {
+      return {
+        next: Math.ceil(total * 1) - completedTotal,
+        iconColor: "#b55af2",
+      };
+    }
+  };
+
+  const { next, iconColor } =
+    calculateTrophiesToNextStage(percentageCompletion);
+
   return (
     <Container>
       <FilterContainer>
@@ -199,6 +271,14 @@ export default function GameHeader() {
           onFilterChanged={onFilterChanged}
         />
       </FilterContainer>
+      <RemainingContainer>
+        <TrophyContainer>
+          <TrophyIcon color={iconColor}>
+            <FaTrophy />
+          </TrophyIcon>
+          <TrophyCount color={iconColor}>{next}</TrophyCount>
+        </TrophyContainer>
+      </RemainingContainer>
       <SearchContainer>
         <Search onSearchObtained={onSearchObtained} />
         <RefreshContainer onClick={refreshButtonClickHandler}>

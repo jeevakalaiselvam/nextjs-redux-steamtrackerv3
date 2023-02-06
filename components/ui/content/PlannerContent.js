@@ -305,7 +305,7 @@ export default function PlannerContent() {
 
   return (
     <Container>
-      {plannerViewActive && (
+      {false && (
         <RecentSection>
           <RecentAchievementsSmall
             games={games}
@@ -314,7 +314,7 @@ export default function PlannerContent() {
         </RecentSection>
       )}
 
-      {!plannerViewActive && (
+      {true && (
         <AchievementSection>
           {phaseAddedGame && (
             <>
