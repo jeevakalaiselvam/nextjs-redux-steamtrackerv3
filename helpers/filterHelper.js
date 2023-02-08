@@ -7,12 +7,12 @@ export const GAMES_OPTION_RECENT = "GAMES_OPTION_RECENT";
 
 export const FILTER_OPTIONS_GAMES_PAGE = [
   {
-    id: GAMES_OPTION_RECENT,
-    title: "Sort By Recent",
+    id: GAMES_OPTION_COMPLETION_PINNED,
+    title: "Sort By Ongoing",
   },
   {
-    id: GAMES_OPTION_COMPLETION_PINNED,
-    title: "Sort By Pinned",
+    id: GAMES_OPTION_RECENT,
+    title: "Sort By Recent",
   },
   {
     id: GAMES_OPTION_COMPLETION_STARTED,
