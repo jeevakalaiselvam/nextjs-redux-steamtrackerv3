@@ -116,7 +116,7 @@ export const calculateLevelFromAllGames = (games) => {
 export const calculateRecentHistory = (games) => {
   let recentHistory = {};
 
-  let recent30Dates = new Array(60).fill(1).map((item, index) => index);
+  let recent30Dates = new Array(30).fill(1).map((item, index) => index);
 
   recent30Dates.forEach((dayIndex) => {
     recentHistory[dayIndex] = [];

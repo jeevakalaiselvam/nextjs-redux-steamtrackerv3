@@ -3,6 +3,7 @@ import {
   GAMES_OPTION_COMPLETION_DESC,
   GAMES_OPTION_COMPLETION_PINNED,
   GAMES_OPTION_COMPLETION_STARTED,
+  GAMES_OPTION_RECENT,
 } from "./filterHelper";
 
 export const sortGamesByFilterOption = (games, filterOption) => {
@@ -11,6 +12,12 @@ export const sortGamesByFilterOption = (games, filterOption) => {
   let pinnedGamesInner = [];
   let notPinnedGamesInner = [];
   switch (filterOption) {
+    case GAMES_OPTION_RECENT:
+      newGames = games.sort(
+        (game1, game2) => +game1.lastPlayed < +game2.lastPlayed
+      );
+
+      break;
     case GAMES_OPTION_COMPLETION_PINNED:
       newGames = games.sort(
         (game1, game2) => +game1.completion < +game2.completion

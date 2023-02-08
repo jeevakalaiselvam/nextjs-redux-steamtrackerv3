@@ -23,7 +23,7 @@ const Container = styled.div`
   flex-direction: column;
   position: relative;
   opacity: ${(props) =>
-    props.achieved == 1 && props.activateCompletionOpacity ? "0.15" : "1.0"};
+    props.achieved == 1 && props.activateCompletionOpacity ? "0.1" : "1.0"};
 `;
 
 const MainContainer = styled.div`
@@ -410,7 +410,7 @@ export default function AchievementCardWithPhase(props) {
     >
       <MainContainer>
         <IconContainer>
-          <Icon icon={icon}></Icon>
+          <Icon icon={achieved ? icon : icon}></Icon>
           <XPData>
             <XPText>{calculateXPFromPercentage(percentage)}</XPText>
             <XPIcon>{getIcon("xp")}</XPIcon>

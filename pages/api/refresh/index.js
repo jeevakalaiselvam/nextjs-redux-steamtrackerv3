@@ -19,6 +19,7 @@ const handler = async (req, res) => {
         const newGame = {
           id: game.appid,
           playtime: game.playtime_forever,
+          lastPlayed: game.rtime_last_played,
         };
         return newGame;
       });

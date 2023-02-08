@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { HEADER_IMAGE } from "../../helpers/urlHelper";
 
@@ -108,9 +108,23 @@ export default function Page({
   const router = useRouter();
   const { gameId } = router.query;
 
+  const [gameIdForImage, setGameIdForImage] = useState("");
+
+  useEffect(() => {
+    if (gameId) {
+      localStorage.setItem("GAMES_RECENT_ID", gameId);
+      setGameIdForImage(gameId);
+    } else {
+      let recentGameId = localStorage.getItem("GAMES_RECENT_ID");
+      if (recentGameId) {
+        setGameIdForImage(recentGameId);
+      }
+    }
+  }, [gameId]);
+
   return (
     <Container>
-      <ImageOverlay image={HEADER_IMAGE("1328670")} />
+      <ImageOverlay image={HEADER_IMAGE(gameIdForImage)} />
       {leftSidebar && (
         <LeftSidebarContainer
           leftSidebarOpen={leftSidebarOpen}

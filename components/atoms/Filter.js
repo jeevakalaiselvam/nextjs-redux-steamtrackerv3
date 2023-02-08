@@ -41,7 +41,7 @@ export default function Filter({
   const [selected, setSelected] = useState(defaultSelected);
 
   useEffect(() => {
-    setSelected((old) => defaultSelected);
+    onFilterChanged(defaultSelected);
   }, [defaultSelected]);
 
   const optionChangeHandler = (event) => {
