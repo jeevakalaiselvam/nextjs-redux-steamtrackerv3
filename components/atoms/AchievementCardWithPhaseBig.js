@@ -14,6 +14,7 @@ import { HiChevronDoubleUp, HiMenu } from "react-icons/hi";
 import JournalInput from "./JournalInput";
 import { calculateXPFromPercentage } from "../../helpers/xpHelper";
 import { getIcon } from "../../helpers/iconHelper";
+import { HEADER_IMAGE } from "../../helpers/urlHelper";
 
 const Container = styled.div`
   display: flex;
@@ -29,33 +30,33 @@ const Container = styled.div`
 const MainContainer = styled.div`
   width: 365px;
   display: flex;
-  flex-direction: row;
-  padding: 0.5rem 1rem;
-  align-items: flex-start;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
   background: rgba(0, 0, 0, 0.25);
-  margin: 0.5rem;
-  border-radius: 4px;
+  min-height: 125px;
   cursor: pointer;
+  border-radius: 4px;
+  margin: 0.5rem;
+  background: ${(props) => (props.icon ? `url("${props.icon}")` : "")};
+  background-repeat: no-repeat;
+  background-size: cover;
   &:hover {
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
   }
 `;
 
-const JournalContainer = styled.div`
-  display: ${(props) => (props.show ? "flex" : "none")};
-  transition: 0.5s all;
-  min-height: ${(props) => (props.show ? "500px" : "0px")};
-  align-items: flex-start;
-  top: 0;
-  left: 0;
-  height: 500px;
-  justify-content: center;
-  background-color: rgba(0, 0, 0, 0.9);
-  color: #b0bec5;
-  backdrop-filter: blur(2px);
-  z-index: 100000;
+const InnerContainer = styled.div`
   width: 100%;
+  padding: 0.5rem 1rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
 `;
 
 const IconContainer = styled.div`
@@ -98,7 +99,7 @@ const Icon = styled.div`
 const XPData = styled.div`
   display: flex;
   width: 100%;
-  padding: 0.5rem 1rem;
+  padding: 0.25rem 1rem;
   color: #b0bec5;
   align-items: center;
   justify-content: center;
@@ -117,11 +118,11 @@ const Title = styled.div`
   display: flex;
   flex: 1;
   max-width: 200px;
-  align-self: flex-start;
+  align-self: center;
   padding: 0.5rem;
   flex-direction: row;
   align-items: flex-start;
-  justify-content: flex-start;
+  justify-content: center;
   font-size: 1.5rem;
 
   &:hover {
@@ -140,19 +141,6 @@ const Description = styled.div`
   justify-content: flex-start;
   color: #b0bec5;
   font-size: 1.5rem;
-`;
-
-const JournalOneline = styled.div`
-  display: flex;
-  flex: 1;
-  width: 100%;
-  padding: 0.5rem;
-  flex-direction: row;
-  align-items: flex-end;
-  justify-content: flex-start;
-  color: #b0bec5;
-  font-size: 1.5rem;
-  opacity: 0.5;
 `;
 
 const HiddenContainer = styled.div`
@@ -214,64 +202,6 @@ const CheckContainer = styled.div`
   color: #ffffff;
 `;
 
-const PhaseRevealer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  bottom: 7px;
-  left: 0;
-  color: ${(props) => (props.active ? "#6cff5c" : "#737c9d;")};
-  padding: 0rem 0.5rem;
-  margin: 0.5rem;
-  z-index: 10000000;
-  font-size: 1.5rem;
-  &:hover {
-    color: #6cff5c;
-  }
-`;
-
-const PhaseContainer = styled.div`
-  position: absolute;
-  bottom: 7px;
-  right: 0;
-  display: ${(props) => (props.show ? "flex" : "none")};
-  align-items: center;
-  justify-content: center;
-  padding-right: 0.5rem;
-`;
-
-const PhaseItem = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: ${(props) =>
-    props.active ? "rgba(0,0,0,0.5)" : "rgba(0,0,0,0.5)"};
-  color: ${(props) => (props.active ? "#FFFFFF" : "#737c9d;")};
-  padding: 0rem 0.5rem;
-  margin: 0.25rem 0.5rem 0.25rem 0.25rem;
-  opacity: 0.5;
-
-  &:hover {
-    color: #ffffff;
-  }
-`;
-
-const PhaseItemIgnore = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: ${(props) =>
-    props.active ? "rgba(0,0,0,0.5)" : "rgba(0,0,0,0.5)"};
-  color: ${(props) => (props.active ? "#bd2a2e" : "#737c9d;")};
-  padding: 0rem 0.5rem;
-  margin: 0.25rem;
-
-  &:hover {
-    color: #ff4858;
-  }
-`;
-
 const XPText = styled.div`
   display: flex;
   align-items: center;
@@ -288,7 +218,7 @@ const XPIcon = styled.div`
   color: #f1b51b;
 `;
 
-export default function AchievementCardWithPhase(props) {
+export default function AchievementCardWithPhaseBig(props) {
   const {
     name,
     hidden,
@@ -302,9 +232,7 @@ export default function AchievementCardWithPhase(props) {
     phase,
   } = props.achievement;
   const { gameName } = props?.gameName || "";
-  const currentPhase = props?.phase || "";
   const gameId = props?.gameId || "";
-  const showIgnore = props.showIgnore;
   const activateCompletionOpacity = props.activateCompletionOpacity;
 
   const steamtracker = useSelector((state) => state.steamtracker);
@@ -332,120 +260,50 @@ export default function AchievementCardWithPhase(props) {
 
   const game = games.find((game) => game.id == gameId);
 
-  const [showPhases, setShowPhases] = useState(false);
-
-  const [showJournal, setShowJournal] = useState(false);
-  const [journalData, setJournalData] = useState("");
-
-  const onDataSaved = (journalData) => {
-    if (typeof window !== "undefined") {
-      localStorage.setItem(`${gameId}_${name}_JOURNAL`, journalData);
-    }
-  };
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const journalDataInStore = localStorage.getItem(
-        `${gameId}_${name}_JOURNAL`
-      );
-      if (!journalDataInStore) setJournalData((old) => "");
-      else setJournalData((old) => journalDataInStore);
-    }
-  }, [showJournal]);
-
-  const addToIgnoreList = () => {
-    if (typeof window !== "undefined") {
-      if (ignoreActive) {
-        let ignoreListInStorage =
-          localStorage.getItem(`${gameId}_IGNORE`) || JSON.stringify([]);
-        let ignoredAchievements = JSON.parse(ignoreListInStorage);
-        ignoredAchievements = ignoredAchievements.filter(
-          (achName) => achName !== name
-        );
-
-        localStorage.setItem(
-          `${gameId}_IGNORE`,
-          JSON.stringify(ignoredAchievements)
-        );
-        setIgnoreActive((old) => false);
-      } else {
-        let ignoreListInStorage =
-          localStorage.getItem(`${gameId}_IGNORE`) || JSON.stringify([]);
-        let ignoredAchievements = JSON.parse(ignoreListInStorage);
-        ignoredAchievements = [...ignoredAchievements, name];
-
-        localStorage.setItem(
-          `${gameId}_IGNORE`,
-          JSON.stringify(ignoredAchievements)
-        );
-        setIgnoreActive((old) => true);
-      }
-    }
-  };
-
-  const [ignoreActive, setIgnoreActive] = useState(false);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      let ignoreListInStorage =
-        localStorage.getItem(`${gameId}_IGNORE`) || JSON.stringify([]);
-      let ignoredAchievements = JSON.parse(ignoreListInStorage);
-      setIgnoreActive((old) => ignoredAchievements.includes(name));
-    }
-  }, [gameId, name]);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      let ignoreListInStorage =
-        localStorage.getItem(`${gameId}_IGNORE`) || JSON.stringify([]);
-      let ignoredAchievements = JSON.parse(ignoreListInStorage);
-      setIgnoreActive((old) => ignoredAchievements.includes(name));
-    }
-  }, []);
-
   return (
     <Container
       achieved={achieved}
       activateCompletionOpacity={activateCompletionOpacity}
     >
-      <MainContainer>
-        <IconContainer>
-          <Icon icon={achieved ? icon : icon}></Icon>
-          <XPData>
-            <XPText>{calculateXPFromPercentage(percentage)}</XPText>
-            <XPIcon>{getIcon("xp")}</XPIcon>
-          </XPData>
-          {achieved == 1 && false && (
-            <CheckContainer>
-              <FaCheck />
-            </CheckContainer>
+      <MainContainer icon={icon}>
+        <InnerContainer>
+          <IconContainer>
+            <Icon icon={achieved ? icon : icon}></Icon>
+            <XPData>
+              <XPText>{calculateXPFromPercentage(percentage)}</XPText>
+              <XPIcon>{getIcon("xp")}</XPIcon>
+            </XPData>
+            {achieved == 1 && false && (
+              <CheckContainer>
+                <FaCheck />
+              </CheckContainer>
+            )}
+          </IconContainer>
+          <DataContainer>
+            <Title
+              onClick={() => {
+                if (window !== "undefined") {
+                  const searchQuery = `${displayName} achievement ${game.name} `;
+                  window.open(`https://www.google.com/search?q=${searchQuery}`);
+                }
+              }}
+            >
+              {displayName}
+            </Title>
+            <Description>{description || hiddenDescription}</Description>
+          </DataContainer>
+          <PercentageContainer>
+            <PercentageIcon>
+              <FaGlobe />
+            </PercentageIcon>
+            <PercentageText>{percentage.toFixed(2)}%</PercentageText>
+          </PercentageContainer>
+          {hidden == "1" && false && (
+            <HiddenContainer>
+              <IoEyeOff />
+            </HiddenContainer>
           )}
-        </IconContainer>
-        <DataContainer>
-          <Title
-            onClick={() => {
-              if (window !== "undefined") {
-                const searchQuery = `${displayName} achievement ${game.name} `;
-                window.open(`https://www.google.com/search?q=${searchQuery}`);
-                // window.open(`https://www.youtube.com/results?search_query=${searchQuery}`);
-              }
-            }}
-          >
-            {displayName}
-          </Title>
-          <Description>{description || hiddenDescription}</Description>
-        </DataContainer>
-        <PercentageContainer>
-          <PercentageIcon>
-            <FaGlobe />
-          </PercentageIcon>
-          <PercentageText>{percentage.toFixed(2)}%</PercentageText>
-        </PercentageContainer>
-        {hidden == "1" && false && (
-          <HiddenContainer>
-            <IoEyeOff />
-          </HiddenContainer>
-        )}
+        </InnerContainer>
       </MainContainer>
       {achieved == 1 && (
         <UnlockedContainer achieved={achieved}>

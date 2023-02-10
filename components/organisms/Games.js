@@ -24,6 +24,8 @@ const Container = styled.div`
 
 export default function Games({ games, filterOption, searchTerm }) {
   const [searchFilteredGames, setSearchFilteredGames] = useState([]);
+  const steamtracker = useSelector((state) => state.steamtracker);
+  const { pinnedGames } = steamtracker;
 
   useEffect(() => {
     const searchFilteredGames = games.filter((game) => {
@@ -48,12 +50,13 @@ export default function Games({ games, filterOption, searchTerm }) {
     } else {
       filteredGames = sortGamesByFilterOption(
         searchFilteredGames,
-        GAMES_OPTION_COMPLETION_PINNED
+        GAMES_OPTION_COMPLETION_PINNED,
+        pinnedGames
       );
     }
 
     setSearchFilteredGames((old) => filteredGames);
-  }, [searchTerm, filterOption]);
+  }, [searchTerm, filterOption, pinnedGames]);
 
   return (
     <Container>

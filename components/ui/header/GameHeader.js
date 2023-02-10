@@ -229,7 +229,9 @@ export default function GameHeader() {
     dispatch(changeGamePageFilterOption(filterOption));
   };
 
-  const onSearchObtained = (searchTerm) => {};
+  const onSearchObtained = (searchTerm) => {
+    dispatch(changeGamePageSearchTerm(searchTerm));
+  };
 
   const refreshButtonClickHandler = async () => {
     if (typeof window !== "undefined") {
@@ -271,13 +273,13 @@ export default function GameHeader() {
 
   return (
     <Container>
-      <FilterContainer>
+      {/* <FilterContainer>
         <Filter
           filterOptions={FILTER_OPTIONS_GAME_PAGE}
           onFilterChanged={onFilterChanged}
           defaultSelected={filterOption}
         />
-      </FilterContainer>
+      </FilterContainer> */}
       <RemainingContainer>
         <TrophyContainer>
           {console.log("LEVEL INFO", { levelInfo })}

@@ -48,6 +48,8 @@ import {
   SHOW_JOURNAL_RIGHTSIDEBAR,
   HIDE_JOURNAL_RIGHTSIDEBAR,
   THEME_ID,
+  ADD_PINNED_GAME,
+  REMOVE_PINNED_GAME,
 } from "../types/games.types";
 
 const INITIAL_STATE = {
@@ -106,6 +108,7 @@ const INITIAL_STATE = {
     unlockedShowToday: true,
   },
   themeId: "",
+  pinnedGames: [],
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -404,6 +407,20 @@ const reducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         themeId: payload,
+      };
+
+    case ADD_PINNED_GAME:
+      return {
+        ...state,
+        pinnedGames: [...state.pinnedGames, payload.gameId],
+      };
+
+    case REMOVE_PINNED_GAME:
+      return {
+        ...state,
+        pinnedGames: [
+          ...state.pinnedGames.filter((gameId) => gameId != payload.gameId),
+        ],
       };
 
     default:

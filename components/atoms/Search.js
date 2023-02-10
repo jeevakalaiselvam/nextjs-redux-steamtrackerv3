@@ -53,8 +53,10 @@ const SearchInput = styled.div`
 `;
 
 const Search = (props) => {
-  const { onSearchObtained, width } = props;
-  const [searchTerm, setSearchTerm] = useState("");
+  const { onSearchObtained, width, userSearchTerm } = props;
+  const [searchTerm, setSearchTerm] = useState(
+    userSearchTerm ? userSearchTerm : ""
+  );
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {

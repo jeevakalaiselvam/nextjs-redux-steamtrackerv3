@@ -14,6 +14,7 @@ import { HEADER_IMAGE } from "../../../helpers/urlHelper";
 import { FaClosedCaptioning } from "react-icons/fa";
 import { HiX, HiXCircle } from "react-icons/hi";
 import JournalInput from "../../atoms/JournalInput";
+import { GAME_OPTION_PERCENTAGE_DESC } from "../../../helpers/filterHelper";
 
 const RootContainer = styled.div`
   display: flex;
@@ -205,7 +206,7 @@ export default function GameContent() {
         )}
         <Achievements
           game={game}
-          filterOption={filterOption}
+          filterOption={GAME_OPTION_PERCENTAGE_DESC}
           searchTerm={searchTerm}
           showIgnore={true}
           activateCompletionOpacity={true}

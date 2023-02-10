@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import {
   FILTER_OPTIONS_GAMES_PAGE,
@@ -47,6 +47,10 @@ const SearchContainer = styled.div`
 
 export default function GamesHeader() {
   const dispatch = useDispatch();
+  const steamtracker = useSelector((state) => state.steamtracker);
+  const { games, settings } = steamtracker;
+  const { gamesPage } = settings;
+  const { searchTerm } = gamesPage;
 
   const onFilterChanged = (filterOption) => {
     dispatch(changeGamesPageFilterOption(filterOption));
@@ -69,7 +73,10 @@ export default function GamesHeader() {
         <TrophyStatus />
       </TrophyStatusContainer> */}
       <SearchContainer>
-        <Search onSearchObtained={onSearchObtained} />
+        <Search
+          onSearchObtained={onSearchObtained}
+          userSearchTerm={searchTerm}
+        />
       </SearchContainer>
     </Container>
   );

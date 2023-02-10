@@ -10,6 +10,7 @@ import { HEADER_IMAGE } from "../../helpers/urlHelper";
 import { useRouter } from "next/router";
 import AchievementCardWithPhase from "../atoms/AchievementCardWithPhase";
 import NoAchievements from "../atoms/NoAchievements";
+import AchievementCardWithPhaseBig from "../atoms/AchievementCardWithPhaseBig";
 
 const Container = styled.div`
   display: flex;

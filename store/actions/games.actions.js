@@ -31,6 +31,8 @@ import {
   SHOW_JOURNAL_RIGHTSIDEBAR,
   HIDE_JOURNAL_RIGHTSIDEBAR,
   THEME_ID,
+  ADD_PINNED_GAME,
+  REMOVE_PINNED_GAME,
 } from "../types/games.types";
 import axios from "axios";
 import { getPhaseFiltedAchievements } from "../../helpers/achievementHelper";
@@ -268,6 +270,18 @@ export const changeGamePageSearchTerm = (searchTerm) => {
 export const changeThemeId = (themeId) => {
   return (dispatch) => {
     return dispatch({ type: THEME_ID, payload: themeId });
+  };
+};
+
+export const addPinnedGame = (payload) => {
+  return (dispatch) => {
+    return dispatch({ type: ADD_PINNED_GAME, payload });
+  };
+};
+
+export const removePinnedGame = (payload) => {
+  return (dispatch) => {
+    return dispatch({ type: REMOVE_PINNED_GAME, payload });
   };
 };
 

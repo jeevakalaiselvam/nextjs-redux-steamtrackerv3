@@ -18,6 +18,12 @@ import { useRouter } from "next/router";
 import { AiFillCheckSquare, AiFillGold, AiFillPushpin } from "react-icons/ai";
 import { getIcon } from "../../helpers/iconHelper";
 import chroma from "chroma-js";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addPinnedGame,
+  changeGamesPageSearchTerm,
+  removePinnedGame,
+} from "../../store/actions/games.actions";
 
 const Container = styled.div`
   display: flex;
@@ -204,6 +210,9 @@ const CompleteIcon = styled.div`
 
 export default function GameCard({ game }) {
   const { id, playtime, name, version, achievements, completion, toGet } = game;
+  const dispatch = useDispatch();
+  const steamtracker = useSelector((state) => state.steamtracker);
+  const { games, settings, pinnedGames } = steamtracker;
 
   let newAchievements = achievements.filter((achievement) => {
     if (typeof window !== "undefined") {
@@ -272,8 +281,6 @@ export default function GameCard({ game }) {
 
   const { next, iconColor } = calculateTrophiesToNextStage();
 
-  console.log(name, " - ", { next, iconColor });
-
   return (
     <Container>
       <Overlay />
@@ -324,24 +331,14 @@ export default function GameCard({ game }) {
           setMovePinRight((old) => true);
         }}
         movePinRight={movePinRight}
-        active={
-          typeof window !== "undefined" &&
-          JSON.parse(
-            localStorage.getItem("GAMES_PINNED") || JSON.stringify([])
-          ).includes(id)
-        }
+        active={pinnedGames.includes(id)}
         onClick={() => {
-          if (typeof window !== "undefined") {
-            let oldGamesInStorage =
-              localStorage.getItem("GAMES_PINNED") || JSON.stringify([]);
-            let oldGames = JSON.parse(oldGamesInStorage);
-            if (oldGames.includes(id)) {
-              oldGames = oldGames.filter((game) => game !== id);
-              localStorage.setItem("GAMES_PINNED", JSON.stringify(oldGames));
-            } else {
-              oldGames = [...oldGames, id];
-              localStorage.setItem("GAMES_PINNED", JSON.stringify(oldGames));
-            }
+          if (pinnedGames.length > 0 && pinnedGames.includes(id)) {
+            dispatch(removePinnedGame({ gameId: id }));
+            dispatch(changeGamesPageSearchTerm(""));
+          } else {
+            dispatch(addPinnedGame({ gameId: id }));
+            dispatch(changeGamesPageSearchTerm(""));
           }
         }}
       >

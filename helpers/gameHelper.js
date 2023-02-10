@@ -6,64 +6,29 @@ import {
   GAMES_OPTION_RECENT,
 } from "./filterHelper";
 
-export const sortGamesByFilterOption = (games, filterOption) => {
+export const sortGamesByFilterOption = (games, filterOption, pinnedGames) => {
   let newGames = [];
-  let pinnedGames = [];
-  let pinnedGamesInner = [];
-  let notPinnedGamesInner = [];
   switch (filterOption) {
     case GAMES_OPTION_RECENT:
       newGames = games.sort(
         (game1, game2) => +game1.lastPlayed < +game2.lastPlayed
       );
-
       break;
     case GAMES_OPTION_COMPLETION_PINNED:
-      if (typeof window !== "undefined") {
-        let pinnedGamesInStorage =
-          localStorage.getItem(`GAMES_PINNED`) || JSON.stringify([]);
-        pinnedGames = JSON.parse(pinnedGamesInStorage);
-        newGames = games.filter((game) => {
-          return pinnedGames.includes(game.id) || game.completion == 100;
-        });
-      } else {
-      }
+      newGames = games.filter((game) => {
+        return pinnedGames.includes(game.id) || game.completion == 100;
+      });
 
       break;
     case GAMES_OPTION_COMPLETION_DESC:
       newGames = games.sort(
         (game1, game2) => +game1.completion < +game2.completion
       );
-
-      if (typeof window !== "undefined") {
-        let pinnedGamesInStorage =
-          localStorage.getItem(`GAMES_PINNED`) || JSON.stringify([]);
-        pinnedGames = JSON.parse(pinnedGamesInStorage);
-        pinnedGamesInner = newGames.filter((game) => {
-          return pinnedGames.includes(game.id);
-        });
-        notPinnedGamesInner = newGames.filter((game) => {
-          return !pinnedGames.includes(game.id);
-        });
-      }
-      // newGames = [...pinnedGamesInner, ...notPinnedGamesInner];
       break;
     case GAMES_OPTION_COMPLETION_ASC:
       newGames = games.sort(
         (game1, game2) => +game1.completion > +game2.completion
       );
-      if (typeof window !== "undefined") {
-        let pinnedGamesInStorage =
-          localStorage.getItem(`GAMES_PINNED`) || JSON.stringify([]);
-        pinnedGames = JSON.parse(pinnedGamesInStorage);
-        pinnedGamesInner = newGames.filter((game) => {
-          return pinnedGames.includes(game.id);
-        });
-        notPinnedGamesInner = newGames.filter((game) => {
-          return !pinnedGames.includes(game.id);
-        });
-      }
-      // newGames = [...pinnedGamesInner, ...notPinnedGamesInner];
       break;
     case GAMES_OPTION_COMPLETION_STARTED:
       newGames = games.filter(
