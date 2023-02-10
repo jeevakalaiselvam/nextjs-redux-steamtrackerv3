@@ -19,33 +19,13 @@ export const sortAchievementsByFilterOption = (
   switch (filterOption) {
     case GAME_OPTION_PERCENTAGE_DESC:
       newAchievements = achievements.sort(
-        (ach1, ach2) => +ach1.percentage < +ach2.percentage
+        (ach1, ach2) => +ach2.percentage - +ach1.percentage
       );
-      newAchievements = newAchievements.filter((achievement) => {
-        if (typeof window !== "undefined") {
-          let ignoredAchievementsInStorage =
-            localStorage.getItem(`${gameId}_IGNORE`) || JSON.stringify([]);
-          let ignoredAchievements = JSON.parse(ignoredAchievementsInStorage);
-          if (!ignoredAchievements.includes(achievement.name)) {
-            return true;
-          }
-        }
-      });
       break;
     case GAME_OPTION_PERCENTAGE_ASC:
       newAchievements = achievements.sort(
         (ach1, ach2) => +ach1.percentage > +ach2.percentage
       );
-      newAchievements = newAchievements.filter((achievement) => {
-        if (typeof window !== "undefined") {
-          let ignoredAchievementsInStorage =
-            localStorage.getItem(`${gameId}_IGNORE`) || JSON.stringify([]);
-          let ignoredAchievements = JSON.parse(ignoredAchievementsInStorage);
-          if (!ignoredAchievements.includes(achievement.name)) {
-            return true;
-          }
-        }
-      });
       break;
     case GAME_OPTION_PERCENTAGE_DESC_UNLOCKED:
       newAchievements = achievements.filter(
@@ -54,16 +34,6 @@ export const sortAchievementsByFilterOption = (
       newAchievements = newAchievements.sort(
         (ach1, ach2) => +ach1.percentage < +ach2.percentage
       );
-      newAchievements = newAchievements.filter((achievement) => {
-        if (typeof window !== "undefined") {
-          let ignoredAchievementsInStorage =
-            localStorage.getItem(`${gameId}_IGNORE`) || JSON.stringify([]);
-          let ignoredAchievements = JSON.parse(ignoredAchievementsInStorage);
-          if (!ignoredAchievements.includes(achievement.name)) {
-            return true;
-          }
-        }
-      });
       break;
     case GAME_OPTION_PERCENTAGE_ASC_UNLOCKED:
       newAchievements = achievements.filter(
@@ -72,16 +42,6 @@ export const sortAchievementsByFilterOption = (
       newAchievements = newAchievements.sort(
         (ach1, ach2) => +ach1.percentage > +ach2.percentage
       );
-      newAchievements = newAchievements.filter((achievement) => {
-        if (typeof window !== "undefined") {
-          let ignoredAchievementsInStorage =
-            localStorage.getItem(`${gameId}_IGNORE`) || JSON.stringify([]);
-          let ignoredAchievements = JSON.parse(ignoredAchievementsInStorage);
-          if (!ignoredAchievements.includes(achievement.name)) {
-            return true;
-          }
-        }
-      });
       break;
     case GAME_OPTION_PERCENTAGE_DESC_LOCKED:
       newAchievements = achievements.filter(
@@ -90,16 +50,6 @@ export const sortAchievementsByFilterOption = (
       newAchievements = newAchievements.sort(
         (ach1, ach2) => +ach1.percentage < +ach2.percentage
       );
-      newAchievements = newAchievements.filter((achievement) => {
-        if (typeof window !== "undefined") {
-          let ignoredAchievementsInStorage =
-            localStorage.getItem(`${gameId}_IGNORE`) || JSON.stringify([]);
-          let ignoredAchievements = JSON.parse(ignoredAchievementsInStorage);
-          if (!ignoredAchievements.includes(achievement.name)) {
-            return true;
-          }
-        }
-      });
       break;
     case GAME_OPTION_PERCENTAGE_DESC_IGNORED:
       newAchievements = achievements.filter(
@@ -108,16 +58,6 @@ export const sortAchievementsByFilterOption = (
       newAchievements = newAchievements.sort(
         (ach1, ach2) => +ach1.percentage < +ach2.percentage
       );
-      newAchievements = newAchievements.filter((achievement) => {
-        if (typeof window !== "undefined") {
-          let ignoredAchievementsInStorage =
-            localStorage.getItem(`${gameId}_IGNORE`) || JSON.stringify([]);
-          let ignoredAchievements = JSON.parse(ignoredAchievementsInStorage);
-          if (ignoredAchievements.includes(achievement.name)) {
-            return true;
-          }
-        }
-      });
       break;
     case GAME_OPTION_PERCENTAGE_ASC_LOCKED:
       newAchievements = achievements.filter(
@@ -126,16 +66,6 @@ export const sortAchievementsByFilterOption = (
       newAchievements = newAchievements.sort(
         (ach1, ach2) => +ach1.percentage > +ach2.percentage
       );
-      newAchievements = newAchievements.filter((achievement) => {
-        if (typeof window !== "undefined") {
-          let ignoredAchievementsInStorage =
-            localStorage.getItem(`${gameId}_IGNORE`) || JSON.stringify([]);
-          let ignoredAchievements = JSON.parse(ignoredAchievementsInStorage);
-          if (!ignoredAchievements.includes(achievement.name)) {
-            return true;
-          }
-        }
-      });
       break;
     case GAME_OPTION_PERCENTAGE_DESC_UNLOCKTIME:
       newAchievements = achievements.filter(
@@ -144,16 +74,6 @@ export const sortAchievementsByFilterOption = (
       newAchievements = newAchievements.sort(
         (ach1, ach2) => +ach1.unlocktime > +ach2.unlocktime
       );
-      newAchievements = newAchievements.filter((achievement) => {
-        if (typeof window !== "undefined") {
-          let ignoredAchievementsInStorage =
-            localStorage.getItem(`${gameId}_IGNORE`) || JSON.stringify([]);
-          let ignoredAchievements = JSON.parse(ignoredAchievementsInStorage);
-          if (!ignoredAchievements.includes(achievement.name)) {
-            return true;
-          }
-        }
-      });
       break;
     case GAME_OPTION_PERCENTAGE_ASC_UNLOCKTIME:
       newAchievements = achievements.filter(
@@ -162,31 +82,11 @@ export const sortAchievementsByFilterOption = (
       newAchievements = newAchievements.sort(
         (ach1, ach2) => +ach1.unlocktime < +ach2.unlocktime
       );
-      newAchievements = newAchievements.filter((achievement) => {
-        if (typeof window !== "undefined") {
-          let ignoredAchievementsInStorage =
-            localStorage.getItem(`${gameId}_IGNORE`) || JSON.stringify([]);
-          let ignoredAchievements = JSON.parse(ignoredAchievementsInStorage);
-          if (!ignoredAchievements.includes(achievement.name)) {
-            return true;
-          }
-        }
-      });
       break;
     default:
       newAchievements = achievements.sort(
         (ach1, ach2) => +ach1.percentage < +ach2.percentage
       );
-      newAchievements = newAchievements.filter((achievement) => {
-        if (typeof window !== "undefined") {
-          let ignoredAchievementsInStorage =
-            localStorage.getItem(`${gameId}_IGNORE`) || JSON.stringify([]);
-          let ignoredAchievements = JSON.parse(ignoredAchievementsInStorage);
-          if (!ignoredAchievements.includes(achievement.name)) {
-            return true;
-          }
-        }
-      });
       break;
   }
   return newAchievements;

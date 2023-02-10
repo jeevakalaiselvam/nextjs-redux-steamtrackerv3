@@ -120,6 +120,7 @@ const Title = styled.div`
   align-self: flex-start;
   padding: 0.5rem;
   flex-direction: row;
+  font-weight: bolder;
   align-items: flex-start;
   justify-content: flex-start;
   font-size: 1.5rem;
@@ -135,6 +136,7 @@ const Description = styled.div`
   max-height: 50px;
   width: 100%;
   padding: 0.5rem;
+  font-weight: bold;
   flex-direction: row;
   align-items: flex-start;
   justify-content: flex-start;
@@ -175,6 +177,14 @@ const PercentageContainer = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
+`;
+
+const TrophyIcon = styled.div`
+  width: 20px;
+  height: 20px;
+  background: url("/goldNew.png");
+  background-size: contain;
+  background-repeat: no-repeat;
 `;
 
 const PercentageText = styled.div`

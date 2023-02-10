@@ -158,7 +158,7 @@ export default function Achievements({
             );
           }
         })}
-      {searchFilteredAchievements.length === 0 && <NoAchievements />}
+      {searchFilteredAchievements.length === 0 && <Loaders.HashLoader />}
     </Container>
   );
 }
