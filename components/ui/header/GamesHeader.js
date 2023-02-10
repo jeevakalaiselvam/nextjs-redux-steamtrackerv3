@@ -19,7 +19,7 @@ const Container = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  padding: 0.25rem 1rem;
+  padding: 1rem 1rem;
   flex: 1;
   width: 100%;
 `;
@@ -58,16 +58,16 @@ export default function GamesHeader() {
 
   return (
     <Container>
-      <FilterContainer>
+      {/* <FilterContainer>
         <Filter
           filterOptions={FILTER_OPTIONS_GAMES_PAGE}
           defaultSelected={GAMES_OPTION_RECENT}
           onFilterChanged={onFilterChanged}
         />
-      </FilterContainer>
-      <TrophyStatusContainer>
+      </FilterContainer> */}
+      {/* <TrophyStatusContainer>
         <TrophyStatus />
-      </TrophyStatusContainer>
+      </TrophyStatusContainer> */}
       <SearchContainer>
         <Search onSearchObtained={onSearchObtained} />
       </SearchContainer>

@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { FILTER_OPTIONS_GAME_PAGE } from "../../../helpers/filterHelper";
+import {
+  FILTER_OPTIONS_GAME_PAGE,
+  GAMES_OPTION_COMPLETION_PINNED,
+} from "../../../helpers/filterHelper";
 import {
   changeGamePageFilterOption,
   changeGamePageSearchTerm,
@@ -185,7 +188,9 @@ export default function GameHeader() {
   const dispatch = useDispatch();
   const router = useRouter();
   const steamtracker = useSelector((state) => state.steamtracker);
-  const { games, planner } = steamtracker;
+  const { games, planner, settings } = steamtracker;
+  const { gamesPage } = settings;
+  const { filterOption } = gamesPage;
   const { gameId } = router.query;
 
   const [gameData, setGameData] = useState({
@@ -270,6 +275,7 @@ export default function GameHeader() {
         <Filter
           filterOptions={FILTER_OPTIONS_GAME_PAGE}
           onFilterChanged={onFilterChanged}
+          defaultSelected={filterOption}
         />
       </FilterContainer>
       <RemainingContainer>

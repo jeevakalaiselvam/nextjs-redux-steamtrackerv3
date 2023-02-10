@@ -30,6 +30,7 @@ import {
   SHOW_HISTORY_ACHIEVEMENTS,
   SHOW_JOURNAL_RIGHTSIDEBAR,
   HIDE_JOURNAL_RIGHTSIDEBAR,
+  THEME_ID,
 } from "../types/games.types";
 import axios from "axios";
 import { getPhaseFiltedAchievements } from "../../helpers/achievementHelper";
@@ -261,6 +262,12 @@ export const changeGamePageFilterOption = (filterOption) => {
 export const changeGamePageSearchTerm = (searchTerm) => {
   return (dispatch) => {
     return dispatch({ type: GAME_SEARCH_CHANGED, payload: searchTerm });
+  };
+};
+
+export const changeThemeId = (themeId) => {
+  return (dispatch) => {
+    return dispatch({ type: THEME_ID, payload: themeId });
   };
 };
 

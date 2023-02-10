@@ -47,6 +47,7 @@ import {
   HIDE_HISTORY_ACHIEVEMENTS,
   SHOW_JOURNAL_RIGHTSIDEBAR,
   HIDE_JOURNAL_RIGHTSIDEBAR,
+  THEME_ID,
 } from "../types/games.types";
 
 const INITIAL_STATE = {
@@ -104,6 +105,7 @@ const INITIAL_STATE = {
     plannerViewActive: true,
     unlockedShowToday: true,
   },
+  themeId: "",
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -396,6 +398,12 @@ const reducer = (state = INITIAL_STATE, action) => {
           ...state.planner,
           unlockedShowToday: !state.planner.unlockedShowToday,
         },
+      };
+
+    case THEME_ID:
+      return {
+        ...state,
+        themeId: payload,
       };
 
     default:

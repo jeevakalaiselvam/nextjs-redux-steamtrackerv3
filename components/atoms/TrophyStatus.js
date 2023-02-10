@@ -66,9 +66,8 @@ const LevelContainerRow = styled.div`
 const PurpleTrophy = styled.div`
   display: flex;
   align-items: center;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
-  color: #b55af2;
   font-size: 2rem;
   margin-right: 3rem;
   margin-left: 3rem;
@@ -107,10 +106,13 @@ const BronzeTrophy = styled.div`
 const Icon = styled.div`
   display: flex;
   align-items: center;
-  margin-right: 1rem;
   flex-direction: column;
+  width: 60px;
+  height: 60px;
   justify-content: center;
   font-size: ${(props) => (props.fontSize ? props.fontSize : "2.1rem")};
+  background: url("/platinumNew.png");
+  background-size: contain;
 `;
 
 const Text = styled.div`
@@ -188,10 +190,10 @@ const ProfilePlatinum = (props) => {
       <LevelFragment>
         <LevelContainer>
           <PurpleTrophy>
-            <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
+            <Icon fontSize={"2rem"}></Icon>
             <Text>{platinumCount}</Text>
           </PurpleTrophy>
-          <GoldTrophy>
+          {/* <GoldTrophy>
             <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
             <Text>{goldCount}</Text>
           </GoldTrophy>
@@ -202,7 +204,7 @@ const ProfilePlatinum = (props) => {
           <BronzeTrophy>
             <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
             <Text>{bronzeCount}</Text>
-          </BronzeTrophy>
+          </BronzeTrophy> */}
         </LevelContainer>
       </LevelFragment>
     </Container>

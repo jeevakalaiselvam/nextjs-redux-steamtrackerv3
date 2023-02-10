@@ -43,6 +43,8 @@ export default function GamesPage() {
       rightSidebarOpen={rightSidebarOpen}
       leftSidebarWidth={leftSidebarWidth}
       rightSidebarWidth={rightSidebarWidth}
+      headerHeight={"3vh"}
+      contentHeight={"97vh"}
     />
   );
 }

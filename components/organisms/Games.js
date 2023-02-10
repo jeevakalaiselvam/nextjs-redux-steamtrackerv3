@@ -9,6 +9,7 @@ import {
   sortGamesByFilterOption,
 } from "../../helpers/gameHelper";
 import e from "cors";
+import { GAMES_OPTION_COMPLETION_PINNED } from "../../helpers/filterHelper";
 
 const Container = styled.div`
   display: flex;
@@ -47,7 +48,7 @@ export default function Games({ games, filterOption, searchTerm }) {
     } else {
       filteredGames = sortGamesByFilterOption(
         searchFilteredGames,
-        filterOption
+        GAMES_OPTION_COMPLETION_PINNED
       );
     }
 

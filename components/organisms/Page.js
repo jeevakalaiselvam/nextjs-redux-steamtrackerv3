@@ -79,8 +79,8 @@ const HeaderContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  min-height: 5vh;
-  max-height: 5vh;
+  min-height: ${(props) => (props.headerHeight ? props.headerHeight : `5vh`)};
+  max-height: ${(props) => (props.headerHeight ? props.headerHeight : `5vh`)};
   z-index: 3;
 `;
 
@@ -91,8 +91,10 @@ const ContentContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  min-height: 95vh;
-  max-height: 95vh;
+  min-height: ${(props) =>
+    props.contentHeight ? props.contentHeight : `95vh`};
+  max-height: ${(props) =>
+    props.contentHeight ? props.contentHeight : `95vh`};
   z-index: 3;
 `;
 
@@ -105,11 +107,13 @@ export default function Page({
   rightSidebarOpen,
   rightSidebarWidth,
   leftSidebarWidth,
+  headerHeight,
+  contentHeight,
 }) {
   const router = useRouter();
   const { gameId } = router.query;
   const steamtracker = useSelector((state) => state.steamtracker);
-  const { games } = steamtracker;
+  const { games, themeId } = steamtracker;
 
   const [gameIdForImage, setGameIdForImage] = useState("");
 
@@ -127,9 +131,7 @@ export default function Page({
 
   return (
     <Container>
-      <ImageOverlay
-        image={HEADER_IMAGE(games[Math.floor(Math.random() * games.length)].id)}
-      />
+      <ImageOverlay image={HEADER_IMAGE(themeId)} />
       {leftSidebar && (
         <LeftSidebarContainer
           leftSidebarOpen={leftSidebarOpen}
@@ -140,8 +142,12 @@ export default function Page({
       )}
       {(header || content) && (
         <MainContainer>
-          <HeaderContainer>{header}</HeaderContainer>
-          <ContentContainer>{content}</ContentContainer>
+          <HeaderContainer headerHeight={headerHeight}>
+            {header}
+          </HeaderContainer>
+          <ContentContainer contentHeight={contentHeight}>
+            {content}
+          </ContentContainer>
         </MainContainer>
       )}
       {rightSidebar && (

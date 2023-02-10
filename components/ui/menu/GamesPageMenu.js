@@ -7,8 +7,14 @@ import {
   HiArrowsExpand,
   HiEye,
   HiChartBar,
+  HiOutlineHome,
+  HiSun,
+  HiVideoCamera,
 } from "react-icons/hi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import MenuItemNoLink from "../../atoms/MenuItemNoLink";
+import { changeThemeId } from "../../../store/actions/games.actions";
+import { random } from "chroma-js";
 
 const Container = styled.div`
   width: 100%;
@@ -29,6 +35,7 @@ const MenuItemContainer = styled.div`
 `;
 
 export default function GamesPageMenu() {
+  const dispatch = useDispatch();
   const steamtracker = useSelector((state) => state.steamtracker);
   const { games, settings } = steamtracker;
 
@@ -70,6 +77,19 @@ export default function GamesPageMenu() {
       </MenuItemContainer>
       <MenuItemContainer>
         <MenuItem to="/" title="Refresh" icon={<HiArrowsExpand />} />
+      </MenuItemContainer>
+      <MenuItemContainer>
+        <MenuItemNoLink
+          title="Theme"
+          icon={<HiVideoCamera />}
+          onClick={() => {
+            if (games.length > 0) {
+              const randomImage =
+                games[Math.floor(Math.random() * games.length)].id;
+              dispatch(changeThemeId(randomImage));
+            }
+          }}
+        />
       </MenuItemContainer>
     </Container>
   );
