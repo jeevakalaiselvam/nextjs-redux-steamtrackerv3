@@ -184,49 +184,53 @@ export default function GameHeader() {
 
   const dispatch = useDispatch();
   const router = useRouter();
+  const steamtracker = useSelector((state) => state.steamtracker);
+  const { games, planner } = steamtracker;
   const { gameId } = router.query;
 
+  const [gameData, setGameData] = useState({
+    achievements: [],
+    percentageCompletion: 0,
+  });
+  const [xpData, setXPData] = useState({});
+  const [xpInfo, setXPInfo] = useState({});
+  const [levelInfo, setLevelInfo] = useState({});
+
   const [refreshing, setRefreshing] = useState(false);
+
+  useEffect(() => {
+    if (games.length > 0) {
+      if (gameId) {
+        console.log("GAMEID and GAMES", { gameId, games });
+        const game = games.length && games.find((game) => game.id == gameId);
+        if (game) {
+          const xpData = getAllXPFromAchievements(game.achievements);
+          const xpInfo = calculateLevelFromAllGames(games);
+          console.log("GAME", game);
+          const levelInfo = calculateTrophiesToNextStage(
+            game.completion,
+            xpData
+          );
+          setGameData(game);
+          setXPData(xpData.percentageCompletion);
+          setXPInfo(xpInfo);
+          setLevelInfo(levelInfo);
+        }
+      }
+    }
+  }, [gameId, games]);
 
   const onFilterChanged = (filterOption) => {
     dispatch(changeGamePageFilterOption(filterOption));
   };
 
-  const steamtracker = useSelector((state) => state.steamtracker);
-  const { games, planner } = steamtracker;
-
-  const { xpTotal, currentLevel, toNextLevel, unlockedAll } =
-    calculateLevelFromAllGames(games);
-
   const onSearchObtained = (searchTerm) => {};
-
-  const game = games.length && games.find((game) => game.id == gameId);
-  const { id, playtime, name, version, achievements, completion, toGet } = game;
-
-  const xpData = getAllXPFromAchievements(achievements);
-  const {
-    totalXP,
-    completedXP,
-    remainingXP,
-    completedTotal,
-    total,
-    percentageCompletion,
-  } = xpData;
-
-  console.log("JEEVA - ", {
-    totalXP,
-    completedXP,
-    remainingXP,
-    completedTotal,
-    total,
-    percentageCompletion,
-  });
 
   const refreshButtonClickHandler = async () => {
     if (typeof window !== "undefined") {
       localStorage.setItem(
         PLAYER_LEVEL_KEY,
-        Math.floor(xpTotal / XP_FOR_LEVEL)
+        Math.floor(xpInfo.xpTotal / XP_FOR_LEVEL)
       );
     }
     setRefreshing(true);
@@ -236,32 +240,29 @@ export default function GameHeader() {
     setRefreshing(false);
   };
 
-  const calculateTrophiesToNextStage = (percentageNow) => {
+  const calculateTrophiesToNextStage = (percentageNow, xpInfo) => {
     if (percentageNow < 25) {
       return {
-        next: Math.ceil(total * 0.25) - completedTotal,
+        next: Math.ceil(xpInfo.total * 0.25) - xpInfo.completedTotal,
         iconColor: "#B87333",
       };
     } else if (percentageNow >= 25 && percentageNow < 50) {
       return {
-        next: Math.ceil(total * 0.5) - completedTotal,
+        next: Math.ceil(xpInfo.total * 0.5) - xpInfo.completedTotal,
         iconColor: "#C0C0C0",
       };
     } else if (percentageNow >= 50 && percentageNow < 75) {
       return {
-        next: Math.ceil(total * 0.75) - completedTotal,
+        next: Math.ceil(xpInfo.total * 0.75) - xpInfo.completedTotal,
         iconColor: "#f5b81c",
       };
     } else if (percentageNow >= 75) {
       return {
-        next: Math.ceil(total * 1) - completedTotal,
+        next: Math.ceil(xpInfo.total * 1) - xpInfo.completedTotal,
         iconColor: "#b55af2",
       };
     }
   };
-
-  const { next, iconColor } =
-    calculateTrophiesToNextStage(percentageCompletion);
 
   return (
     <Container>
@@ -273,10 +274,17 @@ export default function GameHeader() {
       </FilterContainer>
       <RemainingContainer>
         <TrophyContainer>
-          <TrophyIcon color={iconColor}>
-            <FaTrophy />
-          </TrophyIcon>
-          <TrophyCount color={iconColor}>{next}</TrophyCount>
+          {console.log("LEVEL INFO", { levelInfo })}
+          {levelInfo?.next && (
+            <TrophyIcon color={levelInfo?.iconColor}>
+              <FaTrophy />
+            </TrophyIcon>
+          )}
+          {levelInfo?.next && (
+            <TrophyCount color={levelInfo?.iconColor}>
+              {levelInfo?.next}
+            </TrophyCount>
+          )}
         </TrophyContainer>
       </RemainingContainer>
       <SearchContainer>

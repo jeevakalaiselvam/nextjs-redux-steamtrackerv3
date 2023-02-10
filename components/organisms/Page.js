@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { HEADER_IMAGE } from "../../helpers/urlHelper";
 
@@ -107,6 +108,8 @@ export default function Page({
 }) {
   const router = useRouter();
   const { gameId } = router.query;
+  const steamtracker = useSelector((state) => state.steamtracker);
+  const { games } = steamtracker;
 
   const [gameIdForImage, setGameIdForImage] = useState("");
 
@@ -124,7 +127,9 @@ export default function Page({
 
   return (
     <Container>
-      <ImageOverlay image={HEADER_IMAGE(gameIdForImage)} />
+      <ImageOverlay
+        image={HEADER_IMAGE(games[Math.floor(Math.random() * games.length)].id)}
+      />
       {leftSidebar && (
         <LeftSidebarContainer
           leftSidebarOpen={leftSidebarOpen}
