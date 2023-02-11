@@ -256,6 +256,10 @@ export default function GameCard({ game }) {
   };
 
   const calculateTrophiesToNextStage = () => {
+    return {
+      next: Math.ceil(total * 1) - completedTotal,
+      iconColor: "#f5b81c",
+    };
     if (percentageCompletion < 25) {
       return {
         next: Math.ceil(total * 0.25) - completedTotal,

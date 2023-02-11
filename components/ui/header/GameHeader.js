@@ -45,6 +45,7 @@ const FilterContainer = styled.div`
 const RemainingContainer = styled.div`
   display: flex;
   flex: 1;
+  position: relative;
   align-items: center;
   justify-content: center;
 `;
@@ -54,6 +55,7 @@ const TrophyContainer = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
+  width: 100%;
 `;
 
 const TrophyIcon = styled.div`
@@ -73,8 +75,10 @@ const TrophyCount = styled.div`
 `;
 
 const SearchContainer = styled.div`
+  position: absolute;
   display: flex;
-  flex: 1;
+  right: 0;
+  padding-right: 2rem;
   align-items: center;
   justify-content: flex-end;
 `;
@@ -248,6 +252,10 @@ export default function GameHeader() {
   };
 
   const calculateTrophiesToNextStage = (percentageNow, xpInfo) => {
+    return {
+      next: Math.ceil(xpInfo.total * 1) - xpInfo.completedTotal,
+      iconColor: "#f5b81c",
+    };
     if (percentageNow < 25) {
       return {
         next: Math.ceil(xpInfo.total * 0.25) - xpInfo.completedTotal,
