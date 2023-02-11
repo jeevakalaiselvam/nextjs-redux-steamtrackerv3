@@ -23,7 +23,7 @@ export const filterAchievementsByRarityFilter = (
   });
   let newAchievements = [];
   const defaultRarity = "ALL";
-  const selectedRarity = rarityFilters?.gameId ?? "ALL";
+  const selectedRarity = rarityFilters[gameId] ?? "ALL";
   console.log("SELECTED RARITY", { selectedRarity });
 
   newAchievements = filteredAchievements.filter((achievement) => {
