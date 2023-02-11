@@ -13,7 +13,7 @@ import {
 } from "../../../store/actions/games.actions";
 import Filter from "../../atoms/Filter";
 import Search from "../../atoms/Search";
-import { TbRefresh } from "react-icons/tb";
+import { TbAB, TbArrowsMaximize, TbDialpad, TbRefresh } from "react-icons/tb";
 import { useRouter } from "next/router";
 import axios from "axios";
 import {
@@ -105,6 +105,15 @@ const TrophyCount = styled.div`
   align-items: center;
   justify-content: center;
   font-size: 1.5rem;
+`;
+
+const ClearTrophyFilter = styled.div`
+  position: absolute;
+  display: flex;
+  left: 0;
+  padding-left: 2rem;
+  align-items: center;
+  justify-content: flex-end;
 `;
 
 const SearchContainer = styled.div`
@@ -329,6 +338,20 @@ export default function GameHeader() {
           defaultSelected={filterOption}
         />
       </FilterContainer> */}
+      <ClearTrophyFilter>
+        <RefreshContainer
+          onClick={() => {
+            dispatch(
+              setRarityFilterForGame({ gameId: gameData.id, rarity: "ALL" })
+            );
+          }}
+        >
+          <RefreshIcon rotate={false}>
+            <TbArrowsMaximize />
+          </RefreshIcon>
+          <RefreshText>SHOW ALL</RefreshText>
+        </RefreshContainer>
+      </ClearTrophyFilter>
       <RemainingContainer>
         <TrophyRemainingList>
           <TrophyContainer

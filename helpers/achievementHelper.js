@@ -24,7 +24,7 @@ export const filterAchievementsByRarityFilter = (
     const achievementRarity = getRarityTextFromPercentage(
       achievement.percentage
     );
-    if (selectedRarity == achievementRarity) {
+    if (selectedRarity == achievementRarity || selectedRarity == "ALL") {
       return true;
     } else {
       return false;
