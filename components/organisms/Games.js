@@ -51,7 +51,7 @@ export default function Games({ games, filterOption, searchTerm }) {
       filteredGames = sortGamesByFilterOption(
         searchFilteredGames,
         GAMES_OPTION_COMPLETION_PINNED,
-        pinnedGames
+        pinnedGames ?? []
       );
     }
 
