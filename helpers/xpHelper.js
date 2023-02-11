@@ -9,22 +9,55 @@ import {
   WASTE_COLOR,
 } from "./colorHelper";
 
-export const calculateXPFromPercentage = (percentage) => {
-  if (percentage <= 1) {
-    return 250;
-  } else if (percentage <= 5 && percentage > 1) {
-    return 100;
-  } else if (percentage <= 10 && percentage > 5) {
-    return 75;
-  } else if (percentage <= 25 && percentage > 10) {
-    return 50;
-  } else if (percentage <= 50 && percentage > 25) {
-    return 25;
-  } else if (percentage <= 75 && percentage > 50) {
-    return 10;
-  } else {
-    return 5;
+export const calculateRarityLeftFromAchievements = (achievements) => {
+  let waste = 0,
+    common = 0,
+    uncommon = 0,
+    rare = 0,
+    epic = 0,
+    legendary = 0,
+    marvel = 0;
+
+  if (achievements.length > 0) {
+    achievements.forEach((achievement) => {
+      if (achievement.achieved != 1) {
+        if (achievement.percentage <= 1) {
+          marvel++;
+        } else if (achievement.percentage <= 5 && achievement.percentage > 1) {
+          legendary++;
+        } else if (achievement.percentage <= 10 && achievement.percentage > 5) {
+          epic++;
+        } else if (
+          achievement.percentage <= 25 &&
+          achievement.percentage > 10
+        ) {
+          rare++;
+        } else if (
+          achievement.percentage <= 50 &&
+          achievement.percentage > 25
+        ) {
+          uncommon++;
+        } else if (
+          achievement.percentage <= 75 &&
+          achievement.percentage > 50
+        ) {
+          common++;
+        } else {
+          waste++;
+        }
+      }
+    });
   }
+  console.log("RETURNING", {
+    waste,
+    common,
+    uncommon,
+    rare,
+    epic,
+    legendary,
+    marvel,
+  });
+  return { waste, common, uncommon, rare, epic, legendary, marvel };
 };
 
 export const getRarityColorFromPercentage = (percentage) => {
@@ -42,6 +75,24 @@ export const getRarityColorFromPercentage = (percentage) => {
     return COMMON_COLOR;
   } else {
     return WASTE_COLOR;
+  }
+};
+
+export const calculateXPFromPercentage = (percentage) => {
+  if (percentage <= 1) {
+    return 250;
+  } else if (percentage <= 5 && percentage > 1) {
+    return 100;
+  } else if (percentage <= 10 && percentage > 5) {
+    return 75;
+  } else if (percentage <= 25 && percentage > 10) {
+    return 50;
+  } else if (percentage <= 50 && percentage > 25) {
+    return 25;
+  } else if (percentage <= 75 && percentage > 50) {
+    return 10;
+  } else {
+    return 5;
   }
 };
 

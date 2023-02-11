@@ -17,6 +17,7 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import {
   calculateLevelFromAllGames,
+  calculateRarityLeftFromAchievements,
   COMPLETION_TARGET,
   getAllXPFromAchievements,
   XP_FOR_LEVEL,
@@ -24,6 +25,15 @@ import {
 import { getIcon } from "../../../helpers/iconHelper";
 import { FaTrophy } from "react-icons/fa";
 import chroma from "chroma-js";
+import {
+  COMMON_COLOR,
+  EPIC_COLOR,
+  LEGENDARY_COLOR,
+  MARVEL_COLOR,
+  RARE_COLOR,
+  UNCOMMON_COLOR,
+  WASTE_COLOR,
+} from "../../../helpers/colorHelper";
 
 const Container = styled.div`
   display: flex;
@@ -45,6 +55,12 @@ const FilterContainer = styled.div`
 const RemainingContainer = styled.div`
   display: flex;
   flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
+
+const TrophyRemainingList = styled.div`
+  display: flex;
   position: relative;
   align-items: center;
   justify-content: center;
@@ -55,7 +71,8 @@ const TrophyContainer = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  width: 100%;
+  color: ${(props) => (props.color ? props.color : "")};
+  width: 50px;
 `;
 
 const TrophyIcon = styled.div`
@@ -63,14 +80,12 @@ const TrophyIcon = styled.div`
   align-items: center;
   justify-content: center;
   font-size: 2.5rem;
-  color: ${(props) => (props.color ? props.color : "#b55af2")};
 `;
 
 const TrophyCount = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: ${(props) => (props.color ? props.color : "#b55af2")};
   font-size: 1.5rem;
 `;
 
@@ -204,6 +219,7 @@ export default function GameHeader() {
   const [xpData, setXPData] = useState({});
   const [xpInfo, setXPInfo] = useState({});
   const [levelInfo, setLevelInfo] = useState({});
+  const [rarityInfo, setRarityInfo] = useState({});
 
   const [refreshing, setRefreshing] = useState(false);
 
@@ -219,10 +235,14 @@ export default function GameHeader() {
             xpData.percentageCompletion,
             xpData
           );
+          const rarityInfo = calculateRarityLeftFromAchievements(
+            game.achievements
+          );
           setGameData(game);
           setXPData(xpData.percentageCompletion);
           setXPInfo(xpInfo);
           setLevelInfo(levelInfo);
+          setRarityInfo(rarityInfo);
         }
       }
     }
@@ -288,19 +308,50 @@ export default function GameHeader() {
         />
       </FilterContainer> */}
       <RemainingContainer>
-        <TrophyContainer>
-          {console.log("LEVEL INFO", { levelInfo })}
-          {levelInfo?.next && (
-            <TrophyIcon color={levelInfo?.iconColor}>
+        <TrophyRemainingList>
+          <TrophyContainer color={WASTE_COLOR}>
+            <TrophyIcon>
               <FaTrophy />
             </TrophyIcon>
-          )}
-          {levelInfo?.next && (
-            <TrophyCount color={levelInfo?.iconColor}>
-              {levelInfo?.next}
-            </TrophyCount>
-          )}
-        </TrophyContainer>
+            <TrophyCount>{rarityInfo.waste}</TrophyCount>
+          </TrophyContainer>
+          <TrophyContainer color={COMMON_COLOR}>
+            <TrophyIcon>
+              <FaTrophy />
+            </TrophyIcon>
+            <TrophyCount>{rarityInfo.common}</TrophyCount>
+          </TrophyContainer>
+          <TrophyContainer color={UNCOMMON_COLOR}>
+            <TrophyIcon>
+              <FaTrophy />
+            </TrophyIcon>
+            <TrophyCount>{rarityInfo.uncommon}</TrophyCount>
+          </TrophyContainer>
+          <TrophyContainer color={RARE_COLOR}>
+            <TrophyIcon>
+              <FaTrophy />
+            </TrophyIcon>
+            <TrophyCount>{rarityInfo.rare}</TrophyCount>
+          </TrophyContainer>
+          <TrophyContainer color={EPIC_COLOR}>
+            <TrophyIcon>
+              <FaTrophy />
+            </TrophyIcon>
+            <TrophyCount>{rarityInfo.epic}</TrophyCount>
+          </TrophyContainer>
+          <TrophyContainer color={LEGENDARY_COLOR}>
+            <TrophyIcon>
+              <FaTrophy />
+            </TrophyIcon>
+            <TrophyCount>{rarityInfo.legendary}</TrophyCount>
+          </TrophyContainer>
+          <TrophyContainer color={MARVEL_COLOR}>
+            <TrophyIcon>
+              <FaTrophy />
+            </TrophyIcon>
+            <TrophyCount>{rarityInfo.marvel}</TrophyCount>
+          </TrophyContainer>
+        </TrophyRemainingList>
       </RemainingContainer>
       <SearchContainer>
         <Search onSearchObtained={onSearchObtained} />
