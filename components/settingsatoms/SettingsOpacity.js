@@ -153,7 +153,7 @@ const SettingsOpacity = (props) => {
 
   const [levelInStorage, setLevelInStorage] = useState(0);
   const [achievementUnlockedOpacity, setAchievementUnlockedOpacity] = useState(
-    settingsPage.unlockedAchievementOpacity
+    settingsPage?.unlockedAchievementOpacity || 0.5
   );
 
   useEffect(() => {
