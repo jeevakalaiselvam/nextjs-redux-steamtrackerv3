@@ -198,9 +198,10 @@ export default function GameContent() {
                     />
                   );
                 })}
-              {historyModalAchievements.length === 0 && (
-                <h3>{"No Achievements"}</h3>
-              )}
+              {historyModalAchievements &&
+                historyModalAchievements.length === 0 && (
+                  <h3>{"No Achievements"}</h3>
+                )}
             </HistoryContainer>
           </HistoryModal>
         )}
