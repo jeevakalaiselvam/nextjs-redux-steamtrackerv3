@@ -356,7 +356,11 @@ export default function GameCard({ game }) {
           false
         }
         onClick={() => {
-          if (pinnedGames.length > 0 && pinnedGames.includes(id)) {
+          if (
+            pinnedGames &&
+            pinnedGames.length > 0 &&
+            pinnedGames.includes(id)
+          ) {
             dispatch(removePinnedGame({ gameId: id }));
             dispatch(changeGamesPageSearchTerm(""));
           } else {
