@@ -448,7 +448,7 @@ export default function AchievementCardWithPhase(props) {
     <Container
       achieved={achieved}
       activateCompletionOpacity={activateCompletionOpacity}
-      opacity={settingsPage.unlockedAchievementOpacity}
+      opacity={settingsPage?.unlockedAchievementOpacity}
     >
       <MainContainer>
         <IconContainer>
