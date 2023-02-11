@@ -18,7 +18,7 @@ export const filterAchievementsByRarityFilter = (
 ) => {
   let newAchievements = [];
   const defaultRarity = "ALL";
-  const selectedRarity = rarityFilters[gameId] || "ALL";
+  const selectedRarity = rarityFilters?.gameId || "ALL";
 
   newAchievements = filteredAchievements.filter((achievement) => {
     const achievementRarity = getRarityTextFromPercentage(
