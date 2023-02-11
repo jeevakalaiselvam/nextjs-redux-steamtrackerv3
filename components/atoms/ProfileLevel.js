@@ -75,7 +75,7 @@ const GoldTrophy = styled.div`
   flex-direction: row;
   justify-content: center;
   margin-right: 1.5rem;
-  color: #f1b51b;
+  color: #ffcc00;
   font-size: 2rem;
 `;
 

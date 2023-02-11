@@ -48,19 +48,19 @@ const Data = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #f1b51b;
+  color: #ffcc00;
 `;
 
 const Icon = styled.div`
   display: flex;
   margin-right: 0.25rem;
   align-items: center;
-  color: #f1b51b;
+  color: #ffcc00;
   justify-content: center;
 `;
 
 const Text = styled.div`
-  color: #f1b51b;
+  color: #ffcc00;
   display: flex;
   align-items: center;
   justify-content: center;

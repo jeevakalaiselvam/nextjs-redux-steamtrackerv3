@@ -1,18 +1,65 @@
+import {
+  COMMON_COLOR,
+  EPIC_COLOR,
+  LEGENDARY_COLOR,
+  MARVEL_COLOR,
+  RARE_COLOR,
+  ULTRARARE_COLOR,
+  UNCOMMON_COLOR,
+  WASTE_COLOR,
+} from "./colorHelper";
+
 export const calculateXPFromPercentage = (percentage) => {
   if (percentage <= 1) {
-    return 1000;
-  } else if (percentage <= 5 && percentage > 1) {
-    return 500;
-  } else if (percentage <= 10 && percentage > 5) {
     return 250;
-  } else if (percentage <= 25 && percentage > 10) {
-    return 125;
-  } else if (percentage <= 50 && percentage > 25) {
+  } else if (percentage <= 5 && percentage > 1) {
     return 100;
-  } else if (percentage <= 75 && percentage > 50) {
+  } else if (percentage <= 10 && percentage > 5) {
+    return 75;
+  } else if (percentage <= 25 && percentage > 10) {
     return 50;
-  } else {
+  } else if (percentage <= 50 && percentage > 25) {
     return 25;
+  } else if (percentage <= 75 && percentage > 50) {
+    return 10;
+  } else {
+    return 5;
+  }
+};
+
+export const getRarityColorFromPercentage = (percentage) => {
+  if (percentage <= 1) {
+    return MARVEL_COLOR;
+  } else if (percentage <= 5 && percentage > 1) {
+    return LEGENDARY_COLOR;
+  } else if (percentage <= 10 && percentage > 5) {
+    return EPIC_COLOR;
+  } else if (percentage <= 25 && percentage > 10) {
+    return RARE_COLOR;
+  } else if (percentage <= 50 && percentage > 25) {
+    return UNCOMMON_COLOR;
+  } else if (percentage <= 75 && percentage > 50) {
+    return COMMON_COLOR;
+  } else {
+    return WASTE_COLOR;
+  }
+};
+
+export const getRarityTextFromPercentage = (percentage) => {
+  if (percentage <= 1) {
+    return "MARVEL";
+  } else if (percentage <= 5 && percentage > 1) {
+    return "LEGENDARY";
+  } else if (percentage <= 10 && percentage > 5) {
+    return "EPIC";
+  } else if (percentage <= 25 && percentage > 10) {
+    return "RARE";
+  } else if (percentage <= 50 && percentage > 25) {
+    return "UNCOMMON";
+  } else if (percentage <= 75 && percentage > 50) {
+    return "COMMON";
+  } else {
+    return "WASTE";
   }
 };
 

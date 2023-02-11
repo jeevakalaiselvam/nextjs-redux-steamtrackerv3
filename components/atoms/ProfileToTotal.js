@@ -96,14 +96,14 @@ const XPText = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #f1b51b;
+  color: #ffcc00;
 `;
 
 const XPIcon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #f1b51b;
+  color: #ffcc00;
   margin-left: -1rem;
   margin-right: 0.75rem;
   font-size: 2rem;

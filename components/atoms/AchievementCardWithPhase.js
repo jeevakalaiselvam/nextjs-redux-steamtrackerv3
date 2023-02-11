@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FaCheck, FaExpandArrowsAlt, FaGlobe } from "react-icons/fa";
+import { FaCheck, FaExpandArrowsAlt, FaGlobe, FaTrophy } from "react-icons/fa";
 import styled from "styled-components";
 import { IoBook, IoChevronUp, IoEyeOff } from "react-icons/io5";
 import { AiFillGold } from "react-icons/ai";
@@ -12,7 +12,11 @@ import {
 } from "../../store/actions/games.actions";
 import { HiChevronDoubleUp, HiMenu } from "react-icons/hi";
 import JournalInput from "./JournalInput";
-import { calculateXPFromPercentage } from "../../helpers/xpHelper";
+import {
+  calculateXPFromPercentage,
+  getRarityColorFromPercentage,
+  getRarityTextFromPercentage,
+} from "../../helpers/xpHelper";
 import { getIcon } from "../../helpers/iconHelper";
 
 const Container = styled.div`
@@ -174,9 +178,32 @@ const PercentageContainer = styled.div`
   right: 0;
   display: flex;
   padding: 0rem 1rem 1rem 1rem;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
+`;
+
+const RarityIcon = styled.div`
+  display: flex;
+  flex: 1;
+  width: 100%;
+  padding: 0.5rem;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  color: ${(props) => (props.color ? props.color : "")};
+  font-size: 1.5rem;
+`;
+
+const RarityText = styled.div`
+  display: flex;
+  flex: 1;
+  width: 100%;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  color: ${(props) => (props.color ? props.color : "")};
+  font-size: 0.75rem;
 `;
 
 const TrophyIcon = styled.div`
@@ -287,7 +314,7 @@ const XPText = styled.div`
   align-items: center;
   justify-content: center;
   margin-right: 0.25rem;
-  color: #f1b51b;
+  color: #ffcc00;
 `;
 
 const XPIcon = styled.div`
@@ -295,7 +322,7 @@ const XPIcon = styled.div`
   align-items: center;
   justify-content: center;
   font-size: 1.75rem;
-  color: #f1b51b;
+  color: #ffcc00;
 `;
 
 export default function AchievementCardWithPhase(props) {
@@ -446,10 +473,14 @@ export default function AchievementCardWithPhase(props) {
           <Description>{description || hiddenDescription}</Description>
         </DataContainer>
         <PercentageContainer>
-          <PercentageIcon>
+          {/* <PercentageIcon>
             <FaGlobe />
           </PercentageIcon>
-          <PercentageText>{percentage.toFixed(2)}%</PercentageText>
+          <PercentageText>{percentage.toFixed(2)}%</PercentageText> */}
+          <RarityIcon color={getRarityColorFromPercentage(percentage)}>
+            <FaTrophy />
+          </RarityIcon>
+          <RarityText>{getRarityTextFromPercentage(percentage)}</RarityText>
         </PercentageContainer>
         {hidden == "1" && false && (
           <HiddenContainer>

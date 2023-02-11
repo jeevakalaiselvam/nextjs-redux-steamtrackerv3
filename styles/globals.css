@@ -7,6 +7,9 @@ body {
   margin: 0;
   font-family: "PT Sans", sans-serif;
   font-weight: 700;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }
 
 select,

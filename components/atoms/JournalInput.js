@@ -26,7 +26,7 @@ const Title = styled.div`
   flex: 1;
   align-items: center;
   justify-content: flex-start;
-  color: #f1b51b;
+  color: #ffcc00;
 `;
 
 const SaveStatus = styled.div`

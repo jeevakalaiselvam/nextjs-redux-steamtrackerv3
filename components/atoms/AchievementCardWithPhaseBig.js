@@ -207,7 +207,7 @@ const XPText = styled.div`
   align-items: center;
   justify-content: center;
   margin-right: 0.25rem;
-  color: #f1b51b;
+  color: #ffcc00;
 `;
 
 const XPIcon = styled.div`
@@ -215,7 +215,7 @@ const XPIcon = styled.div`
   align-items: center;
   justify-content: center;
   font-size: 1.75rem;
-  color: #f1b51b;
+  color: #ffcc00;
 `;
 
 export default function AchievementCardWithPhaseBig(props) {

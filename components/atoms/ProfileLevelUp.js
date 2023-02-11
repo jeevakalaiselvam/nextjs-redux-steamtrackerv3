@@ -71,7 +71,7 @@ const XPText = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #f1b51b;
+  color: #ffcc00;
   font-size: 1.75rem;
   margin-right: 2rem;
 `;
@@ -80,7 +80,7 @@ const XPIcon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #f1b51b;
+  color: #ffcc00;
   margin-right: 0.75rem;
   font-size: 2rem;
 `;

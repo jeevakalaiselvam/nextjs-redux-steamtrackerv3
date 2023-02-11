@@ -123,7 +123,7 @@ const ToGetContainer = styled.div`
 const ToGetIcon = styled.div`
   display: flex;
   align-items: center;
-  color: #f1b51b;
+  color: #ffcc00;
   font-size: 2rem;
   z-index: 8;
   justify-content: center;
@@ -134,7 +134,7 @@ const ToGetData = styled.div`
   align-items: center;
   z-index: 8;
   justify-content: center;
-  color: #f1b51b;
+  color: #ffcc00;
   font-size: 1.5rem;
 `;
 

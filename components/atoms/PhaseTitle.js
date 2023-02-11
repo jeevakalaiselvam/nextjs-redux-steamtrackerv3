@@ -21,7 +21,7 @@ const TitleIcon = styled.div`
   align-items: center;
   justify-content: center;
   margin-left: 1rem;
-  color: #f1b51b;
+  color: #ffcc00;
 `;
 
 const Icon = styled.div`
