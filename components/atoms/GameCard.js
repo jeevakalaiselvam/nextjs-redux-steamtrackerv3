@@ -253,8 +253,6 @@ export default function GameCard({ game }) {
     percentageCompletion,
   } = xpData;
 
-  console.log("GAME DATA", game.name, { xpData });
-
   const completed = completedXP / XP_FOR_LEVEL;
   const needed = (totalXP * COMPLETION_TARGET) / XP_FOR_LEVEL;
 
@@ -353,7 +351,10 @@ export default function GameCard({ game }) {
           setMovePinRight((old) => true);
         }}
         movePinRight={movePinRight}
-        active={pinnedGames.includes(id)}
+        active={
+          (pinnedGames && pinnedGames?.length && pinnedGames.includes(id)) ??
+          false
+        }
         onClick={() => {
           if (pinnedGames.length > 0 && pinnedGames.includes(id)) {
             dispatch(removePinnedGame({ gameId: id }));
