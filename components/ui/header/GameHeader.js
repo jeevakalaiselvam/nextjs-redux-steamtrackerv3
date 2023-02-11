@@ -215,9 +215,8 @@ export default function GameHeader() {
         if (game) {
           const xpData = getAllXPFromAchievements(game.achievements);
           const xpInfo = calculateLevelFromAllGames(games);
-          console.log("GAME", game);
           const levelInfo = calculateTrophiesToNextStage(
-            game.completion,
+            xpData.percentageCompletion,
             xpData
           );
           setGameData(game);
@@ -254,7 +253,7 @@ export default function GameHeader() {
   const calculateTrophiesToNextStage = (percentageNow, xpInfo) => {
     return {
       next: Math.ceil(xpInfo.total * 1) - xpInfo.completedTotal,
-      iconColor: "#f5b81c",
+      iconColor: "#b55af2",
     };
     if (percentageNow < 25) {
       return {

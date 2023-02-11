@@ -66,13 +66,26 @@ const Title = styled.div`
   position: absolute;
   width: 100%;
   display: flex;
-  flex-direction: row;
-  bottom: 0;
+  flex-direction: column;
+  bottom: 0px;
   left: 0;
   padding: 1rem;
   font-size: 1.5rem;
   background-color: rgba(0, 0, 0, 0.75);
   z-index: 60;
+`;
+
+const CompletionBar = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  display: flex;
+  flex-direction: column;
+  bottom: 0px;
+  left: 0;
+  font-size: 1.5rem;
+  z-index: 60;
+  background-color: ${(props) => (props.color ? props.color : "red")};
 `;
 
 const TitleData = styled.div`
@@ -92,8 +105,10 @@ const CompletionIcon = styled.div`
 
 const ToGetContainer = styled.div`
   position: absolute;
-  display: "flex";
-  flex-direction: column;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   top: 0;
   left: 0;
   padding: 1rem;
@@ -236,6 +251,9 @@ export default function GameCard({ game }) {
     total,
     percentageCompletion,
   } = xpData;
+
+  console.log("GAME DATA", game.name, { xpData });
+
   const completed = completedXP / XP_FOR_LEVEL;
   const needed = (totalXP * COMPLETION_TARGET) / XP_FOR_LEVEL;
 
@@ -256,10 +274,6 @@ export default function GameCard({ game }) {
   };
 
   const calculateTrophiesToNextStage = () => {
-    return {
-      next: Math.ceil(total * 1) - completedTotal,
-      iconColor: "#f5b81c",
-    };
     if (percentageCompletion < 25) {
       return {
         next: Math.ceil(total * 0.25) - completedTotal,
@@ -312,10 +326,12 @@ export default function GameCard({ game }) {
           {name}
         </TitleData>
       </Title>
+      {/* <CompletionBar color={iconColor} /> */}
       {next !== 0 && (
         <ToGetContainer>
-          <ToGetIcon iconColor={iconColor}>{getIcon("trophy")}</ToGetIcon>
-          <ToGetData iconColor={iconColor}>{next}</ToGetData>
+          <ToGetData iconColor={iconColor}>
+            {xpData.percentageCompletion}%
+          </ToGetData>
         </ToGetContainer>
       )}
       {false && (

@@ -86,8 +86,8 @@ const PurpleTrophy = styled.div`
   flex-direction: column;
   justify-content: center;
   color: #b55af2;
+  margin-top: 0.5rem;
   font-size: 2rem;
-  margin-right: 3rem;
 `;
 
 const SilverTrophy = styled.div`
@@ -204,12 +204,12 @@ const ProfilePlatinum = (props) => {
             <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
             <Text>{platinumCount}</Text>
           </PurpleTrophy>
-          <GoldTrophy>
+          {/* <GoldTrophy>
             <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
             <Text>{goldCount}</Text>
-          </GoldTrophy>
+          </GoldTrophy> */}
         </LevelContainer>
-        <LevelContainerRow>
+        {/* <LevelContainerRow>
           <SilverTrophy>
             <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
             <Text>{silverCount}</Text>
@@ -218,7 +218,7 @@ const ProfilePlatinum = (props) => {
             <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
             <Text>{bronzeCount}</Text>
           </BronzeTrophy>
-        </LevelContainerRow>
+        </LevelContainerRow> */}
       </LevelFragment>
     </Container>
   );

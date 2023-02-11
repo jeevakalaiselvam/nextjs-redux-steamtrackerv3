@@ -18,6 +18,9 @@ export const sortGamesByFilterOption = (games, filterOption, pinnedGames) => {
       newGames = games.filter((game) => {
         return pinnedGames.includes(game.id) || game.completion == 100;
       });
+      newGames = newGames.sort(
+        (game1, game2) => game2.completion - game1.completion
+      );
 
       break;
     case GAMES_OPTION_COMPLETION_DESC:

@@ -101,7 +101,7 @@ const Text = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  font-size: 1.75rem;
+  font-size: 2rem;
 `;
 
 const ProfileLevel = (props) => {

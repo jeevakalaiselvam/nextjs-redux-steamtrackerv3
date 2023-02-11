@@ -47,7 +47,7 @@ export const getAllXPFromAchievements = (achievements) => {
     });
   }
 
-  let percentageCompletion = (completedTotal / total) * 100;
+  let percentageCompletion = Math.floor((completedTotal / total) * 100);
 
   return {
     totalXP,
