@@ -27,7 +27,9 @@ const Container = styled.div`
   flex-direction: column;
   position: relative;
   opacity: ${(props) =>
-    props.achieved == 1 && props.activateCompletionOpacity ? "0.1" : "1.0"};
+    props.achieved == 1 && props.activateCompletionOpacity
+      ? props.opacity
+      : "1.0"};
 `;
 
 const MainContainer = styled.div`
@@ -345,9 +347,11 @@ export default function AchievementCardWithPhase(props) {
   const activateCompletionOpacity = props.activateCompletionOpacity;
 
   const steamtracker = useSelector((state) => state.steamtracker);
-  const { hiddenGames, games } = steamtracker;
+  const { hiddenGames, games, settings } = steamtracker;
+  const { gamesPage, settingsPage } = settings;
 
   const [hiddenDescription, setHiddenDescription] = useState("HIDDEN");
+
   useEffect(() => {
     if (hiddenGames[gameId] && gameId) {
       setHiddenDescription(
@@ -444,6 +448,7 @@ export default function AchievementCardWithPhase(props) {
     <Container
       achieved={achieved}
       activateCompletionOpacity={activateCompletionOpacity}
+      opacity={settingsPage.unlockedAchievementOpacity}
     >
       <MainContainer>
         <IconContainer>

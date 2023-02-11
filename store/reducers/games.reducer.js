@@ -51,6 +51,8 @@ import {
   ADD_PINNED_GAME,
   REMOVE_PINNED_GAME,
   SET_RARITY_FILTER_FOR_GAME,
+  SET_OPACITY_UNLOCKED_ACHIEVEMENT,
+  LAST_SELECTED_GAME,
 } from "../types/games.types";
 
 const INITIAL_STATE = {
@@ -84,6 +86,9 @@ const INITIAL_STATE = {
       leftSidebarWidth: "200px",
       rightSidebarWidth: "450px",
     },
+    settingsPage: {
+      unlockedAchievementOpacity: 0.5,
+    },
   },
   planner: {
     phaseAddedGame: {},
@@ -111,12 +116,31 @@ const INITIAL_STATE = {
   themeId: "",
   pinnedGames: [],
   rarityFilters: {},
+  lastSelectedGame: "",
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case LAST_SELECTED_GAME:
+      return {
+        ...state,
+        lastSelectedGame: payload,
+      };
+
+    case SET_OPACITY_UNLOCKED_ACHIEVEMENT:
+      return {
+        ...state,
+        settings: {
+          ...state.settings,
+          settingsPage: {
+            ...state.settings.settingsPage,
+            unlockedAchievementOpacity: payload,
+          },
+        },
+      };
+
     case SET_RARITY_FILTER_FOR_GAME:
       return {
         ...state,

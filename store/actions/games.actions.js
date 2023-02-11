@@ -34,6 +34,8 @@ import {
   ADD_PINNED_GAME,
   REMOVE_PINNED_GAME,
   SET_RARITY_FILTER_FOR_GAME,
+  SET_OPACITY_UNLOCKED_ACHIEVEMENT,
+  LAST_SELECTED_GAME,
 } from "../types/games.types";
 import axios from "axios";
 import { getPhaseFiltedAchievements } from "../../helpers/achievementHelper";
@@ -286,9 +288,21 @@ export const removePinnedGame = (payload) => {
   };
 };
 
+export const setLastSelectedGame = (payload) => {
+  return (dispatch) => {
+    return dispatch({ type: LAST_SELECTED_GAME, payload });
+  };
+};
+
 export const setRarityFilterForGame = (payload) => {
   return (dispatch) => {
     return dispatch({ type: SET_RARITY_FILTER_FOR_GAME, payload });
+  };
+};
+
+export const setOpacityForUnlockedAchievement = (payload) => {
+  return (dispatch) => {
+    return dispatch({ type: SET_OPACITY_UNLOCKED_ACHIEVEMENT, payload });
   };
 };
 

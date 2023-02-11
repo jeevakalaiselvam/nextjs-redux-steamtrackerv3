@@ -23,6 +23,7 @@ import {
   addPinnedGame,
   changeGamesPageSearchTerm,
   removePinnedGame,
+  setLastSelectedGame,
 } from "../../store/actions/games.actions";
 
 const Container = styled.div`
@@ -311,6 +312,7 @@ export default function GameCard({ game }) {
           if (typeof window !== "undefined") {
             localStorage.setItem("SELECTED_GAME", id);
           }
+          dispatch(setLastSelectedGame(id));
           router.push(`/games/${id}`);
         }}
       >

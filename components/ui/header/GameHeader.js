@@ -60,6 +60,15 @@ const FilterContainer = styled.div`
   justify-content: flex-start;
 `;
 
+const ToggleForCompletedAchievements = styled.div`
+  display: flex;
+  position: absolute;
+  padding-left: 2rem;
+  left: 0;
+  align-items: center;
+  justify-content: flex-start;
+`;
+
 const RemainingContainer = styled.div`
   display: flex;
   flex: 1;

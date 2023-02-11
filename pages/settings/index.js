@@ -7,6 +7,8 @@ import GamesHeader from "../../components/ui/header/GamesHeader";
 import GamesContent from "../../components/ui/content/GamesContent";
 import GamesRightSidebar from "../../components/ui/rightsidebar/GamesRightSidebar";
 import { useRouter } from "next/router";
+import SettingsHeader from "../../components/ui/header/SettingsHeader";
+import SettingsContent from "../../components/ui/content/SettingsContent";
 
 const Container = styled.div`
   display: flex;
@@ -35,13 +37,14 @@ export default function GamesPage() {
 
   return (
     <Page
+      header={<SettingsHeader />}
       leftSidebar={<GamesLeftSidebar />}
-      header={<GamesHeader />}
-      content={<GamesContent />}
-      rightSidebar={<GamesRightSidebar />}
+      content={<SettingsContent />}
       leftSidebarOpen={leftSidebarOpen}
       rightSidebarOpen={rightSidebarOpen}
       leftSidebarWidth={leftSidebarWidth}
+      headerHeight={"3vh"}
+      contentHeight={"97vh"}
       rightSidebarWidth={rightSidebarWidth}
     />
   );
