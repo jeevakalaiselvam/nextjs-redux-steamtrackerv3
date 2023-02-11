@@ -114,7 +114,7 @@ const CloseButton = styled.div`
 export default function GameContent() {
   const dispatch = useDispatch();
   const steamtracker = useSelector((state) => state.steamtracker);
-  const { games, settings } = steamtracker;
+  const { games, settings, rarityFilters } = steamtracker;
   const { gamePage } = settings;
   const {
     filterOption,

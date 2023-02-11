@@ -33,6 +33,7 @@ import {
   THEME_ID,
   ADD_PINNED_GAME,
   REMOVE_PINNED_GAME,
+  SET_RARITY_FILTER_FOR_GAME,
 } from "../types/games.types";
 import axios from "axios";
 import { getPhaseFiltedAchievements } from "../../helpers/achievementHelper";
@@ -282,6 +283,12 @@ export const addPinnedGame = (payload) => {
 export const removePinnedGame = (payload) => {
   return (dispatch) => {
     return dispatch({ type: REMOVE_PINNED_GAME, payload });
+  };
+};
+
+export const setRarityFilterForGame = (payload) => {
+  return (dispatch) => {
+    return dispatch({ type: SET_RARITY_FILTER_FOR_GAME, payload });
   };
 };
 

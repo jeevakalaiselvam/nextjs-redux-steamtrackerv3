@@ -9,6 +9,30 @@ import {
   GAME_OPTION_PERCENTAGE_DESC_UNLOCKED,
   GAME_OPTION_PERCENTAGE_DESC_UNLOCKTIME,
 } from "./filterHelper";
+import { getRarityTextFromPercentage } from "./xpHelper";
+
+export const filterAchievementsByRarityFilter = (
+  filteredAchievements,
+  gameId,
+  rarityFilters
+) => {
+  let newAchievements = [];
+  const defaultRarity = "ALL";
+  const selectedRarity = rarityFilters[gameId] || "ALL";
+
+  newAchievements = filteredAchievements.filter((achievement) => {
+    const achievementRarity = getRarityTextFromPercentage(
+      achievement.percentage
+    );
+    if (selectedRarity == achievementRarity) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+
+  return newAchievements;
+};
 
 export const sortAchievementsByFilterOption = (
   achievements,

@@ -50,6 +50,7 @@ import {
   THEME_ID,
   ADD_PINNED_GAME,
   REMOVE_PINNED_GAME,
+  SET_RARITY_FILTER_FOR_GAME,
 } from "../types/games.types";
 
 const INITIAL_STATE = {
@@ -109,12 +110,22 @@ const INITIAL_STATE = {
   },
   themeId: "",
   pinnedGames: [],
+  rarityFilters: {},
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case SET_RARITY_FILTER_FOR_GAME:
+      return {
+        ...state,
+        rarityFilters: {
+          ...state.rarityFilters,
+          [payload.gameId]: payload.rarity,
+        },
+      };
+
     case FETCH_ALL_GAMES_REQUEST:
       return {
         ...state,

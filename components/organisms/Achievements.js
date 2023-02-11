@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import * as Loaders from "react-spinners";
 import {
+  filterAchievementsByRarityFilter,
   getaUnlockedAchievementsByType,
   sortAchievementsByFilterOption,
 } from "../../helpers/achievementHelper";
@@ -11,6 +12,7 @@ import { useRouter } from "next/router";
 import AchievementCardWithPhase from "../atoms/AchievementCardWithPhase";
 import NoAchievements from "../atoms/NoAchievements";
 import AchievementCardWithPhaseBig from "../atoms/AchievementCardWithPhaseBig";
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
   display: flex;
@@ -45,6 +47,8 @@ export default function Achievements({
 
   const router = useRouter();
   const { gameId } = router.query;
+  const steamtracker = useSelector((state) => state.steamtracker);
+  const { rarityFilters } = steamtracker;
 
   useEffect(() => {
     if (achievements) {
@@ -74,10 +78,15 @@ export default function Achievements({
         filterOption,
         gameId
       );
+      const rarityFilteredAchievements = filterAchievementsByRarityFilter(
+        filteredAchievements,
+        gameId,
+        rarityFilters
+      );
 
-      setSearchFilteredAchievements((old) => filteredAchievements);
+      setSearchFilteredAchievements((old) => rarityFilteredAchievements);
     }
-  }, [searchTerm, filterOption, game, showIgnore]);
+  }, [searchTerm, filterOption, game, showIgnore, rarityFilters]);
 
   const todayOnly = getaUnlockedAchievementsByType(
     searchFilteredAchievements,
@@ -158,7 +167,8 @@ export default function Achievements({
             );
           }
         })}
-      {searchFilteredAchievements.length === 0 && <Loaders.HashLoader />}
+      {!searchFilteredAchievements && <Loaders.HashLoader />}
+      {searchFilteredAchievements.length === 0 && <NoAchievements />}
     </Container>
   );
 }
