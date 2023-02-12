@@ -53,7 +53,7 @@ const HistoryModal = styled.div`
   align-items: flex-start;
   flex-direction: column;
   justify-content: center;
-  z-index: 100;
+  z-index: 10000000;
   border-radius: 0.25rem;
   padding: 2rem;
   justify-content: center;
@@ -142,6 +142,7 @@ const CloseButton = styled.div`
 
   &:hover {
     color: #fb617f;
+    z-index: 10000000;
   }
 `;
 
