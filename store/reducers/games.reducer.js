@@ -1,6 +1,8 @@
 import {
+  addPinnedAchievement,
   getPhaseFiltedAchievements,
   removeIgnoredAchievements,
+  removePinnedAchievement,
 } from "../../helpers/achievementHelper";
 import {
   GAMES_OPTION_COMPLETION_DESC,
@@ -55,6 +57,8 @@ import {
   LAST_SELECTED_GAME,
   ADD_JOURNAL_GAME_ACHIEVEMENT,
   TOGGLE_JOURNAL_RIGHTSIDEBAR,
+  ADD_PIN_ACHIEVEMENT,
+  REMOVE_PIN_ACHIEVEMENT,
 } from "../types/games.types";
 
 const INITIAL_STATE = {
@@ -120,12 +124,33 @@ const INITIAL_STATE = {
   rarityFilters: {},
   lastSelectedGame: "",
   journalMap: {},
+  pinnedAchievements: {},
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case ADD_PIN_ACHIEVEMENT:
+      return {
+        ...state,
+        pinnedAchievements: addPinnedAchievement(
+          state.pinnedAchievements,
+          payload.gameId,
+          payload.achievementId
+        ),
+      };
+
+    case REMOVE_PIN_ACHIEVEMENT:
+      return {
+        ...state,
+        pinnedAchievements: removePinnedAchievement(
+          state.pinnedAchievements,
+          payload.gameId,
+          payload.achievementId
+        ),
+      };
+
     case ADD_JOURNAL_GAME_ACHIEVEMENT:
       return {
         ...state,

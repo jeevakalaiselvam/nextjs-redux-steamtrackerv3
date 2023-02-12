@@ -38,6 +38,8 @@ import {
   LAST_SELECTED_GAME,
   ADD_JOURNAL_GAME_ACHIEVEMENT,
   TOGGLE_JOURNAL_RIGHTSIDEBAR,
+  ADD_PIN_ACHIEVEMENT,
+  REMOVE_PIN_ACHIEVEMENT,
 } from "../types/games.types";
 import axios from "axios";
 import { getPhaseFiltedAchievements } from "../../helpers/achievementHelper";
@@ -290,6 +292,18 @@ export const changeThemeId = (themeId) => {
 export const addPinnedGame = (payload) => {
   return (dispatch) => {
     return dispatch({ type: ADD_PINNED_GAME, payload });
+  };
+};
+
+export const addPinAchievement = (payload) => {
+  return (dispatch) => {
+    return dispatch({ type: ADD_PIN_ACHIEVEMENT, payload });
+  };
+};
+
+export const removePinAchievement = (payload) => {
+  return (dispatch) => {
+    return dispatch({ type: REMOVE_PIN_ACHIEVEMENT, payload });
   };
 };
 

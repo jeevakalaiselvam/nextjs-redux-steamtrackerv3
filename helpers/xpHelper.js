@@ -299,7 +299,5 @@ export const calculateRecentHistory = (games) => {
     }
   });
 
-  console.log("RECENT DATESS", recentHistory);
-
   return { recentHistory };
 };

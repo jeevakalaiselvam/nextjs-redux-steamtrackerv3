@@ -7,6 +7,8 @@ import { AiFillGold } from "react-icons/ai";
 import { ALL, EASY, GRIND, HARD, MISSABLE } from "../../helpers/gameHelper";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  addPinAchievement,
+  removePinAchievement,
   setShowJournalRightSidebar,
   updatePhaseForAchievement,
 } from "../../store/actions/games.actions";
@@ -18,6 +20,12 @@ import {
   getRarityTextFromPercentage,
 } from "../../helpers/xpHelper";
 import { getIcon } from "../../helpers/iconHelper";
+import {
+  UNCOMMON_COLOR,
+  COMMON_COLOR,
+  MARVEL_COLOR,
+} from "../../helpers/colorHelper";
+import { removePinnedAchievement } from "../../helpers/achievementHelper";
 
 const Container = styled.div`
   width: ${(props) => (props.width ? props.width : "365px")};
@@ -148,6 +156,19 @@ const HiddenContainer = styled.div`
   justify-content: flex-start;
 `;
 
+const PinnedStatusContainer = styled.div`
+  position: absolute;
+  bottom: 4px;
+  left: 1rem;
+  width: 60px;
+  font-size: 1rem;
+  color: ${(props) => (props.pinColor ? props.pinColor : "#FEFEFE")};
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
 const PercentageContainer = styled.div`
   position: absolute;
   top: 5px;
@@ -237,7 +258,7 @@ export default function AchievementCardWithPhase(props) {
   const activateCompletionOpacity = props.activateCompletionOpacity;
 
   const steamtracker = useSelector((state) => state.steamtracker);
-  const { hiddenGames, games, settings } = steamtracker;
+  const { hiddenGames, games, settings, pinnedAchievements } = steamtracker;
   const { settingsPage } = settings;
 
   const [hiddenDescription, setHiddenDescription] = useState("HIDDEN");
@@ -245,7 +266,7 @@ export default function AchievementCardWithPhase(props) {
   useEffect(() => {
     if (hiddenGames[gameId] && gameId) {
       setHiddenDescription(
-        (old) => hiddenGames[gameId][displayName.toLowerCase().trim()]
+        (old) => hiddenGames[gameId][displayName?.toLowerCase().trim()]
       );
     }
   }, [gameId, hiddenGames]);
@@ -255,6 +276,49 @@ export default function AchievementCardWithPhase(props) {
   const game = games.find((game) => game.id == gameId);
 
   const [showJournal, setShowJournal] = useState(false);
+  const [pinned, setPinned] = useState(
+    pinnedAchievements[gameId]?.includes(name)
+  );
+
+  useEffect(() => {
+    if (gameId) {
+      if (pinnedAchievements[gameId].includes(name)) {
+        setPinned(true);
+      } else {
+        setPinned(false);
+      }
+    }
+  }, [gameId, pinnedAchievements]);
+
+  const [pinnedText, setPinnedText] = useState(pinned ? "PINNED" : "UNPINNED");
+  const [pinColor, setPinColor] = useState(
+    pinned ? UNCOMMON_COLOR : COMMON_COLOR
+  );
+
+  const onPinMouseEnter = () => {
+    setPinnedText(pinned ? "UNPIN" : "PIN IT");
+  };
+  const onPinMouseLeave = () => {
+    setPinnedText(pinned ? "PINNED" : "UNPINNED");
+  };
+
+  useEffect(() => {
+    if (pinnedText == "PINNED" || pinnedText == "PIN IT") {
+      setPinColor(UNCOMMON_COLOR);
+    } else if (pinnedText == "UNPIN") {
+      setPinColor(MARVEL_COLOR);
+    } else {
+      setPinColor(COMMON_COLOR);
+    }
+  }, [pinnedText]);
+
+  const addOrRemovePinStatus = () => {
+    if (pinned) {
+      dispatch(removePinAchievement({ gameId: gameId, achievementId: name }));
+    } else {
+      dispatch(addPinAchievement({ gameId: gameId, achievementId: name }));
+    }
+  };
 
   return (
     <Container
@@ -299,6 +363,16 @@ export default function AchievementCardWithPhase(props) {
           </RarityIcon>
           <RarityText>{getRarityTextFromPercentage(percentage)}</RarityText>
         </PercentageContainer>
+        <PinnedStatusContainer
+          pinColor={pinColor}
+          onMouseEnter={onPinMouseEnter}
+          onMouseLeave={onPinMouseLeave}
+          onClick={() => {
+            addOrRemovePinStatus();
+          }}
+        >
+          {pinnedText}
+        </PinnedStatusContainer>
         {hidden == "1" && false && (
           <HiddenContainer>
             <IoEyeOff />

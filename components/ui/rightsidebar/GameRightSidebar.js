@@ -93,12 +93,20 @@ export default function GameRightSidebar() {
   const { gameId } = router.query;
   const dispatch = useDispatch();
 
-  let game;
-  let todayOnly = [];
-  if (gameId) {
-    game = games.find((game) => game.id == gameId);
-    todayOnly = getaUnlockedAchievementsByType(game.achievements, "TODAY");
-  }
+  const [game, setGame] = useState({});
+  const [todayOnly, setTodayOnly] = useState([]);
+
+  useEffect(() => {
+    if (gameId) {
+      let game = games.find((game) => game.id == gameId);
+      let todayOnly = getaUnlockedAchievementsByType(
+        game?.achievements,
+        "TODAY"
+      );
+      setGame(game);
+      setTodayOnly(todayOnly);
+    }
+  }, [gameId, game]);
 
   const onDataSaved = (journalInfo) => {
     const data = dispatch(

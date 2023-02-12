@@ -293,3 +293,28 @@ export const getAllUnlockedAchievements = (games) => {
 export const removeIgnoredAchievements = (games) => {
   return games;
 };
+
+export const addPinnedAchievement = (oldPinnedMap, gameId, achievementId) => {
+  let newPinnedMap = { ...oldPinnedMap };
+  let newPinnedAchievements = oldPinnedMap[gameId] ?? [];
+  newPinnedAchievements = [...newPinnedAchievements, achievementId];
+  newPinnedMap[gameId] = newPinnedAchievements;
+  return newPinnedMap;
+};
+
+export const removePinnedAchievement = (
+  oldPinnedMap,
+  gameId,
+  achievementId
+) => {
+  console.clear();
+  let newPinnedMap = { ...oldPinnedMap };
+  let newPinnedAchievements = oldPinnedMap[gameId] ?? [];
+  newPinnedAchievements = newPinnedAchievements.filter((achievement) => {
+    return achievement != achievementId;
+  });
+  newPinnedMap[gameId] = newPinnedAchievements;
+  console.log("OLD PINNED MAP", { oldPinnedMap });
+  console.log("NEW PINNED MAP", { newPinnedMap });
+  return newPinnedMap;
+};

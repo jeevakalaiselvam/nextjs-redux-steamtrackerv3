@@ -34,7 +34,6 @@ const DataContainer = styled.div`
   justify-content: flex-start;
   max-height: 100%;
   min-height: 100%;
-  overflow: scroll;
   position: relative;
 `;
 
@@ -83,14 +82,43 @@ const HistoryContainer = styled.div`
   overflow: scroll;
 `;
 
-const HistoryTitle = styled.div`
+const AchievementContainer = styled.div`
   display: flex;
-  align-items: center;
-  width: 100%;
-  font-size: 1.75rem;
-  color: #b0bec5;
-  padding: 1rem;
+  align-content: center;
   justify-content: center;
+  flex: 1;
+  overflow: scroll;
+`;
+
+const AchievementInner = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-content: center;
+  justify-content: center;
+  overflow: scroll;
+`;
+
+const Header = styled.div`
+  display: flex;
+  padding: 0.5rem 3rem;
+  margin-top: 1rem;
+  font-size: 2rem;
+  align-content: center;
+  justify-content: flex-start;
+`;
+
+const MissableAchievementContainer = styled.div`
+  display: flex;
+  align-content: center;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  z-index: 10000;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: 320px;
+  max-height: 320px;
+  overflow: scroll;
 `;
 
 const CloseButton = styled.div`
@@ -205,13 +233,30 @@ export default function GameContent() {
             </HistoryContainer>
           </HistoryModal>
         )}
-        <Achievements
-          game={game}
-          filterOption={GAME_OPTION_PERCENTAGE_DESC}
-          searchTerm={searchTerm}
-          showIgnore={true}
-          activateCompletionOpacity={true}
-        />
+        <AchievementContainer>
+          <AchievementInner>
+            <Achievements
+              game={game}
+              filterOption={GAME_OPTION_PERCENTAGE_DESC}
+              searchTerm={searchTerm}
+              showIgnore={true}
+              activateCompletionOpacity={true}
+              noWrap={false}
+            />
+          </AchievementInner>
+        </AchievementContainer>
+        <MissableAchievementContainer>
+          <Header>Tracking</Header>
+          <Achievements
+            game={game}
+            filterOption={GAME_OPTION_PERCENTAGE_DESC}
+            searchTerm={searchTerm}
+            showIgnore={true}
+            activateCompletionOpacity={true}
+            noWrap={true}
+            pinnedOnly={true}
+          />
+        </MissableAchievementContainer>
       </DataContainer>
     </RootContainer>
   );
