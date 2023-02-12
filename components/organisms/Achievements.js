@@ -81,23 +81,32 @@ export default function Achievements({
         filterOption,
         gameId
       );
+
       let rarityFilteredAchievements = filterAchievementsByRarityFilter(
         filteredAchievements,
         gameId,
         rarityFilters
       );
 
-      let rarityIgnoredIfAllAchievements = [];
-      rarityIgnoredIfAllAchievements = rarityFilteredAchievements;
-      if (includeAll) {
-        rarityIgnoredIfAllAchievements = filteredAchievements;
-      }
-
-      let pinnedIncluded = rarityIgnoredIfAllAchievements;
       let finalAchievementToSet = [];
 
+      finalAchievementToSet = rarityFilteredAchievements;
+
+      if (includeAll) {
+        finalAchievementToSet = filteredAchievements;
+      }
+
+      if (showOnly) {
+        finalAchievementToSet = getaUnlockedAchievementsByType(
+          filteredAchievements,
+          "TODAY"
+        );
+      }
+
+      let pinnedOrNotAchievements = finalAchievementToSet;
+
       if (pinnedOnly) {
-        pinnedIncluded = filteredAchievements.filter((achievement) => {
+        pinnedOrNotAchievements = filteredAchievements.filter((achievement) => {
           if ((pinnedAchievements[game.id] ?? []).includes(achievement.name)) {
             return true;
           } else {
@@ -106,9 +115,7 @@ export default function Achievements({
         });
       }
 
-      finalAchievementToSet = pinnedIncluded;
-
-      setSearchFilteredAchievements((old) => finalAchievementToSet);
+      setSearchFilteredAchievements((old) => pinnedOrNotAchievements);
     }
   }, [
     searchTerm,
@@ -119,11 +126,6 @@ export default function Achievements({
     pinnedOnly,
     pinnedAchievements,
   ]);
-
-  const todayOnly = getaUnlockedAchievementsByType(
-    searchFilteredAchievements,
-    "TODAY"
-  );
 
   return (
     <Container noWrap={noWrap}>
@@ -137,33 +139,18 @@ export default function Achievements({
                 achievement.displayName.toLowerCase().trim()
               ];
           }
-          if (showPhase) {
-            return (
-              <AchievementCardWithPhase
-                gameId={gameId}
-                gameName={name}
-                achievement={achievement}
-                key={achievement.name}
-                hiddenDescription={hiddenDescription}
-                phase={phase}
-                showIgnore={showIgnore}
-                activateCompletionOpacity={activateCompletionOpacity}
-              />
-            );
-          } else {
-            return (
-              <AchievementCardWithPhase
-                gameId={gameId}
-                gameName={name}
-                achievement={achievement}
-                key={achievement.name}
-                hiddenDescription={hiddenDescription}
-                phase={phase}
-                showIgnore={showIgnore}
-                activateCompletionOpacity={activateCompletionOpacity}
-              />
-            );
-          }
+          return (
+            <AchievementCardWithPhase
+              gameId={gameId}
+              gameName={name}
+              achievement={achievement}
+              key={achievement.name}
+              hiddenDescription={hiddenDescription}
+              phase={phase}
+              showIgnore={showIgnore}
+              activateCompletionOpacity={activateCompletionOpacity}
+            />
+          );
         })}
       {showOnly == "TODAY" &&
         todayOnly.length > 0 &&

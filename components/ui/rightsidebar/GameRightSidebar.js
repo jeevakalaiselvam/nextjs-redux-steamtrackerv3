@@ -157,7 +157,7 @@ export default function GameRightSidebar() {
             game={game}
             filterOption={GAME_OPTION_PERCENTAGE_ASC_UNLOCKTIME}
             searchTerm={""}
-            showOnly="TODAY"
+            showOnly={true}
             includeAll={true}
           />
         </>
