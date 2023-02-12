@@ -303,6 +303,11 @@ export default function AchievementCardWithPhase(props) {
   };
 
   useEffect(() => {
+    setPinnedText(pinned ? "PINNED" : "UNPINNED");
+    setPinColor(pinned ? UNCOMMON_COLOR : COMMON_COLOR);
+  }, [pinned]);
+
+  useEffect(() => {
     if (pinnedText == "PINNED" || pinnedText == "PIN IT") {
       setPinColor(UNCOMMON_COLOR);
     } else if (pinnedText == "UNPIN") {
