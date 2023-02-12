@@ -20,7 +20,6 @@ import axios from "axios";
 import {
   calculateLevelFromAllGames,
   calculateRarityLeftFromAchievements,
-  COMPLETION_TARGET,
   getAllXPFromAchievements,
   XP_FOR_LEVEL,
 } from "../../../helpers/xpHelper";
@@ -39,7 +38,6 @@ import {
   RARE,
   RARE_COLOR,
   UNCOMMON,
-  UNCOMMON_COLOR,
   WASTE,
   WASTE_COLOR,
 } from "../../../helpers/colorHelper";
@@ -52,22 +50,6 @@ const Container = styled.div`
   padding: 0.25rem 1rem;
   flex: 1;
   width: 100%;
-`;
-
-const FilterContainer = styled.div`
-  display: flex;
-  flex: 1;
-  align-items: center;
-  justify-content: flex-start;
-`;
-
-const ToggleForCompletedAchievements = styled.div`
-  display: flex;
-  position: absolute;
-  padding-left: 2rem;
-  left: 0;
-  align-items: center;
-  justify-content: flex-start;
 `;
 
 const RemainingContainer = styled.div`
@@ -126,6 +108,17 @@ const SearchContainer = styled.div`
   justify-content: flex-end;
 `;
 
+const RemainingTrophyContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  padding: 0.5rem;
+  color: #fefefe;
+  cursor: pointer;
+`;
+
 const InnerContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -145,40 +138,42 @@ const InnerContainer = styled.div`
   }
 `;
 
+const XPContainer = styled.div`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  top: 0;
+  left: 150px;
+  z-index: 8;
+  padding: 0.5rem;
+  color: ${(props) => (props.iconColor ? props.iconColor : "")};
+  transition: all 0.5s;
+`;
+
+const XPIcon = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 1.75rem;
+  margin-right: 1rem;
+  z-index: 8;
+  justify-content: center;
+`;
+
+const XPData = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 8;
+  font-size: 1.5rem;
+`;
+
 const RefreshText = styled.div`
   display: flex;
   margin-left: 0.5rem;
   align-items: center;
   justify-content: center;
-`;
-
-const ToGetContainer = styled.div`
-  display: "flex";
-  min-width: 100px;
-  flex-direction: column;
-  padding: 1rem;
-  z-index: 8;
-  transition: all 0.5s;
-  background-color: rgba(0, 0, 0, 0.1);
-  transform: translateX("0%");
-`;
-
-const ToGetIcon = styled.div`
-  display: flex;
-  align-items: center;
-  color: #ffcc00;
-  font-size: 2rem;
-  z-index: 8;
-  justify-content: center;
-`;
-
-const ToGetData = styled.div`
-  display: flex;
-  align-items: center;
-  z-index: 8;
-  justify-content: center;
-  color: #ffcc00;
-  font-size: 1.5rem;
 `;
 
 const Icon = styled.div`
@@ -230,24 +225,25 @@ const Icon = styled.div`
 export const PLAYER_LEVEL_KEY = "PLAYER_LEVEL_KEY";
 
 export default function GameHeader() {
-  const [rotate, setRotate] = useState(false);
-
   const dispatch = useDispatch();
   const router = useRouter();
   const steamtracker = useSelector((state) => state.steamtracker);
-  const { games, planner, settings } = steamtracker;
-  const { gamesPage } = settings;
-  const { filterOption } = gamesPage;
+  const { games, settings } = steamtracker;
+  const { settingsPage } = settings;
+  const { completionPercentageTarget } = settingsPage;
   const { gameId } = router.query;
 
   const [gameData, setGameData] = useState({
     achievements: [],
     percentageCompletion: 0,
   });
-  const [xpData, setXPData] = useState({});
   const [xpInfo, setXPInfo] = useState({});
   const [levelInfo, setLevelInfo] = useState({});
   const [rarityInfo, setRarityInfo] = useState({});
+  const [nextStage, setNextStage] = useState({
+    next: 0,
+    iconColor: COMMON_COLOR,
+  });
 
   const [refreshing, setRefreshing] = useState(false);
 
@@ -259,26 +255,25 @@ export default function GameHeader() {
         if (game) {
           const xpData = getAllXPFromAchievements(game.achievements);
           const xpInfo = calculateLevelFromAllGames(games);
-          const levelInfo = calculateTrophiesToNextStage(
-            xpData.percentageCompletion,
-            xpData
-          );
           const rarityInfo = calculateRarityLeftFromAchievements(
             game.achievements
           );
+          const nextStage = {
+            next: Math.ceil(
+              xpData.total * (completionPercentageTarget / 100) -
+                xpData.completedTotal
+            ),
+            iconColor: COMMON_COLOR,
+          };
           setGameData(game);
-          setXPData(xpData.percentageCompletion);
           setXPInfo(xpInfo);
           setLevelInfo(levelInfo);
           setRarityInfo(rarityInfo);
+          setNextStage(nextStage);
         }
       }
     }
   }, [gameId, games]);
-
-  const onFilterChanged = (filterOption) => {
-    dispatch(changeGamePageFilterOption(filterOption));
-  };
 
   const onSearchObtained = (searchTerm) => {
     dispatch(changeGamePageSearchTerm(searchTerm));
@@ -299,47 +294,12 @@ export default function GameHeader() {
     setRefreshing(false);
   };
 
-  const calculateTrophiesToNextStage = (percentageNow, xpInfo) => {
-    return {
-      next: Math.ceil(xpInfo.total * 1) - xpInfo.completedTotal,
-      iconColor: "#b55af2",
-    };
-    if (percentageNow < 25) {
-      return {
-        next: Math.ceil(xpInfo.total * 0.25) - xpInfo.completedTotal,
-        iconColor: "#B87333",
-      };
-    } else if (percentageNow >= 25 && percentageNow < 50) {
-      return {
-        next: Math.ceil(xpInfo.total * 0.5) - xpInfo.completedTotal,
-        iconColor: "#C0C0C0",
-      };
-    } else if (percentageNow >= 50 && percentageNow < 75) {
-      return {
-        next: Math.ceil(xpInfo.total * 0.75) - xpInfo.completedTotal,
-        iconColor: "#f5b81c",
-      };
-    } else if (percentageNow >= 75) {
-      return {
-        next: Math.ceil(xpInfo.total * 1) - xpInfo.completedTotal,
-        iconColor: "#b55af2",
-      };
-    }
-  };
-
   const filterAchievementsByRarity = (rarity) => {
     dispatch(setRarityFilterForGame({ gameId: gameData.id, rarity }));
   };
 
   return (
     <Container>
-      {/* <FilterContainer>
-        <Filter
-          filterOptions={FILTER_OPTIONS_GAME_PAGE}
-          onFilterChanged={onFilterChanged}
-          defaultSelected={filterOption}
-        />
-      </FilterContainer> */}
       <ClearTrophyFilter>
         <InnerContainer
           onClick={() => {
@@ -353,6 +313,12 @@ export default function GameHeader() {
           </Icon>
           <RefreshText>SHOW ALL</RefreshText>
         </InnerContainer>
+        <RemainingTrophyContainer>
+          <XPContainer iconColor={nextStage.iconColor}>
+            <XPIcon>{getIcon("trophy")}</XPIcon>
+            <XPData>{nextStage.next}</XPData>
+          </XPContainer>
+        </RemainingTrophyContainer>
       </ClearTrophyFilter>
       <RemainingContainer>
         <TrophyRemainingList>
@@ -375,7 +341,7 @@ export default function GameHeader() {
             <TrophyCount>{rarityInfo.common}</TrophyCount>
           </TrophyContainer>
           <TrophyContainer
-            color={UNCOMMON_COLOR}
+            color={COMMON_COLOR}
             onClick={() => filterAchievementsByRarity(UNCOMMON)}
           >
             <TrophyIcon>

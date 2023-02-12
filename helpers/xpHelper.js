@@ -177,7 +177,10 @@ export const getXPFromAchievements = (achievements) => {
   return totalXP;
 };
 
-export const getAllXPFromAchievements = (achievements) => {
+export const getAllXPFromAchievements = (
+  achievements,
+  completionPercentageTarget
+) => {
   let xpData = { totalXP: 0, completedXP: 0, remainingXP: 0 };
   let completedTotal = 0,
     total = 0;
@@ -197,8 +200,16 @@ export const getAllXPFromAchievements = (achievements) => {
       }
     });
   }
+  console.log("JEEVA -------------------------------------------------------");
+  console.log("JEEVA - CALCULATION", {
+    completedTotal,
+    total,
+    adjustedTotal: total * (completionPercentageTarget / 100),
+  });
 
-  let percentageCompletion = Math.floor((completedTotal / total) * 100);
+  let percentageCompletion = Math.floor(
+    (completedTotal / (total * (completionPercentageTarget / 100))) * 100
+  );
 
   return {
     totalXP,
@@ -227,7 +238,6 @@ export const calculateTotalXPForAllGames = (games) => {
 export const LEVEL_UP_XP = 1000;
 export const XP_FOR_LEVEL = 1000;
 
-export const COMPLETION_TARGET = 1;
 export const calculateLevelFromAllGames = (games) => {
   let totalXP = 0;
   let unlockedToday = 0;

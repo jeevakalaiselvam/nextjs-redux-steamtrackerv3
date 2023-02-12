@@ -40,6 +40,7 @@ import {
   TOGGLE_JOURNAL_RIGHTSIDEBAR,
   ADD_PIN_ACHIEVEMENT,
   REMOVE_PIN_ACHIEVEMENT,
+  SET_COMPLETION_PERCENTAGE_TARGET,
 } from "../types/games.types";
 import axios from "axios";
 import { getPhaseFiltedAchievements } from "../../helpers/achievementHelper";
@@ -334,6 +335,12 @@ export const setRarityFilterForGame = (payload) => {
 export const setOpacityForUnlockedAchievement = (payload) => {
   return (dispatch) => {
     return dispatch({ type: SET_OPACITY_UNLOCKED_ACHIEVEMENT, payload });
+  };
+};
+
+export const setCompletionPercentageTarget = (payload) => {
+  return (dispatch) => {
+    return dispatch({ type: SET_COMPLETION_PERCENTAGE_TARGET, payload });
   };
 };
 

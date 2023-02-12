@@ -20,15 +20,7 @@ import {
   WASTE_COLOR,
 } from "../../helpers/colorHelper";
 import { getIcon } from "../../helpers/iconHelper";
-import {
-  calculateLevelFromAllGames,
-  calculateRarityLeftFromAchievements,
-  calculateRarityLeftFromGames,
-  calculateTotalXPForAllGames,
-  COMPLETION_TARGET,
-  getRarityColorFromPercentage,
-  XP_FOR_LEVEL,
-} from "../../helpers/xpHelper";
+import { calculateRarityLeftFromGames } from "../../helpers/xpHelper";
 
 const Container = styled.div`
   display: flex;

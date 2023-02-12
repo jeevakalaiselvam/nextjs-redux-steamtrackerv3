@@ -117,7 +117,7 @@ const Text = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  font-size: 1.75rem;
+  font-size: 2rem;
 `;
 
 const DownArrow = styled.div`
@@ -203,6 +203,7 @@ const ProfileTrophyProgress = (props) => {
               ) - Math.floor(totalXPUntilYesterday / XP_FOR_LEVEL)
             )
               .fill(1)
+              .filter((i) => false)
               .map((level, index) => {
                 if (
                   index ==

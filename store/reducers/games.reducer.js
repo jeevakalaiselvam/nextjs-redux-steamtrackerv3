@@ -59,6 +59,7 @@ import {
   TOGGLE_JOURNAL_RIGHTSIDEBAR,
   ADD_PIN_ACHIEVEMENT,
   REMOVE_PIN_ACHIEVEMENT,
+  SET_COMPLETION_PERCENTAGE_TARGET,
 } from "../types/games.types";
 
 const INITIAL_STATE = {
@@ -94,6 +95,7 @@ const INITIAL_STATE = {
     },
     settingsPage: {
       unlockedAchievementOpacity: 0.5,
+      completionPercentageTarget: 100,
     },
   },
   planner: {
@@ -167,6 +169,18 @@ const reducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         lastSelectedGame: payload,
+      };
+
+    case SET_COMPLETION_PERCENTAGE_TARGET:
+      return {
+        ...state,
+        settings: {
+          ...state.settings,
+          settingsPage: {
+            ...state.settings.settingsPage,
+            completionPercentageTarget: payload,
+          },
+        },
       };
 
     case SET_OPACITY_UNLOCKED_ACHIEVEMENT:

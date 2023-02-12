@@ -9,10 +9,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { getIcon } from "../../helpers/iconHelper";
-import {
-  calculateLevelFromAllGames,
-  COMPLETION_TARGET,
-} from "../../helpers/xpHelper";
+import { calculateLevelFromAllGames } from "../../helpers/xpHelper";
 
 const Container = styled.div`
   display: flex;
@@ -137,7 +134,7 @@ const ProfilePlatinum = (props) => {
     calculateLevelFromAllGames(games);
 
   const platinumCount = games.reduce((acc, game) => {
-    if (+game.completion == COMPLETION_TARGET * 100) {
+    if (+game.completion == (completionPercentageTarget / 100 ?? 1.0) * 100) {
       return acc + 1;
     } else {
       return acc;
@@ -146,8 +143,8 @@ const ProfilePlatinum = (props) => {
 
   const goldCount = games.reduce((acc, game) => {
     if (
-      +game.completion >= COMPLETION_TARGET * 75 &&
-      +game.completion < COMPLETION_TARGET * 100
+      +game.completion >= (completionPercentageTarget / 100 ?? 1.0) * 75 &&
+      +game.completion < (completionPercentageTarget / 100 ?? 1.0) * 100
     ) {
       return acc + 1;
     } else {
@@ -157,8 +154,8 @@ const ProfilePlatinum = (props) => {
 
   const silverCount = games.reduce((acc, game) => {
     if (
-      +game.completion >= COMPLETION_TARGET * 50 &&
-      +game.completion < COMPLETION_TARGET * 75
+      +game.completion >= (completionPercentageTarget / 100 ?? 1.0) * 50 &&
+      +game.completion < (completionPercentageTarget / 100 ?? 1.0) * 75
     ) {
       return acc + 1;
     } else {
@@ -168,8 +165,8 @@ const ProfilePlatinum = (props) => {
 
   const bronzeCount = games.reduce((acc, game) => {
     if (
-      +game.completion >= COMPLETION_TARGET * 25 &&
-      +game.completion < COMPLETION_TARGET * 50
+      +game.completion >= (completionPercentageTarget / 100 ?? 1.0) * 25 &&
+      +game.completion < (completionPercentageTarget / 100 ?? 1.0) * 50
     ) {
       return acc + 1;
     } else {

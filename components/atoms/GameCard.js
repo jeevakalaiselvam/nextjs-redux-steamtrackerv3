@@ -10,7 +10,7 @@ import {
   HiPresentationChartLine,
 } from "react-icons/hi";
 import {
-  COMPLETION_TARGET,
+  completionPercentageTarget,
   getAllXPFromAchievements,
   XP_FOR_LEVEL,
 } from "../../helpers/xpHelper";
@@ -25,6 +25,15 @@ import {
   removePinnedGame,
   setLastSelectedGame,
 } from "../../store/actions/games.actions";
+import {
+  COMMON_COLOR,
+  EPIC_COLOR,
+  LEGENDARY_COLOR,
+  MARVEL_COLOR,
+  RARE_COLOR,
+  UNCOMMON_COLOR,
+  WASTE_COLOR,
+} from "../../helpers/colorHelper";
 
 const Container = styled.div`
   display: flex;
@@ -98,12 +107,6 @@ const TitleData = styled.div`
   justify-content: center;
 `;
 
-const CompletionIcon = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
 const ToGetContainer = styled.div`
   position: absolute;
   display: flex;
@@ -117,15 +120,6 @@ const ToGetContainer = styled.div`
   transition: all 0.5s;
   background-color: rgba(0, 0, 0, 0.75);
   transform: translateX("0%");
-`;
-
-const ToGetIcon = styled.div`
-  display: flex;
-  align-items: center;
-  color: ${(props) => (props.iconColor ? props.iconColor : "red")};
-  font-size: 2rem;
-  z-index: 8;
-  justify-content: center;
 `;
 
 const ToGetData = styled.div`
@@ -147,6 +141,7 @@ const XPContainer = styled.div`
   right: 0;
   z-index: 8;
   padding: 1rem;
+  color: ${(props) => (props.iconColor ? props.iconColor : "")};
   transition: all 0.5s;
   background-color: rgba(0, 0, 0, 0.75);
   transform: translateX("0%");
@@ -155,9 +150,7 @@ const XPContainer = styled.div`
 const XPIcon = styled.div`
   display: flex;
   align-items: center;
-  color: #f5b81c;
   font-size: 1.75rem;
-  margin-right: 0.5rem;
   z-index: 8;
   justify-content: center;
 `;
@@ -166,7 +159,6 @@ const XPData = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #f5b81c;
   z-index: 8;
   font-size: 1.5rem;
 `;
@@ -225,78 +217,42 @@ const CompleteIcon = styled.div`
 `;
 
 export default function GameCard({ game }) {
-  const { id, playtime, name, version, achievements, completion, toGet } = game;
+  const { id, name, achievements, toGet } = game;
   const dispatch = useDispatch();
   const steamtracker = useSelector((state) => state.steamtracker);
-  const { games, settings, pinnedGames } = steamtracker;
-
-  let newAchievements = achievements.filter((achievement) => {
-    if (typeof window !== "undefined") {
-      let ignoredAchievementsInStorage =
-        localStorage.getItem(`${id}_IGNORE`) || JSON.stringify([]);
-      let ignoredAchievements = JSON.parse(ignoredAchievementsInStorage);
-      if (!ignoredAchievements?.includes(achievement.name)) {
-        return true;
-      }
-    }
-  });
+  const { settings, pinnedGames } = steamtracker;
+  const { settingsPage } = settings;
+  const { completionPercentageTarget } = settingsPage;
 
   const router = useRouter();
 
-  const xpData = getAllXPFromAchievements(newAchievements);
-  const {
-    totalXP,
-    completedXP,
-    remainingXP,
-    completedTotal,
-    total,
-    percentageCompletion,
-  } = xpData;
+  const xpData = getAllXPFromAchievements(
+    achievements,
+    completionPercentageTarget
+  );
+  const { totalXP, completedXP, completedTotal, total, percentageCompletion } =
+    xpData;
+
+  const adjustedPercentage =
+    (completedTotal / (total * (completionPercentageTarget / 100))) * 100;
+
+  console.log("JEEVA - ADJUSTED", name, adjustedPercentage);
 
   const completed = completedXP / XP_FOR_LEVEL;
-  const needed = (totalXP * COMPLETION_TARGET) / XP_FOR_LEVEL;
+  const needed =
+    (totalXP * (completionPercentageTarget / 100 ?? 1.0)) / XP_FOR_LEVEL;
 
   const [movePinRight, setMovePinRight] = useState(true);
 
-  const getColorForOverlay = (percentage) => {
-    if (percentage == 100) {
-      return chroma("#b55af2");
-    } else if (percentage < 100 && percentage >= 75) {
-      return chroma("#f5b81c");
-    } else if (percentage < 75 && percentage >= 50) {
-      return "#C0C0C0";
-    } else if (percentage < 50 && percentage >= 25) {
-      return chroma("#B87333");
-    } else {
-      return "#00000000";
-    }
+  const getColorForOverlay = () => {
+    return chroma(EPIC_COLOR);
   };
 
-  const calculateTrophiesToNextStage = () => {
-    if (percentageCompletion < 25) {
-      return {
-        next: Math.ceil(total * 0.25) - completedTotal,
-        iconColor: "#B87333",
-      };
-    } else if (percentageCompletion >= 25 && percentageCompletion < 50) {
-      return {
-        next: Math.ceil(total * 0.5) - completedTotal,
-        iconColor: "#C0C0C0",
-      };
-    } else if (percentageCompletion >= 50 && percentageCompletion < 75) {
-      return {
-        next: Math.ceil(total * 0.75) - completedTotal,
-        iconColor: "#f5b81c",
-      };
-    } else if (percentageCompletion >= 75) {
-      return {
-        next: Math.ceil(total * 1) - completedTotal,
-        iconColor: "#b55af2",
-      };
-    }
-  };
+  let next = Math.ceil(
+    total * (completionPercentageTarget / 100) - completedTotal
+  );
 
-  const { next, iconColor } = calculateTrophiesToNextStage();
+  let iconColor = COMMON_COLOR;
 
   return (
     <Container>
@@ -317,39 +273,36 @@ export default function GameCard({ game }) {
       >
         <TitleData
           onMouseEnter={() => {
-            setMovePinRight((old) => false);
+            setMovePinRight(false);
           }}
           onMouseLeave={() => {
-            setMovePinRight((old) => true);
+            setMovePinRight(true);
           }}
         >
           {" "}
           {name}
         </TitleData>
       </Title>
-      {/* <CompletionBar color={iconColor} /> */}
-      {next !== 0 && (
+      {true && (
         <ToGetContainer>
           <ToGetData iconColor={iconColor}>
-            {xpData.percentageCompletion}%
+            {percentageCompletion > 100 ? 100 : percentageCompletion}%
           </ToGetData>
         </ToGetContainer>
       )}
-      {false && (
-        <XPContainer>
-          <XPIcon>{getIcon("xp")}</XPIcon>
-          <XPData>
-            {Math.floor(Math.floor(totalXP * COMPLETION_TARGET) - completedXP)}
-          </XPData>
+      {percentageCompletion < 100 && (
+        <XPContainer iconColor={iconColor}>
+          <XPIcon>{getIcon("trophy")}</XPIcon>
+          <XPData>{next}</XPData>
         </XPContainer>
       )}
 
       <PinIcon
         onMouseEnter={() => {
-          setMovePinRight((old) => false);
+          setMovePinRight(false);
         }}
         onMouseLeave={() => {
-          setMovePinRight((old) => true);
+          setMovePinRight(true);
         }}
         movePinRight={movePinRight}
         active={
@@ -372,15 +325,15 @@ export default function GameCard({ game }) {
       >
         <AiFillPushpin />
       </PinIcon>
-      {
+      {adjustedPercentage >= 100 && (
         <CompleteIcon
           active={true}
           onClick={() => {}}
-          color={getColorForOverlay(percentageCompletion)}
+          color={getColorForOverlay(adjustedPercentage)}
         >
           <FaTrophy />
         </CompleteIcon>
-      }
+      )}
     </Container>
   );
 }

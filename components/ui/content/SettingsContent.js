@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { GAME_PAGE } from "../../../helpers/constantHelper";
+import SettingsCompletion from "../../settingsatoms/SettingsCompletion";
 import SettingsOpacity from "../../settingsatoms/SettingsOpacity";
-import SettingsWidth from "../../settingsatoms/SettingsWidth";
 
 const Container = styled.div`
   width: 100%;
@@ -26,7 +26,7 @@ export default function SettingsContent() {
     <Container>
       <SettingCard>
         <SettingsOpacity type={GAME_PAGE} />
-        <SettingsWidth type={GAME_PAGE} />
+        <SettingsCompletion type={GAME_PAGE} />
       </SettingCard>
     </Container>
   );

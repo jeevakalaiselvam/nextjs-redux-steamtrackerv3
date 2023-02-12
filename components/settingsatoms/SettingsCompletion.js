@@ -1,23 +1,13 @@
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
-import { FaTrophy } from "react-icons/fa";
-import {
-  HiFastForward,
-  HiOutlineChevronDoubleUp,
-  HiOutlineChevronUp,
-} from "react-icons/hi";
+import React, { useState } from "react";
+import { HiOutlineChevronDoubleUp } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { openLinkInNewTab } from "../../helpers/browserHelper";
 import { GAME_PAGE } from "../../helpers/constantHelper";
-import { getIcon } from "../../helpers/iconHelper";
 import {
-  calculateLevelFromAllGames,
-  calculateTotalXPForAllGames,
-  XP_FOR_LEVEL,
-} from "../../helpers/xpHelper";
-import { setOpacityForUnlockedAchievement } from "../../store/actions/games.actions";
-import { PLAYER_LEVEL_KEY } from "../ui/header/GameHeader";
+  setCompletionPercentageTarget,
+  setOpacityForUnlockedAchievement,
+} from "../../store/actions/games.actions";
 
 const Container = styled.div`
   display: flex;
@@ -64,49 +54,6 @@ const LevelContainer = styled.div`
   padding: 1rem;
 `;
 
-const LevelUp = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  justify-content: center;
-  padding: 1rem;
-`;
-
-const GoldTrophy = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  justify-content: center;
-  margin-right: 1.5rem;
-  color: #ffcc00;
-  font-size: 2rem;
-`;
-
-const PurpleTrophy = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  justify-content: center;
-  color: #b55af2;
-  font-size: 1.5rem;
-`;
-
-const Icon = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-  font-size: 1.75rem;
-`;
-
-const Text = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-  font-size: 2rem;
-`;
-
 const OptionContainer = styled.div`
   display: flex;
   align-items: center;
@@ -139,21 +86,19 @@ const Save = styled.div`
   }
 `;
 
-const SettingsOpacity = (props) => {
+const SettingsCompletion = (props) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const steamtracker = useSelector((state) => state.steamtracker);
-  const { games, settings, lastSelectedGame } = steamtracker;
+  const { settings, lastSelectedGame } = steamtracker;
   const { settingsPage } = settings;
 
-  const { xpTotal } = calculateLevelFromAllGames(games);
-
-  const [achievementUnlockedOpacity, setAchievementUnlockedOpacity] = useState(
-    settingsPage?.unlockedAchievementOpacity ?? 0.2
+  const [completionPercentage, setCompletionPercentage] = useState(
+    settingsPage?.completionPercentageTarget ?? 100
   );
 
-  const setOpacity = () => {
-    dispatch(setOpacityForUnlockedAchievement(achievementUnlockedOpacity));
+  const setTarget = () => {
+    dispatch(setCompletionPercentageTarget(completionPercentage));
     if (lastSelectedGame) {
       if (props.type == GAME_PAGE) {
         router.push(`/games/${lastSelectedGame}`);
@@ -168,7 +113,7 @@ const SettingsOpacity = (props) => {
           <HiOutlineChevronDoubleUp
             style={{ marginRight: "0.5rem", color: "#6cff5c" }}
           />
-          <Title>Hide Unlocked Achievement</Title>
+          <Title>Completion Percentage</Title>
           <HiOutlineChevronDoubleUp
             style={{ marginLeft: "0.5rem", color: "#6cff5c" }}
           />
@@ -177,21 +122,20 @@ const SettingsOpacity = (props) => {
           <OptionContainer>
             <input
               type="number"
-              min={0}
-              max={1}
-              step={0.1}
-              value={achievementUnlockedOpacity}
+              min={1}
+              max={100}
+              step={1}
+              value={completionPercentage}
               onChange={(e) => {
-                console.log("ONCHANGE");
-                setAchievementUnlockedOpacity(e.target.value);
+                setCompletionPercentage(e.target.value);
               }}
             />
           </OptionContainer>
-          <Save onClick={setOpacity}>SAVE</Save>
+          <Save onClick={setTarget}>SAVE</Save>
         </LevelContainer>
       </LevelFragment>
     </Container>
   );
 };
 
-export default SettingsOpacity;
+export default SettingsCompletion;

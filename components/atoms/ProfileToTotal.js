@@ -11,13 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { openLinkInNewTab } from "../../helpers/browserHelper";
 import { getIcon } from "../../helpers/iconHelper";
-import {
-  calculateLevelFromAllGames,
-  calculateTotalXPForAllGames,
-  COMPLETION_TARGET,
-  getAllXPFromAchievements,
-  XP_FOR_LEVEL,
-} from "../../helpers/xpHelper";
+import { getAllXPFromAchievements, XP_FOR_LEVEL } from "../../helpers/xpHelper";
 
 const Container = styled.div`
   display: flex;
@@ -112,20 +106,22 @@ const XPIcon = styled.div`
 const ProfileToTotal = (props) => {
   const dispatch = useDispatch();
   const steamtracker = useSelector((state) => state.steamtracker);
-  const { games, planner } = steamtracker;
+  const { games, planner, settings } = steamtracker;
   const { phaseAddedGame } = planner;
+  const { gameSettings } = settings;
+  const { completionPercentageTarget } = settings;
 
   const router = useRouter();
   const { gameId } = router.query;
 
   const game = games.find((game) => game.id == gameId);
-  const { id, playtime, name, version, achievements, completion, toGet } = game;
 
   const xpData = getAllXPFromAchievements(phaseAddedGame.achievements);
   const { totalXP, completedXP, remainingXP } = xpData;
 
   const completed = completedXP / XP_FOR_LEVEL;
-  const needed = (totalXP * COMPLETION_TARGET) / XP_FOR_LEVEL;
+  const needed =
+    (totalXP * (completionPercentageTarget / 100 ?? 1.0)) / XP_FOR_LEVEL;
 
   return (
     <Container onClick={() => {}}>

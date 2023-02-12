@@ -9,13 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { openLinkInNewTab } from "../../helpers/browserHelper";
 import { getIcon } from "../../helpers/iconHelper";
-import {
-  calculateLevelFromAllGames,
-  calculateTotalXPForAllGames,
-  COMPLETION_TARGET,
-  LEVEL_UP_XP,
-  XP_FOR_LEVEL,
-} from "../../helpers/xpHelper";
+import { calculateLevelFromAllGames } from "../../helpers/xpHelper";
 
 const Container = styled.div`
   display: flex;
@@ -101,13 +95,15 @@ const Text = styled.div`
 const ProfileCompletion = (props) => {
   const dispatch = useDispatch();
   const steamtracker = useSelector((state) => state.steamtracker);
-  const { games, planner } = steamtracker;
+  const { games, planner, settings } = steamtracker;
+  const { gamesSettings } = settings;
+  const { completionPercentageTarget } = gamesSettings;
 
   const { xpTotal, currentLevel, toNextLevel } =
     calculateLevelFromAllGames(games);
 
   let completion = games.reduce((acc, game) => {
-    if (+game.completion >= COMPLETION_TARGET * 100) {
+    if (+game.completion >= (completionPercentageTarget ?? 100)) {
       return acc + 1;
     } else {
       return acc;
