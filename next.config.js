@@ -4,4 +4,5 @@ module.exports = {
   optimization: {
     minimize: false,
   },
+  productionBrowserSourceMaps: true,
 };
