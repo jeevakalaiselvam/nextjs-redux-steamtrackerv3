@@ -78,9 +78,7 @@ const JournalContainer = styled.div`
   flex-direction: column;
   padding: 1rem;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.2);
   color: #b0bec5;
-  backdrop-filter: blur(2px);
   width: 100%;
 `;
 

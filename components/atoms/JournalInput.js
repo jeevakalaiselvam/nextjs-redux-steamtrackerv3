@@ -6,6 +6,7 @@ import AchievementCardWithPhase from "./AchievementCardWithPhase";
 const Container = styled.div`
   width: 100%;
   display: flex;
+  margin-top: 1rem;
   align-items: center;
   justify-content: center;
   min-height: 500px;
@@ -67,7 +68,7 @@ const InputContainer = styled.div`
     background-color: rgba(0, 0, 0, 0);
     padding: 1rem;
     resize: none;
-    min-height: 400px;
+    min-height: 1100px;
     overflow: scroll;
     font-size: 1.5rem;
   }
