@@ -103,14 +103,26 @@ export default function GameRightSidebar() {
   }
 
   const onDataSaved = (journalInfo) => {
-    dispatch(
+    const data = dispatch(
       addJournalGameAchievement({
         gameId: gameId,
         achievementId: achievement.name,
         journal: journalInfo,
       })
     );
+
+    if (data.payload.journal) {
+      setSaveStatus("SAVING...");
+      setTimeout(() => {
+        setSaveStatus("SAVED!");
+        setTimeout(() => {
+          setSaveStatus("");
+        }, 500);
+      }, 500);
+    }
   };
+
+  const [saveStatus, setSaveStatus] = useState("");
 
   return (
     <Container>
@@ -164,7 +176,7 @@ export default function GameRightSidebar() {
               ""
             }
             achievement={achievement}
-            saveStatus={"SAVING..."}
+            saveStatus={saveStatus}
           />
         </JournalContainer>
       )}
