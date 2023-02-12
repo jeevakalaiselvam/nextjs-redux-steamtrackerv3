@@ -20,12 +20,14 @@ import {
 import { getIcon } from "../../helpers/iconHelper";
 
 const Container = styled.div`
+  width: ${(props) => (props.width ? props.width : "365px")};
   display: flex;
   align-items: center;
   z-index: 10000;
   justify-content: center;
   flex-direction: column;
   position: relative;
+  margin: 0.5rem;
   opacity: ${(props) =>
     props.achieved == 1 && props.activateCompletionOpacity
       ? props.opacity
@@ -33,35 +35,18 @@ const Container = styled.div`
 `;
 
 const MainContainer = styled.div`
-  width: 365px;
+  width: 100%;
   display: flex;
   flex-direction: row;
   padding: 0.5rem 1rem;
   align-items: flex-start;
   justify-content: center;
   background: rgba(0, 0, 0, 0.25);
-  margin: 0.5rem;
   border-radius: 4px;
   cursor: pointer;
   &:hover {
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
   }
-`;
-
-const JournalContainer = styled.div`
-  display: ${(props) => (props.show ? "flex" : "none")};
-  transition: 0.5s all;
-  min-height: ${(props) => (props.show ? "500px" : "0px")};
-  align-items: flex-start;
-  top: 0;
-  left: 0;
-  height: 500px;
-  justify-content: center;
-  background-color: rgba(0, 0, 0, 0.9);
-  color: #b0bec5;
-  backdrop-filter: blur(2px);
-  z-index: 100000;
-  width: 100%;
 `;
 
 const IconContainer = styled.div`
@@ -150,19 +135,6 @@ const Description = styled.div`
   font-size: 1.5rem;
 `;
 
-const JournalOneline = styled.div`
-  display: flex;
-  flex: 1;
-  width: 100%;
-  padding: 0.5rem;
-  flex-direction: row;
-  align-items: flex-end;
-  justify-content: flex-start;
-  color: #b0bec5;
-  font-size: 1.5rem;
-  opacity: 0.5;
-`;
-
 const HiddenContainer = styled.div`
   position: absolute;
   bottom: 1.5rem;
@@ -216,30 +188,6 @@ const TrophyIcon = styled.div`
   background-repeat: no-repeat;
 `;
 
-const PercentageText = styled.div`
-  display: flex;
-  flex: 1;
-  width: 100%;
-  padding: 0.5rem;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
-  color: #b0bec5;
-  font-size: 1.5rem;
-`;
-
-const PercentageIcon = styled.div`
-  display: flex;
-  flex: 1;
-  width: 100%;
-  padding: 0.5rem;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
-  color: #b0bec5;
-  font-size: 1.5rem;
-`;
-
 const CheckContainer = styled.div`
   position: absolute;
   width: 100%;
@@ -251,64 +199,6 @@ const CheckContainer = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
   font-size: 1.5rem;
   color: #ffffff;
-`;
-
-const PhaseRevealer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  bottom: 7px;
-  left: 0;
-  color: ${(props) => (props.active ? "#6cff5c" : "#737c9d;")};
-  padding: 0rem 0.5rem;
-  margin: 0.5rem;
-  z-index: 10000000;
-  font-size: 1.5rem;
-  &:hover {
-    color: #6cff5c;
-  }
-`;
-
-const PhaseContainer = styled.div`
-  position: absolute;
-  bottom: 7px;
-  right: 0;
-  display: ${(props) => (props.show ? "flex" : "none")};
-  align-items: center;
-  justify-content: center;
-  padding-right: 0.5rem;
-`;
-
-const PhaseItem = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: ${(props) =>
-    props.active ? "rgba(0,0,0,0.5)" : "rgba(0,0,0,0.5)"};
-  color: ${(props) => (props.active ? "#FFFFFF" : "#737c9d;")};
-  padding: 0rem 0.5rem;
-  margin: 0.25rem 0.5rem 0.25rem 0.25rem;
-  opacity: 0.5;
-
-  &:hover {
-    color: #ffffff;
-  }
-`;
-
-const PhaseItemIgnore = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: ${(props) =>
-    props.active ? "rgba(0,0,0,0.5)" : "rgba(0,0,0,0.5)"};
-  color: ${(props) => (props.active ? "#bd2a2e" : "#737c9d;")};
-  padding: 0rem 0.5rem;
-  margin: 0.25rem;
-
-  &:hover {
-    color: #ff4858;
-  }
 `;
 
 const XPText = styled.div`
@@ -340,15 +230,13 @@ export default function AchievementCardWithPhase(props) {
     description,
     phase,
   } = props.achievement;
-  const { gameName } = props?.gameName || "";
-  const currentPhase = props?.phase || "";
+  const { width, hideUnlock } = props;
   const gameId = props?.gameId || "";
-  const showIgnore = props.showIgnore;
   const activateCompletionOpacity = props.activateCompletionOpacity;
 
   const steamtracker = useSelector((state) => state.steamtracker);
   const { hiddenGames, games, settings } = steamtracker;
-  const { gamesPage, settingsPage } = settings;
+  const { settingsPage } = settings;
 
   const [hiddenDescription, setHiddenDescription] = useState("HIDDEN");
 
@@ -362,93 +250,19 @@ export default function AchievementCardWithPhase(props) {
 
   const dispatch = useDispatch();
 
-  const setPhaseForAchievement = (achievementName, phaseValue) => {
-    if (props.achievement) {
-      if (typeof window !== "undefined") {
-        localStorage.setItem(`${gameId}_${achievementName}_PHASE`, phaseValue);
-        dispatch(updatePhaseForAchievement(achievementName, phaseValue));
-      }
-    }
-  };
-
   const game = games.find((game) => game.id == gameId);
 
-  const [showPhases, setShowPhases] = useState(false);
-
   const [showJournal, setShowJournal] = useState(false);
-  const [journalData, setJournalData] = useState("");
-
-  const onDataSaved = (journalData) => {
-    if (typeof window !== "undefined") {
-      localStorage.setItem(`${gameId}_${name}_JOURNAL`, journalData);
-    }
-  };
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const journalDataInStore = localStorage.getItem(
-        `${gameId}_${name}_JOURNAL`
-      );
-      if (!journalDataInStore) setJournalData((old) => "");
-      else setJournalData((old) => journalDataInStore);
-    }
-  }, [showJournal]);
-
-  const addToIgnoreList = () => {
-    if (typeof window !== "undefined") {
-      if (ignoreActive) {
-        let ignoreListInStorage =
-          localStorage.getItem(`${gameId}_IGNORE`) || JSON.stringify([]);
-        let ignoredAchievements = JSON.parse(ignoreListInStorage);
-        ignoredAchievements = ignoredAchievements.filter(
-          (achName) => achName !== name
-        );
-
-        localStorage.setItem(
-          `${gameId}_IGNORE`,
-          JSON.stringify(ignoredAchievements)
-        );
-        setIgnoreActive((old) => false);
-      } else {
-        let ignoreListInStorage =
-          localStorage.getItem(`${gameId}_IGNORE`) || JSON.stringify([]);
-        let ignoredAchievements = JSON.parse(ignoreListInStorage);
-        ignoredAchievements = [...ignoredAchievements, name];
-
-        localStorage.setItem(
-          `${gameId}_IGNORE`,
-          JSON.stringify(ignoredAchievements)
-        );
-        setIgnoreActive((old) => true);
-      }
-    }
-  };
-
-  const [ignoreActive, setIgnoreActive] = useState(false);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      let ignoreListInStorage =
-        localStorage.getItem(`${gameId}_IGNORE`) || JSON.stringify([]);
-      let ignoredAchievements = JSON.parse(ignoreListInStorage);
-      setIgnoreActive((old) => ignoredAchievements.includes(name));
-    }
-  }, [gameId, name]);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      let ignoreListInStorage =
-        localStorage.getItem(`${gameId}_IGNORE`) || JSON.stringify([]);
-      let ignoredAchievements = JSON.parse(ignoreListInStorage);
-      setIgnoreActive((old) => ignoredAchievements.includes(name));
-    }
-  }, []);
 
   return (
     <Container
+      width={width}
       achieved={achieved}
       activateCompletionOpacity={activateCompletionOpacity}
       opacity={settingsPage?.unlockedAchievementOpacity}
+      onClick={() => {
+        dispatch(setShowJournalRightSidebar(props.achievement));
+      }}
     >
       <MainContainer>
         <IconContainer>
@@ -478,10 +292,6 @@ export default function AchievementCardWithPhase(props) {
           <Description>{description || hiddenDescription}</Description>
         </DataContainer>
         <PercentageContainer>
-          {/* <PercentageIcon>
-            <FaGlobe />
-          </PercentageIcon>
-          <PercentageText>{percentage.toFixed(2)}%</PercentageText> */}
           <RarityIcon color={getRarityColorFromPercentage(percentage)}>
             <FaTrophy />
           </RarityIcon>
@@ -493,7 +303,7 @@ export default function AchievementCardWithPhase(props) {
           </HiddenContainer>
         )}
       </MainContainer>
-      {achieved == 1 && (
+      {achieved == 1 && !hideUnlock && (
         <UnlockedContainer achieved={achieved}>
           {`${new Date(unlocktime * 1000).toString().slice(0, -40)}, ${new Date(
             unlocktime * 1000

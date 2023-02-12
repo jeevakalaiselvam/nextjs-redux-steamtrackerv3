@@ -53,6 +53,8 @@ import {
   SET_RARITY_FILTER_FOR_GAME,
   SET_OPACITY_UNLOCKED_ACHIEVEMENT,
   LAST_SELECTED_GAME,
+  ADD_JOURNAL_GAME_ACHIEVEMENT,
+  TOGGLE_JOURNAL_RIGHTSIDEBAR,
 } from "../types/games.types";
 
 const INITIAL_STATE = {
@@ -117,12 +119,25 @@ const INITIAL_STATE = {
   pinnedGames: [],
   rarityFilters: {},
   lastSelectedGame: "",
+  journalMap: {},
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case ADD_JOURNAL_GAME_ACHIEVEMENT:
+      return {
+        ...state,
+        journalMap: {
+          ...journalMap,
+          [payload?.gameId]: {
+            ...(journalMap?.payload?.gameId ?? {}),
+            [payload?.achievementId]: payload?.journal,
+          },
+        },
+      };
+
     case LAST_SELECTED_GAME:
       return {
         ...state,
@@ -248,6 +263,18 @@ const reducer = (state = INITIAL_STATE, action) => {
             ...state.settings.gamePage,
             journalContainerVisible: payload.rightSidebarOpen,
             selectedAchievement: payload.selectedAchievement,
+          },
+        },
+      };
+
+    case TOGGLE_JOURNAL_RIGHTSIDEBAR:
+      return {
+        ...state,
+        settings: {
+          ...state.settings,
+          gamePage: {
+            ...state.settings.gamePage,
+            journalContainerVisible: payload.rightSidebarOpen,
           },
         },
       };

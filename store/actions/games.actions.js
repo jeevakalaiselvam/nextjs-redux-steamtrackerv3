@@ -36,6 +36,8 @@ import {
   SET_RARITY_FILTER_FOR_GAME,
   SET_OPACITY_UNLOCKED_ACHIEVEMENT,
   LAST_SELECTED_GAME,
+  ADD_JOURNAL_GAME_ACHIEVEMENT,
+  TOGGLE_JOURNAL_RIGHTSIDEBAR,
 } from "../types/games.types";
 import axios from "axios";
 import { getPhaseFiltedAchievements } from "../../helpers/achievementHelper";
@@ -60,6 +62,15 @@ export const setShowJournalRightSidebar = (selectedAchievement) => {
     return dispatch({
       type: SHOW_JOURNAL_RIGHTSIDEBAR,
       payload: { selectedAchievement, rightSidebarOpen: true },
+    });
+  };
+};
+
+export const toggleJournalRightSidebar = (toggleJournalSidebar) => {
+  return (dispatch) => {
+    return dispatch({
+      type: TOGGLE_JOURNAL_RIGHTSIDEBAR,
+      payload: { rightSidebarOpen: toggleJournalSidebar },
     });
   };
 };
@@ -279,6 +290,12 @@ export const changeThemeId = (themeId) => {
 export const addPinnedGame = (payload) => {
   return (dispatch) => {
     return dispatch({ type: ADD_PINNED_GAME, payload });
+  };
+};
+
+export const addJournalGameAchievement = (payload) => {
+  return (dispatch) => {
+    return dispatch({ type: ADD_JOURNAL_GAME_ACHIEVEMENT, payload });
   };
 };
 

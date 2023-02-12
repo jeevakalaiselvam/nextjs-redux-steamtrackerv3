@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import {
   getAllUnlockedAchievements,
@@ -14,6 +14,8 @@ import {
 } from "../../../helpers/filterHelper";
 import { getIcon } from "../../../helpers/iconHelper";
 import { calculateXPFromPercentage } from "../../../helpers/xpHelper";
+import { toggleJournalRightSidebar } from "../../../store/actions/games.actions";
+import AchievementCardWithPhase from "../../atoms/AchievementCardWithPhase";
 import JournalInput from "../../atoms/JournalInput";
 import Achievements from "../../organisms/Achievements";
 
@@ -70,6 +72,7 @@ const JournalContainer = styled.div`
   display: flex;
   transition: 0.5s all;
   align-items: flex-start;
+  flex-direction: column;
   padding: 1rem;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.2);
@@ -80,12 +83,14 @@ const JournalContainer = styled.div`
 
 export default function GameRightSidebar() {
   const steamtracker = useSelector((state) => state.steamtracker);
-  const { games, settings } = steamtracker;
+  const { games, settings, journalMap } = steamtracker;
   const { gamePage } = settings;
-  const { selectedAchievement: achievement } = gamePage;
+  const { selectedAchievement: achievement, journalContainerVisible } =
+    gamePage;
 
   const router = useRouter();
   const { gameId } = router.query;
+  const dispatch = useDispatch();
 
   let game;
   let todayOnly = [];
@@ -94,51 +99,16 @@ export default function GameRightSidebar() {
     todayOnly = getaUnlockedAchievementsByType(game.achievements, "TODAY");
   }
 
-  const [showJournal, setShowJournal] = useState(false);
-  const [journalData, setJournalData] = useState("");
-  const [saveStatus, setSavedStatus] = useState("");
-
-  const onDataSaved = (journalData) => {
-    if (typeof window !== "undefined") {
-      setSavedStatus((old) => "Saving..");
-      localStorage.setItem(`${gameId}_${name}_JOURNAL`, journalData);
-      setSavedStatus((old) => "Saved!");
-      setTimeout(() => {
-        setSavedStatus((old) => "");
-      }, 1000);
-    }
-  };
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const journalDataInStore = localStorage.getItem(
-        `${gameId}_${name}_JOURNAL`
-      );
-      if (!journalDataInStore) setJournalData((old) => "");
-      else setJournalData((old) => journalDataInStore);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const journalDataInStore = localStorage.getItem(
-        `${gameId}_${name}_JOURNAL`
-      );
-      if (!journalDataInStore) setJournalData((old) => "");
-      else setJournalData((old) => journalDataInStore);
-    }
-  }, [achievement]);
-
-  const [journalVisible, setJournalVisible] = useState(false);
+  const onDataSaved = () => {};
 
   return (
     <Container>
-      {game && !journalVisible && (
+      {game && !journalContainerVisible && (
         <>
           <TitleContainer>
             <Title
               onClick={() => {
-                setJournalVisible((old) => true);
+                dispatch(toggleJournalRightSidebar(true));
               }}
             >
               UNLOCKED TODAY
@@ -163,14 +133,27 @@ export default function GameRightSidebar() {
         </>
       )}
 
-      {journalVisible && (
+      {journalContainerVisible && (
         <JournalContainer show={true}>
-          <JournalInput
-            hideJournal={() => setJournalVisible((old) => false)}
-            onDataSaved={onDataSaved}
-            journalData={journalData}
+          <AchievementCardWithPhase
             achievement={achievement}
-            saveStatus={saveStatus}
+            width={"100%"}
+            hideUnlock={true}
+          />
+          <JournalInput
+            hideJournal={() => {
+              dispatch(toggleJournalRightSidebar(false));
+            }}
+            onDataSaved={onDataSaved}
+            journalData={
+              (journalMap &&
+                gameId &&
+                journalMap[gameId] &&
+                journalMap[gameId][achievement.id]) ??
+              "No Journal Present!"
+            }
+            achievement={achievement}
+            saveStatus={"SAVING..."}
           />
         </JournalContainer>
       )}
