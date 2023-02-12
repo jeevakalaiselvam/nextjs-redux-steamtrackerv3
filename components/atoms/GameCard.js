@@ -311,6 +311,7 @@ export default function GameCard({ game }) {
             localStorage.setItem("SELECTED_GAME", id);
           }
           dispatch(setLastSelectedGame(id));
+          dispatch(changeGamesPageSearchTerm(""));
           router.push(`/games/${id}`);
         }}
       >

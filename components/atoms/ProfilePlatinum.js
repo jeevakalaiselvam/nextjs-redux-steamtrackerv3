@@ -9,22 +9,35 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { openLinkInNewTab } from "../../helpers/browserHelper";
+import {
+  COMMON_COLOR,
+  EPIC_COLOR,
+  LEGENDARY,
+  LEGENDARY_COLOR,
+  MARVEL_COLOR,
+  RARE_COLOR,
+  UNCOMMON_COLOR,
+  WASTE_COLOR,
+} from "../../helpers/colorHelper";
 import { getIcon } from "../../helpers/iconHelper";
 import {
   calculateLevelFromAllGames,
+  calculateRarityLeftFromAchievements,
+  calculateRarityLeftFromGames,
   calculateTotalXPForAllGames,
   COMPLETION_TARGET,
+  getRarityColorFromPercentage,
   XP_FOR_LEVEL,
 } from "../../helpers/xpHelper";
 
 const Container = styled.div`
   display: flex;
-  background-color: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(10px);
   align-items: center;
   padding: 1rem;
   justify-content: center;
   margin-top: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.3);
   flex-direction: column;
   width: 95%;
   cursor: pointer;
@@ -54,59 +67,25 @@ const Title = styled.div`
   font-size: 1.5rem;
 `;
 
-const LevelContainer = styled.div`
+const Level = styled.div`
   display: flex;
   align-items: center;
   flex-direction: row;
   justify-content: center;
-  padding: 1rem;
-  margin-top: "1rem";
+  padding: 1rem 0rem 0rem 0rem;
+  margin-top: "0.5rem";
+  flex-wrap: wrap;
 `;
 
-const LevelContainerRow = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  justify-content: center;
-  padding: 1rem;
-`;
-
-const GoldTrophy = styled.div`
+const Trophy = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+  width: 50px;
   justify-content: center;
-  color: #ffcc00;
-  font-size: 2rem;
-`;
-
-const PurpleTrophy = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-  color: #b55af2;
+  color: ${(props) => (props.color ? props.color : "")};
   margin-top: 0.5rem;
   font-size: 2rem;
-`;
-
-const SilverTrophy = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-  color: #c0c0c0;
-  font-size: 3rem;
-  margin-right: 3rem;
-`;
-
-const BronzeTrophy = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-  color: #b87333;
-  font-size: 3rem;
 `;
 
 const Icon = styled.div`
@@ -128,56 +107,10 @@ const Text = styled.div`
 const ProfilePlatinum = (props) => {
   const dispatch = useDispatch();
   const steamtracker = useSelector((state) => state.steamtracker);
-  const { games, planner } = steamtracker;
+  const { games } = steamtracker;
 
-  const router = useRouter();
-  const { gameId } = router.query;
-
-  const game = games.find((game) => game.id == gameId);
-
-  const { xpTotal, currentLevel, toNextLevel, unlockedAll } =
-    calculateLevelFromAllGames(games);
-
-  const platinumCount = games.reduce((acc, game) => {
-    if (+game.completion == COMPLETION_TARGET * 100) {
-      return acc + 1;
-    } else {
-      return acc;
-    }
-  }, 0);
-
-  const goldCount = games.reduce((acc, game) => {
-    if (
-      +game.completion >= COMPLETION_TARGET * 75 &&
-      +game.completion < COMPLETION_TARGET * 100
-    ) {
-      return acc + 1;
-    } else {
-      return acc;
-    }
-  }, 0);
-
-  const silverCount = games.reduce((acc, game) => {
-    if (
-      +game.completion >= COMPLETION_TARGET * 50 &&
-      +game.completion < COMPLETION_TARGET * 75
-    ) {
-      return acc + 1;
-    } else {
-      return acc;
-    }
-  }, 0);
-
-  const bronzeCount = games.reduce((acc, game) => {
-    if (
-      +game.completion >= COMPLETION_TARGET * 25 &&
-      +game.completion < COMPLETION_TARGET * 50
-    ) {
-      return acc + 1;
-    } else {
-      return acc;
-    }
-  }, 0);
+  const { waste, common, uncommon, rare, epic, legendary, marvel } =
+    calculateRarityLeftFromGames(games);
 
   return (
     <Container
@@ -185,7 +118,6 @@ const ProfilePlatinum = (props) => {
         if (window !== "undefined") {
           const searchQuery = `${game.name} trophy guide `;
           window.open(`https://www.google.com/search?q=${searchQuery}`);
-          // window.open(`https://www.youtube.com/results?search_query=${searchQuery}`);
         }
       }}
     >
@@ -194,31 +126,47 @@ const ProfilePlatinum = (props) => {
           <HiOutlineChevronDoubleUp
             style={{ marginRight: "0.5rem", color: "#6cff5c" }}
           />
-          <Title>PLATINUM</Title>
+          <Title>RARITY</Title>
           <HiOutlineChevronDoubleUp
             style={{ marginLeft: "0.5rem", color: "#6cff5c" }}
           />
         </Header>
-        <LevelContainer>
-          <PurpleTrophy>
+        <Level>
+          <Trophy color={MARVEL_COLOR}>
             <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
-            <Text>{platinumCount}</Text>
-          </PurpleTrophy>
-          {/* <GoldTrophy>
+            <Text>{marvel}</Text>
+          </Trophy>
+        </Level>
+        <Level>
+          <Trophy color={LEGENDARY_COLOR}>
             <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
-            <Text>{goldCount}</Text>
-          </GoldTrophy> */}
-        </LevelContainer>
-        {/* <LevelContainerRow>
-          <SilverTrophy>
+            <Text>{legendary}</Text>
+          </Trophy>
+          <Trophy color={EPIC_COLOR}>
             <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
-            <Text>{silverCount}</Text>
-          </SilverTrophy>
-          <BronzeTrophy>
+            <Text>{epic}</Text>
+          </Trophy>
+        </Level>
+        <Level>
+          <Trophy color={RARE_COLOR}>
             <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
-            <Text>{bronzeCount}</Text>
-          </BronzeTrophy>
-        </LevelContainerRow> */}
+            <Text>{rare}</Text>
+          </Trophy>
+          <Trophy color={UNCOMMON_COLOR}>
+            <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
+            <Text>{uncommon}</Text>
+          </Trophy>
+        </Level>
+        <Level>
+          <Trophy color={COMMON_COLOR}>
+            <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
+            <Text>{common}</Text>
+          </Trophy>
+          <Trophy color={WASTE_COLOR}>
+            <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
+            <Text>{waste}</Text>
+          </Trophy>
+        </Level>
       </LevelFragment>
     </Container>
   );
