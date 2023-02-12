@@ -79,7 +79,7 @@ const INITIAL_STATE = {
       leftSidebarOpen: true,
       rightSidebarOpen: true,
       leftSidebarWidth: "200px",
-      rightSidebarWidth: "450px",
+      rightSidebarWidth: "400px",
       showHistoryModal: false,
       historyModalAchievements: [],
       historyModalTitle: "",

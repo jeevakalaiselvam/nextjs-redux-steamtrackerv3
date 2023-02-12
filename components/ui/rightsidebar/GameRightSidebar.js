@@ -31,7 +31,6 @@ const Container = styled.div`
   padding: 0.25rem 0;
   min-height: 100vh;
   max-height: 100vh;
-  padding: 1rem;
   overflow: hidden;
 `;
 
