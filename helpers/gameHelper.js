@@ -16,7 +16,7 @@ export const sortGamesByFilterOption = (games, filterOption, pinnedGames) => {
       break;
     case GAMES_OPTION_COMPLETION_PINNED:
       newGames = games.filter((game) => {
-        return pinnedGames.includes(game.id) || game.completion == 100;
+        return pinnedGames?.includes(game.id) || game.completion == 100;
       });
       newGames = newGames.sort(
         (game1, game2) => game2.completion - game1.completion
@@ -54,7 +54,7 @@ export const sortGamesBySearchTerm = (games, searchTerm) => {
   let newGames = games;
   if (searchTerm !== "") {
     newGames = games.filter((game) =>
-      game.name.toLowerCase().trim().includes(searchTerm.toLowerCase().trim())
+      game.name.toLowerCase().trim()?.includes(searchTerm.toLowerCase().trim())
     );
   }
   return newGames;
@@ -113,7 +113,7 @@ export const getPhaseAddedGames = (game) => {
         let ignoredAchievementsInStorage =
           localStorage.getItem(`${game.id}_IGNORE`) || JSON.stringify([]);
         let ignoredAchievements = JSON.parse(ignoredAchievementsInStorage);
-        if (!ignoredAchievements.includes(achievement.name)) {
+        if (!ignoredAchievements?.includes(achievement.name)) {
           return true;
         }
       }

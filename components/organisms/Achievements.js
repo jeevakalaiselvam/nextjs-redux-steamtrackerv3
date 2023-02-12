@@ -63,11 +63,11 @@ export default function Achievements({
                 achievement.displayName
                   .toLowerCase()
                   .trim()
-                  .includes(searchTerm.toLowerCase().trim()) ||
+                  ?.includes(searchTerm.toLowerCase().trim()) ||
                 achievement.description
                   .toLowerCase()
                   .trim()
-                  .includes(searchTerm.toLowerCase().trim())
+                  ?.includes(searchTerm.toLowerCase().trim())
               ) {
                 return true;
               }

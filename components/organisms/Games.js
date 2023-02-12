@@ -36,7 +36,7 @@ export default function Games({ games, filterOption, searchTerm }) {
           game.name
             .toLowerCase()
             .trim()
-            .includes(searchTerm.toLowerCase().trim())
+            ?.includes(searchTerm.toLowerCase().trim())
         ) {
           return true;
         }

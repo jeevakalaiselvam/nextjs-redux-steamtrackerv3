@@ -235,7 +235,7 @@ export default function GameCard({ game }) {
       let ignoredAchievementsInStorage =
         localStorage.getItem(`${id}_IGNORE`) || JSON.stringify([]);
       let ignoredAchievements = JSON.parse(ignoredAchievementsInStorage);
-      if (!ignoredAchievements.includes(achievement.name)) {
+      if (!ignoredAchievements?.includes(achievement.name)) {
         return true;
       }
     }
@@ -353,14 +353,14 @@ export default function GameCard({ game }) {
         }}
         movePinRight={movePinRight}
         active={
-          (pinnedGames && pinnedGames?.length && pinnedGames.includes(id)) ??
+          (pinnedGames && pinnedGames?.length && pinnedGames?.includes(id)) ??
           false
         }
         onClick={() => {
           if (
             pinnedGames &&
             pinnedGames.length > 0 &&
-            pinnedGames.includes(id)
+            pinnedGames?.includes(id)
           ) {
             dispatch(removePinnedGame({ gameId: id }));
             dispatch(changeGamesPageSearchTerm(""));

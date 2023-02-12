@@ -282,7 +282,7 @@ export default function AchievementCardWithPhase(props) {
 
   useEffect(() => {
     if (gameId) {
-      if (pinnedAchievements[gameId].includes(name)) {
+      if (pinnedAchievements[gameId]?.includes(name)) {
         setPinned(true);
       } else {
         setPinned(false);
