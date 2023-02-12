@@ -10,6 +10,7 @@ import {
   changeGamePageSearchTerm,
   setGameDataRefresh,
   setRarityFilterForGame,
+  toggleJournalRightSidebar,
 } from "../../../store/actions/games.actions";
 import Filter from "../../atoms/Filter";
 import Search from "../../atoms/Search";
@@ -125,7 +126,7 @@ const SearchContainer = styled.div`
   justify-content: flex-end;
 `;
 
-const RefreshContainer = styled.div`
+const InnerContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -180,7 +181,7 @@ const ToGetData = styled.div`
   font-size: 1.5rem;
 `;
 
-const RefreshIcon = styled.div`
+const Icon = styled.div`
   display: flex;
   align-items: center;
   z-index: 8;
@@ -284,6 +285,7 @@ export default function GameHeader() {
   };
 
   const refreshButtonClickHandler = async () => {
+    dispatch(toggleJournalRightSidebar(false));
     if (typeof window !== "undefined") {
       localStorage.setItem(
         PLAYER_LEVEL_KEY,
@@ -339,18 +341,18 @@ export default function GameHeader() {
         />
       </FilterContainer> */}
       <ClearTrophyFilter>
-        <RefreshContainer
+        <InnerContainer
           onClick={() => {
             dispatch(
               setRarityFilterForGame({ gameId: gameData.id, rarity: "ALL" })
             );
           }}
         >
-          <RefreshIcon rotate={false}>
+          <Icon rotate={false}>
             <TbArrowsMaximize />
-          </RefreshIcon>
+          </Icon>
           <RefreshText>SHOW ALL</RefreshText>
-        </RefreshContainer>
+        </InnerContainer>
       </ClearTrophyFilter>
       <RemainingContainer>
         <TrophyRemainingList>
@@ -421,12 +423,12 @@ export default function GameHeader() {
       </RemainingContainer>
       <SearchContainer>
         <Search onSearchObtained={onSearchObtained} />
-        <RefreshContainer onClick={refreshButtonClickHandler}>
-          <RefreshIcon rotate={refreshing}>
+        <InnerContainer onClick={refreshButtonClickHandler}>
+          <Icon rotate={refreshing}>
             <TbRefresh />
-          </RefreshIcon>
+          </Icon>
           <RefreshText>REFRESH</RefreshText>
-        </RefreshContainer>
+        </InnerContainer>
       </SearchContainer>
     </Container>
   );
