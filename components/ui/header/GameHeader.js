@@ -38,6 +38,7 @@ import {
   RARE,
   RARE_COLOR,
   UNCOMMON,
+  UNCOMMON_COLOR,
   WASTE,
   WASTE_COLOR,
 } from "../../../helpers/colorHelper";
@@ -147,7 +148,7 @@ const XPContainer = styled.div`
   top: 0;
   left: 150px;
   z-index: 8;
-  padding: 0.5rem;
+  padding: 0.25rem;
   color: ${(props) => (props.iconColor ? props.iconColor : "")};
   transition: all 0.5s;
 `;
@@ -155,7 +156,7 @@ const XPContainer = styled.div`
 const XPIcon = styled.div`
   display: flex;
   align-items: center;
-  font-size: 1.75rem;
+  font-size: 2rem;
   margin-right: 1rem;
   z-index: 8;
   justify-content: center;
@@ -166,7 +167,7 @@ const XPData = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 8;
-  font-size: 1.5rem;
+  font-size: 2rem;
 `;
 
 const RefreshText = styled.div`
@@ -341,7 +342,7 @@ export default function GameHeader() {
             <TrophyCount>{rarityInfo.common}</TrophyCount>
           </TrophyContainer>
           <TrophyContainer
-            color={COMMON_COLOR}
+            color={UNCOMMON_COLOR}
             onClick={() => filterAchievementsByRarity(UNCOMMON)}
           >
             <TrophyIcon>
