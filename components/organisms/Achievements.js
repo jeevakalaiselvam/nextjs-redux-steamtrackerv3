@@ -40,6 +40,7 @@ export default function Achievements({
   showOnly,
   noWrap,
   pinnedOnly,
+  includeAll,
 }) {
   const [searchFilteredAchievements, setSearchFilteredAchievements] = useState(
     []
@@ -80,13 +81,19 @@ export default function Achievements({
         filterOption,
         gameId
       );
-      const rarityFilteredAchievements = filterAchievementsByRarityFilter(
+      let rarityFilteredAchievements = filterAchievementsByRarityFilter(
         filteredAchievements,
         gameId,
         rarityFilters
       );
 
-      let pinnedIncluded = rarityFilteredAchievements;
+      let rarityIgnoredIfAllAchievements = [];
+      rarityIgnoredIfAllAchievements = rarityFilteredAchievements;
+      if (includeAll) {
+        rarityIgnoredIfAllAchievements = filteredAchievements;
+      }
+
+      let pinnedIncluded = rarityIgnoredIfAllAchievements;
       let finalAchievementToSet = [];
 
       if (pinnedOnly) {
