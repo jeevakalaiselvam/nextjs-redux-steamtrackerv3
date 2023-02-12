@@ -26,17 +26,6 @@ const RootContainer = styled.div`
   height: 95vh;
 `;
 
-const DataContainer = styled.div`
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  max-height: 100%;
-  min-height: 100%;
-  position: relative;
-`;
-
 const JournalContainer = styled.div`
   display: flex;
   transition: 0.5s all;
@@ -82,30 +71,28 @@ const HistoryContainer = styled.div`
   overflow: scroll;
 `;
 
+const DataContainer = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  max-height: 100%;
+  min-height: 100%;
+  padding: 0.5rem;
+  position: relative;
+`;
+
 const AchievementContainer = styled.div`
   display: flex;
   align-content: center;
   justify-content: center;
-  flex: 1;
+  min-height: 95vh;
+  background-color: rgba(0, 0, 0, 0.1);
+  max-height: 95vh;
   overflow: scroll;
-`;
-
-const AchievementInner = styled.div`
-  display: flex;
-  width: 100%;
-  height: 100%;
-  align-content: center;
-  justify-content: center;
-  overflow: scroll;
-`;
-
-const Header = styled.div`
-  display: flex;
-  padding: 0.5rem 3rem;
-  margin-top: 1rem;
-  font-size: 2rem;
-  align-content: center;
-  justify-content: flex-start;
+  margin-right: 0.25rem;
+  flex: 3;
 `;
 
 const MissableAchievementContainer = styled.div`
@@ -116,9 +103,28 @@ const MissableAchievementContainer = styled.div`
   z-index: 10000;
   flex-direction: column;
   justify-content: flex-start;
-  min-height: 320px;
-  max-height: 320px;
+  flex: 2;
   overflow: scroll;
+  min-height: 95vh;
+  max-height: 95vh;
+`;
+
+const AchievementInner = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  height: 100%;
+  align-content: center;
+  justify-content: center;
+`;
+
+const Header = styled.div`
+  display: flex;
+  padding: 0.5rem 3rem;
+  margin-top: 1rem;
+  font-size: 2rem;
+  align-content: center;
+  justify-content: flex-start;
 `;
 
 const CloseButton = styled.div`
@@ -235,6 +241,7 @@ export default function GameContent() {
         )}
         <AchievementContainer>
           <AchievementInner>
+            <Header>All Achievements</Header>
             <Achievements
               game={game}
               filterOption={GAME_OPTION_PERCENTAGE_DESC}
@@ -246,7 +253,7 @@ export default function GameContent() {
           </AchievementInner>
         </AchievementContainer>
         <MissableAchievementContainer>
-          <Header>Tracking</Header>
+          <Header>Pinned Achievements</Header>
           <Achievements
             game={game}
             filterOption={GAME_OPTION_PERCENTAGE_DESC}

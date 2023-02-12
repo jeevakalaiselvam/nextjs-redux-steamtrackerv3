@@ -91,11 +91,6 @@ export default function Achievements({
 
       if (pinnedOnly) {
         pinnedIncluded = filteredAchievements.filter((achievement) => {
-          console.log("CHECKING", {
-            gameId: game.id,
-            one: pinnedAchievements[game.id] ?? [],
-            two: achievement.name,
-          });
           if ((pinnedAchievements[game.id] ?? []).includes(achievement.name)) {
             return true;
           } else {
