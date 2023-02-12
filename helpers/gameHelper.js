@@ -6,7 +6,12 @@ import {
   GAMES_OPTION_RECENT,
 } from "./filterHelper";
 
-export const sortGamesByFilterOption = (games, filterOption, pinnedGames) => {
+export const sortGamesByFilterOption = (
+  games,
+  filterOption,
+  pinnedGames,
+  completionPercentageTarget
+) => {
   let newGames = [];
   switch (filterOption) {
     case GAMES_OPTION_RECENT:
@@ -16,7 +21,13 @@ export const sortGamesByFilterOption = (games, filterOption, pinnedGames) => {
       break;
     case GAMES_OPTION_COMPLETION_PINNED:
       newGames = games.filter((game) => {
-        return pinnedGames?.includes(game.id) || game.completion == 100;
+        let total = game?.achievements?.length ?? 0;
+        let toGet = game?.toGet ?? 0;
+        let completed = total - toGet;
+        let adjustedTotal = Math.ceil(
+          (completionPercentageTarget / 100) * total
+        );
+        return pinnedGames?.includes(game.id) || completed >= adjustedTotal;
       });
       newGames = newGames.sort(
         (game1, game2) => game2.completion - game1.completion

@@ -8,6 +8,7 @@ import ProfileImage from "../../atoms/ProfileImage";
 import ProfileLevel from "../../atoms/ProfileLevel";
 import ProfileLevelUp from "../../atoms/ProfileLevelUp";
 import ProfilePlatinum from "../../atoms/ProfilePlatinum";
+import ProfileTrophyRarity from "../../atoms/ProfileTrophyRarity";
 import ProfileToGet from "../../atoms/ProfileToGet";
 import ProfileToTotal from "../../atoms/ProfileToTotal";
 import ProfileTrophies from "../../atoms/ProfileTrophies";
@@ -41,9 +42,10 @@ export default function GamesLeftSidebar() {
       <ProfileTrophyProgress />
       {/* <ProfileLevel />
       <ProfileLevelUp /> */}
-      <ProfileHistoryTrophies />
-      <ProfileTrophies />
       <ProfilePlatinum />
+      <ProfileTrophyRarity />
+      <ProfileTrophies />
+      <ProfileHistoryTrophies />
       {/* {gameId && <ProfileToGet />} */}
       {/* {gameId && <ProfileToTotal />} */}
       <ProfileHistoryGraph />

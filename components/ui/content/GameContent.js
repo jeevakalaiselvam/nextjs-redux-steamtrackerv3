@@ -149,7 +149,7 @@ const CloseButton = styled.div`
 export default function GameContent() {
   const dispatch = useDispatch();
   const steamtracker = useSelector((state) => state.steamtracker);
-  const { games, settings, rarityFilters } = steamtracker;
+  const { games, settings, rarityFilters, pinnedAchievements } = steamtracker;
   const { gamePage } = settings;
   const {
     filterOption,
@@ -201,6 +201,16 @@ export default function GameContent() {
     }
   }, []);
 
+  const getPinnedAchievementsCount = () => {
+    return game.achievements.filter((achievement) => {
+      if ((pinnedAchievements[game.id] ?? []).includes(achievement.name)) {
+        return true;
+      } else {
+        return false;
+      }
+    }).length;
+  };
+
   return (
     <RootContainer>
       {journalContainerVisible && false && (
@@ -242,7 +252,7 @@ export default function GameContent() {
         )}
         <AchievementContainer>
           <AchievementInner>
-            <Header>All Achievements</Header>
+            <Header>All Achievements [{game.achievements.length}]</Header>
             <Achievements
               game={game}
               filterOption={GAME_OPTION_PERCENTAGE_DESC}
@@ -254,7 +264,7 @@ export default function GameContent() {
           </AchievementInner>
         </AchievementContainer>
         <MissableAchievementContainer>
-          <Header>Pinned Achievements</Header>
+          <Header>Pinned Achievements [{getPinnedAchievementsCount()}]</Header>
           <Achievements
             game={game}
             filterOption={GAME_OPTION_PERCENTAGE_DESC}

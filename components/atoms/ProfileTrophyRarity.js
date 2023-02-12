@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import React from "react";
-import { useMemo } from "react";
 import { FaTrophy } from "react-icons/fa";
 import {
   HiFastForward,
@@ -97,26 +96,13 @@ const Text = styled.div`
   font-size: ${(props) => (props.fontSize ? props.fontSize : "1.75rem")};
 `;
 
-const ProfilePlatinum = (props) => {
+const ProfileTrophyRarity = (props) => {
   const dispatch = useDispatch();
   const steamtracker = useSelector((state) => state.steamtracker);
-  const { games, settings } = steamtracker;
-  const { settingsPage } = settings;
-  const { completionPercentageTarget } = settingsPage;
+  const { games } = steamtracker;
 
-  let allPlatinum = useMemo(() => {
-    let platinumCount = 0;
-    games.forEach((game) => {
-      let total = game?.achievements?.length ?? 0;
-      let toGet = game?.toGet ?? 0;
-      let completed = total - toGet;
-      let adjustedTotal = Math.ceil((completionPercentageTarget / 100) * total);
-      if (completed >= adjustedTotal) {
-        platinumCount += 1;
-      }
-    });
-    return platinumCount;
-  }, [games]);
+  const { waste, common, uncommon, rare, epic, legendary, marvel } =
+    calculateRarityLeftFromGames(games);
 
   return (
     <Container
@@ -132,15 +118,45 @@ const ProfilePlatinum = (props) => {
           <HiOutlineChevronDoubleUp
             style={{ marginRight: "0.5rem", color: "#6cff5c" }}
           />
-          <Title>PLATINUM</Title>
+          <Title>RARITY</Title>
           <HiOutlineChevronDoubleUp
             style={{ marginLeft: "0.5rem", color: "#6cff5c" }}
           />
         </Header>
         <Level>
+          <Trophy color={MARVEL_COLOR}>
+            <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
+            <Text>{marvel}</Text>
+          </Trophy>
+        </Level>
+        <Level>
+          <Trophy color={LEGENDARY_COLOR}>
+            <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
+            <Text>{legendary}</Text>
+          </Trophy>
           <Trophy color={EPIC_COLOR}>
             <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
-            <Text>{allPlatinum}</Text>
+            <Text>{epic}</Text>
+          </Trophy>
+        </Level>
+        <Level>
+          <Trophy color={RARE_COLOR}>
+            <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
+            <Text>{rare}</Text>
+          </Trophy>
+          <Trophy color={UNCOMMON_COLOR}>
+            <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
+            <Text>{uncommon}</Text>
+          </Trophy>
+        </Level>
+        <Level>
+          <Trophy color={COMMON_COLOR}>
+            <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
+            <Text>{common}</Text>
+          </Trophy>
+          <Trophy color={WASTE_COLOR}>
+            <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
+            <Text>{waste}</Text>
           </Trophy>
         </Level>
       </LevelFragment>
@@ -148,4 +164,4 @@ const ProfilePlatinum = (props) => {
   );
 };
 
-export default ProfilePlatinum;
+export default ProfileTrophyRarity;

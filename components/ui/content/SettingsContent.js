@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { GAME_PAGE } from "../../../helpers/constantHelper";
+import { GAMES_PAGE, GAME_PAGE } from "../../../helpers/constantHelper";
 import SettingsCompletion from "../../settingsatoms/SettingsCompletion";
 import SettingsOpacity from "../../settingsatoms/SettingsOpacity";
 
@@ -26,7 +26,7 @@ export default function SettingsContent() {
     <Container>
       <SettingCard>
         <SettingsOpacity type={GAME_PAGE} />
-        <SettingsCompletion type={GAME_PAGE} />
+        <SettingsCompletion type={GAMES_PAGE} />
       </SettingCard>
     </Container>
   );

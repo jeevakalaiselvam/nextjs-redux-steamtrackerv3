@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { HiOutlineChevronDoubleUp } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { GAME_PAGE } from "../../helpers/constantHelper";
+import { GAMES_PAGE, GAME_PAGE } from "../../helpers/constantHelper";
 import {
   setCompletionPercentageTarget,
   setOpacityForUnlockedAchievement,
@@ -102,6 +102,8 @@ const SettingsCompletion = (props) => {
     if (lastSelectedGame) {
       if (props.type == GAME_PAGE) {
         router.push(`/games/${lastSelectedGame}`);
+      } else if (props.type == GAMES_PAGE) {
+        router.push(`/games`);
       }
     }
   };

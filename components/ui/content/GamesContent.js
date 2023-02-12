@@ -86,13 +86,7 @@ export default function GamesContent() {
   const steamtracker = useSelector((state) => state.steamtracker);
   const { games, settings } = steamtracker;
   const { gamesPage, gamePage } = settings;
-  const {
-    showHistoryModal,
-    historyModalAchievements,
-    historyModalTitle,
-    journalContainerVisible,
-    selectedAchievement: achievement,
-  } = gamePage;
+  const { showHistoryModal, historyModalAchievements } = gamePage;
 
   const { filterOption, searchTerm } = gamesPage;
 
@@ -110,7 +104,6 @@ export default function GamesContent() {
           >
             <HiXCircle />
           </CloseButton>
-          {/* <HistoryTitle>Unlocked Achievements</HistoryTitle> */}
           <HistoryContainer>
             {historyModalAchievements &&
               historyModalAchievements.length > 0 &&
