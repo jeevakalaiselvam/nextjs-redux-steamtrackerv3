@@ -130,9 +130,9 @@ const reducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         journalMap: {
-          ...journalMap,
+          ...state.journalMap,
           [payload?.gameId]: {
-            ...(journalMap?.payload?.gameId ?? {}),
+            ...(state.journalMap?.payload?.gameId ?? {}),
             [payload?.achievementId]: payload?.journal,
           },
         },

@@ -14,7 +14,10 @@ import {
 } from "../../../helpers/filterHelper";
 import { getIcon } from "../../../helpers/iconHelper";
 import { calculateXPFromPercentage } from "../../../helpers/xpHelper";
-import { toggleJournalRightSidebar } from "../../../store/actions/games.actions";
+import {
+  addJournalGameAchievement,
+  toggleJournalRightSidebar,
+} from "../../../store/actions/games.actions";
 import AchievementCardWithPhase from "../../atoms/AchievementCardWithPhase";
 import JournalInput from "../../atoms/JournalInput";
 import Achievements from "../../organisms/Achievements";
@@ -99,7 +102,15 @@ export default function GameRightSidebar() {
     todayOnly = getaUnlockedAchievementsByType(game.achievements, "TODAY");
   }
 
-  const onDataSaved = () => {};
+  const onDataSaved = (journalInfo) => {
+    dispatch(
+      addJournalGameAchievement({
+        gameId: gameId,
+        achievementId: achievement.name,
+        journal: journalInfo,
+      })
+    );
+  };
 
   return (
     <Container>
@@ -149,8 +160,8 @@ export default function GameRightSidebar() {
               (journalMap &&
                 gameId &&
                 journalMap[gameId] &&
-                journalMap[gameId][achievement.id]) ??
-              "No Journal Present!"
+                journalMap[gameId][achievement.name]) ??
+              ""
             }
             achievement={achievement}
             saveStatus={"SAVING..."}

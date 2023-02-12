@@ -82,15 +82,6 @@ export default function JournalInput({
 }) {
   const [journal, setJournal] = useState(journalData);
 
-  //   useEffect(() => {
-  //     const timeoutId = setTimeout(() => {
-  //       onDataSaved(journal);
-  //     }, 100);
-  //     return () => {
-  //       clearTimeout(timeoutId);
-  //     };
-  //   }, [journal]);
-
   const journalChanged = (e) => {
     const data = e.target.value;
     setJournal((old) => data);
@@ -125,6 +116,7 @@ export default function JournalInput({
       <InputContainer>
         <textarea
           value={journal}
+          placeholder="No Journal Data!"
           onChange={journalChanged}
           spellcheck="false"
         />

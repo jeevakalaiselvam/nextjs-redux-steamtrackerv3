@@ -28,6 +28,7 @@ const Container = styled.div`
   flex-direction: column;
   position: relative;
   margin: 0.5rem;
+  height: 120px;
   opacity: ${(props) =>
     props.achieved == 1 && props.activateCompletionOpacity
       ? props.opacity
@@ -44,6 +45,7 @@ const MainContainer = styled.div`
   background: rgba(0, 0, 0, 0.25);
   border-radius: 4px;
   cursor: pointer;
+  height: 120px;
   &:hover {
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
   }
@@ -303,7 +305,7 @@ export default function AchievementCardWithPhase(props) {
           </HiddenContainer>
         )}
       </MainContainer>
-      {achieved == 1 && !hideUnlock && (
+      {achieved == 1 && (
         <UnlockedContainer achieved={achieved}>
           {`${new Date(unlocktime * 1000).toString().slice(0, -40)}, ${new Date(
             unlocktime * 1000
