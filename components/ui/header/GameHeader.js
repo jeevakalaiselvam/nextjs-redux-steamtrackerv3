@@ -317,7 +317,7 @@ export default function GameHeader() {
         <RemainingTrophyContainer>
           <XPContainer iconColor={nextStage.iconColor}>
             <XPIcon>{getIcon("trophy")}</XPIcon>
-            <XPData>{nextStage.next}</XPData>
+            <XPData>{nextStage.next > 0 ? nextStage.next : 0}</XPData>
           </XPContainer>
         </RemainingTrophyContainer>
       </ClearTrophyFilter>

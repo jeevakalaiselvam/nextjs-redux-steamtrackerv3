@@ -154,7 +154,7 @@ export default function GameRightSidebar() {
           </TitleContainer>
           <Achievements
             game={game}
-            filterOption={GAME_OPTION_PERCENTAGE_ASC_UNLOCKTIME}
+            filterOption={GAME_OPTION_PERCENTAGE_DESC_UNLOCKTIME}
             searchTerm={""}
             showOnly={true}
             includeAll={true}

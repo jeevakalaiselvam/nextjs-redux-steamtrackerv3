@@ -202,7 +202,7 @@ export default function GameContent() {
   }, []);
 
   const getPinnedAchievementsCount = () => {
-    return game.achievements.filter((achievement) => {
+    return (game?.achievements ?? []).filter((achievement) => {
       if ((pinnedAchievements[game.id] ?? []).includes(achievement.name)) {
         return true;
       } else {
@@ -252,7 +252,9 @@ export default function GameContent() {
         )}
         <AchievementContainer>
           <AchievementInner>
-            <Header>All Achievements [{game.achievements.length}]</Header>
+            <Header>
+              All Achievements [{game?.achievements?.length ?? 0}]
+            </Header>
             <Achievements
               game={game}
               filterOption={GAME_OPTION_PERCENTAGE_DESC}

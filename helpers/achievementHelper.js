@@ -103,7 +103,7 @@ export const sortAchievementsByFilterOption = (
         (achievement) => +achievement.achieved == 1
       );
       newAchievements = newAchievements.sort(
-        (ach1, ach2) => +ach1.unlocktime > +ach2.unlocktime
+        (ach1, ach2) => +ach2.unlocktime - +ach1.unlocktime
       );
       break;
     case GAME_OPTION_PERCENTAGE_ASC_UNLOCKTIME:
@@ -111,7 +111,7 @@ export const sortAchievementsByFilterOption = (
         (achievement) => +achievement.achieved == 1
       );
       newAchievements = newAchievements.sort(
-        (ach1, ach2) => +ach1.unlocktime < +ach2.unlocktime
+        (ach1, ach2) => +ach1.unlocktime - +ach2.unlocktime
       );
       break;
     default:
