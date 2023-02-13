@@ -130,7 +130,7 @@ export default function GamesHeader() {
   };
 
   const onSearchObtained = (searchTerm) => {
-    dispatch(changeGamesPageSearchTerm(""));
+    dispatch(changeGamesPageSearchTerm(searchTerm));
   };
 
   return (
