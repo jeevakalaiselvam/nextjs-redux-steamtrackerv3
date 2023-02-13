@@ -7,6 +7,7 @@ import {
   GAME_OPTION_PERCENTAGE_DESC_UNLOCKED,
 } from "../../../helpers/filterHelper";
 import Achievements from "../../organisms/Achievements";
+import AchievementsUnlockedRecent from "../../organisms/AchievementsUnlockedRecent";
 
 const Container = styled.div`
   display: flex;
@@ -45,7 +46,7 @@ export default function GamesRightSidebar() {
       {game && (
         <>
           <Title>RECENTLY UNLOCKED</Title>
-          <Achievements
+          <AchievementsUnlockedRecent
             game={game}
             filterOption={GAME_OPTION_PERCENTAGE_DESC_UNLOCKED}
             searchTerm={""}
