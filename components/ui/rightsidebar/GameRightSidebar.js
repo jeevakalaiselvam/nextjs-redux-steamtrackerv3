@@ -105,7 +105,7 @@ export default function GameRightSidebar() {
       setGame(game);
       setTodayOnly(todayOnly);
     }
-  }, [gameId, game]);
+  }, [gameId, game, games]);
 
   const onDataSaved = (journalInfo) => {
     const data = dispatch(

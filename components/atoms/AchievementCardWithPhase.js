@@ -133,8 +133,8 @@ const Title = styled.div`
 
 const Description = styled.div`
   display: flex;
-  min-height: 50px;
-  max-height: 50px;
+  min-height: 70px;
+  max-height: 70px;
   width: 100%;
   padding: 0.5rem;
   font-weight: bold;
@@ -360,7 +360,15 @@ export default function AchievementCardWithPhase(props) {
           >
             {displayName}
           </Title>
-          <Description>{description || hiddenDescription}</Description>
+          <Description>
+            {description &&
+              !hiddenDescription &&
+              description?.slice(0, 75) +
+                `${description?.length > 75 ? "..." : ""}`}
+            {hiddenDescription &&
+              hiddenDescription?.slice(0, 75) +
+                `${description?.length > 75 ? "..." : ""}`}
+          </Description>
         </DataContainer>
         <PercentageContainer>
           <RarityIcon color={getRarityColorFromPercentage(percentage)}>
