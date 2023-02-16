@@ -41,6 +41,7 @@ export default function Achievements({
   noWrap,
   pinnedOnly,
   includeAll,
+  animateRight,
 }) {
   const [searchFilteredAchievements, setSearchFilteredAchievements] = useState(
     []
@@ -131,7 +132,7 @@ export default function Achievements({
     <Container noWrap={noWrap}>
       {showOnly !== "TODAY" &&
         searchFilteredAchievements.length > 0 &&
-        searchFilteredAchievements.map((achievement) => {
+        searchFilteredAchievements.map((achievement, index) => {
           let hiddenDescription = "HIDDEN";
           if (game?.hiddenAchievements) {
             hiddenDescription =
@@ -147,6 +148,8 @@ export default function Achievements({
               key={achievement.name}
               hiddenDescription={hiddenDescription}
               phase={phase}
+              animateRight={animateRight}
+              index={index}
               showIgnore={showIgnore}
               activateCompletionOpacity={activateCompletionOpacity}
             />
@@ -154,7 +157,7 @@ export default function Achievements({
         })}
       {showOnly == "TODAY" &&
         todayOnly.length > 0 &&
-        todayOnly.map((achievement) => {
+        todayOnly.map((achievement, index) => {
           let hiddenDescription = "HIDDEN";
           if (game?.hiddenAchievements) {
             hiddenDescription =
@@ -167,8 +170,10 @@ export default function Achievements({
               <AchievementCardWithPhase
                 gameId={gameId}
                 gameName={name}
+                index={index}
                 achievement={achievement}
                 key={achievement.name}
+                animateRight={animateRight}
                 hiddenDescription={hiddenDescription}
                 phase={phase}
                 showIgnore={showIgnore}
@@ -180,8 +185,10 @@ export default function Achievements({
               <AchievementCardWithPhase
                 gameId={gameId}
                 gameName={name}
+                index={index}
                 achievement={achievement}
                 key={achievement.name}
+                animateRight={animateRight}
                 hiddenDescription={hiddenDescription}
                 phase={phase}
                 showIgnore={showIgnore}

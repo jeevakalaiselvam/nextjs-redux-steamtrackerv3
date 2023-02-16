@@ -153,6 +153,7 @@ export default function GameRightSidebar() {
             </Data>
           </TitleContainer>
           <Achievements
+            animateRight={true}
             game={game}
             filterOption={GAME_OPTION_PERCENTAGE_DESC_UNLOCKTIME}
             searchTerm={""}

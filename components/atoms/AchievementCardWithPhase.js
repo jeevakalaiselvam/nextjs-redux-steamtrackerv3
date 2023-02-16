@@ -41,6 +41,25 @@ const Container = styled.div`
     props.achieved == 1 && props.activateCompletionOpacity
       ? props.opacity
       : "1.0"};
+
+  animation: ${(props) => (props.animateRight ? "animateRight 1s linear" : "")};
+
+  @keyframes animateRight {
+    from {
+      -ms-transform: translateX(-100px);
+      -moz-transform: translateX(-100px);
+      -webkit-transform: translateX(-100px);
+      -o-transform: translateX(-100px);
+      transform: translateX(-100px);
+    }
+    to {
+      -ms-transform: translateX(0px);
+      -moz-transform: translateX(0px);
+      -webkit-transform: translateX(0px);
+      -o-transform: translateX(0px);
+      transform: translateX(0px);
+    }
+  }
 `;
 
 const MainContainer = styled.div`
@@ -253,7 +272,7 @@ export default function AchievementCardWithPhase(props) {
     description,
     phase,
   } = props.achievement;
-  const { width, hideUnlock } = props;
+  const { width, hideUnlock, animateRight, index } = props;
   const gameId = props?.gameId || "";
   const activateCompletionOpacity = props.activateCompletionOpacity;
 
@@ -327,6 +346,8 @@ export default function AchievementCardWithPhase(props) {
 
   return (
     <Container
+      index={index}
+      animateRight={animateRight}
       width={width}
       achieved={achieved}
       activateCompletionOpacity={activateCompletionOpacity}
