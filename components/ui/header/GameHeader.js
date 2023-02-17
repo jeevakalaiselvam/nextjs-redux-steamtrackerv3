@@ -282,16 +282,10 @@ export default function GameHeader() {
 
   const refreshButtonClickHandler = async () => {
     dispatch(toggleJournalRightSidebar(false));
-    if (typeof window !== "undefined") {
-      localStorage.setItem(
-        PLAYER_LEVEL_KEY,
-        Math.floor(xpInfo.xpTotal / XP_FOR_LEVEL)
-      );
-    }
     setRefreshing(true);
     const response = await axios.get(`/api/refresh/${gameId}`);
     const gameRefreshedData = response.data.data;
-    dispatch(setGameDataRefresh(gameId, gameRefreshedData));
+    dispatch(setGameDataRefresh(gameId, { ...gameRefreshedData }));
     setRefreshing(false);
   };
 

@@ -42,7 +42,8 @@ const Container = styled.div`
       ? props.opacity
       : "1.0"};
 
-  animation: ${(props) => (props.animateRight ? "animateRight 1s linear" : "")};
+  animation: ${(props) =>
+    props.animateRight ? `animateRight 0.25s linear` : ""};
 
   @keyframes animateRight {
     from {
