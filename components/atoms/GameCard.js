@@ -10,6 +10,7 @@ import {
   HiPresentationChartLine,
 } from "react-icons/hi";
 import {
+  calculateRarityLeftFromAchievements,
   completionPercentageTarget,
   getAllXPFromAchievements,
   XP_FOR_LEVEL,
@@ -254,6 +255,8 @@ export default function GameCard({ game }) {
 
   let iconColor = COMMON_COLOR;
 
+  const rarityInfo = calculateRarityLeftFromAchievements(game.achievements);
+
   return (
     <Container>
       <Overlay />
@@ -293,10 +296,9 @@ export default function GameCard({ game }) {
       {percentageCompletion < 100 && (
         <XPContainer iconColor={iconColor}>
           <XPIcon>{getIcon("trophy")}</XPIcon>
-          <XPData>{next}</XPData>
+          <XPData>{rarityInfo.remainingInTarget}</XPData>
         </XPContainer>
       )}
-
       <PinIcon
         onMouseEnter={() => {
           setMovePinRight(false);
@@ -325,15 +327,17 @@ export default function GameCard({ game }) {
       >
         <AiFillPushpin />
       </PinIcon>
-      {adjustedPercentage >= 100 && (
+      {console.log("JEEVA - RARITY FOR GAME", { game, rarityInfo })}
+      {rarityInfo.remainingInTarget <= 0 && (
         <CompleteIcon
           active={true}
           onClick={() => {}}
-          color={getColorForOverlay(adjustedPercentage)}
+          color={getColorForOverlay(rarityInfo.remainingInTarget)}
         >
           <FaTrophy />
         </CompleteIcon>
       )}
+      )
     </Container>
   );
 }

@@ -324,7 +324,7 @@ export default function GameHeader() {
             <TrophyIcon>
               <FaTrophy />
             </TrophyIcon>
-            <TrophyCount>{rarityInfo.waste}</TrophyCount>
+            <TrophyCount>{rarityInfo.wasteTarget}</TrophyCount>
           </TrophyContainer>
           <TrophyContainer
             color={COMMON_COLOR}
@@ -333,7 +333,7 @@ export default function GameHeader() {
             <TrophyIcon>
               <FaTrophy />
             </TrophyIcon>
-            <TrophyCount>{rarityInfo.common}</TrophyCount>
+            <TrophyCount>{rarityInfo.commonTarget}</TrophyCount>
           </TrophyContainer>
           <TrophyContainer
             color={UNCOMMON_COLOR}
@@ -342,7 +342,7 @@ export default function GameHeader() {
             <TrophyIcon>
               <FaTrophy />
             </TrophyIcon>
-            <TrophyCount>{rarityInfo.uncommon}</TrophyCount>
+            <TrophyCount>{rarityInfo.uncommonTarget}</TrophyCount>
           </TrophyContainer>
           <TrophyContainer
             color={RARE_COLOR}
@@ -351,7 +351,7 @@ export default function GameHeader() {
             <TrophyIcon>
               <FaTrophy />
             </TrophyIcon>
-            <TrophyCount>{rarityInfo.rare}</TrophyCount>
+            <TrophyCount>{rarityInfo.rareTarget}</TrophyCount>
           </TrophyContainer>
           <TrophyContainer
             color={EPIC_COLOR}
@@ -360,7 +360,7 @@ export default function GameHeader() {
             <TrophyIcon>
               <FaTrophy />
             </TrophyIcon>
-            <TrophyCount>{rarityInfo.epic}</TrophyCount>
+            <TrophyCount>{rarityInfo.epicTarget}</TrophyCount>
           </TrophyContainer>
           <TrophyContainer
             color={LEGENDARY_COLOR}
@@ -369,7 +369,7 @@ export default function GameHeader() {
             <TrophyIcon>
               <FaTrophy />
             </TrophyIcon>
-            <TrophyCount>{rarityInfo.legendary}</TrophyCount>
+            <TrophyCount>{rarityInfo.legendaryTarget}</TrophyCount>
           </TrophyContainer>
           <TrophyContainer
             color={MARVEL_COLOR}
@@ -378,7 +378,7 @@ export default function GameHeader() {
             <TrophyIcon>
               <FaTrophy />
             </TrophyIcon>
-            <TrophyCount>{rarityInfo.marvel}</TrophyCount>
+            <TrophyCount>{rarityInfo.marvelTarget}</TrophyCount>
           </TrophyContainer>
         </TrophyRemainingList>
       </RemainingContainer>

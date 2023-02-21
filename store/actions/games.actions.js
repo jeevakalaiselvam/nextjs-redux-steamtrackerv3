@@ -131,10 +131,14 @@ export const setHiddenAchievementsForGame = (gameId, hiddenAchievements) => {
 };
 
 export const setGameDataRefresh = (gameId, gameRefreshedData) => {
+  let lastUnlockedTime = gameRefreshedData?.achievements.sort(
+    (ach1, ach2) => ach2.unlocktime - ach1.unlocktime
+  )[0]?.unlocktime;
+  console.log("JEEVA", { lastUnlockedTime });
   return (dispatch) => {
     return dispatch({
       type: GAME_DATA_REFRESH,
-      payload: { gameId, gameRefreshedData },
+      payload: { gameId, gameRefreshedData, lastUnlockedTime },
     });
   };
 };

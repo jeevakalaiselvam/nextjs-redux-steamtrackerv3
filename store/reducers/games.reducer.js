@@ -64,6 +64,7 @@ import {
 
 const INITIAL_STATE = {
   games: [],
+  lastUnlockedTime: "",
   hiddenGames: {},
   settings: {
     gamesPage: {
@@ -347,6 +348,7 @@ const reducer = (state = INITIAL_STATE, action) => {
           payload.gameId,
           payload.gameRefreshedData
         ),
+        lastUnlockedTime: payload.lastUnlockedTime,
       };
 
     case SET_PHASE_ADDED_GAME:

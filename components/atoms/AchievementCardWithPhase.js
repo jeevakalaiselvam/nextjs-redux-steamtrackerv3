@@ -278,7 +278,8 @@ export default function AchievementCardWithPhase(props) {
   const activateCompletionOpacity = props.activateCompletionOpacity;
 
   const steamtracker = useSelector((state) => state.steamtracker);
-  const { hiddenGames, games, settings, pinnedAchievements } = steamtracker;
+  const { hiddenGames, games, settings, pinnedAchievements, lastUnlockedTime } =
+    steamtracker;
   const { settingsPage } = settings;
 
   const [hiddenDescription, setHiddenDescription] = useState("HIDDEN");
@@ -299,6 +300,13 @@ export default function AchievementCardWithPhase(props) {
   const [pinned, setPinned] = useState(
     pinnedAchievements[gameId]?.includes(name)
   );
+
+  useEffect(() => {
+    if (Number(unlocktime) > Number(lastUnlockedTime)) {
+      var audio = new Audio("/ps5.mp3");
+      audio.play();
+    }
+  }, []);
 
   useEffect(() => {
     if (gameId) {
