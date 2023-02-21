@@ -27,7 +27,11 @@ export const sortGamesByFilterOption = (
         let adjustedTotal = Math.ceil(
           (completionPercentageTarget / 100) * total
         );
-        return pinnedGames?.includes(game.id) || completed >= adjustedTotal;
+        return (
+          pinnedGames?.includes(game.id) ||
+          completed >= adjustedTotal ||
+          game.completion != 0
+        );
       });
       newGames = newGames.sort(
         (game1, game2) => game2.completion - game1.completion
@@ -45,11 +49,8 @@ export const sortGamesByFilterOption = (
       );
       break;
     case GAMES_OPTION_COMPLETION_STARTED:
-      newGames = games.filter(
-        (game) => game.achievements.length !== game.toGet
-      );
-      newGames = newGames.sort(
-        (game1, game2) => +game1.completion < +game2.completion
+      newGames = games.sort(
+        (game1, game2) => +game2.completion < +game1.completion
       );
       break;
     default:
