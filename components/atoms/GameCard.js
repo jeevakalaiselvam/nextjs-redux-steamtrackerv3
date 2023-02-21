@@ -286,7 +286,7 @@ export default function GameCard({ game }) {
           {name}
         </TitleData>
       </Title>
-      {true && (
+      {false && (
         <ToGetContainer>
           <ToGetData iconColor={iconColor}>
             {percentageCompletion > 100 ? 100 : percentageCompletion}%
