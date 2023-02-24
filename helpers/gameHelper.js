@@ -5,12 +5,14 @@ import {
   GAMES_OPTION_COMPLETION_STARTED,
   GAMES_OPTION_RECENT,
 } from "./filterHelper";
+import { calculateRarityLeftFromAchievements } from "./xpHelper";
 
 export const sortGamesByFilterOption = (
   games,
   filterOption,
   pinnedGames,
-  completionPercentageTarget
+  completionPercentageTarget,
+  targetSettings
 ) => {
   let newGames = [];
   switch (filterOption) {
@@ -21,13 +23,20 @@ export const sortGamesByFilterOption = (
       break;
     case GAMES_OPTION_COMPLETION_PINNED:
       newGames = games.filter((game) => {
+        const rarityInfo = calculateRarityLeftFromAchievements(
+          game.achievements,
+          targetSettings
+        );
+
         let total = game?.achievements?.length ?? 0;
         let toGet = game?.toGet ?? 0;
         let completed = total - toGet;
         let adjustedTotal = Math.ceil(
           (completionPercentageTarget / 100) * total
         );
-        return pinnedGames?.includes(game.id) || completed >= adjustedTotal;
+        return (
+          pinnedGames?.includes(game.id) || rarityInfo.remainingInTarget === 0
+        );
       });
       newGames = newGames.sort(
         (game1, game2) => game2.completion - game1.completion

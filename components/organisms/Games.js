@@ -25,7 +25,7 @@ const Container = styled.div`
 export default function Games({ games, filterOption, searchTerm }) {
   const [searchFilteredGames, setSearchFilteredGames] = useState([]);
   const steamtracker = useSelector((state) => state.steamtracker);
-  const { pinnedGames, settings } = steamtracker;
+  const { pinnedGames, settings, targetSettings } = steamtracker;
   const { settingsPage } = settings;
   const { completionPercentageTarget } = settingsPage;
 
@@ -54,7 +54,8 @@ export default function Games({ games, filterOption, searchTerm }) {
         searchFilteredGames,
         GAMES_OPTION_COMPLETION_PINNED,
         pinnedGames ?? [],
-        completionPercentageTarget ?? 100
+        completionPercentageTarget ?? 100,
+        targetSettings
       );
     }
 
