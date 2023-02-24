@@ -45,7 +45,13 @@ export const sortGamesByFilterOption = (
       );
       break;
     case GAMES_OPTION_COMPLETION_STARTED:
-      newGames = games.sort(
+      newGames = games.filter((game) => {
+        let total = game?.achievements?.length ?? 0;
+        let toGet = game?.toGet ?? 0;
+        let completed = total - toGet;
+        return completed > 1;
+      });
+      newGames = newGames.sort(
         (game1, game2) => +game2.completion < +game1.completion
       );
       break;
