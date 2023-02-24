@@ -296,7 +296,7 @@ export default function GameCard({ game }) {
           </ToGetData>
         </ToGetContainer>
       )}
-      {percentageCompletion < 100 && (
+      {rarityInfo.remainingInTarget > 0 && (
         <XPContainer iconColor={iconColor}>
           <XPIcon>{getIcon("trophy")}</XPIcon>
           <XPData>{rarityInfo.remainingInTarget}</XPData>

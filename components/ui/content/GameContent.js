@@ -271,10 +271,12 @@ export default function GameContent() {
                   rarityFilters[game?.id].slice(1).toLowerCase()) ||
                 "Achievements"}{" "}
               [
-              {rarityFilters[game?.id] &&
+              {(rarityFilters[game?.id] &&
                 rarityInfo[
                   rarityFilters[game?.id]?.toLowerCase() + "Remaining"
-                ]}
+                ]) ??
+                game?.achievements?.length ??
+                0}
               ]
             </Header>
             <Achievements

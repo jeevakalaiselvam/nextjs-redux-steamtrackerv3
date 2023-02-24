@@ -71,17 +71,18 @@ const TrophyRemainingList = styled.div`
 const TrophyContainer = styled.div`
   display: flex;
   align-items: center;
-  flex-direction: column;
+  flex-direction: ${(props) => (props.flex ? props.flex : "column")};
   justify-content: center;
   color: ${(props) => (props.color ? props.color : "")};
-  width: 50px;
+  width: ${(props) => (props.flex == "row" ? "200px" : "50px")};
 `;
 
 const TrophyIcon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.5rem;
+  font-size: ${(props) => (props.flex == "row" ? "3rem" : "2.5rem")};
+  margin-right: ${(props) => (props.flex == "row" ? "1rem" : "0rem")};
 `;
 
 const TrophyCount = styled.div`
@@ -89,6 +90,7 @@ const TrophyCount = styled.div`
   align-items: center;
   justify-content: center;
   font-size: 1.5rem;
+  margin-right: ${(props) => (props.flex == "row" ? "1rem" : "0rem")};
 `;
 
 const ClearTrophyFilter = styled.div`
@@ -167,7 +169,7 @@ const XPData = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 8;
-  font-size: 2rem;
+  font-size: ${(props) => (props.complete ? "1.5rem" : "2rem")};
 `;
 
 const RefreshText = styled.div`
@@ -309,86 +311,110 @@ export default function GameHeader() {
           </Icon>
           <RefreshText>SHOW ALL</RefreshText>
         </InnerContainer>
-        {false && (
+        {
           <RemainingTrophyContainer>
-            <XPContainer iconColor={nextStage.iconColor}>
+            <XPContainer
+              iconColor={MARVEL_COLOR}
+              complete={rarityInfo.remainingInTarget == 0}
+            >
               <XPIcon>{getIcon("trophy")}</XPIcon>
-              <XPData>
+              <XPData complete={rarityInfo.remainingInTarget == 0}>
                 {rarityInfo.remainingInTarget > 0
                   ? rarityInfo.remainingInTarget
-                  : 0}
+                  : "PLATINUM"}
               </XPData>
             </XPContainer>
           </RemainingTrophyContainer>
-        )}
+        }
       </ClearTrophyFilter>
-      <RemainingContainer>
-        <TrophyRemainingList>
-          <TrophyContainer
-            color={WASTE_COLOR}
-            onClick={() => filterAchievementsByRarity(WASTE)}
-          >
-            <TrophyIcon>
-              <FaTrophy />
-            </TrophyIcon>
-            <TrophyCount>{rarityInfo.wasteTarget}</TrophyCount>
-          </TrophyContainer>
-          <TrophyContainer
-            color={COMMON_COLOR}
-            onClick={() => filterAchievementsByRarity(COMMON)}
-          >
-            <TrophyIcon>
-              <FaTrophy />
-            </TrophyIcon>
-            <TrophyCount>{rarityInfo.commonTarget}</TrophyCount>
-          </TrophyContainer>
-          <TrophyContainer
-            color={UNCOMMON_COLOR}
-            onClick={() => filterAchievementsByRarity(UNCOMMON)}
-          >
-            <TrophyIcon>
-              <FaTrophy />
-            </TrophyIcon>
-            <TrophyCount>{rarityInfo.uncommonTarget}</TrophyCount>
-          </TrophyContainer>
-          <TrophyContainer
-            color={RARE_COLOR}
-            onClick={() => filterAchievementsByRarity(RARE)}
-          >
-            <TrophyIcon>
-              <FaTrophy />
-            </TrophyIcon>
-            <TrophyCount>{rarityInfo.rareTarget}</TrophyCount>
-          </TrophyContainer>
-          <TrophyContainer
-            color={EPIC_COLOR}
-            onClick={() => filterAchievementsByRarity(EPIC)}
-          >
-            <TrophyIcon>
-              <FaTrophy />
-            </TrophyIcon>
-            <TrophyCount>{rarityInfo.epicTarget}</TrophyCount>
-          </TrophyContainer>
-          <TrophyContainer
-            color={LEGENDARY_COLOR}
-            onClick={() => filterAchievementsByRarity(LEGENDARY)}
-          >
-            <TrophyIcon>
-              <FaTrophy />
-            </TrophyIcon>
-            <TrophyCount>{rarityInfo.legendaryTarget}</TrophyCount>
-          </TrophyContainer>
-          <TrophyContainer
-            color={MARVEL_COLOR}
-            onClick={() => filterAchievementsByRarity(MARVEL)}
-          >
-            <TrophyIcon>
-              <FaTrophy />
-            </TrophyIcon>
-            <TrophyCount>{rarityInfo.marvelTarget}</TrophyCount>
-          </TrophyContainer>
-        </TrophyRemainingList>
-      </RemainingContainer>
+      {(rarityInfo.remainingInTarget > 0 || true) && (
+        <RemainingContainer>
+          <TrophyRemainingList>
+            <TrophyContainer
+              color={WASTE_COLOR}
+              onClick={() => filterAchievementsByRarity(WASTE)}
+            >
+              <TrophyIcon>
+                <FaTrophy />
+              </TrophyIcon>
+              <TrophyCount>{rarityInfo.wasteTarget}</TrophyCount>
+            </TrophyContainer>
+            <TrophyContainer
+              color={COMMON_COLOR}
+              onClick={() => filterAchievementsByRarity(COMMON)}
+            >
+              <TrophyIcon>
+                <FaTrophy />
+              </TrophyIcon>
+              <TrophyCount>{rarityInfo.commonTarget}</TrophyCount>
+            </TrophyContainer>
+            <TrophyContainer
+              color={UNCOMMON_COLOR}
+              onClick={() => filterAchievementsByRarity(UNCOMMON)}
+            >
+              <TrophyIcon>
+                <FaTrophy />
+              </TrophyIcon>
+              <TrophyCount>{rarityInfo.uncommonTarget}</TrophyCount>
+            </TrophyContainer>
+            <TrophyContainer
+              color={RARE_COLOR}
+              onClick={() => filterAchievementsByRarity(RARE)}
+            >
+              <TrophyIcon>
+                <FaTrophy />
+              </TrophyIcon>
+              <TrophyCount>{rarityInfo.rareTarget}</TrophyCount>
+            </TrophyContainer>
+            <TrophyContainer
+              color={EPIC_COLOR}
+              onClick={() => filterAchievementsByRarity(EPIC)}
+            >
+              <TrophyIcon>
+                <FaTrophy />
+              </TrophyIcon>
+              <TrophyCount>{rarityInfo.epicTarget}</TrophyCount>
+            </TrophyContainer>
+            <TrophyContainer
+              color={LEGENDARY_COLOR}
+              onClick={() => filterAchievementsByRarity(LEGENDARY)}
+            >
+              <TrophyIcon>
+                <FaTrophy />
+              </TrophyIcon>
+              <TrophyCount>{rarityInfo.legendaryTarget}</TrophyCount>
+            </TrophyContainer>
+            <TrophyContainer
+              color={MARVEL_COLOR}
+              onClick={() => filterAchievementsByRarity(MARVEL)}
+            >
+              <TrophyIcon>
+                <FaTrophy />
+              </TrophyIcon>
+              <TrophyCount>{rarityInfo.marvelTarget}</TrophyCount>
+            </TrophyContainer>
+          </TrophyRemainingList>
+        </RemainingContainer>
+      )}
+      {rarityInfo.remainingInTarget == 0 && false && (
+        <RemainingContainer>
+          <TrophyRemainingList>
+            <TrophyContainer
+              flex="row"
+              color={MARVEL_COLOR}
+              onClick={() => filterAchievementsByRarity(MARVEL)}
+            >
+              <TrophyIcon flex="row">
+                <FaTrophy />
+              </TrophyIcon>
+              <TrophyCount flex="row">{"COMPLETED"}</TrophyCount>
+              <TrophyIcon flex="row">
+                <FaTrophy />
+              </TrophyIcon>
+            </TrophyContainer>
+          </TrophyRemainingList>
+        </RemainingContainer>
+      )}
       <SearchContainer>
         <Search onSearchObtained={onSearchObtained} />
         <InnerContainer onClick={refreshButtonClickHandler}>
