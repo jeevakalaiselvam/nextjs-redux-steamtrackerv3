@@ -196,8 +196,8 @@ export default function AchievementCard(props) {
         </Title>
         <Description>
           {(description && description.slice(0, 74) + "...") ??
-            hiddenDescription?.slice(0, 74) + "..." ??
-            ""}
+            (hiddenDescription && hiddenDescription?.slice(0, 74) + "...") ??
+            "HIDDEN"}
         </Description>
       </DataContainer>
       <PercentageContainer>

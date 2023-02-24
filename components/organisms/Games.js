@@ -13,11 +13,9 @@ import { GAMES_OPTION_COMPLETION_PINNED } from "../../helpers/filterHelper";
 
 const Container = styled.div`
   display: flex;
-  align-items: center;
   justify-content: center;
   width: 100%;
-  max-height: 100%;
-  min-height: 100%;
+  min-height: 95vh;
   overflow: scroll;
   flex-wrap: wrap;
 `;

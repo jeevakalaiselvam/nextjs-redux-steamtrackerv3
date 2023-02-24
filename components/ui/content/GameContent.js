@@ -57,6 +57,7 @@ const HistoryModal = styled.div`
   z-index: 10000000;
   border-radius: 0.25rem;
   padding: 2rem;
+  flex-wrap: wrap;
   justify-content: center;
   backdrop-filter: blur(20px);
   transition: all 0.5s;
