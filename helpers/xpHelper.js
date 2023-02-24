@@ -169,13 +169,21 @@ export const calculateRarityLeftFromAchievements = (achievements) => {
     marvelTarget = 0;
   }
 
-  wasteTarget = Math.ceil(waste * 1.0) - wasteCompleted;
-  commonTarget = Math.ceil(common * 1.0) - commonCompleted;
-  uncommonTarget = Math.ceil(uncommon * 1.0) - uncommonCompleted;
-  rareTarget = Math.ceil(rare * 1.0) - rareCompleted;
-  epicTarget = Math.ceil(epic * 1.0) - epicCompleted;
-  legendaryTarget = Math.ceil(legendary * 1.0) - legendaryCompleted;
-  marvelTarget = Math.ceil(marvel * 1.0) - marvelCompleted;
+  wasteTarget = Math.ceil(waste * 0.5) - wasteCompleted;
+  commonTarget = Math.ceil(common * 0.5) - commonCompleted;
+  uncommonTarget = Math.ceil(uncommon * 0.5) - uncommonCompleted;
+  rareTarget = Math.ceil(rare * 0.5) - rareCompleted;
+  epicTarget = Math.ceil(epic * 0.5) - epicCompleted;
+  legendaryTarget = Math.ceil(legendary * 0.5) - legendaryCompleted;
+  marvelTarget = Math.ceil(marvel * 0.5) - marvelCompleted;
+
+  wasteTarget = wasteTarget < 0 ? 0 : wasteTarget;
+  commonTarget = commonTarget < 0 ? 0 : commonTarget;
+  uncommonTarget = uncommonTarget < 0 ? 0 : uncommonTarget;
+  rareTarget = rareTarget < 0 ? 0 : rareTarget;
+  epicTarget = epicTarget < 0 ? 0 : epicTarget;
+  legendaryTarget = legendaryTarget < 0 ? 0 : legendaryTarget;
+  marvelTarget = marvelTarget < 0 ? 0 : marvelTarget;
 
   remainingInTarget =
     wasteTarget +
