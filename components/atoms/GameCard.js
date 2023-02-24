@@ -221,7 +221,7 @@ export default function GameCard({ game }) {
   const { id, name, achievements, toGet } = game;
   const dispatch = useDispatch();
   const steamtracker = useSelector((state) => state.steamtracker);
-  const { settings, pinnedGames } = steamtracker;
+  const { settings, pinnedGames, targetSettings } = steamtracker;
   const { settingsPage } = settings;
   const { completionPercentageTarget } = settingsPage;
 
@@ -255,7 +255,10 @@ export default function GameCard({ game }) {
 
   let iconColor = COMMON_COLOR;
 
-  const rarityInfo = calculateRarityLeftFromAchievements(game.achievements);
+  const rarityInfo = calculateRarityLeftFromAchievements(
+    game.achievements,
+    targetSettings
+  );
 
   return (
     <Container>

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { GAMES_PAGE, GAME_PAGE } from "../../../helpers/constantHelper";
 import SettingsCompletion from "../../settingsatoms/SettingsCompletion";
 import SettingsOpacity from "../../settingsatoms/SettingsOpacity";
+import SettingsTarget from "../../settingsatoms/SettingsTarget";
 
 const Container = styled.div`
   width: 100%;
@@ -14,10 +15,9 @@ const Container = styled.div`
 `;
 
 const SettingCard = styled.div`
-  width: 30%;
-  min-height: 10vh;
+  width: 70%;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 `;
 
@@ -27,6 +27,7 @@ export default function SettingsContent() {
       <SettingCard>
         <SettingsOpacity type={GAME_PAGE} />
         <SettingsCompletion type={GAMES_PAGE} />
+        <SettingsTarget type={GAME_PAGE} />
       </SettingCard>
     </Container>
   );

@@ -62,7 +62,10 @@ export const calculateRarityLeftFromGames = (games) => {
   return { waste, common, uncommon, rare, epic, legendary, marvel };
 };
 
-export const calculateRarityLeftFromAchievements = (achievements) => {
+export const calculateRarityLeftFromAchievements = (
+  achievements,
+  targetSettings
+) => {
   let waste = 0,
     common = 0,
     uncommon = 0,
@@ -177,13 +180,36 @@ export const calculateRarityLeftFromAchievements = (achievements) => {
   // LEGENDARY 1 - 5
   // MARVEL - < 1
 
-  wasteTarget = Math.ceil(waste * 0.5) - wasteCompleted;
-  commonTarget = Math.ceil(common * 0.5) - commonCompleted;
-  uncommonTarget = Math.ceil(uncommon * 0.5) - uncommonCompleted;
-  rareTarget = Math.ceil(rare * 0.5) - rareCompleted;
-  epicTarget = Math.ceil(epic * 0.5) - epicCompleted;
-  legendaryTarget = Math.ceil(legendary * 0.5) - legendaryCompleted;
-  marvelTarget = Math.ceil(marvel * 0.5) - marvelCompleted;
+  let percentageSettings = targetSettings
+    ? targetSettings
+    : {
+        WASTE_TARGET: 50,
+        COMMON_TARGET: 50,
+        UNCOMMON_TARGET: 50,
+        RARE_TARGET: 50,
+        EPIC_TARGET: 50,
+        LEGENDARY_TARGET: 50,
+        MARVEL_TARGET: 50,
+      };
+
+  wasteTarget =
+    Math.ceil((waste * percentageSettings.WASTE_TARGET) / 100) - wasteCompleted;
+  commonTarget =
+    Math.ceil((common * percentageSettings.COMMON_TARGET) / 100) -
+    commonCompleted;
+  uncommonTarget =
+    Math.ceil((uncommon * percentageSettings.UNCOMMON_TARGET) / 100) -
+    uncommonCompleted;
+  rareTarget =
+    Math.ceil((rare * percentageSettings.RARE_TARGET) / 100) - rareCompleted;
+  epicTarget =
+    Math.ceil((epic * percentageSettings.EPIC_TARGET) / 100) - epicCompleted;
+  legendaryTarget =
+    Math.ceil((legendary * percentageSettings.LEGENDARY_TARGET) / 100) -
+    legendaryCompleted;
+  marvelTarget =
+    Math.ceil((marvel * percentageSettings.MARVEL_TARGET) / 100) -
+    marvelCompleted;
 
   wasteTarget = wasteTarget < 0 ? 0 : wasteTarget;
   commonTarget = commonTarget < 0 ? 0 : commonTarget;

@@ -229,7 +229,7 @@ export default function GameHeader() {
   const dispatch = useDispatch();
   const router = useRouter();
   const steamtracker = useSelector((state) => state.steamtracker);
-  const { games, settings } = steamtracker;
+  const { games, settings, targetSettings } = steamtracker;
   const { settingsPage } = settings;
   const { completionPercentageTarget } = settingsPage;
   const { gameId } = router.query;
@@ -257,7 +257,8 @@ export default function GameHeader() {
           const xpData = getAllXPFromAchievements(game.achievements);
           const xpInfo = calculateLevelFromAllGames(games);
           const rarityInfo = calculateRarityLeftFromAchievements(
-            game.achievements
+            game.achievements,
+            targetSettings
           );
           const nextStage = {
             next: Math.ceil(
@@ -308,12 +309,18 @@ export default function GameHeader() {
           </Icon>
           <RefreshText>SHOW ALL</RefreshText>
         </InnerContainer>
-        <RemainingTrophyContainer>
-          <XPContainer iconColor={nextStage.iconColor}>
-            <XPIcon>{getIcon("trophy")}</XPIcon>
-            <XPData>{nextStage.next > 0 ? nextStage.next : 0}</XPData>
-          </XPContainer>
-        </RemainingTrophyContainer>
+        {false && (
+          <RemainingTrophyContainer>
+            <XPContainer iconColor={nextStage.iconColor}>
+              <XPIcon>{getIcon("trophy")}</XPIcon>
+              <XPData>
+                {rarityInfo.remainingInTarget > 0
+                  ? rarityInfo.remainingInTarget
+                  : 0}
+              </XPData>
+            </XPContainer>
+          </RemainingTrophyContainer>
+        )}
       </ClearTrophyFilter>
       <RemainingContainer>
         <TrophyRemainingList>

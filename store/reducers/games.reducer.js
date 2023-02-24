@@ -60,6 +60,7 @@ import {
   ADD_PIN_ACHIEVEMENT,
   REMOVE_PIN_ACHIEVEMENT,
   SET_COMPLETION_PERCENTAGE_TARGET,
+  SET_TARGET_INFO,
 } from "../types/games.types";
 
 const INITIAL_STATE = {
@@ -128,12 +129,27 @@ const INITIAL_STATE = {
   lastSelectedGame: "",
   journalMap: {},
   pinnedAchievements: {},
+  targetSettings: {
+    WASTE_TARGET: 50,
+    COMMON_TARGET: 50,
+    UNCOMMON_TARGET: 50,
+    RARE_TARGET: 50,
+    EPIC_TARGET: 50,
+    LEGENDARY_TARGET: 50,
+    MARVEL_TARGET: 50,
+  },
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case SET_TARGET_INFO:
+      return {
+        ...state,
+        targetSettings: payload,
+      };
+
     case ADD_PIN_ACHIEVEMENT:
       return {
         ...state,

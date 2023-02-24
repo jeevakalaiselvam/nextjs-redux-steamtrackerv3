@@ -301,12 +301,7 @@ export default function AchievementCardWithPhase(props) {
     pinnedAchievements[gameId]?.includes(name)
   );
 
-  useEffect(() => {
-    if (Number(unlocktime) > Number(lastUnlockedTime)) {
-      var audio = new Audio("/ps5.mp3");
-      audio.play();
-    }
-  }, []);
+  useEffect(() => {}, []);
 
   useEffect(() => {
     if (gameId) {

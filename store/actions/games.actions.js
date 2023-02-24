@@ -41,6 +41,7 @@ import {
   ADD_PIN_ACHIEVEMENT,
   REMOVE_PIN_ACHIEVEMENT,
   SET_COMPLETION_PERCENTAGE_TARGET,
+  SET_TARGET_INFO,
 } from "../types/games.types";
 import axios from "axios";
 import { getPhaseFiltedAchievements } from "../../helpers/achievementHelper";
@@ -57,6 +58,15 @@ export const fetchAllGames = () => {
         dispatch({ type: FETCH_ALL_GAMES_ERROR, payload: error });
       }
     );
+  };
+};
+
+export const setTargetInfo = (targetInfo) => {
+  return (dispatch) => {
+    return dispatch({
+      type: SET_TARGET_INFO,
+      payload: targetInfo,
+    });
   };
 };
 
