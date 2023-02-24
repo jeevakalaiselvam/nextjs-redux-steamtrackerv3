@@ -42,6 +42,7 @@ export default function Achievements({
   pinnedOnly,
   includeAll,
   animateRight,
+  setAchCount,
 }) {
   const [searchFilteredAchievements, setSearchFilteredAchievements] = useState(
     []

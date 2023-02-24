@@ -243,6 +243,13 @@ export const calculateRarityLeftFromAchievements = (
     epicTarget,
     legendaryTarget,
     marvelTarget,
+    wasteRemaining: waste - wasteCompleted,
+    commonRemaining: common - commonCompleted,
+    uncommonRemaining: uncommon - uncommonCompleted,
+    rareRemaining: rare - rareCompleted,
+    epicRemaining: epic - epicCompleted,
+    legendaryRemaining: legendary - legendaryCompleted,
+    marvelRemaining: marvel - marvelCompleted,
     remainingInTarget,
   };
 };

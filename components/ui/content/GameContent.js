@@ -15,6 +15,7 @@ import { FaClosedCaptioning } from "react-icons/fa";
 import { HiX, HiXCircle } from "react-icons/hi";
 import JournalInput from "../../atoms/JournalInput";
 import { GAME_OPTION_PERCENTAGE_DESC } from "../../../helpers/filterHelper";
+import { calculateRarityLeftFromAchievements } from "../../../helpers/xpHelper";
 
 const RootContainer = styled.div`
   display: flex;
@@ -147,9 +148,14 @@ const CloseButton = styled.div`
 `;
 
 export default function GameContent() {
+  const [achCount, setAchCount] = useState(
+    (game && game?.achievements?.length) ?? 0
+  );
+
   const dispatch = useDispatch();
   const steamtracker = useSelector((state) => state.steamtracker);
-  const { games, settings, rarityFilters, pinnedAchievements } = steamtracker;
+  const { games, settings, rarityFilters, pinnedAchievements, targetSettings } =
+    steamtracker;
   const { gamePage } = settings;
   const {
     filterOption,
@@ -211,6 +217,13 @@ export default function GameContent() {
     }).length;
   };
 
+  let rarityInfo = {};
+  rarityInfo =
+    game &&
+    game?.achievements &&
+    game?.achievements?.length &&
+    calculateRarityLeftFromAchievements(game?.achievements, targetSettings);
+
   return (
     <RootContainer>
       {journalContainerVisible && false && (
@@ -253,7 +266,16 @@ export default function GameContent() {
         <AchievementContainer>
           <AchievementInner>
             <Header>
-              All Achievements [{game?.achievements?.length ?? 0}]
+              {(rarityFilters[game?.id] &&
+                rarityFilters[game?.id][0] +
+                  rarityFilters[game?.id].slice(1).toLowerCase()) ||
+                "Achievements"}{" "}
+              [
+              {rarityFilters[game?.id] &&
+                rarityInfo[
+                  rarityFilters[game?.id]?.toLowerCase() + "Remaining"
+                ]}
+              ]
             </Header>
             <Achievements
               game={game}
@@ -266,7 +288,7 @@ export default function GameContent() {
           </AchievementInner>
         </AchievementContainer>
         <MissableAchievementContainer>
-          <Header>Pinned Achievements [{getPinnedAchievementsCount()}]</Header>
+          <Header>Pinned [{getPinnedAchievementsCount()}]</Header>
           <Achievements
             game={game}
             filterOption={GAME_OPTION_PERCENTAGE_DESC}
