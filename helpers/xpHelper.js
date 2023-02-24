@@ -169,6 +169,14 @@ export const calculateRarityLeftFromAchievements = (achievements) => {
     marvelTarget = 0;
   }
 
+  // WASTE - 75 - 100
+  // COMMON - 50 - 75
+  // UNCOMMON - 25 - 50
+  // RARE - 10 - 25
+  // EPIC - 5 - 10
+  // LEGENDARY 1 - 5
+  // MARVEL - < 1
+
   wasteTarget = Math.ceil(waste * 0.5) - wasteCompleted;
   commonTarget = Math.ceil(common * 0.5) - commonCompleted;
   uncommonTarget = Math.ceil(uncommon * 0.5) - uncommonCompleted;
