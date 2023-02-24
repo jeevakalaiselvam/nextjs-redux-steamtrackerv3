@@ -173,9 +173,9 @@ export const calculateRarityLeftFromAchievements = (achievements) => {
   commonTarget = Math.ceil(common * 1.0) - commonCompleted;
   uncommonTarget = Math.ceil(uncommon * 1.0) - uncommonCompleted;
   rareTarget = Math.ceil(rare * 1.0) - rareCompleted;
-  epicTarget = Math.ceil(epic * 0.75) - epicCompleted;
-  legendaryTarget = Math.ceil(legendary * 0.5) - legendaryCompleted;
-  marvelTarget = Math.ceil(marvel * 0.5) - marvelCompleted;
+  epicTarget = Math.ceil(epic * 1.0) - epicCompleted;
+  legendaryTarget = Math.ceil(legendary * 1.0) - legendaryCompleted;
+  marvelTarget = Math.ceil(marvel * 1.0) - marvelCompleted;
 
   remainingInTarget =
     wasteTarget +
