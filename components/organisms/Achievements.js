@@ -13,6 +13,7 @@ import AchievementCardWithPhase from "../atoms/AchievementCardWithPhase";
 import NoAchievements from "../atoms/NoAchievements";
 import AchievementCardWithPhaseBig from "../atoms/AchievementCardWithPhaseBig";
 import { useSelector } from "react-redux";
+import { calculateRarityLeftFromAchievements } from "../../helpers/xpHelper";
 
 const Container = styled.div`
   display: flex;
@@ -51,7 +52,7 @@ export default function Achievements({
   const router = useRouter();
   const { gameId } = router.query;
   const steamtracker = useSelector((state) => state.steamtracker);
-  const { rarityFilters, pinnedAchievements } = steamtracker;
+  const { rarityFilters, pinnedAchievements, targetSettings } = steamtracker;
 
   useEffect(() => {
     if (game?.id) {
@@ -84,10 +85,18 @@ export default function Achievements({
         gameId
       );
 
+      const rarityInfo = calculateRarityLeftFromAchievements(
+        game.achievements,
+        targetSettings
+      );
+
+      console.log("JEEVA RARITTY INFO", { rarityInfo });
+
       let rarityFilteredAchievements = filterAchievementsByRarityFilter(
         filteredAchievements,
         gameId,
-        rarityFilters
+        rarityFilters,
+        rarityInfo
       );
 
       let finalAchievementToSet = [];

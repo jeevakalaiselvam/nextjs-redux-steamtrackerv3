@@ -14,7 +14,8 @@ import { getRarityTextFromPercentage } from "./xpHelper";
 export const filterAchievementsByRarityFilter = (
   filteredAchievements,
   gameId,
-  rarityFilters
+  rarityFilters,
+  rarityInfo
 ) => {
   console.log("FILTERING ACHIEVEMENTS", {
     filteredAchievements,
@@ -31,7 +32,15 @@ export const filterAchievementsByRarityFilter = (
       achievement.percentage
     );
     if (selectedRarity == achievementRarity || selectedRarity == "ALL") {
-      return true;
+      if (rarityInfo[selectedRarity.toLowerCase() + "Target"] == 0) {
+        if (achievement.achieved == 1) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return true;
+      }
     } else {
       return false;
     }
