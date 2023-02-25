@@ -5,14 +5,22 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import {
   COMMON,
+  COMMON_COLOR,
   EPIC,
+  EPIC_COLOR,
   LEGENDARY,
+  LEGENDARY_COLOR,
   MARVEL,
+  MARVEL_COLOR,
   RARE,
+  RARE_COLOR,
   UNCOMMON,
+  UNCOMMON_COLOR,
   WASTE,
+  WASTE_COLOR,
 } from "../../helpers/colorHelper";
 import { GAMES_PAGE, GAME_PAGE } from "../../helpers/constantHelper";
+import { getIcon } from "../../helpers/iconHelper";
 import {
   setCompletionPercentageTarget,
   setOpacityForUnlockedAchievement,
@@ -97,7 +105,23 @@ const SettingTitle = styled.div`
   min-width: 200px;
   align-items: center;
   margin-right: 1rem;
+  position: relative;
   justify-content: flex-start;
+`;
+
+const Inner = styled.span`
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+  color: #fefefe;
+  min-width: 50px;
+  text-align: center;
+  margin-left: 1rem;
+  opacity: 0.5;
+  justify-content: flex-end;
 `;
 
 const InputWrapper = styled.div`
@@ -110,6 +134,14 @@ const InputWrapper = styled.div`
     color: #333;
     outline: none;
   }
+`;
+
+const Icon = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 2rem;
 `;
 
 const SettingsTarget = (props) => {
@@ -169,7 +201,17 @@ const SettingsTarget = (props) => {
         </Header>
         <LevelContainer>
           <OptionContainer>
-            <SettingTitle>WASTE TARGET</SettingTitle>
+            <Icon
+              style={{
+                marginRight: "1rem",
+                color: WASTE_COLOR,
+              }}
+            >
+              {getIcon("trophy")}
+            </Icon>
+            <SettingTitle>
+              WASTE<Inner>(75 - 100)</Inner>
+            </SettingTitle>
             <InputWrapper>
               <input
                 type="number"
@@ -187,25 +229,18 @@ const SettingsTarget = (props) => {
             </InputWrapper>
           </OptionContainer>
           <OptionContainer>
-            <SettingTitle>UNCOMMON TARGET</SettingTitle>
-            <InputWrapper>
-              <input
-                type="number"
-                min={1}
-                max={100}
-                step={1}
-                value={UNCOMMON_TARGET}
-                onChange={(e) => {
-                  setTargetForRarityInfo({
-                    type: UNCOMMON,
-                    value: e.target.value,
-                  });
-                }}
-              />
-            </InputWrapper>
-          </OptionContainer>
-          <OptionContainer>
-            <SettingTitle>COMMON TARGET</SettingTitle>
+            {" "}
+            <Icon
+              style={{
+                marginRight: "1rem",
+                color: COMMON_COLOR,
+              }}
+            >
+              {getIcon("trophy")}
+            </Icon>
+            <SettingTitle>
+              COMMON<Inner>(50 - 75)</Inner>
+            </SettingTitle>
             <InputWrapper>
               <input
                 type="number"
@@ -223,7 +258,47 @@ const SettingsTarget = (props) => {
             </InputWrapper>
           </OptionContainer>
           <OptionContainer>
-            <SettingTitle>RARE TARGET</SettingTitle>
+            {" "}
+            <Icon
+              style={{
+                marginRight: "1rem",
+                color: UNCOMMON_COLOR,
+              }}
+            >
+              {getIcon("trophy")}
+            </Icon>
+            <SettingTitle>
+              UNCOMMON<Inner>(25 - 50)</Inner>
+            </SettingTitle>
+            <InputWrapper>
+              <input
+                type="number"
+                min={1}
+                max={100}
+                step={1}
+                value={UNCOMMON_TARGET}
+                onChange={(e) => {
+                  setTargetForRarityInfo({
+                    type: UNCOMMON,
+                    value: e.target.value,
+                  });
+                }}
+              />
+            </InputWrapper>
+          </OptionContainer>
+          <OptionContainer>
+            {" "}
+            <Icon
+              style={{
+                marginRight: "1rem",
+                color: RARE_COLOR,
+              }}
+            >
+              {getIcon("trophy")}
+            </Icon>
+            <SettingTitle>
+              RARE<Inner>(10 -25)</Inner>
+            </SettingTitle>
             <InputWrapper>
               <input
                 type="number"
@@ -241,7 +316,18 @@ const SettingsTarget = (props) => {
             </InputWrapper>
           </OptionContainer>
           <OptionContainer>
-            <SettingTitle>EPIC TARGET</SettingTitle>
+            {" "}
+            <Icon
+              style={{
+                marginRight: "1rem",
+                color: EPIC_COLOR,
+              }}
+            >
+              {getIcon("trophy")}
+            </Icon>
+            <SettingTitle>
+              EPIC<Inner>(5 - 10)</Inner>
+            </SettingTitle>
             <InputWrapper>
               <input
                 type="number"
@@ -259,7 +345,18 @@ const SettingsTarget = (props) => {
             </InputWrapper>
           </OptionContainer>
           <OptionContainer>
-            <SettingTitle>LEGENDARY TARGET</SettingTitle>
+            {" "}
+            <Icon
+              style={{
+                marginRight: "1rem",
+                color: LEGENDARY_COLOR,
+              }}
+            >
+              {getIcon("trophy")}
+            </Icon>
+            <SettingTitle>
+              LEGENDARY<Inner>(1 - 5)</Inner>
+            </SettingTitle>
             <InputWrapper>
               <input
                 type="number"
@@ -277,7 +374,18 @@ const SettingsTarget = (props) => {
             </InputWrapper>
           </OptionContainer>
           <OptionContainer>
-            <SettingTitle>MARVEL TARGET</SettingTitle>
+            {" "}
+            <Icon
+              style={{
+                marginRight: "1rem",
+                color: MARVEL_COLOR,
+              }}
+            >
+              {getIcon("trophy")}
+            </Icon>
+            <SettingTitle>
+              MARVEL<Inner>( 0 - 1)</Inner>
+            </SettingTitle>
             <InputWrapper>
               <input
                 type="number"
