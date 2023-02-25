@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { HiSearch, HiX } from "react-icons/hi";
+import { useDispatch } from "react-redux";
 
 const Container = styled.div`
   display: flex;
@@ -50,10 +51,10 @@ const SearchInput = styled.div`
 `;
 
 const Search = (props) => {
-  const { onSearchObtained, width, userSearchTerm } = props;
-  const [searchTerm, setSearchTerm] = useState(
-    userSearchTerm ? userSearchTerm : ""
-  );
+  const dispatch = useDispatch();
+  const { onSearchObtained, width, userSearchTerm, dispatchClearIfNeeded } =
+    props;
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -85,6 +86,9 @@ const Search = (props) => {
       <SearchCross
         onClick={() => {
           setSearchTerm((old) => "");
+          if (dispatchClearIfNeeded) {
+            dispatch(dispatchClearIfNeeded(""));
+          }
         }}
       >
         <HiX />

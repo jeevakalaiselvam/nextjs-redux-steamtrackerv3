@@ -135,7 +135,7 @@ export default function GamesHeader() {
 
   return (
     <Container>
-      {false && (
+      {true && (
         <InnerContainer
           onClick={() => {
             dispatch(changeGamesPageSearchTerm(" "));
@@ -151,6 +151,7 @@ export default function GamesHeader() {
         <Search
           onSearchObtained={onSearchObtained}
           userSearchTerm={searchTerm}
+          dispatchClearIfNeeded={changeGamesPageSearchTerm}
         />
       </SearchContainer>
     </Container>

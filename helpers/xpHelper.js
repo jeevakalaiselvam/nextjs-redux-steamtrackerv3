@@ -9,20 +9,20 @@ import {
   WASTE_COLOR,
 } from "./colorHelper";
 
-const MARVEL_LOWER = 0;
-const MARVEL_HIGHER = 5;
-const LEGENDARY_LOWER = 5;
-const LEGENDARY_HIGHER = 10;
-const EPIC_LOWER = 10;
-const EPIC_HIGHER = 20;
-const RARE_LOWER = 20;
-const RARE_HIGHER = 40;
-const UNCOMMON_LOWER = 40;
-const UNCOMMON_HIGHER = 60;
-const COMMON_LOWER = 60;
-const COMMON_HIGHER = 80;
-const WASTE_LOWER = 80;
-const WASTE_HIGHER = 100;
+export const MARVEL_LOWER = 0;
+export const MARVEL_HIGHER = 5;
+export const LEGENDARY_LOWER = 5;
+export const LEGENDARY_HIGHER = 10;
+export const EPIC_LOWER = 10;
+export const EPIC_HIGHER = 20;
+export const RARE_LOWER = 20;
+export const RARE_HIGHER = 40;
+export const UNCOMMON_LOWER = 40;
+export const UNCOMMON_HIGHER = 60;
+export const COMMON_LOWER = 60;
+export const COMMON_HIGHER = 80;
+export const WASTE_LOWER = 80;
+export const WASTE_HIGHER = 100;
 
 export const calculateRarityLeftFromGames = (games) => {
   let waste = 0,

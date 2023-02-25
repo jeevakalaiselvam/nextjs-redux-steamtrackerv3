@@ -22,6 +22,22 @@ import {
 import { GAMES_PAGE, GAME_PAGE } from "../../helpers/constantHelper";
 import { getIcon } from "../../helpers/iconHelper";
 import {
+  COMMON_HIGHER,
+  COMMON_LOWER,
+  EPIC_HIGHER,
+  EPIC_LOWER,
+  LEGENDARY_HIGHER,
+  LEGENDARY_LOWER,
+  MARVEL_HIGHER,
+  MARVEL_LOWER,
+  RARE_HIGHER,
+  RARE_LOWER,
+  UNCOMMON_HIGHER,
+  UNCOMMON_LOWER,
+  WASTE_HIGHER,
+  WASTE_LOWER,
+} from "../../helpers/xpHelper";
+import {
   setCompletionPercentageTarget,
   setOpacityForUnlockedAchievement,
   setTargetInfo,
@@ -210,7 +226,7 @@ const SettingsTarget = (props) => {
               {getIcon("trophy")}
             </Icon>
             <SettingTitle>
-              WASTE<Inner>(75 - 100)</Inner>
+              WASTE<Inner>({`${WASTE_LOWER} - ${WASTE_HIGHER}`})</Inner>
             </SettingTitle>
             <InputWrapper>
               <input
@@ -239,7 +255,7 @@ const SettingsTarget = (props) => {
               {getIcon("trophy")}
             </Icon>
             <SettingTitle>
-              COMMON<Inner>(50 - 75)</Inner>
+              COMMON<Inner>({`${COMMON_LOWER} - ${COMMON_HIGHER}`})</Inner>
             </SettingTitle>
             <InputWrapper>
               <input
@@ -268,7 +284,8 @@ const SettingsTarget = (props) => {
               {getIcon("trophy")}
             </Icon>
             <SettingTitle>
-              UNCOMMON<Inner>(25 - 50)</Inner>
+              UNCOMMON
+              <Inner>({`${UNCOMMON_LOWER} - ${UNCOMMON_HIGHER}`})</Inner>
             </SettingTitle>
             <InputWrapper>
               <input
@@ -297,7 +314,7 @@ const SettingsTarget = (props) => {
               {getIcon("trophy")}
             </Icon>
             <SettingTitle>
-              RARE<Inner>(10 -25)</Inner>
+              RARE<Inner>({`${RARE_LOWER} - ${RARE_HIGHER}`})</Inner>
             </SettingTitle>
             <InputWrapper>
               <input
@@ -326,7 +343,7 @@ const SettingsTarget = (props) => {
               {getIcon("trophy")}
             </Icon>
             <SettingTitle>
-              EPIC<Inner>(5 - 10)</Inner>
+              EPIC<Inner>({`${EPIC_LOWER} - ${EPIC_HIGHER}`})</Inner>
             </SettingTitle>
             <InputWrapper>
               <input
@@ -355,7 +372,8 @@ const SettingsTarget = (props) => {
               {getIcon("trophy")}
             </Icon>
             <SettingTitle>
-              LEGENDARY<Inner>(1 - 5)</Inner>
+              LEGENDARY
+              <Inner>({`${LEGENDARY_LOWER} - ${LEGENDARY_HIGHER}`})</Inner>
             </SettingTitle>
             <InputWrapper>
               <input
@@ -384,7 +402,7 @@ const SettingsTarget = (props) => {
               {getIcon("trophy")}
             </Icon>
             <SettingTitle>
-              MARVEL<Inner>( 0 - 1)</Inner>
+              MARVEL<Inner>({`${MARVEL_LOWER} - ${MARVEL_HIGHER}`})</Inner>
             </SettingTitle>
             <InputWrapper>
               <input

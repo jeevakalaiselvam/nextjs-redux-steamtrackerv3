@@ -36,7 +36,7 @@ export const filterAchievementsByRarityFilter = (
         if (achievement.achieved == 1) {
           return true;
         } else {
-          return false;
+          return true;
         }
       } else {
         return true;

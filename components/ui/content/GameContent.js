@@ -272,13 +272,15 @@ export default function GameContent() {
             <Header>
               {(rarityFilters[game?.id] &&
                 rarityFilters[game?.id][0] +
-                  rarityFilters[game?.id].slice(1).toLowerCase()) ||
-                "Achievements"}
-              {` ${
-                (rarityFilters[game?.id] &&
-                  rarityPercentageMapper[rarityFilters[game?.id]]) ??
-                ""
-              } `}
+                  rarityFilters[game?.id].slice(1).toLowerCase() +
+                  " ") ||
+                "Achievements "}
+              {false &&
+                ` ${
+                  (rarityFilters[game?.id] &&
+                    rarityPercentageMapper[rarityFilters[game?.id]]) ??
+                  ""
+                } `}
               [
               {(rarityFilters[game?.id] &&
                 rarityInfo &&
