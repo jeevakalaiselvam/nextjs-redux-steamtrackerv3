@@ -15,7 +15,10 @@ import { FaClosedCaptioning } from "react-icons/fa";
 import { HiX, HiXCircle } from "react-icons/hi";
 import JournalInput from "../../atoms/JournalInput";
 import { GAME_OPTION_PERCENTAGE_DESC } from "../../../helpers/filterHelper";
-import { calculateRarityLeftFromAchievements } from "../../../helpers/xpHelper";
+import {
+  calculateRarityLeftFromAchievements,
+  rarityPercentageMapper,
+} from "../../../helpers/xpHelper";
 
 const RootContainer = styled.div`
   display: flex;
@@ -270,9 +273,15 @@ export default function GameContent() {
               {(rarityFilters[game?.id] &&
                 rarityFilters[game?.id][0] +
                   rarityFilters[game?.id].slice(1).toLowerCase()) ||
-                "Achievements"}{" "}
+                "Achievements"}
+              {` ${
+                (rarityFilters[game?.id] &&
+                  rarityPercentageMapper[rarityFilters[game?.id]]) ??
+                ""
+              } `}
               [
               {(rarityFilters[game?.id] &&
+                rarityInfo &&
                 rarityInfo[
                   rarityFilters[game?.id]?.toLowerCase() + "Remaining"
                 ]) ??

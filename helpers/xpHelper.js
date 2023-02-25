@@ -9,6 +9,7 @@ import {
   WASTE_COLOR,
 } from "./colorHelper";
 
+const MARVEL_LOWER = 0;
 const MARVEL_HIGHER = 5;
 const LEGENDARY_LOWER = 5;
 const LEGENDARY_HIGHER = 10;
@@ -21,6 +22,7 @@ const UNCOMMON_HIGHER = 60;
 const COMMON_LOWER = 60;
 const COMMON_HIGHER = 80;
 const WASTE_LOWER = 80;
+const WASTE_HIGHER = 100;
 
 export const calculateRarityLeftFromGames = (games) => {
   let waste = 0,
@@ -312,17 +314,27 @@ export const getRarityColorFromPercentage = (percentage) => {
   }
 };
 
+export const rarityPercentageMapper = {
+  MARVEL: `(${MARVEL_LOWER} - ${MARVEL_HIGHER})`,
+  LEGENDARY: `(${LEGENDARY_LOWER} - ${LEGENDARY_HIGHER})`,
+  EPIC: `(${EPIC_LOWER} - ${EPIC_HIGHER})`,
+  RARE: `(${RARE_LOWER} - ${RARE_HIGHER})`,
+  UNCOMMON: `(${UNCOMMON_LOWER} - ${UNCOMMON_HIGHER})`,
+  COMMON: `(${COMMON_LOWER} - ${COMMON_HIGHER})`,
+  WASTE: `(${WASTE_LOWER} - ${WASTE_HIGHER})`,
+};
+
 export const calculateXPFromPercentage = (percentage) => {
   if (percentage <= MARVEL_HIGHER) {
-    return 250;
-  } else if (percentage <= LEGENDARY_HIGHER && percentage > LEGENDARY_LOWER) {
     return 100;
-  } else if (percentage <= EPIC_HIGHER && percentage > EPIC_LOWER) {
+  } else if (percentage <= LEGENDARY_HIGHER && percentage > LEGENDARY_LOWER) {
     return 75;
-  } else if (percentage <= RARE_HIGHER && percentage > RARE_LOWER) {
+  } else if (percentage <= EPIC_HIGHER && percentage > EPIC_LOWER) {
     return 50;
-  } else if (percentage <= UNCOMMON_HIGHER && percentage > UNCOMMON_LOWER) {
+  } else if (percentage <= RARE_HIGHER && percentage > RARE_LOWER) {
     return 25;
+  } else if (percentage <= UNCOMMON_HIGHER && percentage > UNCOMMON_LOWER) {
+    return 15;
   } else if (percentage <= COMMON_HIGHER && percentage > COMMON_LOWER) {
     return 10;
   } else {
