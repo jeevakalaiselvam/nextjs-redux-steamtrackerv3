@@ -12,6 +12,7 @@ import styled from "styled-components";
 import { openLinkInNewTab } from "../../helpers/browserHelper";
 import {
   COMMON_COLOR,
+  EPIC,
   EPIC_COLOR,
   LEGENDARY,
   LEGENDARY_COLOR,
@@ -138,7 +139,7 @@ const ProfilePlatinum = (props) => {
           />
         </Header>
         <Level>
-          <Trophy color={MARVEL_COLOR}>
+          <Trophy color={EPIC_COLOR}>
             <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
             <Text>{allPlatinum}</Text>
           </Trophy>

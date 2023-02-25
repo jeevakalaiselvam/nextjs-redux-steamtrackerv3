@@ -9,6 +9,19 @@ import {
   WASTE_COLOR,
 } from "./colorHelper";
 
+const MARVEL_HIGHER = 5;
+const LEGENDARY_LOWER = 5;
+const LEGENDARY_HIGHER = 10;
+const EPIC_LOWER = 10;
+const EPIC_HIGHER = 20;
+const RARE_LOWER = 20;
+const RARE_HIGHER = 40;
+const UNCOMMON_LOWER = 40;
+const UNCOMMON_HIGHER = 60;
+const COMMON_LOWER = 60;
+const COMMON_HIGHER = 80;
+const WASTE_LOWER = 80;
+
 export const calculateRarityLeftFromGames = (games) => {
   let waste = 0,
     common = 0,
@@ -31,25 +44,31 @@ export const calculateRarityLeftFromGames = (games) => {
   if (achievements.length > 0) {
     achievements.forEach((achievement) => {
       if (achievement.achieved == 1) {
-        if (achievement.percentage <= 1) {
+        if (achievement.percentage <= MARVEL_HIGHER) {
           marvel++;
-        } else if (achievement.percentage <= 5 && achievement.percentage > 1) {
+        } else if (
+          achievement.percentage <= LEGENDARY_HIGHER &&
+          achievement.percentage > LEGENDARY_LOWER
+        ) {
           legendary++;
-        } else if (achievement.percentage <= 10 && achievement.percentage > 5) {
+        } else if (
+          achievement.percentage <= EPIC_HIGHER &&
+          achievement.percentage > EPIC_LOWER
+        ) {
           epic++;
         } else if (
-          achievement.percentage <= 25 &&
-          achievement.percentage > 10
+          achievement.percentage <= RARE_HIGHER &&
+          achievement.percentage > RARE_LOWER
         ) {
           rare++;
         } else if (
-          achievement.percentage <= 50 &&
-          achievement.percentage > 25
+          achievement.percentage <= UNCOMMON_HIGHER &&
+          achievement.percentage > UNCOMMON_LOWER
         ) {
           uncommon++;
         } else if (
-          achievement.percentage <= 75 &&
-          achievement.percentage > 50
+          achievement.percentage <= COMMON_HIGHER &&
+          achievement.percentage > COMMON_LOWER
         ) {
           common++;
         } else {
@@ -99,42 +118,63 @@ export const calculateRarityLeftFromAchievements = (
   if (achievements.length > 0) {
     achievements.forEach((achievement) => {
       if (achievement.achieved == 1) {
-        if (achievement.percentage <= 1) {
+        if (achievement.percentage <= MARVEL_HIGHER) {
           marvelCompleted++;
-        } else if (achievement.percentage <= 5 && achievement.percentage > 1) {
+        } else if (
+          achievement.percentage <= LEGENDARY_HIGHER &&
+          achievement.percentage > LEGENDARY_LOWER
+        ) {
           legendaryCompleted++;
-        } else if (achievement.percentage <= 10 && achievement.percentage > 5) {
+        } else if (
+          achievement.percentage <= EPIC_HIGHER &&
+          achievement.percentage > EPIC_LOWER
+        ) {
           epicCompleted++;
         } else if (
-          achievement.percentage <= 25 &&
-          achievement.percentage > 10
+          achievement.percentage <= RARE_HIGHER &&
+          achievement.percentage > RARE_LOWER
         ) {
           rareCompleted++;
         } else if (
-          achievement.percentage <= 50 &&
-          achievement.percentage > 25
+          achievement.percentage <= UNCOMMON_HIGHER &&
+          achievement.percentage > UNCOMMON_LOWER
         ) {
           uncommonCompleted++;
         } else if (
-          achievement.percentage <= 75 &&
-          achievement.percentage > 50
+          achievement.percentage <= COMMON_HIGHER &&
+          achievement.percentage > COMMON_LOWER
         ) {
           commonCompleted++;
         } else {
           wasteCompleted++;
         }
       }
-      if (achievement.percentage <= 1) {
+      if (achievement.percentage <= MARVEL_HIGHER) {
         marvel++;
-      } else if (achievement.percentage <= 5 && achievement.percentage > 1) {
+      } else if (
+        achievement.percentage <= LEGENDARY_HIGHER &&
+        achievement.percentage > LEGENDARY_LOWER
+      ) {
         legendary++;
-      } else if (achievement.percentage <= 10 && achievement.percentage > 5) {
+      } else if (
+        achievement.percentage <= EPIC_HIGHER &&
+        achievement.percentage > EPIC_LOWER
+      ) {
         epic++;
-      } else if (achievement.percentage <= 25 && achievement.percentage > 10) {
+      } else if (
+        achievement.percentage <= RARE_HIGHER &&
+        achievement.percentage > RARE_LOWER
+      ) {
         rare++;
-      } else if (achievement.percentage <= 50 && achievement.percentage > 25) {
+      } else if (
+        achievement.percentage <= UNCOMMON_HIGHER &&
+        achievement.percentage > UNCOMMON_LOWER
+      ) {
         uncommon++;
-      } else if (achievement.percentage <= 75 && achievement.percentage > 50) {
+      } else if (
+        achievement.percentage <= COMMON_HIGHER &&
+        achievement.percentage > COMMON_LOWER
+      ) {
         common++;
       } else {
         waste++;
@@ -255,17 +295,17 @@ export const calculateRarityLeftFromAchievements = (
 };
 
 export const getRarityColorFromPercentage = (percentage) => {
-  if (percentage <= 1) {
+  if (percentage <= MARVEL_HIGHER) {
     return MARVEL_COLOR;
-  } else if (percentage <= 5 && percentage > 1) {
+  } else if (percentage <= LEGENDARY_HIGHER && percentage > LEGENDARY_LOWER) {
     return LEGENDARY_COLOR;
-  } else if (percentage <= 10 && percentage > 5) {
+  } else if (percentage <= EPIC_HIGHER && percentage > EPIC_LOWER) {
     return EPIC_COLOR;
-  } else if (percentage <= 25 && percentage > 10) {
+  } else if (percentage <= RARE_HIGHER && percentage > RARE_LOWER) {
     return RARE_COLOR;
-  } else if (percentage <= 50 && percentage > 25) {
+  } else if (percentage <= UNCOMMON_HIGHER && percentage > UNCOMMON_LOWER) {
     return UNCOMMON_COLOR;
-  } else if (percentage <= 75 && percentage > 50) {
+  } else if (percentage <= COMMON_HIGHER && percentage > COMMON_LOWER) {
     return COMMON_COLOR;
   } else {
     return WASTE_COLOR;
@@ -273,17 +313,17 @@ export const getRarityColorFromPercentage = (percentage) => {
 };
 
 export const calculateXPFromPercentage = (percentage) => {
-  if (percentage <= 1) {
+  if (percentage <= MARVEL_HIGHER) {
     return 250;
-  } else if (percentage <= 5 && percentage > 1) {
+  } else if (percentage <= LEGENDARY_HIGHER && percentage > LEGENDARY_LOWER) {
     return 100;
-  } else if (percentage <= 10 && percentage > 5) {
+  } else if (percentage <= EPIC_HIGHER && percentage > EPIC_LOWER) {
     return 75;
-  } else if (percentage <= 25 && percentage > 10) {
+  } else if (percentage <= RARE_HIGHER && percentage > RARE_LOWER) {
     return 50;
-  } else if (percentage <= 50 && percentage > 25) {
+  } else if (percentage <= UNCOMMON_HIGHER && percentage > UNCOMMON_LOWER) {
     return 25;
-  } else if (percentage <= 75 && percentage > 50) {
+  } else if (percentage <= COMMON_HIGHER && percentage > COMMON_LOWER) {
     return 10;
   } else {
     return 5;
@@ -291,17 +331,17 @@ export const calculateXPFromPercentage = (percentage) => {
 };
 
 export const getRarityTextFromPercentage = (percentage) => {
-  if (percentage <= 1) {
+  if (percentage <= MARVEL_HIGHER) {
     return "MARVEL";
-  } else if (percentage <= 5 && percentage > 1) {
+  } else if (percentage <= LEGENDARY_HIGHER && percentage > LEGENDARY_LOWER) {
     return "LEGENDARY";
-  } else if (percentage <= 10 && percentage > 5) {
+  } else if (percentage <= EPIC_HIGHER && percentage > EPIC_LOWER) {
     return "EPIC";
-  } else if (percentage <= 25 && percentage > 10) {
+  } else if (percentage <= RARE_HIGHER && percentage > RARE_LOWER) {
     return "RARE";
-  } else if (percentage <= 50 && percentage > 25) {
+  } else if (percentage <= UNCOMMON_HIGHER && percentage > UNCOMMON_LOWER) {
     return "UNCOMMON";
-  } else if (percentage <= 75 && percentage > 50) {
+  } else if (percentage <= COMMON_HIGHER && percentage > COMMON_LOWER) {
     return "COMMON";
   } else {
     return "WASTE";

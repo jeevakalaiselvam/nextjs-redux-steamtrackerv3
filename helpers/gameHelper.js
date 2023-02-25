@@ -66,7 +66,7 @@ export const sortGamesByFilterOption = (
         }
       });
 
-      newGames = [...allCompletedGames, ...allPinnedGames, ...allStartedGames];
+      newGames = [...allCompletedGames, ...allPinnedGames];
 
       // newGames = newGames.filter((game) => {
       //   const rarityInfo = calculateRarityLeftFromAchievements(
