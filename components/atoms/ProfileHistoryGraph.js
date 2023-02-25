@@ -28,7 +28,6 @@ import { setShowHistoryModal } from "../../store/actions/games.actions";
 const Container = styled.div`
   display: flex;
   background-color: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(10px);
   align-items: center;
   padding: 1rem 0.25rem;
   justify-content: center;
@@ -82,7 +81,7 @@ const HistoryItem = styled.div`
   justify-content: center;
   padding: 0.5rem;
   background-color: ${(props) =>
-    props.current ? "rgba(0, 0, 0, 0.5)" : "rgba(0, 0, 0, 0.5)"};
+    props.current ? "rgba(0, 0, 0, 0.2)" : "rgba(0, 0, 0, 0.2)"};
   color: ${(props) => (props.current ? "#fefefe" : "#737c9d")};
   opacity: ${(props) => (props.transparent ? "0.25" : "1.0")};
   &:hover {

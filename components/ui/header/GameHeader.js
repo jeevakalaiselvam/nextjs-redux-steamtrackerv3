@@ -314,7 +314,7 @@ export default function GameHeader() {
         {
           <RemainingTrophyContainer>
             <XPContainer
-              iconColor={MARVEL_COLOR}
+              iconColor={COMMON_COLOR}
               complete={rarityInfo.remainingInTarget == 0}
             >
               <XPIcon>{getIcon("trophy")}</XPIcon>

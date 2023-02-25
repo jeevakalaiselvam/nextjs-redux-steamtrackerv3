@@ -11,9 +11,8 @@ const SearchIcon = styled.div`
   align-items: center;
   justify-content: center;
   background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(6px);
   padding: 0.5rem 1rem;
-  border-radius: 8px 0px 0px 8px;
+  border-radius: 4px 0px 0px 4px;
   cursor: pointer;
 
   &:hover {
@@ -25,9 +24,8 @@ const SearchCross = styled.div`
   align-items: center;
   justify-content: center;
   background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(6px);
   padding: 0.5rem 1rem;
-  border-radius: 0px 8px 8px 0px;
+  border-radius: 0px 4px 4px 0px;
   cursor: pointer;
 `;
 
@@ -41,7 +39,6 @@ const SearchInput = styled.div`
     padding: 0.5rem;
     width: ${(props) => props.width || "150px"};
     background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(6px);
     color: #9caabe;
     border: none;
     border-radius: 0px 0px 0px 0px;

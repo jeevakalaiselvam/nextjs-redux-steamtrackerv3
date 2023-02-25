@@ -26,7 +26,6 @@ import { TbArrowNarrowDown } from "react-icons/tb";
 const Container = styled.div`
   display: flex;
   background-color: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(10px);
   align-items: center;
   padding: 1rem;
   justify-content: center;

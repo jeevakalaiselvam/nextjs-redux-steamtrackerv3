@@ -25,7 +25,7 @@ import { calculateRarityLeftFromGames } from "../../helpers/xpHelper";
 
 const Container = styled.div`
   display: flex;
-  backdrop-filter: blur(10px);
+  background-color: rgba(0, 0, 0, 0.3);
   align-items: center;
   padding: 1rem;
   justify-content: center;
