@@ -16,7 +16,7 @@ const Container = styled.div`
   width: 100%;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   padding: 0 0.25rem;
   min-height: 95vh;
   overflow: scroll;

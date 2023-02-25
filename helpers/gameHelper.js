@@ -22,25 +22,60 @@ export const sortGamesByFilterOption = (
       );
       break;
     case GAMES_OPTION_COMPLETION_PINNED:
-      newGames = games.filter((game) => {
+      let allCompletedGames = [];
+      let allPinnedGames = [];
+      let allStartedGames = [];
+      let completedGameIds = [];
+      let pinnedGameIds = [];
+      let startedGameIds = [];
+      allCompletedGames = games.filter((game) => {
         const rarityInfo = calculateRarityLeftFromAchievements(
           game.achievements,
           targetSettings
         );
 
-        let total = game?.achievements?.length ?? 0;
-        let toGet = game?.toGet ?? 0;
-        let completed = total - toGet;
-        let adjustedTotal = Math.ceil(
-          (completionPercentageTarget / 100) * total
-        );
-        return (
-          pinnedGames?.includes(game.id) || rarityInfo.remainingInTarget === 0
-        );
+        if (rarityInfo.remainingInTarget <= 0) {
+          completedGameIds.push(game.id);
+          return true;
+        }
       });
-      newGames = newGames.sort(
-        (game1, game2) => game2.completion - game1.completion
-      );
+
+      allCompletedGames = allCompletedGames.sort((game1, game2) => {
+        return game2.completion - game1.completion;
+      });
+
+      allPinnedGames = games.filter((game) => {
+        if (
+          pinnedGames?.includes(game.id) &&
+          !completedGameIds?.includes(game.id)
+        ) {
+          pinnedGameIds.push(game.id);
+          return true;
+        }
+      });
+
+      allStartedGames = games.filter((game) => {
+        if (
+          game.playtime > 0 &&
+          !completedGameIds?.includes(game.id) &&
+          !pinnedGameIds?.includes(game.id) &&
+          game.completion != 0
+        ) {
+          startedGameIds.push(game.id);
+          return true;
+        }
+      });
+
+      newGames = [...allCompletedGames, ...allPinnedGames, ...allStartedGames];
+
+      // newGames = newGames.filter((game) => {
+      //   const rarityInfo = calculateRarityLeftFromAchievements(
+      //     game.achievements,
+      //     targetSettings
+      //   );
+
+      //   return pinnedGames?.includes(game.id);
+      // });
 
       break;
     case GAMES_OPTION_COMPLETION_DESC:
