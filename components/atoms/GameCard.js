@@ -299,17 +299,17 @@ export default function GameCard({ game }) {
           {name}
         </TitleData>
       </Title>
-      {rarityInfo.remainingInTarget <= 0 && (
+      {next <= 0 && (
         <ToGetContainer>
           <ToGetData>
             <TrophyIcon iconColor={EPIC_COLOR}>{getIcon("trophy")}</TrophyIcon>
           </ToGetData>
         </ToGetContainer>
       )}
-      {rarityInfo.remainingInTarget > 0 && (
+      {next > 0 && (
         <XPContainer iconColor={iconColor}>
           <XPIcon>{getIcon("trophy")}</XPIcon>
-          <XPData>{rarityInfo.remainingInTarget}</XPData>
+          <XPData>{next}</XPData>
         </XPContainer>
       )}
       <PinIcon

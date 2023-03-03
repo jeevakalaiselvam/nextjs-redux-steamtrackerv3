@@ -128,7 +128,7 @@ const ProfilePlatinum = (props) => {
         subPlatinum++;
       }
     });
-    return subPlatinum;
+    return platinumCount;
   }, [games]);
 
   return (
@@ -145,7 +145,7 @@ const ProfilePlatinum = (props) => {
           <HiOutlineChevronDoubleUp
             style={{ marginRight: "0.5rem", color: "#6cff5c" }}
           />
-          <Title>PLATINUM</Title>
+          <Title>COMPLETED</Title>
           <HiOutlineChevronDoubleUp
             style={{ marginLeft: "0.5rem", color: "#6cff5c" }}
           />

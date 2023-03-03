@@ -314,14 +314,12 @@ export default function GameHeader() {
         {
           <RemainingTrophyContainer>
             <XPContainer
-              iconColor={COMMON_COLOR}
-              complete={rarityInfo.remainingInTarget == 0}
+              iconColor={nextStage.next <= 0 ? EPIC_COLOR : COMMON_COLOR}
+              complete={nextStage.next <= 0}
             >
               <XPIcon>{getIcon("trophy")}</XPIcon>
               <XPData complete={rarityInfo.remainingInTarget == 0}>
-                {rarityInfo.remainingInTarget > 0
-                  ? rarityInfo.remainingInTarget
-                  : "PLATINUM"}
+                {nextStage.next > 0 ? nextStage.next : "50%"}
               </XPData>
             </XPContainer>
           </RemainingTrophyContainer>

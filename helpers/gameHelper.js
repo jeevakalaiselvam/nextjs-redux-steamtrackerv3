@@ -34,7 +34,7 @@ export const sortGamesByFilterOption = (
           targetSettings
         );
 
-        if (rarityInfo.remainingInTarget <= 0) {
+        if (game.completion >= 50) {
           completedGameIds.push(game.id);
           return true;
         }
