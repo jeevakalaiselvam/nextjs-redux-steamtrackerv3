@@ -306,10 +306,10 @@ export default function GameCard({ game }) {
           </ToGetData>
         </ToGetContainer>
       )}
-      {next > 0 && (
+      {rarityInfo.remainingInTarget > 0 && (
         <XPContainer iconColor={iconColor}>
           <XPIcon>{getIcon("trophy")}</XPIcon>
-          <XPData>{next}</XPData>
+          <XPData>{rarityInfo.remainingInTarget}</XPData>
         </XPContainer>
       )}
       <PinIcon

@@ -319,7 +319,9 @@ export default function GameHeader() {
             >
               <XPIcon>{getIcon("trophy")}</XPIcon>
               <XPData complete={rarityInfo.remainingInTarget == 0}>
-                {nextStage.next > 0 ? nextStage.next : "50%"}
+                {rarityInfo.remainingInTarget > 0
+                  ? rarityInfo.remainingInTarget
+                  : "PLATINUM"}
               </XPData>
             </XPContainer>
           </RemainingTrophyContainer>
