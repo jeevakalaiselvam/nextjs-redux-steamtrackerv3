@@ -22,7 +22,10 @@ import {
   WASTE_COLOR,
 } from "../../helpers/colorHelper";
 import { getIcon } from "../../helpers/iconHelper";
-import { calculateRarityLeftFromGames } from "../../helpers/xpHelper";
+import {
+  calculateRarityLeftFromAchievements,
+  calculateRarityLeftFromGames,
+} from "../../helpers/xpHelper";
 
 const Container = styled.div`
   display: flex;
@@ -101,12 +104,13 @@ const Text = styled.div`
 const ProfilePlatinum = (props) => {
   const dispatch = useDispatch();
   const steamtracker = useSelector((state) => state.steamtracker);
-  const { games, settings } = steamtracker;
+  const { games, settings, targetSettings } = steamtracker;
   const { settingsPage } = settings;
   const { completionPercentageTarget } = settingsPage;
 
   let allPlatinum = useMemo(() => {
     let platinumCount = 0;
+    let subPlatinum = 0;
     games.forEach((game) => {
       let total = game?.achievements?.length ?? 0;
       let toGet = game?.toGet ?? 0;
@@ -115,8 +119,16 @@ const ProfilePlatinum = (props) => {
       if (completed >= adjustedTotal) {
         platinumCount += 1;
       }
+      const rarityInfo = calculateRarityLeftFromAchievements(
+        game.achievements,
+        targetSettings
+      );
+
+      if (rarityInfo.remainingInTarget <= 0) {
+        subPlatinum++;
+      }
     });
-    return platinumCount;
+    return subPlatinum;
   }, [games]);
 
   return (

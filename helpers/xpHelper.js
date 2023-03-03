@@ -315,6 +315,18 @@ export const getRarityColorFromPercentage = (percentage) => {
   }
 };
 
+export const getPercentageCompletionColor = (percentage) => {
+  if (percentage == 100) {
+    return LEGENDARY_COLOR;
+  } else if (percentage < 100 && percentage >= 80) {
+    return LEGENDARY_COLOR;
+  } else if (percentage < 80 && percentage >= 50) {
+    return LEGENDARY_COLOR;
+  } else {
+    return LEGENDARY_COLOR;
+  }
+};
+
 export const rarityPercentageMapper = {
   MARVEL: `(${MARVEL_LOWER} - ${MARVEL_HIGHER})`,
   LEGENDARY: `(${LEGENDARY_LOWER} - ${LEGENDARY_HIGHER})`,

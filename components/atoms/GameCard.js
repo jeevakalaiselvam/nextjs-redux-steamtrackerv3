@@ -28,6 +28,7 @@ import {
 } from "../../store/actions/games.actions";
 import {
   COMMON_COLOR,
+  EPIC,
   EPIC_COLOR,
   LEGENDARY_COLOR,
   MARVEL_COLOR,
@@ -154,6 +155,15 @@ const XPIcon = styled.div`
   font-size: 1.75rem;
   z-index: 8;
   justify-content: center;
+`;
+
+const TrophyIcon = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 1.75rem;
+  z-index: 8;
+  justify-content: center;
+  color: ${(props) => (props.iconColor ? props.iconColor : "")};
 `;
 
 const XPData = styled.div`
@@ -289,10 +299,10 @@ export default function GameCard({ game }) {
           {name}
         </TitleData>
       </Title>
-      {true && (
+      {rarityInfo.remainingInTarget <= 0 && (
         <ToGetContainer>
-          <ToGetData iconColor={iconColor}>
-            {percentageCompletion > 100 ? 100 : percentageCompletion}%
+          <ToGetData>
+            <TrophyIcon iconColor={EPIC_COLOR}>{getIcon("trophy")}</TrophyIcon>
           </ToGetData>
         </ToGetContainer>
       )}
@@ -337,7 +347,7 @@ export default function GameCard({ game }) {
           onClick={() => {}}
           color={getColorForOverlay(rarityInfo.remainingInTarget)}
         >
-          <FaTrophy />
+          {false && <FaTrophy />}
         </CompleteIcon>
       )}
       )
