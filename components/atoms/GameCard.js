@@ -13,6 +13,7 @@ import {
   calculateRarityLeftFromAchievements,
   completionPercentageTarget,
   getAllXPFromAchievements,
+  getPercentageCompletionColor,
   XP_FOR_LEVEL,
 } from "../../helpers/xpHelper";
 import { useRouter } from "next/router";
@@ -166,6 +167,15 @@ const TrophyIcon = styled.div`
   color: ${(props) => (props.iconColor ? props.iconColor : "")};
 `;
 
+const Percentage = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0.5rem;
+  z-index: 8;
+  color: ${(props) => (props.iconColor ? props.iconColor : "")};
+`;
+
 const XPData = styled.div`
   display: flex;
   align-items: center;
@@ -299,14 +309,25 @@ export default function GameCard({ game }) {
           {name}
         </TitleData>
       </Title>
-      {next <= 0 && (
+      {
         <ToGetContainer>
           <ToGetData>
-            <TrophyIcon iconColor={EPIC_COLOR}>{getIcon("trophy")}</TrophyIcon>
+            <TrophyIcon
+              iconColor={getPercentageCompletionColor(percentageCompletion)}
+            >
+              {getIcon("trophy")}
+            </TrophyIcon>
+            {false && (
+              <Percentage
+                iconColor={getPercentageCompletionColor(percentageCompletion)}
+              >
+                {percentageCompletion} %
+              </Percentage>
+            )}
           </ToGetData>
         </ToGetContainer>
-      )}
-      {rarityInfo.remainingInTarget > 0 && (
+      }
+      {false && rarityInfo.remainingInTarget > 0 && (
         <XPContainer iconColor={iconColor}>
           <XPIcon>{getIcon("trophy")}</XPIcon>
           <XPData>{rarityInfo.remainingInTarget}</XPData>

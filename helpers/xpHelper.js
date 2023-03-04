@@ -317,13 +317,17 @@ export const getRarityColorFromPercentage = (percentage) => {
 
 export const getPercentageCompletionColor = (percentage) => {
   if (percentage == 100) {
-    return LEGENDARY_COLOR;
+    return MARVEL_COLOR;
   } else if (percentage < 100 && percentage >= 80) {
-    return LEGENDARY_COLOR;
+    return EPIC_COLOR;
   } else if (percentage < 80 && percentage >= 50) {
     return LEGENDARY_COLOR;
+  } else if (percentage < 50 && percentage >= 25) {
+    return RARE_COLOR;
+  } else if (percentage < 10 && percentage >= 0) {
+    return UNCOMMON_COLOR;
   } else {
-    return LEGENDARY_COLOR;
+    return WASTE_COLOR;
   }
 };
 
