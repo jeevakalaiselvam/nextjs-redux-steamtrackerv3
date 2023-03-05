@@ -13,6 +13,7 @@ import { openLinkInNewTab } from "../../helpers/browserHelper";
 import {
   COMMON,
   COMMON_COLOR,
+  COMPLETION1_COLOR,
   EPIC,
   EPIC_COLOR,
   INFINITY,
@@ -37,6 +38,7 @@ import {
   COMPLETION50,
   COMPLETION25,
   COMPLETION10,
+  COMPLETION1,
 } from "../../helpers/xpHelper";
 import { setSidebarGameFilter } from "../../store/actions/games.actions";
 
@@ -135,6 +137,7 @@ const ProfilePlatinum = (props) => {
     let rareCount = 0;
     let commonCount = 0;
     let wasteCount = 0;
+    let copperCount = 0;
     let subPlatinum = 0;
     games.forEach((game) => {
       let total = game?.achievements?.length ?? 0;
@@ -170,6 +173,11 @@ const ProfilePlatinum = (props) => {
           game.completion >= COMPLETION10
         ) {
           wasteCount++;
+        } else if (
+          game.completion < COMPLETION10 &&
+          game.completion >= COMPLETION1
+        ) {
+          copperCount++;
         } else {
         }
       }
@@ -190,6 +198,7 @@ const ProfilePlatinum = (props) => {
       rareCount,
       commonCount,
       wasteCount,
+      copperCount,
     };
   }, [games]);
 
@@ -281,7 +290,18 @@ const ProfilePlatinum = (props) => {
           </Level>
           <Level>
             <Trophy
-              color={WASTE_COLOR}
+              color={COMMON_COLOR}
+              onClick={() => {
+                trophClickedHandler(WASTE);
+              }}
+            >
+              <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
+              <Text>{allCounts.wasteCount}</Text>
+            </Trophy>
+          </Level>
+          <Level>
+            <Trophy
+              color={COMPLETION1_COLOR}
               onClick={() => {
                 trophClickedHandler(WASTE);
               }}

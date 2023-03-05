@@ -22,5 +22,6 @@ export const COMPLETION90_COLOR = "#FFCC00";
 export const COMPLETION75_COLOR = "#b55af2";
 export const COMPLETION50_COLOR = "#60BF81";
 export const COMPLETION25_COLOR = "#7FADEB";
-export const COMPLETION10_COLOR = "#b87333";
+export const COMPLETION10_COLOR = "#B9B9B8";
+export const COMPLETION1_COLOR = "#b87333";
 export const COMPLETION0_COLOR = "#B9B9B8";
