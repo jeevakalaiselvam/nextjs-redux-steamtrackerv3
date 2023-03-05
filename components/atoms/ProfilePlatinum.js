@@ -15,6 +15,7 @@ import {
   COMMON_COLOR,
   EPIC,
   EPIC_COLOR,
+  INFINITY_COLOR,
   LEGENDARY,
   LEGENDARY_COLOR,
   MARVEL_COLOR,
@@ -27,6 +28,7 @@ import {
   calculateRarityLeftFromAchievements,
   calculateRarityLeftFromGames,
   EPIC_TROPHY_PERCENTAGE,
+  INFINITY_TROPHY_PERCENTAGE,
   LEGENDARY_TROPHY_PERCENTAGE,
   MARVEL_TROPHY_PERCENTAGE,
   RARE_TROPHY_PERCENTAGE,
@@ -121,6 +123,7 @@ const ProfilePlatinum = (props) => {
   const { completionPercentageTarget } = settingsPage;
 
   let allCounts = useMemo(() => {
+    let infinityCount = 0;
     let marvelCount = 0;
     let epicCount = 0;
     let legendaryCount = 0;
@@ -135,8 +138,13 @@ const ProfilePlatinum = (props) => {
       let adjustedTotal = Math.ceil((completionPercentageTarget / 100) * total);
 
       if (completed >= 1) {
-        if (game.completion == MARVEL_TROPHY_PERCENTAGE) {
-          marvelCount += 1;
+        if (game.completion == INFINITY_TROPHY_PERCENTAGE) {
+          infinityCount++;
+        } else if (
+          game.completion < INFINITY_TROPHY_PERCENTAGE &&
+          game.completion >= MARVEL_TROPHY_PERCENTAGE
+        ) {
+          marvelCount++;
         } else if (
           game.completion < MARVEL_TROPHY_PERCENTAGE &&
           game.completion >= LEGENDARY_TROPHY_PERCENTAGE
@@ -170,6 +178,7 @@ const ProfilePlatinum = (props) => {
       }
     });
     return {
+      infinityCount,
       marvelCount,
       epicCount,
       legendaryCount,
@@ -198,6 +207,12 @@ const ProfilePlatinum = (props) => {
         </Header>
 
         <LevelContainer>
+          <Level>
+            <Trophy color={INFINITY_COLOR}>
+              <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
+              <Text>{allCounts.infinityCount}</Text>
+            </Trophy>
+          </Level>
           <Level>
             <Trophy color={MARVEL_COLOR}>
               <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>

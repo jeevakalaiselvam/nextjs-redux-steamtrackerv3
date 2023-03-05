@@ -11,7 +11,8 @@ import {
   WASTE_COLOR,
 } from "./colorHelper";
 
-export const MARVEL_TROPHY_PERCENTAGE = 100;
+export const INFINITY_TROPHY_PERCENTAGE = 100;
+export const MARVEL_TROPHY_PERCENTAGE = 90;
 export const LEGENDARY_TROPHY_PERCENTAGE = 75;
 export const EPIC_TROPHY_PERCENTAGE = 50;
 export const RARE_TROPHY_PERCENTAGE = 25;
@@ -392,10 +393,10 @@ export const rarityPercentageMapper = {
 };
 
 export const calculateXPFromPercentage = (percentage) => {
-  if (percentage <= INFINITY_HIGHER) {
+  if (percentage <= INFINITY_HIGHER && percentage > INFINITY_LOWER) {
     return 200;
   } else if (percentage <= MARVEL_HIGHER && percentage > MARVEL_LOWER) {
-    return 75;
+    return 100;
   } else if (percentage <= LEGENDARY_HIGHER && percentage > LEGENDARY_LOWER) {
     return 75;
   } else if (percentage <= EPIC_HIGHER && percentage > EPIC_LOWER) {
@@ -406,7 +407,7 @@ export const calculateXPFromPercentage = (percentage) => {
     return 15;
   } else if (percentage <= COMMON_HIGHER && percentage > COMMON_LOWER) {
     return 10;
-  } else {
+  } else if (percentage <= WASTE_HIGHER && percentage > WASTE_LOWER) {
     return 5;
   }
 };
