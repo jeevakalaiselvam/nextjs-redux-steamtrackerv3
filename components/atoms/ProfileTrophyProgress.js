@@ -22,6 +22,11 @@ import {
   XP_FOR_LEVEL,
 } from "../../helpers/xpHelper";
 import { TbArrowNarrowDown } from "react-icons/tb";
+import {
+  LEGENDARY,
+  LEGENDARY_COLOR,
+  MARVEL_COLOR,
+} from "../../helpers/colorHelper";
 
 const Container = styled.div`
   display: flex;
@@ -243,7 +248,13 @@ const ProfileTrophyProgress = (props) => {
                   );
               })}
           </GoldTrophy>
-          <ToNext>+ {toNextLevel} needed..</ToNext>
+          <ToNext>
+            +{" "}
+            <span style={{ marginLeft: "0.5rem", marginRight: "0.5rem" }}>
+              {toNextLevel}
+            </span>{" "}
+            more..
+          </ToNext>
         </LevelContainer>
       </LevelFragment>
     </Container>

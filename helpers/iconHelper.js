@@ -3,7 +3,7 @@ import { FaHourglass, FaMedal, FaTrophy } from "react-icons/fa";
 import { BsTrophyFill } from "react-icons/bs";
 import { HiColorSwatch, HiLightningBolt, HiTicket } from "react-icons/hi";
 
-export const getIcon = (type) => {
+export const getIcon = (type, color) => {
   switch (type) {
     case "trophy":
       return <FaTrophy />;
