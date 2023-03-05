@@ -312,7 +312,10 @@ export default function GameCard({ game }) {
             <TrophyIcon
               iconColor={getPercentageCompletionColor(gameData.completion)}
             >
-              {getIcon("trophy")}
+              {getPercentageCompletionColor(gameData.completion) !=
+                COMMON_COLOR && getIcon("trophy")}{" "}
+              {getPercentageCompletionColor(gameData.completion) ==
+                COMMON_COLOR && getIcon("ongoing")}
             </TrophyIcon>
             {false && (
               <Percentage

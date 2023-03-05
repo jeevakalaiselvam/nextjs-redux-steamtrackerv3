@@ -10,6 +10,40 @@ import {
   WASTE_COLOR,
 } from "./colorHelper";
 
+export const MARVEL_TROPHY_PERCENTAGE = 100;
+export const LEGENDARY_TROPHY_PERCENTAGE = 75;
+export const EPIC_TROPHY_PERCENTAGE = 50;
+export const RARE_TROPHY_PERCENTAGE = 25;
+export const WASTE_TROPHY_PERCENTAGE = 10;
+
+export const getPercentageCompletionColor = (percentage) => {
+  if (percentage == MARVEL_TROPHY_PERCENTAGE) {
+    return MARVEL_COLOR;
+  } else if (
+    percentage < MARVEL_TROPHY_PERCENTAGE &&
+    percentage >= LEGENDARY_TROPHY_PERCENTAGE
+  ) {
+    return LEGENDARY_COLOR;
+  } else if (
+    percentage < LEGENDARY_TROPHY_PERCENTAGE &&
+    percentage >= EPIC_TROPHY_PERCENTAGE
+  ) {
+    return EPIC_COLOR;
+  } else if (
+    percentage < EPIC_TROPHY_PERCENTAGE &&
+    percentage >= RARE_TROPHY_PERCENTAGE
+  ) {
+    return RARE_COLOR;
+  } else if (
+    percentage < RARE_TROPHY_PERCENTAGE &&
+    percentage >= WASTE_TROPHY_PERCENTAGE
+  ) {
+    return WASTE_COLOR;
+  } else {
+    return COMMON_COLOR;
+  }
+};
+
 export const MARVEL_LOWER = 0;
 export const MARVEL_HIGHER = 1;
 export const LEGENDARY_LOWER = 1;
@@ -313,34 +347,6 @@ export const getRarityColorFromPercentage = (percentage) => {
     return COMMON_COLOR;
   } else {
     return WASTE_COLOR;
-  }
-};
-
-export const MARVEL_TROPHY_PERCENTAGE = 100;
-export const LEGENDARY_TROPHY_PERCENTAGE = 75;
-export const EPIC_TROPHY_PERCENTAGE = 50;
-export const RARE_TROPHY_PERCENTAGE = 25;
-
-export const getPercentageCompletionColor = (percentage) => {
-  if (percentage == MARVEL_TROPHY_PERCENTAGE) {
-    return MARVEL_COLOR;
-  } else if (
-    percentage < MARVEL_TROPHY_PERCENTAGE &&
-    percentage >= LEGENDARY_TROPHY_PERCENTAGE
-  ) {
-    return LEGENDARY_COLOR;
-  } else if (
-    percentage < LEGENDARY_TROPHY_PERCENTAGE &&
-    percentage >= EPIC_TROPHY_PERCENTAGE
-  ) {
-    return EPIC_COLOR;
-  } else if (
-    percentage < EPIC_TROPHY_PERCENTAGE &&
-    percentage >= RARE_TROPHY_PERCENTAGE
-  ) {
-    return RARE_COLOR;
-  } else {
-    return COMMON_COLOR;
   }
 };
 

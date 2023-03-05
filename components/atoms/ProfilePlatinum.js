@@ -26,6 +26,11 @@ import { getIcon } from "../../helpers/iconHelper";
 import {
   calculateRarityLeftFromAchievements,
   calculateRarityLeftFromGames,
+  EPIC_TROPHY_PERCENTAGE,
+  LEGENDARY_TROPHY_PERCENTAGE,
+  MARVEL_TROPHY_PERCENTAGE,
+  RARE_TROPHY_PERCENTAGE,
+  WASTE_TROPHY_PERCENTAGE,
 } from "../../helpers/xpHelper";
 
 const Container = styled.div`
@@ -120,7 +125,6 @@ const ProfilePlatinum = (props) => {
     let epicCount = 0;
     let legendaryCount = 0;
     let rareCount = 0;
-    let uncommonCount = 0;
     let commonCount = 0;
     let wasteCount = 0;
     let subPlatinum = 0;
@@ -131,18 +135,29 @@ const ProfilePlatinum = (props) => {
       let adjustedTotal = Math.ceil((completionPercentageTarget / 100) * total);
 
       if (completed >= 1) {
-        if (game.completion == 100) {
+        if (game.completion == MARVEL_TROPHY_PERCENTAGE) {
           marvelCount += 1;
-        } else if (game.completion < 100 && game.completion >= 80) {
-          epicCount++;
-        } else if (game.completion < 80 && game.completion >= 50) {
+        } else if (
+          game.completion < MARVEL_TROPHY_PERCENTAGE &&
+          game.completion >= LEGENDARY_TROPHY_PERCENTAGE
+        ) {
           legendaryCount++;
-        } else if (game.completion < 50 && game.completion >= 25) {
+        } else if (
+          game.completion < LEGENDARY_TROPHY_PERCENTAGE &&
+          game.completion >= EPIC_TROPHY_PERCENTAGE
+        ) {
+          epicCount++;
+        } else if (
+          game.completion < EPIC_TROPHY_PERCENTAGE &&
+          game.completion >= RARE_TROPHY_PERCENTAGE
+        ) {
           rareCount++;
-        } else if (game.completion < 25 && game.completion >= 10) {
-          uncommonCount++;
-        } else {
+        } else if (
+          game.completion < RARE_TROPHY_PERCENTAGE &&
+          game.completion >= WASTE_TROPHY_PERCENTAGE
+        ) {
           wasteCount++;
+        } else {
         }
       }
       const rarityInfo = calculateRarityLeftFromAchievements(
@@ -159,7 +174,6 @@ const ProfilePlatinum = (props) => {
       epicCount,
       legendaryCount,
       rareCount,
-      uncommonCount,
       commonCount,
       wasteCount,
     };
@@ -196,24 +210,18 @@ const ProfilePlatinum = (props) => {
               <Text>{allCounts.epicCount}</Text>
             </Trophy>
           </Level>
+        </LevelContainer>
+        <LevelContainer>
           <Level>
             <Trophy color={EPIC_COLOR}>
               <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
               <Text>{allCounts.legendaryCount}</Text>
             </Trophy>
           </Level>
-        </LevelContainer>
-        <LevelContainer>
           <Level>
             <Trophy color={RARE_COLOR}>
               <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
               <Text>{allCounts.rareCount}</Text>
-            </Trophy>
-          </Level>
-          <Level>
-            <Trophy color={UNCOMMON_COLOR}>
-              <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
-              <Text>{allCounts.uncommonCount}</Text>
             </Trophy>
           </Level>
           <Level>
