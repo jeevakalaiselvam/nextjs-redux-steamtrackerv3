@@ -5,6 +5,7 @@ import {
   COMPLETION0_COLOR,
   COMPLETION100_COLOR,
   COMPLETION10_COLOR,
+  COMPLETION1_COLOR,
   COMPLETION25_COLOR,
   COMPLETION50_COLOR,
   COMPLETION75_COLOR,
@@ -72,10 +73,14 @@ export const calculaNextStageForGame = (game) => {
     nextStage.next =
       Math.ceil(game.total * (COMPLETION25 / 100)) - game.completed;
     nextStage.iconColor = COMPLETION25_COLOR;
-  } else {
+  } else if (completion >= COMPLETION1 && completion < COMPLETION10) {
     nextStage.next =
       Math.ceil(game.total * (COMPLETION10 / 100)) - game.completed;
     nextStage.iconColor = COMPLETION10_COLOR;
+  } else {
+    nextStage.next =
+      Math.ceil(game.total * (COMPLETION1 / 100)) - game.completed;
+    nextStage.iconColor = COMPLETION1_COLOR;
   }
 
   return nextStage;
