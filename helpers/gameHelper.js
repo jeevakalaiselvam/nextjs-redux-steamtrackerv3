@@ -1,5 +1,6 @@
 import next from "next";
 import {
+  BELOW_WASTE_COLOR,
   EPIC_COLOR,
   LEGENDARY_COLOR,
   MARVEL_COLOR,
@@ -14,7 +15,15 @@ import {
   GAMES_OPTION_COMPLETION_STARTED,
   GAMES_OPTION_RECENT,
 } from "./filterHelper";
-import { calculateRarityLeftFromAchievements } from "./xpHelper";
+import {
+  calculateRarityLeftFromAchievements,
+  EPIC_TROPHY_PERCENTAGE,
+  LEGENDARY_TROPHY_PERCENTAGE,
+  MARVEL_TROPHY_PERCENTAGE,
+  RARE_TROPHY_PERCENTAGE,
+  UNCOMMON_TROPHY_PERCENTAGE,
+  WASTE_TROPHY_PERCENTAGE,
+} from "./xpHelper";
 
 export const sortGamesByFilterOption = (
   games,
@@ -241,26 +250,66 @@ export const calculaNextStageForGame = (game) => {
 
   let completion = game.completion;
 
-  if (completion === 100) {
+  if (completion === MARVEL_TROPHY_PERCENTAGE) {
     nextStage.next = 0;
     nextStage.iconColor = MARVEL_COLOR;
-  } else if (completion >= 80 && completion < 100) {
-    nextStage.next = Math.floor(game.total * 1) - game.completed;
+  } else if (
+    completion >= EPIC_TROPHY_PERCENTAGE &&
+    completion < MARVEL_TROPHY_PERCENTAGE
+  ) {
+    nextStage.next =
+      Math.ceil(game.total * (MARVEL_TROPHY_PERCENTAGE / 100)) - game.completed;
     nextStage.iconColor = MARVEL_COLOR;
-  } else if (completion >= 50 && completion < 80) {
-    nextStage.next = Math.floor(game.total * 0.8) - game.completed;
+  } else if (
+    completion >= LEGENDARY_TROPHY_PERCENTAGE &&
+    completion < EPIC_TROPHY_PERCENTAGE
+  ) {
+    nextStage.next =
+      Math.ceil(game.total * (EPIC_TROPHY_PERCENTAGE / 100)) - game.completed;
     nextStage.iconColor = EPIC_COLOR;
-  } else if (completion >= 25 && completion < 50) {
-    nextStage.next = Math.floor(game.total * 0.5) - game.completed;
+  } else if (
+    completion >= RARE_TROPHY_PERCENTAGE &&
+    completion < LEGENDARY_TROPHY_PERCENTAGE
+  ) {
+    nextStage.next =
+      Math.ceil(game.total * (LEGENDARY_TROPHY_PERCENTAGE / 100)) -
+      game.completed;
     nextStage.iconColor = LEGENDARY_COLOR;
-  } else if (completion >= 10 && completion < 25) {
-    nextStage.next = Math.floor(game.total * 0.25) - game.completed;
+  } else if (
+    completion >= UNCOMMON_TROPHY_PERCENTAGE &&
+    completion < RARE_TROPHY_PERCENTAGE
+  ) {
+    nextStage.next =
+      Math.ceil(game.total * (RARE_TROPHY_PERCENTAGE / 100)) - game.completed;
     nextStage.iconColor = RARE_COLOR;
-  } else {
-    nextStage.next = Math.floor(game.total * 0.1) - game.completed;
+  } else if (
+    completion >= WASTE_TROPHY_PERCENTAGE &&
+    completion < UNCOMMON_TROPHY_PERCENTAGE
+  ) {
+    nextStage.next =
+      Math.ceil(game.total * (UNCOMMON_TROPHY_PERCENTAGE / 100)) -
+      game.completed;
     nextStage.iconColor = UNCOMMON_COLOR;
+  } else if (
+    completion >= WASTE_TROPHY_PERCENTAGE &&
+    completion < UNCOMMON_TROPHY_PERCENTAGE
+  ) {
+    nextStage.next =
+      Math.ceil(game.total * (UNCOMMON_TROPHY_PERCENTAGE / 100)) -
+      game.completed;
+    nextStage.iconColor = UNCOMMON_COLOR;
+  } else {
+    nextStage.next =
+      Math.ceil(game.total * (WASTE_TROPHY_PERCENTAGE / 100)) - game.completed;
+    nextStage.iconColor = WASTE_COLOR;
   }
 
-  console.log("JEEVA - NEXT STAGE ", game.name, completion, nextStage);
+  console.log(
+    "JEEVA - NEXT STAGESSSS ",
+    game,
+    game.name,
+    completion,
+    nextStage
+  );
   return nextStage;
 };

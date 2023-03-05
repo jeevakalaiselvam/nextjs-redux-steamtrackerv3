@@ -29,6 +29,7 @@ import {
   setLastSelectedGame,
 } from "../../store/actions/games.actions";
 import {
+  BELOW_WASTE_COLOR,
   COMMON_COLOR,
   EPIC,
   EPIC_COLOR,
@@ -305,7 +306,7 @@ export default function GameCard({ game }) {
           {name}
         </TitleData>
       </Title>
-      {!gameData.completion < 50 && (
+      {
         <ToGetContainer>
           <ToGetData>
             <TrophyIcon
@@ -313,7 +314,7 @@ export default function GameCard({ game }) {
             >
               {getIcon("trophy")}
             </TrophyIcon>
-            {true && (
+            {false && (
               <Percentage
                 iconColor={getPercentageCompletionColor(gameData.completion)}
               >
@@ -322,7 +323,7 @@ export default function GameCard({ game }) {
             )}
           </ToGetData>
         </ToGetContainer>
-      )}
+      }
       {nextStage.next > 0 && (
         <XPContainer iconColor={nextStage.iconColor}>
           {/* <XPIcon>{getIcon("trophy")}</XPIcon> */}
