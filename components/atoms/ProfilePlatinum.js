@@ -13,7 +13,9 @@ import { openLinkInNewTab } from "../../helpers/browserHelper";
 import {
   COMMON,
   COMMON_COLOR,
+  COMPLETION10_COLOR,
   COMPLETION1_COLOR,
+  COPPER,
   EPIC,
   EPIC_COLOR,
   INFINITY,
@@ -290,7 +292,7 @@ const ProfilePlatinum = (props) => {
           </Level>
           <Level>
             <Trophy
-              color={COMMON_COLOR}
+              color={COMPLETION10_COLOR}
               onClick={() => {
                 trophClickedHandler(WASTE);
               }}
@@ -303,11 +305,11 @@ const ProfilePlatinum = (props) => {
             <Trophy
               color={COMPLETION1_COLOR}
               onClick={() => {
-                trophClickedHandler(WASTE);
+                trophClickedHandler(COPPER);
               }}
             >
               <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
-              <Text>{allCounts.wasteCount}</Text>
+              <Text>{allCounts.copperCount}</Text>
             </Trophy>
           </Level>
         </LevelContainer>

@@ -9,6 +9,7 @@ import {
   COMPLETION50_COLOR,
   COMPLETION75_COLOR,
   COMPLETION90_COLOR,
+  COPPER,
   EPIC,
   EPIC_COLOR,
   INFINITY,
@@ -38,6 +39,7 @@ import {
   COMPLETION50,
   COMPLETION25,
   COMPLETION10,
+  COMPLETION1,
 } from "./xpHelper";
 
 export const calculaNextStageForGame = (game) => {
@@ -185,11 +187,19 @@ export const sortGamesByFilterOption = (
           }
         });
       } else if (sidebarGameFilter == WASTE) {
-        console.log("CHECKIGN FOR WASTER");
         newGames = newGames.filter((game) => {
           if (
             game.completion < COMPLETION25 &&
             game.completion >= COMPLETION10
+          ) {
+            return true;
+          }
+        });
+      } else if (sidebarGameFilter == COPPER) {
+        newGames = newGames.filter((game) => {
+          if (
+            game.completion < COMPLETION10 &&
+            game.completion >= COMPLETION1
           ) {
             return true;
           }

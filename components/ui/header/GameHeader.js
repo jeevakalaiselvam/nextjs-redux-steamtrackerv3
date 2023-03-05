@@ -21,6 +21,8 @@ import {
   calculateLevelFromAllGames,
   calculateRarityLeftFromAchievements,
   getAllXPFromAchievements,
+  WASTE_HIGHER,
+  WASTE_LOWER,
   XP_FOR_LEVEL,
 } from "../../../helpers/xpHelper";
 import { getIcon } from "../../../helpers/iconHelper";
@@ -78,6 +80,14 @@ const TrophyContainer = styled.div`
   justify-content: center;
   color: ${(props) => (props.color ? props.color : "")};
   width: ${(props) => (props.flex == "row" ? "200px" : "50px")};
+`;
+
+const TrophyDesc = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: "5rem";
+  margin-right: ${(props) => (props.flex == "row" ? "1rem" : "0rem")};
 `;
 
 const TrophyIcon = styled.div`
@@ -329,6 +339,7 @@ export default function GameHeader() {
               color={WASTE_COLOR}
               onClick={() => filterAchievementsByRarity(WASTE)}
             >
+              <TrophyDesc></TrophyDesc>
               <TrophyIcon>{getIcon("achievement")}</TrophyIcon>
               <TrophyCount>{rarityInfo.wasteTarget}</TrophyCount>
             </TrophyContainer>

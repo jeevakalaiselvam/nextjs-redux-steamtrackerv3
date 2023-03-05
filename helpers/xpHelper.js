@@ -3,6 +3,7 @@ import {
   COMMON_COLOR,
   COMPLETION100_COLOR,
   COMPLETION10_COLOR,
+  COMPLETION1_COLOR,
   COMPLETION25_COLOR,
   COMPLETION50_COLOR,
   COMPLETION75_COLOR,
@@ -23,6 +24,7 @@ export const COMPLETION75 = 75;
 export const COMPLETION50 = 50;
 export const COMPLETION25 = 25;
 export const COMPLETION10 = 10;
+export const COMPLETION1 = 1;
 
 export const getPercentageCompletionColor = (percentage) => {
   if (percentage == COMPLETION100) {
@@ -37,6 +39,8 @@ export const getPercentageCompletionColor = (percentage) => {
     return COMPLETION25_COLOR;
   } else if (percentage < COMPLETION25 && percentage >= COMPLETION10) {
     return COMPLETION10_COLOR;
+  } else if (percentage < COMPLETION10 && percentage >= COMPLETION1) {
+    return COMPLETION1_COLOR;
   } else {
     return COMMON_COLOR;
   }
