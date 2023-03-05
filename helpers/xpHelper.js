@@ -2,6 +2,7 @@ import {
   BELOW_WASTE_COLOR,
   COMMON_COLOR,
   EPIC_COLOR,
+  INFINITY_COLOR,
   LEGENDARY_COLOR,
   MARVEL_COLOR,
   RARE_COLOR,
@@ -44,9 +45,11 @@ export const getPercentageCompletionColor = (percentage) => {
   }
 };
 
-export const MARVEL_LOWER = 0;
-export const MARVEL_HIGHER = 1;
-export const LEGENDARY_LOWER = 1;
+export const INFINITY_LOWER = 0;
+export const INFINITY_HIGHER = 1;
+export const MARVEL_LOWER = 1;
+export const MARVEL_HIGHER = 3;
+export const LEGENDARY_LOWER = 3;
 export const LEGENDARY_HIGHER = 5;
 export const EPIC_LOWER = 5;
 export const EPIC_HIGHER = 10;
@@ -67,6 +70,7 @@ export const calculateRarityLeftFromGames = (games) => {
     epic = 0,
     legendary = 0,
     marvel = 0;
+  infinity = 0;
 
   let achievements = [];
 
@@ -81,7 +85,12 @@ export const calculateRarityLeftFromGames = (games) => {
   if (achievements.length > 0) {
     achievements.forEach((achievement) => {
       if (achievement.achieved == 1) {
-        if (achievement.percentage <= MARVEL_HIGHER) {
+        if (achievement.percentage <= INFINITY_HIGHER) {
+          infinity++;
+        } else if (
+          achievement.percentage <= MARVEL_HIGHER &&
+          achievement.percentage > MARVEL_LOWER
+        ) {
           marvel++;
         } else if (
           achievement.percentage <= LEGENDARY_HIGHER &&
@@ -115,7 +124,7 @@ export const calculateRarityLeftFromGames = (games) => {
     });
   }
 
-  return { waste, common, uncommon, rare, epic, legendary, marvel };
+  return { waste, common, uncommon, rare, epic, legendary, marvel, infinity };
 };
 
 export const calculateRarityLeftFromAchievements = (
@@ -128,34 +137,43 @@ export const calculateRarityLeftFromAchievements = (
     rare = 0,
     epic = 0,
     legendary = 0,
-    marvel = 0;
+    marvel = 0,
+    infinity = 0;
   let wastePercentage = 0,
     commonPercentage = 0,
     uncommonPercentage = 0,
     rarePercentage = 0,
     epicPercentage = 0,
     legendaryPercentage = 0,
-    marvelPercentage = 0;
+    marvelPercentage = 0,
+    infinityPercentage = 0;
   let wasteCompleted = 0,
     commonCompleted = 0,
     uncommonCompleted = 0,
     rareCompleted = 0,
     epicCompleted = 0,
     legendaryCompleted = 0,
-    marvelCompleted = 0;
+    marvelCompleted = 0,
+    infinityCompleted = 0;
   let wasteTarget = 0,
     commonTarget = 0,
     uncommonTarget = 0,
     rareTarget = 0,
     epicTarget = 0,
     legendaryTarget = 0,
-    marvelTarget = 0;
+    marvelTarget = 0,
+    infinityTarget = 0;
   let remainingInTarget = 0;
 
   if (achievements.length > 0) {
     achievements.forEach((achievement) => {
       if (achievement.achieved == 1) {
-        if (achievement.percentage <= MARVEL_HIGHER) {
+        if (achievement.percentage <= INFINITY_HIGHER) {
+          infinityCompleted++;
+        } else if (
+          achievement.percentage <= MARVEL_HIGHER &&
+          achievement.percentage > MARVEL_LOWER
+        ) {
           marvelCompleted++;
         } else if (
           achievement.percentage <= LEGENDARY_HIGHER &&
@@ -186,7 +204,12 @@ export const calculateRarityLeftFromAchievements = (
           wasteCompleted++;
         }
       }
-      if (achievement.percentage <= MARVEL_HIGHER) {
+      if (achievement.percentage <= INFINITY_HIGHER) {
+        infinity++;
+      } else if (
+        achievement.percentage <= MARVEL_HIGHER &&
+        achievement.percentage > MARVEL_LOWER
+      ) {
         marvel++;
       } else if (
         achievement.percentage <= LEGENDARY_HIGHER &&
@@ -226,6 +249,7 @@ export const calculateRarityLeftFromAchievements = (
   epicPercentage = Math.floor((epicCompleted / epic) * 100);
   legendaryPercentage = Math.floor((legendaryCompleted / legendary) * 100);
   marvelPercentage = Math.floor((marvelCompleted / marvel) * 100);
+  infinityPercentage = Math.floor((infinityCompleted / infinity) * 100);
 
   if (waste === 0) {
     wasteTarget = 0;
@@ -249,13 +273,9 @@ export const calculateRarityLeftFromAchievements = (
     marvelTarget = 0;
   }
 
-  // WASTE - 75 - 100
-  // COMMON - 50 - 75
-  // UNCOMMON - 25 - 50
-  // RARE - 10 - 25
-  // EPIC - 5 - 10
-  // LEGENDARY 1 - 5
-  // MARVEL - < 1
+  if (infinity === 0) {
+    infinityTarget = 0;
+  }
 
   let percentageSettings = targetSettings
     ? targetSettings
@@ -267,6 +287,7 @@ export const calculateRarityLeftFromAchievements = (
         EPIC_TARGET: 50,
         LEGENDARY_TARGET: 50,
         MARVEL_TARGET: 50,
+        INFINITY_TARGET: 50,
       };
 
   wasteTarget =
@@ -288,6 +309,9 @@ export const calculateRarityLeftFromAchievements = (
   marvelTarget =
     Math.floor((marvel * percentageSettings.MARVEL_TARGET) / 100) -
     marvelCompleted;
+  infinityTarget =
+    Math.floor((infinity * percentageSettings.MARVEL_TARGET) / 100) -
+    infinityCompleted;
 
   wasteTarget = wasteTarget < 0 ? 0 : wasteTarget;
   commonTarget = commonTarget < 0 ? 0 : commonTarget;
@@ -296,6 +320,7 @@ export const calculateRarityLeftFromAchievements = (
   epicTarget = epicTarget < 0 ? 0 : epicTarget;
   legendaryTarget = legendaryTarget < 0 ? 0 : legendaryTarget;
   marvelTarget = marvelTarget < 0 ? 0 : marvelTarget;
+  infinityTarget = infinityTarget < 0 ? 0 : infinityTarget;
 
   remainingInTarget =
     wasteTarget +
@@ -304,7 +329,8 @@ export const calculateRarityLeftFromAchievements = (
     rareTarget +
     epicTarget +
     legendaryTarget +
-    marvelTarget;
+    marvelTarget +
+    infinityTarget;
 
   return {
     waste,
@@ -314,6 +340,7 @@ export const calculateRarityLeftFromAchievements = (
     epic,
     legendary,
     marvel,
+    infinity,
     wasteTarget,
     commonTarget,
     uncommonTarget,
@@ -321,6 +348,7 @@ export const calculateRarityLeftFromAchievements = (
     epicTarget,
     legendaryTarget,
     marvelTarget,
+    infinityTarget,
     wasteRemaining: waste - wasteCompleted,
     commonRemaining: common - commonCompleted,
     uncommonRemaining: uncommon - uncommonCompleted,
@@ -328,12 +356,15 @@ export const calculateRarityLeftFromAchievements = (
     epicRemaining: epic - epicCompleted,
     legendaryRemaining: legendary - legendaryCompleted,
     marvelRemaining: marvel - marvelCompleted,
+    infinityRemaining: infinity - infinityCompleted,
     remainingInTarget,
   };
 };
 
 export const getRarityColorFromPercentage = (percentage) => {
-  if (percentage <= MARVEL_HIGHER) {
+  if (percentage <= INFINITY_HIGHER) {
+    return INFINITY_COLOR;
+  } else if (percentage <= MARVEL_HIGHER && percentage > MARVEL_LOWER) {
     return MARVEL_COLOR;
   } else if (percentage <= LEGENDARY_HIGHER && percentage > LEGENDARY_LOWER) {
     return LEGENDARY_COLOR;
@@ -361,8 +392,10 @@ export const rarityPercentageMapper = {
 };
 
 export const calculateXPFromPercentage = (percentage) => {
-  if (percentage <= MARVEL_HIGHER) {
-    return 100;
+  if (percentage <= INFINITY_HIGHER) {
+    return 200;
+  } else if (percentage <= MARVEL_HIGHER && percentage > MARVEL_LOWER) {
+    return 75;
   } else if (percentage <= LEGENDARY_HIGHER && percentage > LEGENDARY_LOWER) {
     return 75;
   } else if (percentage <= EPIC_HIGHER && percentage > EPIC_LOWER) {
@@ -379,7 +412,9 @@ export const calculateXPFromPercentage = (percentage) => {
 };
 
 export const getRarityTextFromPercentage = (percentage) => {
-  if (percentage <= MARVEL_HIGHER) {
+  if (percentage <= INFINITY_HIGHER) {
+    return "INFINITY";
+  } else if (percentage <= MARVEL_HIGHER && percentage > MARVEL_LOWER) {
     return "MARVEL";
   } else if (percentage <= LEGENDARY_HIGHER && percentage > LEGENDARY_LOWER) {
     return "LEGENDARY";

@@ -31,6 +31,8 @@ import {
   COMMON_COLOR,
   EPIC,
   EPIC_COLOR,
+  INFINITY,
+  INFINITY_COLOR,
   LEGENDARY,
   LEGENDARY_COLOR,
   MARVEL,
@@ -385,6 +387,15 @@ export default function GameHeader() {
                 <FaTrophy />
               </TrophyIcon>
               <TrophyCount>{rarityInfo.marvelTarget}</TrophyCount>
+            </TrophyContainer>
+            <TrophyContainer
+              color={INFINITY_COLOR}
+              onClick={() => filterAchievementsByRarity(INFINITY)}
+            >
+              <TrophyIcon>
+                <FaTrophy />
+              </TrophyIcon>
+              <TrophyCount>{rarityInfo.infinityTarget}</TrophyCount>
             </TrophyContainer>
           </TrophyRemainingList>
         </RemainingContainer>

@@ -5,7 +5,9 @@ export const RARE = "RARE";
 export const EPIC = "EPIC";
 export const LEGENDARY = "LEGENDARY";
 export const MARVEL = "MARVEL";
+export const INFINITY = "INFINITY";
 
+export const INFINITY_COLOR = "#FF7A48";
 export const MARVEL_COLOR = "#eb4b4b";
 export const LEGENDARY_COLOR = "#FFCC00";
 export const EPIC_COLOR = "#b55af2";
