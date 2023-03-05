@@ -1,6 +1,7 @@
 import next from "next";
 import {
   BELOW_WASTE_COLOR,
+  COMMON_COLOR,
   EPIC_COLOR,
   LEGENDARY_COLOR,
   MARVEL_COLOR,
@@ -77,7 +78,8 @@ export const sortGamesByFilterOption = (
           game.playtime > 0 &&
           !completedGameIds?.includes(game.id) &&
           !pinnedGameIds?.includes(game.id) &&
-          game.completion != 0
+          game.completion != 0 &&
+          game.completed > 1
         ) {
           startedGameIds.push(game.id);
           return true;
@@ -275,33 +277,10 @@ export const calculaNextStageForGame = (game) => {
       Math.ceil(game.total * (LEGENDARY_TROPHY_PERCENTAGE / 100)) -
       game.completed;
     nextStage.iconColor = LEGENDARY_COLOR;
-  } else if (
-    completion >= UNCOMMON_TROPHY_PERCENTAGE &&
-    completion < RARE_TROPHY_PERCENTAGE
-  ) {
-    nextStage.next =
-      Math.ceil(game.total * (RARE_TROPHY_PERCENTAGE / 100)) - game.completed;
-    nextStage.iconColor = RARE_COLOR;
-  } else if (
-    completion >= WASTE_TROPHY_PERCENTAGE &&
-    completion < UNCOMMON_TROPHY_PERCENTAGE
-  ) {
-    nextStage.next =
-      Math.ceil(game.total * (UNCOMMON_TROPHY_PERCENTAGE / 100)) -
-      game.completed;
-    nextStage.iconColor = UNCOMMON_COLOR;
-  } else if (
-    completion >= WASTE_TROPHY_PERCENTAGE &&
-    completion < UNCOMMON_TROPHY_PERCENTAGE
-  ) {
-    nextStage.next =
-      Math.ceil(game.total * (UNCOMMON_TROPHY_PERCENTAGE / 100)) -
-      game.completed;
-    nextStage.iconColor = UNCOMMON_COLOR;
   } else {
     nextStage.next =
-      Math.ceil(game.total * (WASTE_TROPHY_PERCENTAGE / 100)) - game.completed;
-    nextStage.iconColor = WASTE_COLOR;
+      Math.ceil(game.total * (RARE_TROPHY_PERCENTAGE / 100)) - game.completed;
+    nextStage.iconColor = COMMON_COLOR;
   }
 
   console.log(

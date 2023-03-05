@@ -42,6 +42,7 @@ import {
   WASTE,
   WASTE_COLOR,
 } from "../../../helpers/colorHelper";
+import { calculaNextStageForGame } from "../../../helpers/gameHelper";
 
 const Container = styled.div`
   display: flex;
@@ -262,13 +263,7 @@ export default function GameHeader() {
             game.achievements,
             targetSettings
           );
-          const nextStage = {
-            next: Math.ceil(
-              xpData.total * (completionPercentageTarget / 100) -
-                xpData.completedTotal
-            ),
-            iconColor: COMMON_COLOR,
-          };
+          const nextStage = calculaNextStageForGame(game);
           setGameData(game);
           setXPInfo(xpInfo);
           setLevelInfo(levelInfo);
@@ -314,14 +309,12 @@ export default function GameHeader() {
         {
           <RemainingTrophyContainer>
             <XPContainer
-              iconColor={nextStage.next <= 0 ? EPIC_COLOR : COMMON_COLOR}
+              iconColor={nextStage.iconColor}
               complete={nextStage.next <= 0}
             >
               <XPIcon>{getIcon("trophy")}</XPIcon>
               <XPData complete={rarityInfo.remainingInTarget == 0}>
-                {rarityInfo.remainingInTarget > 0
-                  ? rarityInfo.remainingInTarget
-                  : "PLATINUM"}
+                {nextStage.next}
               </XPData>
             </XPContainer>
           </RemainingTrophyContainer>

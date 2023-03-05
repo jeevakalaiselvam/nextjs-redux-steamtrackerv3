@@ -319,9 +319,7 @@ export const getRarityColorFromPercentage = (percentage) => {
 export const MARVEL_TROPHY_PERCENTAGE = 100;
 export const EPIC_TROPHY_PERCENTAGE = 75;
 export const LEGENDARY_TROPHY_PERCENTAGE = 50;
-export const RARE_TROPHY_PERCENTAGE = 100;
-export const UNCOMMON_TROPHY_PERCENTAGE = 25;
-export const WASTE_TROPHY_PERCENTAGE = 10;
+export const RARE_TROPHY_PERCENTAGE = 25;
 
 export const getPercentageCompletionColor = (percentage) => {
   if (percentage == MARVEL_TROPHY_PERCENTAGE) {
@@ -341,16 +339,6 @@ export const getPercentageCompletionColor = (percentage) => {
     percentage >= RARE_TROPHY_PERCENTAGE
   ) {
     return RARE_COLOR;
-  } else if (
-    percentage < RARE_TROPHY_PERCENTAGE &&
-    percentage >= UNCOMMON_TROPHY_PERCENTAGE
-  ) {
-    return UNCOMMON_COLOR;
-  } else if (
-    percentage < UNCOMMON_TROPHY_PERCENTAGE &&
-    percentage >= WASTE_TROPHY_PERCENTAGE
-  ) {
-    return WASTE_COLOR;
   } else {
     return COMMON_COLOR;
   }
