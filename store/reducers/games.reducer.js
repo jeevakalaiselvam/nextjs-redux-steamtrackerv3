@@ -61,6 +61,7 @@ import {
   REMOVE_PIN_ACHIEVEMENT,
   SET_COMPLETION_PERCENTAGE_TARGET,
   SET_TARGET_INFO,
+  SET_SIDEBAR_GAME_FILTER,
 } from "../types/games.types";
 
 const INITIAL_STATE = {
@@ -138,12 +139,19 @@ const INITIAL_STATE = {
     LEGENDARY_TARGET: 50,
     MARVEL_TARGET: 50,
   },
+  sidebarGameFilter: "NONE",
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case SET_SIDEBAR_GAME_FILTER:
+      return {
+        ...state,
+        sidebarGameFilter: payload,
+      };
+
     case SET_TARGET_INFO:
       return {
         ...state,

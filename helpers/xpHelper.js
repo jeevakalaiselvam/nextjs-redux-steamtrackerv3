@@ -1,6 +1,12 @@
 import {
   BELOW_WASTE_COLOR,
   COMMON_COLOR,
+  COMPLETION100_COLOR,
+  COMPLETION10_COLOR,
+  COMPLETION25_COLOR,
+  COMPLETION50_COLOR,
+  COMPLETION75_COLOR,
+  COMPLETION90_COLOR,
   EPIC_COLOR,
   INFINITY_COLOR,
   LEGENDARY_COLOR,
@@ -11,36 +17,26 @@ import {
   WASTE_COLOR,
 } from "./colorHelper";
 
-export const INFINITY_TROPHY_PERCENTAGE = 100;
-export const MARVEL_TROPHY_PERCENTAGE = 90;
-export const LEGENDARY_TROPHY_PERCENTAGE = 75;
-export const EPIC_TROPHY_PERCENTAGE = 50;
-export const RARE_TROPHY_PERCENTAGE = 25;
-export const WASTE_TROPHY_PERCENTAGE = 10;
+export const COMPELTION100 = 100;
+export const COMPLETION90 = 90;
+export const COMPLETION75 = 75;
+export const COMPLETION50 = 50;
+export const COMPLETION25 = 25;
+export const COMPLETION10 = 10;
 
 export const getPercentageCompletionColor = (percentage) => {
-  if (percentage == MARVEL_TROPHY_PERCENTAGE) {
-    return MARVEL_COLOR;
-  } else if (
-    percentage < MARVEL_TROPHY_PERCENTAGE &&
-    percentage >= LEGENDARY_TROPHY_PERCENTAGE
-  ) {
-    return LEGENDARY_COLOR;
-  } else if (
-    percentage < LEGENDARY_TROPHY_PERCENTAGE &&
-    percentage >= EPIC_TROPHY_PERCENTAGE
-  ) {
-    return EPIC_COLOR;
-  } else if (
-    percentage < EPIC_TROPHY_PERCENTAGE &&
-    percentage >= RARE_TROPHY_PERCENTAGE
-  ) {
-    return RARE_COLOR;
-  } else if (
-    percentage < RARE_TROPHY_PERCENTAGE &&
-    percentage >= WASTE_TROPHY_PERCENTAGE
-  ) {
-    return WASTE_COLOR;
+  if (percentage == COMPELTION100) {
+    return COMPLETION100_COLOR;
+  } else if (percentage < COMPELTION100 && percentage >= COMPLETION90) {
+    return COMPLETION90_COLOR;
+  } else if (percentage < COMPLETION90 && percentage >= COMPLETION75) {
+    return COMPLETION75_COLOR;
+  } else if (percentage < COMPLETION75 && percentage >= COMPLETION50) {
+    return COMPLETION50_COLOR;
+  } else if (percentage < COMPLETION50 && percentage >= COMPLETION25) {
+    return COMPLETION25_COLOR;
+  } else if (percentage < COMPLETION25 && percentage >= COMPLETION10) {
+    return COMPLETION10_COLOR;
   } else {
     return COMMON_COLOR;
   }

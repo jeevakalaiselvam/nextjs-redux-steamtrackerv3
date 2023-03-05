@@ -310,6 +310,12 @@ export const addPinnedGame = (payload) => {
   };
 };
 
+export const setSidebarGameFilter = (payload) => {
+  return (dispatch) => {
+    return dispatch({ type: SET_SIDEBAR_GAME_FILTER, payload });
+  };
+};
+
 export const addPinAchievement = (payload) => {
   return (dispatch) => {
     return dispatch({ type: ADD_PIN_ACHIEVEMENT, payload });

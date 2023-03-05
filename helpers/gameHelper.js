@@ -2,11 +2,25 @@ import next from "next";
 import {
   BELOW_WASTE_COLOR,
   COMMON_COLOR,
+  COMPLETION0_COLOR,
+  COMPLETION100_COLOR,
+  COMPLETION10_COLOR,
+  COMPLETION25_COLOR,
+  COMPLETION50_COLOR,
+  COMPLETION75_COLOR,
+  COMPLETION90_COLOR,
+  EPIC,
   EPIC_COLOR,
+  INFINITY,
+  INFINITY_COLOR,
+  LEGENDARY,
   LEGENDARY_COLOR,
+  MARVEL,
   MARVEL_COLOR,
+  RARE,
   RARE_COLOR,
   UNCOMMON_COLOR,
+  WASTE,
   WASTE_COLOR,
 } from "./colorHelper";
 import {
@@ -18,66 +32,58 @@ import {
 } from "./filterHelper";
 import {
   calculateRarityLeftFromAchievements,
-  EPIC_TROPHY_PERCENTAGE,
-  LEGENDARY_TROPHY_PERCENTAGE,
-  MARVEL_TROPHY_PERCENTAGE,
-  RARE_TROPHY_PERCENTAGE,
-  UNCOMMON_TROPHY_PERCENTAGE,
-  WASTE_TROPHY_PERCENTAGE,
+  COMPLETION100,
+  COMPLETION90,
+  COMPLETTION75,
+  COMPLETION50,
+  COMPLETION25,
+  COMPLETION10,
 } from "./xpHelper";
 
 export const calculaNextStageForGame = (game) => {
   let nextStage = {
     next: 0,
-    iconColor: WASTE_COLOR,
+    iconColor: COMPLETION10_COLOR,
   };
 
   let completion = game.completion;
 
-  if (completion === MARVEL_TROPHY_PERCENTAGE) {
+  if (completion == COMPLETION100) {
     nextStage.next = 0;
-    nextStage.iconColor = MARVEL_COLOR;
-  } else if (
-    completion >= LEGENDARY_TROPHY_PERCENTAGE &&
-    completion < MARVEL_TROPHY_PERCENTAGE
-  ) {
+    nextStage.iconColor = COMPLETION100_COLOR;
+  } else if (completion >= COMPLETION90 && completion < COMPLETION100) {
     nextStage.next =
-      Math.ceil(game.total * (MARVEL_TROPHY_PERCENTAGE / 100)) - game.completed;
-    nextStage.iconColor = MARVEL_COLOR;
-  } else if (
-    completion >= EPIC_TROPHY_PERCENTAGE &&
-    completion < LEGENDARY_TROPHY_PERCENTAGE
-  ) {
+      Math.ceil(game.total * (COMPLETION100 / 100)) - game.completed;
+    nextStage.iconColor = COMPLETION100_COLOR;
+  } else if (completion >= COMPLETTION75 && completion < COMPLETION90) {
+    console.log("CHECKING MASS EFFECT");
     nextStage.next =
-      Math.ceil(game.total * (LEGENDARY_TROPHY_PERCENTAGE / 100)) -
-      game.completed;
-    nextStage.iconColor = LEGENDARY_TROPHY_PERCENTAGE;
-  } else if (
-    completion >= RARE_TROPHY_PERCENTAGE &&
-    completion < EPIC_TROPHY_PERCENTAGE
-  ) {
+      Math.ceil(game.total * (COMPLETION90 / 100)) - game.completed;
+    nextStage.iconColor = COMPLETION90_COLOR;
+  } else if (completion >= COMPLETION50 && completion < COMPLETTION75) {
     nextStage.next =
-      Math.ceil(game.total * (EPIC_TROPHY_PERCENTAGE / 100)) - game.completed;
-    nextStage.iconColor = EPIC_COLOR;
-  } else if (
-    completion >= WASTE_TROPHY_PERCENTAGE &&
-    completion < RARE_TROPHY_PERCENTAGE
-  ) {
+      Math.ceil(game.total * (COMPLETTION75 / 100)) - game.completed;
+    nextStage.iconColor = COMPLETION75_COLOR;
+  } else if (completion >= COMPLETION25 && completion < COMPLETION50) {
     nextStage.next =
-      Math.ceil(game.total * (RARE_TROPHY_PERCENTAGE / 100)) - game.completed;
-    nextStage.iconColor = RARE_COLOR;
+      Math.ceil(game.total * (COMPLETION50 / 100)) - game.completed;
+    nextStage.iconColor = COMPLETION50_COLOR;
+  } else if (completion >= COMPLETION10 && completion < COMPLETION25) {
+    nextStage.next =
+      Math.ceil(game.total * (COMPLETION25 / 100)) - game.completed;
+    nextStage.iconColor = COMPLETION25_COLOR;
   } else {
     nextStage.next =
-      Math.ceil(game.total * (WASTE_TROPHY_PERCENTAGE / 100)) - game.completed;
-    nextStage.iconColor = WASTE_COLOR;
+      Math.ceil(game.total * (COMPLETION10 / 100)) - game.completed;
+    nextStage.iconColor = COMPLETION10_COLOR;
   }
 
   console.log(
-    "JEEVA - NEXT STAGESSSS ",
-    game,
+    "JEEVA - CALCULATING NEXT STAGE for GAME",
     game.name,
-    completion,
-    nextStage
+    game,
+    nextStage.next,
+    completion
   );
   return nextStage;
 };
@@ -87,7 +93,8 @@ export const sortGamesByFilterOption = (
   filterOption,
   pinnedGames,
   completionPercentageTarget,
-  targetSettings
+  targetSettings,
+  sidebarGameFilter
 ) => {
   let newGames = [];
   switch (filterOption) {
@@ -148,15 +155,66 @@ export const sortGamesByFilterOption = (
         return game2.completion - game1.completion;
       });
 
-      // newGames = newGames.filter((game) => {
-      //   const rarityInfo = calculateRarityLeftFromAchievements(
-      //     game.achievements,
-      //     targetSettings
-      //   );
-
-      //   return pinnedGames?.includes(game.id);
-      // });
-
+      if (sidebarGameFilter == INFINITY) {
+        newGames = newGames.filter((game) => {
+          if (game.completion == COMPLETION100) {
+            return true;
+          }
+        });
+      } else if (sidebarGameFilter == MARVEL) {
+        newGames = newGames.filter((game) => {
+          if (
+            game.completion < COMPLETION100 &&
+            game.completion >= COMPLETION90
+          ) {
+            return true;
+          }
+        });
+      } else if (sidebarGameFilter == LEGENDARY) {
+        newGames = newGames.filter((game) => {
+          if (
+            game.completion < COMPLETION90 &&
+            game.completion >= COMPLETTION75
+          ) {
+            return true;
+          }
+        });
+      } else if (sidebarGameFilter == EPIC) {
+        newGames = newGames.filter((game) => {
+          if (
+            game.completion < COMPLETTION75 &&
+            game.completion >= COMPLETION50
+          ) {
+            return true;
+          }
+        });
+      } else if (sidebarGameFilter == RARE) {
+        newGames = newGames.filter((game) => {
+          if (
+            game.completion < COMPLETION50 &&
+            game.completion >= COMPLETION25
+          ) {
+            return true;
+          }
+        });
+      } else if (sidebarGameFilter == WASTE) {
+        newGames = newGames.filter((game) => {
+          if (
+            game.completion < COMPLETION25 &&
+            game.completion >= COMPLETION10
+          ) {
+            return true;
+          }
+        });
+      } else {
+        if (sidebarGameFilter == "NONE") {
+          newGames = newGames.filter((game) => {
+            return true;
+          });
+        } else {
+        }
+      }
+      console.log("JEEVA - NEW GAMES", { newGames });
       break;
     case GAMES_OPTION_COMPLETION_DESC:
       newGames = games.sort(
