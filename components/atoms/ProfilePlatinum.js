@@ -27,12 +27,12 @@ import { getIcon } from "../../helpers/iconHelper";
 import {
   calculateRarityLeftFromAchievements,
   calculateRarityLeftFromGames,
-  EPIC_TROPHY_PERCENTAGE,
-  INFINITY_TROPHY_PERCENTAGE,
-  LEGENDARY_TROPHY_PERCENTAGE,
-  MARVEL_TROPHY_PERCENTAGE,
-  RARE_TROPHY_PERCENTAGE,
-  WASTE_TROPHY_PERCENTAGE,
+  COMPLETION100,
+  COMPLETION90,
+  COMPLETION75,
+  COMPLETION50,
+  COMPLETION25,
+  COMPLETION10,
 } from "../../helpers/xpHelper";
 
 const Container = styled.div`
@@ -138,31 +138,31 @@ const ProfilePlatinum = (props) => {
       let adjustedTotal = Math.ceil((completionPercentageTarget / 100) * total);
 
       if (completed >= 1) {
-        if (game.completion == INFINITY_TROPHY_PERCENTAGE) {
+        if (game.completion == COMPLETION100) {
           infinityCount++;
         } else if (
-          game.completion < INFINITY_TROPHY_PERCENTAGE &&
-          game.completion >= MARVEL_TROPHY_PERCENTAGE
+          game.completion < COMPLETION100 &&
+          game.completion >= COMPLETION90
         ) {
           marvelCount++;
         } else if (
-          game.completion < MARVEL_TROPHY_PERCENTAGE &&
-          game.completion >= LEGENDARY_TROPHY_PERCENTAGE
+          game.completion < COMPLETION90 &&
+          game.completion >= COMPLETION75
         ) {
           legendaryCount++;
         } else if (
-          game.completion < LEGENDARY_TROPHY_PERCENTAGE &&
-          game.completion >= EPIC_TROPHY_PERCENTAGE
+          game.completion < COMPLETION75 &&
+          game.completion >= COMPLETION50
         ) {
           epicCount++;
         } else if (
-          game.completion < EPIC_TROPHY_PERCENTAGE &&
-          game.completion >= RARE_TROPHY_PERCENTAGE
+          game.completion < COMPLETION50 &&
+          game.completion >= COMPLETION25
         ) {
           rareCount++;
         } else if (
-          game.completion < RARE_TROPHY_PERCENTAGE &&
-          game.completion >= WASTE_TROPHY_PERCENTAGE
+          game.completion < COMPLETION25 &&
+          game.completion >= COMPLETION10
         ) {
           wasteCount++;
         } else {
