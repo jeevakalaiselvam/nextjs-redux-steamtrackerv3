@@ -191,13 +191,13 @@ const ProfilePlatinum = (props) => {
             </Trophy>
           </Level>
           <Level>
-            <Trophy color={EPIC_COLOR}>
+            <Trophy color={LEGENDARY_COLOR}>
               <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
               <Text>{allCounts.epicCount}</Text>
             </Trophy>
           </Level>
           <Level>
-            <Trophy color={LEGENDARY_COLOR}>
+            <Trophy color={EPIC_COLOR}>
               <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
               <Text>{allCounts.legendaryCount}</Text>
             </Trophy>

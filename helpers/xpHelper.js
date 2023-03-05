@@ -11,18 +11,18 @@ import {
 } from "./colorHelper";
 
 export const MARVEL_LOWER = 0;
-export const MARVEL_HIGHER = 5;
-export const LEGENDARY_LOWER = 5;
-export const LEGENDARY_HIGHER = 10;
-export const EPIC_LOWER = 10;
-export const EPIC_HIGHER = 20;
-export const RARE_LOWER = 20;
-export const RARE_HIGHER = 40;
-export const UNCOMMON_LOWER = 40;
-export const UNCOMMON_HIGHER = 60;
-export const COMMON_LOWER = 60;
-export const COMMON_HIGHER = 80;
-export const WASTE_LOWER = 80;
+export const MARVEL_HIGHER = 1;
+export const LEGENDARY_LOWER = 1;
+export const LEGENDARY_HIGHER = 5;
+export const EPIC_LOWER = 5;
+export const EPIC_HIGHER = 10;
+export const RARE_LOWER = 10;
+export const RARE_HIGHER = 25;
+export const UNCOMMON_LOWER = 25;
+export const UNCOMMON_HIGHER = 50;
+export const COMMON_LOWER = 50;
+export const COMMON_HIGHER = 75;
+export const WASTE_LOWER = 75;
 export const WASTE_HIGHER = 100;
 
 export const calculateRarityLeftFromGames = (games) => {
@@ -317,8 +317,8 @@ export const getRarityColorFromPercentage = (percentage) => {
 };
 
 export const MARVEL_TROPHY_PERCENTAGE = 100;
-export const EPIC_TROPHY_PERCENTAGE = 75;
-export const LEGENDARY_TROPHY_PERCENTAGE = 50;
+export const LEGENDARY_TROPHY_PERCENTAGE = 75;
+export const EPIC_TROPHY_PERCENTAGE = 50;
 export const RARE_TROPHY_PERCENTAGE = 25;
 
 export const getPercentageCompletionColor = (percentage) => {
@@ -326,16 +326,16 @@ export const getPercentageCompletionColor = (percentage) => {
     return MARVEL_COLOR;
   } else if (
     percentage < MARVEL_TROPHY_PERCENTAGE &&
-    percentage >= EPIC_TROPHY_PERCENTAGE
-  ) {
-    return EPIC_COLOR;
-  } else if (
-    percentage < EPIC_TROPHY_PERCENTAGE &&
     percentage >= LEGENDARY_TROPHY_PERCENTAGE
   ) {
     return LEGENDARY_COLOR;
   } else if (
     percentage < LEGENDARY_TROPHY_PERCENTAGE &&
+    percentage >= EPIC_TROPHY_PERCENTAGE
+  ) {
+    return EPIC_COLOR;
+  } else if (
+    percentage < EPIC_TROPHY_PERCENTAGE &&
     percentage >= RARE_TROPHY_PERCENTAGE
   ) {
     return RARE_COLOR;

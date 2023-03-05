@@ -256,27 +256,27 @@ export const calculaNextStageForGame = (game) => {
     nextStage.next = 0;
     nextStage.iconColor = MARVEL_COLOR;
   } else if (
-    completion >= EPIC_TROPHY_PERCENTAGE &&
+    completion >= LEGENDARY_TROPHY_PERCENTAGE &&
     completion < MARVEL_TROPHY_PERCENTAGE
   ) {
     nextStage.next =
       Math.ceil(game.total * (MARVEL_TROPHY_PERCENTAGE / 100)) - game.completed;
     nextStage.iconColor = MARVEL_COLOR;
   } else if (
-    completion >= LEGENDARY_TROPHY_PERCENTAGE &&
-    completion < EPIC_TROPHY_PERCENTAGE
-  ) {
-    nextStage.next =
-      Math.ceil(game.total * (EPIC_TROPHY_PERCENTAGE / 100)) - game.completed;
-    nextStage.iconColor = EPIC_COLOR;
-  } else if (
-    completion >= RARE_TROPHY_PERCENTAGE &&
+    completion >= EPIC_TROPHY_PERCENTAGE &&
     completion < LEGENDARY_TROPHY_PERCENTAGE
   ) {
     nextStage.next =
       Math.ceil(game.total * (LEGENDARY_TROPHY_PERCENTAGE / 100)) -
       game.completed;
-    nextStage.iconColor = LEGENDARY_COLOR;
+    nextStage.iconColor = LEGENDARY_TROPHY_PERCENTAGE;
+  } else if (
+    completion >= RARE_TROPHY_PERCENTAGE &&
+    completion < EPIC_TROPHY_PERCENTAGE
+  ) {
+    nextStage.next =
+      Math.ceil(game.total * (EPIC_TROPHY_PERCENTAGE / 100)) - game.completed;
+    nextStage.iconColor = EPIC_COLOR;
   } else {
     nextStage.next =
       Math.ceil(game.total * (RARE_TROPHY_PERCENTAGE / 100)) - game.completed;
