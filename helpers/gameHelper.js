@@ -76,13 +76,6 @@ export const calculaNextStageForGame = (game) => {
     nextStage.iconColor = COMPLETION10_COLOR;
   }
 
-  console.log(
-    "JEEVA - CALCULATING NEXT STAGE for GAME",
-    game.name,
-    game,
-    nextStage.next,
-    completion
-  );
   return nextStage;
 };
 
@@ -109,11 +102,6 @@ export const sortGamesByFilterOption = (
       let pinnedGameIds = [];
       let startedGameIds = [];
       allCompletedGames = games.filter((game) => {
-        const rarityInfo = calculateRarityLeftFromAchievements(
-          game.achievements,
-          targetSettings
-        );
-
         if (game.completion >= 50) {
           completedGameIds.push(game.id);
           return true;
@@ -153,6 +141,7 @@ export const sortGamesByFilterOption = (
         return game2.completion - game1.completion;
       });
 
+      console.log("CHECKING SIDEBAR", { sidebarGameFilter });
       if (sidebarGameFilter == INFINITY) {
         newGames = newGames.filter((game) => {
           if (game.completion == COMPLETION100) {
@@ -196,6 +185,7 @@ export const sortGamesByFilterOption = (
           }
         });
       } else if (sidebarGameFilter == WASTE) {
+        console.log("CHECKIGN FOR WASTER");
         newGames = newGames.filter((game) => {
           if (
             game.completion < COMPLETION25 &&

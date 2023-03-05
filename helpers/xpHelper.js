@@ -461,12 +461,6 @@ export const getAllXPFromAchievements = (
       }
     });
   }
-  console.log("JEEVA -------------------------------------------------------");
-  console.log("JEEVA - CALCULATION", {
-    completedTotal,
-    total,
-    adjustedTotal: total * (completionPercentageTarget / 100),
-  });
 
   let percentageCompletion = Math.floor(
     (completedTotal / (total * (completionPercentageTarget / 100))) * 100

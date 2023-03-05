@@ -15,12 +15,16 @@ import {
   COMMON_COLOR,
   EPIC,
   EPIC_COLOR,
+  INFINITY,
   INFINITY_COLOR,
   LEGENDARY,
   LEGENDARY_COLOR,
+  MARVEL,
   MARVEL_COLOR,
+  RARE,
   RARE_COLOR,
   UNCOMMON_COLOR,
+  WASTE,
   WASTE_COLOR,
 } from "../../helpers/colorHelper";
 import { getIcon } from "../../helpers/iconHelper";
@@ -34,6 +38,7 @@ import {
   COMPLETION25,
   COMPLETION10,
 } from "../../helpers/xpHelper";
+import { setSidebarGameFilter } from "../../store/actions/games.actions";
 
 const Container = styled.div`
   display: flex;
@@ -188,6 +193,10 @@ const ProfilePlatinum = (props) => {
     };
   }, [games]);
 
+  const trophClickedHandler = (rarity) => {
+    dispatch(setSidebarGameFilter(rarity));
+  };
+
   return (
     <Container
       onClick={() => {
@@ -200,7 +209,13 @@ const ProfilePlatinum = (props) => {
           <HiOutlineChevronDoubleUp
             style={{ marginRight: "0.5rem", color: "#6cff5c" }}
           />
-          <Title>COLLECTION</Title>
+          <Title
+            onClick={() => {
+              trophClickedHandler("NONE");
+            }}
+          >
+            COLLECTION
+          </Title>
           <HiOutlineChevronDoubleUp
             style={{ marginLeft: "0.5rem", color: "#6cff5c" }}
           />
@@ -208,19 +223,34 @@ const ProfilePlatinum = (props) => {
 
         <LevelContainer>
           <Level>
-            <Trophy color={INFINITY_COLOR}>
+            <Trophy
+              color={INFINITY_COLOR}
+              onClick={() => {
+                trophClickedHandler(INFINITY);
+              }}
+            >
               <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
               <Text>{allCounts.infinityCount}</Text>
             </Trophy>
           </Level>
           <Level>
-            <Trophy color={MARVEL_COLOR}>
+            <Trophy
+              color={MARVEL_COLOR}
+              onClick={() => {
+                trophClickedHandler(MARVEL);
+              }}
+            >
               <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
               <Text>{allCounts.marvelCount}</Text>
             </Trophy>
           </Level>
           <Level>
-            <Trophy color={LEGENDARY_COLOR}>
+            <Trophy
+              color={LEGENDARY_COLOR}
+              onClick={() => {
+                trophClickedHandler(LEGENDARY);
+              }}
+            >
               <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
               <Text>{allCounts.epicCount}</Text>
             </Trophy>
@@ -228,19 +258,34 @@ const ProfilePlatinum = (props) => {
         </LevelContainer>
         <LevelContainer>
           <Level>
-            <Trophy color={EPIC_COLOR}>
+            <Trophy
+              color={EPIC_COLOR}
+              onClick={() => {
+                trophClickedHandler(EPIC);
+              }}
+            >
               <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
               <Text>{allCounts.legendaryCount}</Text>
             </Trophy>
           </Level>
           <Level>
-            <Trophy color={RARE_COLOR}>
+            <Trophy
+              color={RARE_COLOR}
+              onClick={() => {
+                trophClickedHandler(RARE);
+              }}
+            >
               <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
               <Text>{allCounts.rareCount}</Text>
             </Trophy>
           </Level>
           <Level>
-            <Trophy color={WASTE_COLOR}>
+            <Trophy
+              color={WASTE_COLOR}
+              onClick={() => {
+                trophClickedHandler(WASTE);
+              }}
+            >
               <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
               <Text>{allCounts.wasteCount}</Text>
             </Trophy>

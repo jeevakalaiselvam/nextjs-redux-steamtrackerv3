@@ -329,72 +329,56 @@ export default function GameHeader() {
               color={WASTE_COLOR}
               onClick={() => filterAchievementsByRarity(WASTE)}
             >
-              <TrophyIcon>
-                <FaTrophy />
-              </TrophyIcon>
+              <TrophyIcon>{getIcon("achievement")}</TrophyIcon>
               <TrophyCount>{rarityInfo.wasteTarget}</TrophyCount>
             </TrophyContainer>
             <TrophyContainer
               color={COMMON_COLOR}
               onClick={() => filterAchievementsByRarity(COMMON)}
             >
-              <TrophyIcon>
-                <FaTrophy />
-              </TrophyIcon>
+              <TrophyIcon>{getIcon("achievement")}</TrophyIcon>
               <TrophyCount>{rarityInfo.commonTarget}</TrophyCount>
             </TrophyContainer>
             <TrophyContainer
               color={UNCOMMON_COLOR}
               onClick={() => filterAchievementsByRarity(UNCOMMON)}
             >
-              <TrophyIcon>
-                <FaTrophy />
-              </TrophyIcon>
+              <TrophyIcon>{getIcon("achievement")}</TrophyIcon>
               <TrophyCount>{rarityInfo.uncommonTarget}</TrophyCount>
             </TrophyContainer>
             <TrophyContainer
               color={RARE_COLOR}
               onClick={() => filterAchievementsByRarity(RARE)}
             >
-              <TrophyIcon>
-                <FaTrophy />
-              </TrophyIcon>
+              <TrophyIcon>{getIcon("achievement")}</TrophyIcon>
               <TrophyCount>{rarityInfo.rareTarget}</TrophyCount>
             </TrophyContainer>
             <TrophyContainer
               color={EPIC_COLOR}
               onClick={() => filterAchievementsByRarity(EPIC)}
             >
-              <TrophyIcon>
-                <FaTrophy />
-              </TrophyIcon>
+              <TrophyIcon>{getIcon("achievement")}</TrophyIcon>
               <TrophyCount>{rarityInfo.epicTarget}</TrophyCount>
             </TrophyContainer>
             <TrophyContainer
               color={LEGENDARY_COLOR}
               onClick={() => filterAchievementsByRarity(LEGENDARY)}
             >
-              <TrophyIcon>
-                <FaTrophy />
-              </TrophyIcon>
+              <TrophyIcon>{getIcon("achievement")}</TrophyIcon>
               <TrophyCount>{rarityInfo.legendaryTarget}</TrophyCount>
             </TrophyContainer>
             <TrophyContainer
               color={MARVEL_COLOR}
               onClick={() => filterAchievementsByRarity(MARVEL)}
             >
-              <TrophyIcon>
-                <FaTrophy />
-              </TrophyIcon>
+              <TrophyIcon>{getIcon("achievement")}</TrophyIcon>
               <TrophyCount>{rarityInfo.marvelTarget}</TrophyCount>
             </TrophyContainer>
             <TrophyContainer
               color={INFINITY_COLOR}
               onClick={() => filterAchievementsByRarity(INFINITY)}
             >
-              <TrophyIcon>
-                <FaTrophy />
-              </TrophyIcon>
+              <TrophyIcon>{getIcon("achievement")}</TrophyIcon>
               <TrophyCount>{rarityInfo.infinityTarget}</TrophyCount>
             </TrophyContainer>
           </TrophyRemainingList>
@@ -408,13 +392,9 @@ export default function GameHeader() {
               color={MARVEL_COLOR}
               onClick={() => filterAchievementsByRarity(MARVEL)}
             >
-              <TrophyIcon flex="row">
-                <FaTrophy />
-              </TrophyIcon>
+              <TrophyIcon flex="row">{getIcon("achievement")}</TrophyIcon>
               <TrophyCount flex="row">{"COMPLETED"}</TrophyCount>
-              <TrophyIcon flex="row">
-                <FaTrophy />
-              </TrophyIcon>
+              <TrophyIcon flex="row">{getIcon("achievement")}</TrophyIcon>
             </TrophyContainer>
           </TrophyRemainingList>
         </RemainingContainer>

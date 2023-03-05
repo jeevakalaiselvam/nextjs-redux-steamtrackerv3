@@ -42,6 +42,7 @@ import {
   REMOVE_PIN_ACHIEVEMENT,
   SET_COMPLETION_PERCENTAGE_TARGET,
   SET_TARGET_INFO,
+  SET_SIDEBAR_GAME_FILTER,
 } from "../types/games.types";
 import axios from "axios";
 import { getPhaseFiltedAchievements } from "../../helpers/achievementHelper";

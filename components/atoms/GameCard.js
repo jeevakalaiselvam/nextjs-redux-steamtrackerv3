@@ -143,7 +143,7 @@ const XPContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
+  flex-direction: row;
   cursor: pointer;
   top: 0;
   right: ${(props) => (props.trophyHovered ? "0px" : "-50px")};
@@ -183,6 +183,7 @@ const Percentage = styled.div`
 
 const XPData = styled.div`
   display: flex;
+  margin-right: 0.5rem;
   align-items: center;
   justify-content: center;
   z-index: 8;
@@ -341,8 +342,8 @@ export default function GameCard({ game }) {
           iconColor={nextStage.iconColor}
           trophyHovered={trophyHovered}
         >
-          {/* <XPIcon>{getIcon("trophy")}</XPIcon> */}
           <XPData>{nextStage.next}</XPData>
+          <XPIcon>{getIcon("achievement")}</XPIcon>
         </XPContainer>
       )}
       <PinIcon
@@ -373,10 +374,9 @@ export default function GameCard({ game }) {
       >
         <AiFillPushpin />
       </PinIcon>
-      {console.log("JEEVA - RARITY FOR GAME", { game, rarityInfo })}
       {rarityInfo.remainingInTarget <= 0 && (
         <CompleteIcon active={true} onClick={() => {}} color={COMMON_COLOR}>
-          {false && <FaTrophy />}
+          {false && getIcon("achievement")}
         </CompleteIcon>
       )}
       )

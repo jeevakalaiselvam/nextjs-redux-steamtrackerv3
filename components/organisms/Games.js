@@ -23,7 +23,7 @@ const Container = styled.div`
 export default function Games({ games, filterOption, searchTerm }) {
   const [searchFilteredGames, setSearchFilteredGames] = useState([]);
   const steamtracker = useSelector((state) => state.steamtracker);
-  const { pinnedGames, settings, targetSettings, siderbarGameFilter } =
+  const { pinnedGames, settings, targetSettings, sidebarGameFilter } =
     steamtracker;
   const { settingsPage } = settings;
   const { completionPercentageTarget } = settingsPage;
@@ -49,18 +49,19 @@ export default function Games({ games, filterOption, searchTerm }) {
     if (searchTerm !== "") {
       filteredGames = searchFilteredGames;
     } else {
+      console.log("FFILTERING");
       filteredGames = sortGamesByFilterOption(
         searchFilteredGames,
         GAMES_OPTION_COMPLETION_PINNED,
         pinnedGames ?? [],
         completionPercentageTarget ?? 100,
         targetSettings,
-        siderbarGameFilter ?? "NONE"
+        sidebarGameFilter ?? "NONE"
       );
     }
 
     setSearchFilteredGames((old) => filteredGames);
-  }, [searchTerm, filterOption, pinnedGames]);
+  }, [searchTerm, filterOption, pinnedGames, sidebarGameFilter, games]);
 
   return (
     <Container>

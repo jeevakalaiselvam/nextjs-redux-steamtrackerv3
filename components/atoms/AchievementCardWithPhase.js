@@ -397,7 +397,7 @@ export default function AchievementCardWithPhase(props) {
         </DataContainer>
         <PercentageContainer>
           <RarityIcon color={getRarityColorFromPercentage(percentage)}>
-            <FaTrophy />
+            {getIcon("achievement")}
           </RarityIcon>
           <RarityText>{getRarityTextFromPercentage(percentage)}</RarityText>
         </PercentageContainer>
