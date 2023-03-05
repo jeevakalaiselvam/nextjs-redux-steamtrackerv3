@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { HEADER_IMAGE } from "../../helpers/urlHelper";
 import { FaPinterest, FaTrophy } from "react-icons/fa";
@@ -14,6 +14,7 @@ import {
   completionPercentageTarget,
   getAllXPFromAchievements,
   getPercentageCompletionColor,
+  calculateLevelFromAllGames,
   XP_FOR_LEVEL,
 } from "../../helpers/xpHelper";
 import { useRouter } from "next/router";
@@ -37,6 +38,8 @@ import {
   UNCOMMON_COLOR,
   WASTE_COLOR,
 } from "../../helpers/colorHelper";
+import next from "next";
+import { calculaNextStageForGame } from "../../helpers/gameHelper";
 
 const Container = styled.div`
   display: flex;
@@ -241,52 +244,46 @@ export default function GameCard({ game }) {
   const { id, name, achievements, toGet } = game;
   const dispatch = useDispatch();
   const steamtracker = useSelector((state) => state.steamtracker);
-  const { settings, pinnedGames, targetSettings } = steamtracker;
+  const { settings, pinnedGames, targetSettings, games } = steamtracker;
   const { settingsPage } = settings;
   const { completionPercentageTarget } = settingsPage;
 
+  const [gameData, setGameData] = useState({
+    achievements: [],
+    percentageCompletion: 0,
+  });
+  const [movePinRight, setMovePinRight] = useState(true);
+  const [xpInfo, setXPInfo] = useState({});
+  const [levelInfo, setLevelInfo] = useState({});
+  const [rarityInfo, setRarityInfo] = useState({});
+  const [nextStage, setNextStage] = useState({
+    next: 0,
+    iconColor: COMMON_COLOR,
+  });
+
   const router = useRouter();
 
-  const xpData = getAllXPFromAchievements(
-    achievements,
-    completionPercentageTarget
-  );
-  const { totalXP, completedXP, completedTotal, total, percentageCompletion } =
-    xpData;
-
-  const adjustedPercentage =
-    (completedTotal / (total * (completionPercentageTarget / 100))) * 100;
-
-  console.log("JEEVA - ADJUSTED", name, adjustedPercentage);
-
-  const completed = completedXP / XP_FOR_LEVEL;
-  const needed =
-    (totalXP * (completionPercentageTarget / 100 ?? 1.0)) / XP_FOR_LEVEL;
-
-  const [movePinRight, setMovePinRight] = useState(true);
-
-  const getColorForOverlay = () => {
-    return chroma(EPIC_COLOR);
-  };
-
-  let next = Math.ceil(
-    total * (completionPercentageTarget / 100) - completedTotal
-  );
-
-  let iconColor = COMMON_COLOR;
-
-  const rarityInfo = calculateRarityLeftFromAchievements(
-    game.achievements,
-    targetSettings
-  );
+  useEffect(() => {
+    if (game) {
+      const xpData = getAllXPFromAchievements(game.achievements);
+      const xpInfo = calculateLevelFromAllGames(games);
+      const rarityInfo = calculateRarityLeftFromAchievements(
+        game.achievements,
+        targetSettings
+      );
+      const nextStage = calculaNextStageForGame(game);
+      setGameData(game);
+      setXPInfo(xpInfo);
+      setLevelInfo(levelInfo);
+      setRarityInfo(rarityInfo);
+      setNextStage(nextStage);
+    }
+  }, [game]);
 
   return (
     <Container>
       <Overlay />
       <Image image={HEADER_IMAGE(id)} />
-      {completed >= needed && false && (
-        <CompletionOverlay>{getIcon("trophy")}</CompletionOverlay>
-      )}
       <Title
         onClick={() => {
           if (typeof window !== "undefined") {
@@ -305,32 +302,31 @@ export default function GameCard({ game }) {
             setMovePinRight(true);
           }}
         >
-          {" "}
           {name}
         </TitleData>
       </Title>
-      {
+      {!gameData.completion < 50 && (
         <ToGetContainer>
           <ToGetData>
             <TrophyIcon
-              iconColor={getPercentageCompletionColor(percentageCompletion)}
+              iconColor={getPercentageCompletionColor(gameData.completion)}
             >
               {getIcon("trophy")}
             </TrophyIcon>
-            {false && (
+            {true && (
               <Percentage
-                iconColor={getPercentageCompletionColor(percentageCompletion)}
+                iconColor={getPercentageCompletionColor(gameData.completion)}
               >
-                {percentageCompletion} %
+                {gameData.completion} %
               </Percentage>
             )}
           </ToGetData>
         </ToGetContainer>
-      }
-      {false && rarityInfo.remainingInTarget > 0 && (
-        <XPContainer iconColor={iconColor}>
-          <XPIcon>{getIcon("trophy")}</XPIcon>
-          <XPData>{rarityInfo.remainingInTarget}</XPData>
+      )}
+      {nextStage.next > 0 && (
+        <XPContainer iconColor={nextStage.iconColor}>
+          {/* <XPIcon>{getIcon("trophy")}</XPIcon> */}
+          <XPData>{nextStage.next}</XPData>
         </XPContainer>
       )}
       <PinIcon
@@ -363,11 +359,7 @@ export default function GameCard({ game }) {
       </PinIcon>
       {console.log("JEEVA - RARITY FOR GAME", { game, rarityInfo })}
       {rarityInfo.remainingInTarget <= 0 && (
-        <CompleteIcon
-          active={true}
-          onClick={() => {}}
-          color={getColorForOverlay(rarityInfo.remainingInTarget)}
-        >
+        <CompleteIcon active={true} onClick={() => {}} color={COMMON_COLOR}>
           {false && <FaTrophy />}
         </CompleteIcon>
       )}

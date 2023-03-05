@@ -1,3 +1,12 @@
+import next from "next";
+import {
+  EPIC_COLOR,
+  LEGENDARY_COLOR,
+  MARVEL_COLOR,
+  RARE_COLOR,
+  UNCOMMON_COLOR,
+  WASTE_COLOR,
+} from "./colorHelper";
 import {
   GAMES_OPTION_COMPLETION_ASC,
   GAMES_OPTION_COMPLETION_DESC,
@@ -66,7 +75,11 @@ export const sortGamesByFilterOption = (
         }
       });
 
-      newGames = [...allCompletedGames, ...allPinnedGames];
+      newGames = [...allCompletedGames, ...allStartedGames, ...allPinnedGames];
+
+      newGames = newGames.sort((game1, game2) => {
+        return game2.completion - game1.completion;
+      });
 
       // newGames = newGames.filter((game) => {
       //   const rarityInfo = calculateRarityLeftFromAchievements(
@@ -218,4 +231,36 @@ export const tranformGameToIncludeOnlyUnlockedRecent = (achievements) => {
     );
   }
   return newAchievements;
+};
+
+export const calculaNextStageForGame = (game) => {
+  let nextStage = {
+    next: 0,
+    iconColor: WASTE_COLOR,
+  };
+
+  let completion = game.completion;
+
+  if (completion === 100) {
+    nextStage.next = 0;
+    nextStage.iconColor = MARVEL_COLOR;
+  } else if (completion >= 80 && completion < 100) {
+    nextStage.next = Math.floor(game.total * 1) - game.completed;
+    nextStage.iconColor = MARVEL_COLOR;
+  } else if (completion >= 50 && completion < 80) {
+    nextStage.next = Math.floor(game.total * 0.8) - game.completed;
+    nextStage.iconColor = EPIC_COLOR;
+  } else if (completion >= 25 && completion < 50) {
+    nextStage.next = Math.floor(game.total * 0.5) - game.completed;
+    nextStage.iconColor = LEGENDARY_COLOR;
+  } else if (completion >= 10 && completion < 25) {
+    nextStage.next = Math.floor(game.total * 0.25) - game.completed;
+    nextStage.iconColor = RARE_COLOR;
+  } else {
+    nextStage.next = Math.floor(game.total * 0.1) - game.completed;
+    nextStage.iconColor = UNCOMMON_COLOR;
+  }
+
+  console.log("JEEVA - NEXT STAGE ", game.name, completion, nextStage);
+  return nextStage;
 };

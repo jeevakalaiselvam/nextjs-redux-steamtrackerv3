@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { openLinkInNewTab } from "../../helpers/browserHelper";
 import {
+  COMMON,
   COMMON_COLOR,
   EPIC,
   EPIC_COLOR,
@@ -69,7 +70,7 @@ const Level = styled.div`
   align-items: center;
   flex-direction: row;
   justify-content: center;
-  padding: 1rem 0rem 0rem 0rem;
+  padding: 0.5rem 0rem 0rem 0rem;
   margin-top: "0.5rem";
   flex-wrap: wrap;
 `;
@@ -82,7 +83,7 @@ const Trophy = styled.div`
   justify-content: center;
   color: ${(props) => (props.color ? props.color : "")};
   margin-top: 0.5rem;
-  font-size: 2rem;
+  font-size: 1rem;
 `;
 
 const Icon = styled.div`
@@ -98,7 +99,13 @@ const Text = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  font-size: ${(props) => (props.fontSize ? props.fontSize : "1.75rem")};
+  font-size: ${(props) => (props.fontSize ? props.fontSize : "1.5rem")};
+`;
+
+const LevelContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const ProfilePlatinum = (props) => {
@@ -108,16 +115,35 @@ const ProfilePlatinum = (props) => {
   const { settingsPage } = settings;
   const { completionPercentageTarget } = settingsPage;
 
-  let allPlatinum = useMemo(() => {
-    let platinumCount = 0;
+  let allCounts = useMemo(() => {
+    let marvelCount = 0;
+    let epicCount = 0;
+    let legendaryCount = 0;
+    let rareCount = 0;
+    let uncommonCount = 0;
+    let commonCount = 0;
+    let wasteCount = 0;
     let subPlatinum = 0;
     games.forEach((game) => {
       let total = game?.achievements?.length ?? 0;
       let toGet = game?.toGet ?? 0;
       let completed = total - toGet;
       let adjustedTotal = Math.ceil((completionPercentageTarget / 100) * total);
-      if (completed >= adjustedTotal) {
-        platinumCount += 1;
+
+      if (completed >= 1) {
+        if (game.completion == 100) {
+          marvelCount += 1;
+        } else if (game.completion < 100 && game.completion >= 80) {
+          epicCount++;
+        } else if (game.completion < 80 && game.completion >= 50) {
+          legendaryCount++;
+        } else if (game.completion < 50 && game.completion >= 25) {
+          rareCount++;
+        } else if (game.completion < 25 && game.completion >= 10) {
+          uncommonCount++;
+        } else {
+          wasteCount++;
+        }
       }
       const rarityInfo = calculateRarityLeftFromAchievements(
         game.achievements,
@@ -128,15 +154,21 @@ const ProfilePlatinum = (props) => {
         subPlatinum++;
       }
     });
-    return platinumCount;
+    return {
+      marvelCount,
+      epicCount,
+      legendaryCount,
+      rareCount,
+      uncommonCount,
+      commonCount,
+      wasteCount,
+    };
   }, [games]);
 
   return (
     <Container
       onClick={() => {
         if (window !== "undefined") {
-          const searchQuery = `${game.name} trophy guide `;
-          window.open(`https://www.google.com/search?q=${searchQuery}`);
         }
       }}
     >
@@ -145,17 +177,52 @@ const ProfilePlatinum = (props) => {
           <HiOutlineChevronDoubleUp
             style={{ marginRight: "0.5rem", color: "#6cff5c" }}
           />
-          <Title>COMPLETED</Title>
+          <Title>COLLECTION</Title>
           <HiOutlineChevronDoubleUp
             style={{ marginLeft: "0.5rem", color: "#6cff5c" }}
           />
         </Header>
-        <Level>
-          <Trophy color={EPIC_COLOR}>
-            <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
-            <Text>{allPlatinum}</Text>
-          </Trophy>
-        </Level>
+
+        <LevelContainer>
+          <Level>
+            <Trophy color={MARVEL_COLOR}>
+              <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
+              <Text>{allCounts.marvelCount}</Text>
+            </Trophy>
+          </Level>
+          <Level>
+            <Trophy color={EPIC_COLOR}>
+              <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
+              <Text>{allCounts.epicCount}</Text>
+            </Trophy>
+          </Level>
+          <Level>
+            <Trophy color={LEGENDARY_COLOR}>
+              <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
+              <Text>{allCounts.legendaryCount}</Text>
+            </Trophy>
+          </Level>
+        </LevelContainer>
+        <LevelContainer>
+          <Level>
+            <Trophy color={RARE_COLOR}>
+              <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
+              <Text>{allCounts.rareCount}</Text>
+            </Trophy>
+          </Level>
+          <Level>
+            <Trophy color={UNCOMMON_COLOR}>
+              <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
+              <Text>{allCounts.uncommonCount}</Text>
+            </Trophy>
+          </Level>
+          <Level>
+            <Trophy color={WASTE_COLOR}>
+              <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
+              <Text>{allCounts.wasteCount}</Text>
+            </Trophy>
+          </Level>
+        </LevelContainer>
       </LevelFragment>
     </Container>
   );

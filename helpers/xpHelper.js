@@ -324,7 +324,7 @@ export const getPercentageCompletionColor = (percentage) => {
     return LEGENDARY_COLOR;
   } else if (percentage < 50 && percentage >= 25) {
     return RARE_COLOR;
-  } else if (percentage < 10 && percentage >= 0) {
+  } else if (percentage < 25 && percentage >= 10) {
     return UNCOMMON_COLOR;
   } else {
     return WASTE_COLOR;
