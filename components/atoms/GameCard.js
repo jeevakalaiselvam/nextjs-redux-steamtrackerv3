@@ -144,6 +144,7 @@ const XPContainer = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  cursor: pointer;
   top: 0;
   right: ${(props) => (props.trophyHovered ? "0px" : "-50px")};
   z-index: 8;

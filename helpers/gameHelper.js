@@ -34,7 +34,7 @@ import {
   calculateRarityLeftFromAchievements,
   COMPLETION100,
   COMPLETION90,
-  COMPLETTION75,
+  COMPLETION75,
   COMPLETION50,
   COMPLETION25,
   COMPLETION10,
@@ -46,8 +46,7 @@ export const calculaNextStageForGame = (game) => {
     iconColor: COMPLETION10_COLOR,
   };
 
-  let completion = game.completion;
-
+  let completion = +game.completion;
   if (completion == COMPLETION100) {
     nextStage.next = 0;
     nextStage.iconColor = COMPLETION100_COLOR;
@@ -55,14 +54,13 @@ export const calculaNextStageForGame = (game) => {
     nextStage.next =
       Math.ceil(game.total * (COMPLETION100 / 100)) - game.completed;
     nextStage.iconColor = COMPLETION100_COLOR;
-  } else if (completion >= COMPLETTION75 && completion < COMPLETION90) {
-    console.log("CHECKING MASS EFFECT");
+  } else if (completion >= COMPLETION75 && completion < COMPLETION90) {
     nextStage.next =
       Math.ceil(game.total * (COMPLETION90 / 100)) - game.completed;
     nextStage.iconColor = COMPLETION90_COLOR;
-  } else if (completion >= COMPLETION50 && completion < COMPLETTION75) {
+  } else if (completion >= COMPLETION50 && completion < COMPLETION75) {
     nextStage.next =
-      Math.ceil(game.total * (COMPLETTION75 / 100)) - game.completed;
+      Math.ceil(game.total * (COMPLETION75 / 100)) - game.completed;
     nextStage.iconColor = COMPLETION75_COLOR;
   } else if (completion >= COMPLETION25 && completion < COMPLETION50) {
     nextStage.next =
@@ -174,7 +172,7 @@ export const sortGamesByFilterOption = (
         newGames = newGames.filter((game) => {
           if (
             game.completion < COMPLETION90 &&
-            game.completion >= COMPLETTION75
+            game.completion >= COMPLETION75
           ) {
             return true;
           }
@@ -182,7 +180,7 @@ export const sortGamesByFilterOption = (
       } else if (sidebarGameFilter == EPIC) {
         newGames = newGames.filter((game) => {
           if (
-            game.completion < COMPLETTION75 &&
+            game.completion < COMPLETION75 &&
             game.completion >= COMPLETION50
           ) {
             return true;

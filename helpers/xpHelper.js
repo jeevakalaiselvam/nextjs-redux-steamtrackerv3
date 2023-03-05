@@ -17,7 +17,7 @@ import {
   WASTE_COLOR,
 } from "./colorHelper";
 
-export const COMPELTION100 = 100;
+export const COMPLETION100 = 100;
 export const COMPLETION90 = 90;
 export const COMPLETION75 = 75;
 export const COMPLETION50 = 50;
@@ -25,9 +25,9 @@ export const COMPLETION25 = 25;
 export const COMPLETION10 = 10;
 
 export const getPercentageCompletionColor = (percentage) => {
-  if (percentage == COMPELTION100) {
+  if (percentage == COMPLETION100) {
     return COMPLETION100_COLOR;
-  } else if (percentage < COMPELTION100 && percentage >= COMPLETION90) {
+  } else if (percentage < COMPLETION100 && percentage >= COMPLETION90) {
     return COMPLETION90_COLOR;
   } else if (percentage < COMPLETION90 && percentage >= COMPLETION75) {
     return COMPLETION75_COLOR;
