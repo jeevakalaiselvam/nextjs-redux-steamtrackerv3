@@ -145,7 +145,7 @@ const XPContainer = styled.div`
   justify-content: center;
   flex-direction: column;
   top: 0;
-  right: 0;
+  right: ${(props) => (props.trophyHovered ? "0px" : "-50px")};
   z-index: 8;
   padding: 1rem;
   color: ${(props) => (props.iconColor ? props.iconColor : "")};
@@ -264,6 +264,8 @@ export default function GameCard({ game }) {
 
   const router = useRouter();
 
+  const [trophyHovered, setTrophyHovered] = useState(false);
+
   useEffect(() => {
     if (game) {
       const xpData = getAllXPFromAchievements(game.achievements);
@@ -310,6 +312,12 @@ export default function GameCard({ game }) {
         <ToGetContainer>
           <ToGetData>
             <TrophyIcon
+              onMouseEnter={() => {
+                setTrophyHovered(true);
+              }}
+              onMouseLeave={() => {
+                setTrophyHovered(false);
+              }}
               iconColor={getPercentageCompletionColor(gameData.completion)}
             >
               {getPercentageCompletionColor(gameData.completion) !=
@@ -328,7 +336,10 @@ export default function GameCard({ game }) {
         </ToGetContainer>
       }
       {nextStage.next > 0 && (
-        <XPContainer iconColor={nextStage.iconColor}>
+        <XPContainer
+          iconColor={nextStage.iconColor}
+          trophyHovered={trophyHovered}
+        >
           {/* <XPIcon>{getIcon("trophy")}</XPIcon> */}
           <XPData>{nextStage.next}</XPData>
         </XPContainer>
