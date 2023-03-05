@@ -99,6 +99,8 @@ const handler = async (req, res) => {
         achievements: newAchievementsInner,
         completion: completionPercentage,
         toGet: toGet,
+        total: newAchievementsInner.length,
+        completed: newAchievementsInner.length - toGet,
       };
       //Get all Games and Refresh data in File
       res.status(200).json({ status: "success", data: finalGamesResponse });

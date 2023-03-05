@@ -108,12 +108,6 @@ export const sortGamesByFilterOption = (
       let completedGameIds = [];
       let pinnedGameIds = [];
       let startedGameIds = [];
-      allCompletedGames = games.filter((game) => {
-        if (game.completion >= 50) {
-          completedGameIds.push(game.id);
-          return true;
-        }
-      });
 
       allCompletedGames = allCompletedGames.sort((game1, game2) => {
         return game2.completion - game1.completion;
@@ -131,12 +125,11 @@ export const sortGamesByFilterOption = (
 
       allStartedGames = games.filter((game) => {
         if (
-          game.playtime > 0 &&
           !completedGameIds?.includes(game.id) &&
           !pinnedGameIds?.includes(game.id) &&
-          game.completion != 0 &&
           game.completed > 1
         ) {
+          console.log("STARTED GAME", game.name);
           startedGameIds.push(game.id);
           return true;
         }
@@ -277,6 +270,9 @@ export const refreshGameDataByGameId = (games, gameId, gameRefreshedData) => {
   newGames = games.map((game) => {
     let newGame = { ...game };
     if (game.id == gameId) {
+      let completed = 0,
+        toGet = 0,
+        total = 0;
       newGame = { ...newGame, ...gameRefreshedData, recentRefresh: new Date() };
     }
     return newGame;

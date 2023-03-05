@@ -49,7 +49,6 @@ export default function Games({ games, filterOption, searchTerm }) {
     if (searchTerm !== "") {
       filteredGames = searchFilteredGames;
     } else {
-      console.log("FFILTERING");
       filteredGames = sortGamesByFilterOption(
         searchFilteredGames,
         GAMES_OPTION_COMPLETION_PINNED,
