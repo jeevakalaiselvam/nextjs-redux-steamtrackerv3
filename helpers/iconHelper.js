@@ -1,7 +1,13 @@
 import { AiFillGold } from "react-icons/ai";
 import { FaHourglass, FaMedal, FaTrophy } from "react-icons/fa";
 import { BsTrophyFill } from "react-icons/bs";
-import { HiColorSwatch, HiLightningBolt, HiTicket } from "react-icons/hi";
+import {
+  HiColorSwatch,
+  HiFolderAdd,
+  HiLightningBolt,
+  HiTicket,
+  HiViewBoards,
+} from "react-icons/hi";
 
 export const getIcon = (type, color) => {
   switch (type) {
@@ -14,7 +20,7 @@ export const getIcon = (type, color) => {
     case "ongoing":
       return <FaHourglass style={{ fontSize: "1.4rem" }} />;
     case "achievement":
-      return <HiTicket />;
+      return <HiFolderAdd />;
     default:
       return <AiFillGold />;
   }
