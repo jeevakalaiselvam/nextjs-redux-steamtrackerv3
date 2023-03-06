@@ -146,7 +146,7 @@ const XPContainer = styled.div`
   flex-direction: row;
   cursor: pointer;
   top: 0;
-  right: ${(props) => (props.trophyHovered ? "0px" : "-50px")};
+  right: ${(props) => (props.trophyHovered ? "0px" : "-100px")};
   z-index: 8;
   padding: 1rem;
   color: ${(props) => (props.iconColor ? props.iconColor : "")};

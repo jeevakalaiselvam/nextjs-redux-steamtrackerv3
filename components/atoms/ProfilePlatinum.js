@@ -95,7 +95,7 @@ const Trophy = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  width: 50px;
+  width: 35px;
   justify-content: center;
   color: ${(props) => (props.color ? props.color : "")};
   margin-top: 0.5rem;
