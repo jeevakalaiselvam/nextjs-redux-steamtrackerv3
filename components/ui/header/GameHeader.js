@@ -321,6 +321,14 @@ export default function GameHeader() {
         {
           <RemainingTrophyContainer>
             <XPContainer
+              onClick={() => {
+                if (window !== "undefined") {
+                  window.open(
+                    `https://steamcommunity.com/id/notreallogan/stats/${gameId}/?tab=achievements`
+                  );
+                  // window.open(`https://www.youtube.com/results?search_query=${searchQuery}`);
+                }
+              }}
               iconColor={nextStage.iconColor}
               complete={nextStage.next <= 0}
             >
