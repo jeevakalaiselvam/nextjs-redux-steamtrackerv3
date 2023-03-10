@@ -313,20 +313,16 @@ export default function GameCard({ game }) {
       {
         <ToGetContainer>
           <ToGetData>
-            <TrophyIcon
-              onMouseEnter={() => {
-                setTrophyHovered(true);
-              }}
-              onMouseLeave={() => {
-                setTrophyHovered(false);
-              }}
-              iconColor={getPercentageCompletionColor(gameData.completion)}
-            >
-              {getPercentageCompletionColor(gameData.completion) !=
-                COMMON_COLOR && getIcon("trophy")}{" "}
-              {getPercentageCompletionColor(gameData.completion) ==
-                COMMON_COLOR && getIcon("ongoing")}
-            </TrophyIcon>
+            {false && (
+              <TrophyIcon
+                iconColor={getPercentageCompletionColor(gameData.completion)}
+              >
+                {getPercentageCompletionColor(gameData.completion) !=
+                  COMMON_COLOR && getIcon("trophy")}{" "}
+                {getPercentageCompletionColor(gameData.completion) ==
+                  COMMON_COLOR && getIcon("ongoing")}
+              </TrophyIcon>
+            )}
             {false && (
               <Percentage
                 iconColor={getPercentageCompletionColor(gameData.completion)}
@@ -374,9 +370,19 @@ export default function GameCard({ game }) {
       >
         <AiFillPushpin />
       </PinIcon>
-      {rarityInfo.remainingInTarget <= 0 && (
-        <CompleteIcon active={true} onClick={() => {}} color={COMMON_COLOR}>
-          {false && getIcon("achievement")}
+      {(nextStage.next == 0 || gameData.completed > 0) && (
+        <CompleteIcon
+          onMouseEnter={() => {
+            setTrophyHovered(true);
+          }}
+          onMouseLeave={() => {
+            setTrophyHovered(false);
+          }}
+          active={true}
+          onClick={() => {}}
+          color={getPercentageCompletionColor(gameData.completion)}
+        >
+          {getIcon("trophy")}
         </CompleteIcon>
       )}
       )
