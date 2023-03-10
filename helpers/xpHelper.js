@@ -40,7 +40,7 @@ export const getPercentageCompletionColor = (percentage) => {
   } else if (percentage < COMPLETION25 && percentage >= COMPLETION10) {
     return COMPLETION10_COLOR;
   } else if (percentage < COMPLETION10 && percentage >= COMPLETION1) {
-    return COMPLETION1_COLOR;
+    return COMMON_COLOR;
   } else {
     return COMMON_COLOR;
   }

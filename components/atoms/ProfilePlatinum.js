@@ -301,7 +301,7 @@ const ProfilePlatinum = (props) => {
               <Text>{allCounts.wasteCount}</Text>
             </Trophy>
           </Level>
-          <Level>
+          {/* <Level>
             <Trophy
               color={COMPLETION1_COLOR}
               onClick={() => {
@@ -311,7 +311,7 @@ const ProfilePlatinum = (props) => {
               <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
               <Text>{allCounts.copperCount}</Text>
             </Trophy>
-          </Level>
+          </Level> */}
         </LevelContainer>
       </LevelFragment>
     </Container>
