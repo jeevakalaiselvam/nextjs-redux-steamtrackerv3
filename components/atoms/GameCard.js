@@ -125,7 +125,6 @@ const ToGetContainer = styled.div`
   padding: 1rem;
   z-index: 8;
   transition: all 0.5s;
-  background-color: rgba(0, 0, 0, 0.75);
   transform: translateX("0%");
 `;
 
@@ -266,7 +265,7 @@ export default function GameCard({ game }) {
 
   const router = useRouter();
 
-  const [trophyHovered, setTrophyHovered] = useState(false);
+  const [trophyHovered, setTrophyHovered] = useState(true);
 
   useEffect(() => {
     if (game) {
@@ -312,25 +311,27 @@ export default function GameCard({ game }) {
       </Title>
       {
         <ToGetContainer>
-          <ToGetData>
-            {false && (
-              <TrophyIcon
-                iconColor={getPercentageCompletionColor(gameData.completion)}
-              >
-                {getPercentageCompletionColor(gameData.completion) !=
-                  COMMON_COLOR && getIcon("trophy")}{" "}
-                {getPercentageCompletionColor(gameData.completion) ==
-                  COMMON_COLOR && getIcon("ongoing")}
-              </TrophyIcon>
-            )}
-            {false && (
-              <Percentage
-                iconColor={getPercentageCompletionColor(gameData.completion)}
-              >
-                {gameData.completion} %
-              </Percentage>
-            )}
-          </ToGetData>
+          {false && (
+            <ToGetData>
+              {false && (
+                <TrophyIcon
+                  iconColor={getPercentageCompletionColor(gameData.completion)}
+                >
+                  {getPercentageCompletionColor(gameData.completion) !=
+                    COMMON_COLOR && getIcon("trophy")}{" "}
+                  {getPercentageCompletionColor(gameData.completion) ==
+                    COMMON_COLOR && getIcon("ongoing")}
+                </TrophyIcon>
+              )}
+              {false && (
+                <Percentage
+                  iconColor={getPercentageCompletionColor(gameData.completion)}
+                >
+                  {gameData.completion} %
+                </Percentage>
+              )}
+            </ToGetData>
+          )}
         </ToGetContainer>
       }
       {nextStage.next > 0 && (
@@ -373,10 +374,10 @@ export default function GameCard({ game }) {
       {(nextStage.next == 0 || gameData.completed > 0) && (
         <CompleteIcon
           onMouseEnter={() => {
-            setTrophyHovered(true);
+            // setTrophyHovered(true);
           }}
           onMouseLeave={() => {
-            setTrophyHovered(false);
+            // setTrophyHovered(false);
           }}
           active={true}
           onClick={() => {}}
