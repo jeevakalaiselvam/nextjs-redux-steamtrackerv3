@@ -25,6 +25,7 @@ export const COMPLETION50 = 50;
 export const COMPLETION25 = 25;
 export const COMPLETION10 = 10;
 export const COMPLETION1 = 5;
+export const COMPLETION0 = 0;
 
 export const getPercentageCompletionColor = (percentage) => {
   if (percentage == COMPLETION100) {

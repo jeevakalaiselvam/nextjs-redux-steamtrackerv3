@@ -19,7 +19,6 @@ const Container = styled.div`
   justify-content: flex-start;
   padding: 0 0.25rem;
   min-height: 95vh;
-  overflow: scroll;
   position: relative;
 `;
 
