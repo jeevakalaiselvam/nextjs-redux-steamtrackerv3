@@ -43,13 +43,17 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const GamesList = styled.div`
-  max-height: 100vh;
+const GamesContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
   min-height: 100vh;
+  max-height: 100vh;
   margin: 1rem 0.25rem;
-  min-width: 300px;
   padding: 0 1rem;
-  overflow: scroll;
+  min-width: 300px;
+  max-width: 300px;
+  flex-direction: column;
 `;
 
 const XPContainer = styled.div`
@@ -79,6 +83,14 @@ const XPData = styled.div`
   justify-content: center;
   z-index: 8;
   font-size: ${(props) => (props.complete ? "1.5rem" : "2rem")};
+`;
+
+const GamesList = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+  overflow: scroll;
 `;
 
 export default function Games({ games, filterOption, searchTerm }) {
@@ -132,126 +144,140 @@ export default function Games({ games, filterOption, searchTerm }) {
 
   return (
     <Container>
-      <GamesList>
+      <GamesContainer>
         <XPContainer iconColor={COMMON_COLOR}>
           <XPIcon>{getIcon("trophy")}</XPIcon>
           <XPData complete={true}>BACKLOG</XPData>
         </XPContainer>
-        {searchFilteredGames.length > 0 &&
-          searchFilteredGames
-            .filter((game) => {
-              return game.completion < COMPLETION10;
-            })
-            .map((game) => {
-              return <GameCard game={game} key={game.id} />;
-            })}
-        {searchFilteredGames.length === 0 && <Loaders.HashLoader />}
-      </GamesList>
-      <GamesList>
+        <GamesList>
+          {searchFilteredGames.length > 0 &&
+            searchFilteredGames
+              .filter((game) => {
+                return game.completion < COMPLETION10;
+              })
+              .map((game) => {
+                return <GameCard game={game} key={game.id} />;
+              })}
+          {searchFilteredGames.length === 0 && <Loaders.HashLoader />}
+        </GamesList>
+      </GamesContainer>
+      <GamesContainer>
         <XPContainer iconColor={COMPLETION100_COLOR}>
           <XPIcon>{getIcon("trophy")}</XPIcon>
           <XPData complete={true}>MARVEL TROPHIES</XPData>
         </XPContainer>
-        {searchFilteredGames.length > 0 &&
-          searchFilteredGames
-            .filter((game) => {
-              return game.completion == COMPLETION100;
-            })
-            .map((game) => {
-              return <GameCard game={game} key={game.id} />;
-            })}
-        {searchFilteredGames.length === 0 && <Loaders.HashLoader />}
-      </GamesList>
-      <GamesList>
+        <GamesList>
+          {searchFilteredGames.length > 0 &&
+            searchFilteredGames
+              .filter((game) => {
+                return game.completion == COMPLETION100;
+              })
+              .map((game) => {
+                return <GameCard game={game} key={game.id} />;
+              })}
+          {searchFilteredGames.length === 0 && <Loaders.HashLoader />}
+        </GamesList>
+      </GamesContainer>
+      <GamesContainer>
         <XPContainer iconColor={COMPLETION90_COLOR}>
           <XPIcon>{getIcon("trophy")}</XPIcon>
           <XPData complete={true}>LEGENDARY TROPHIES</XPData>
         </XPContainer>
-        {searchFilteredGames.length > 0 &&
-          searchFilteredGames
-            .filter((game) => {
-              return (
-                game.completion >= COMPLETION90 &&
-                game.completion < COMPLETION100
-              );
-            })
-            .map((game) => {
-              return <GameCard game={game} key={game.id} />;
-            })}
-        {searchFilteredGames.length === 0 && <Loaders.HashLoader />}
-      </GamesList>
-      <GamesList>
+        <GamesList>
+          {searchFilteredGames.length > 0 &&
+            searchFilteredGames
+              .filter((game) => {
+                return (
+                  game.completion >= COMPLETION90 &&
+                  game.completion < COMPLETION100
+                );
+              })
+              .map((game) => {
+                return <GameCard game={game} key={game.id} />;
+              })}
+          {searchFilteredGames.length === 0 && <Loaders.HashLoader />}
+        </GamesList>
+      </GamesContainer>
+      <GamesContainer>
         <XPContainer iconColor={COMPLETION75_COLOR}>
           <XPIcon>{getIcon("trophy")}</XPIcon>
           <XPData complete={true}>EPIC TROPHIES</XPData>
         </XPContainer>
-        {searchFilteredGames.length > 0 &&
-          searchFilteredGames
-            .filter((game) => {
-              return (
-                game.completion >= COMPLETION75 &&
-                game.completion < COMPLETION90
-              );
-            })
-            .map((game) => {
-              return <GameCard game={game} key={game.id} />;
-            })}
-        {searchFilteredGames.length === 0 && <Loaders.HashLoader />}
-      </GamesList>
-      <GamesList>
+        <GamesList>
+          {searchFilteredGames.length > 0 &&
+            searchFilteredGames
+              .filter((game) => {
+                return (
+                  game.completion >= COMPLETION75 &&
+                  game.completion < COMPLETION90
+                );
+              })
+              .map((game) => {
+                return <GameCard game={game} key={game.id} />;
+              })}
+          {searchFilteredGames.length === 0 && <Loaders.HashLoader />}
+        </GamesList>
+      </GamesContainer>
+      <GamesContainer>
         <XPContainer iconColor={COMPLETION50_COLOR}>
           <XPIcon>{getIcon("trophy")}</XPIcon>
           <XPData complete={true}>RARE TROPHIES</XPData>
         </XPContainer>
-        {searchFilteredGames.length > 0 &&
-          searchFilteredGames
-            .filter((game) => {
-              return (
-                game.completion >= COMPLETION50 &&
-                game.completion < COMPLETION75
-              );
-            })
-            .map((game) => {
-              return <GameCard game={game} key={game.id} />;
-            })}
-        {searchFilteredGames.length === 0 && <Loaders.HashLoader />}
-      </GamesList>
-      <GamesList>
+        <GamesList>
+          {searchFilteredGames.length > 0 &&
+            searchFilteredGames
+              .filter((game) => {
+                return (
+                  game.completion >= COMPLETION50 &&
+                  game.completion < COMPLETION75
+                );
+              })
+              .map((game) => {
+                return <GameCard game={game} key={game.id} />;
+              })}
+          {searchFilteredGames.length === 0 && <Loaders.HashLoader />}
+        </GamesList>
+      </GamesContainer>
+      <GamesContainer>
         <XPContainer iconColor={COMPLETION25_COLOR}>
           <XPIcon>{getIcon("trophy")}</XPIcon>
           <XPData complete={true}>COMMON TROPHIES</XPData>
         </XPContainer>
-        {searchFilteredGames.length > 0 &&
-          searchFilteredGames
-            .filter((game) => {
-              return (
-                game.completion >= COMPLETION25 &&
-                game.completion < COMPLETION50
-              );
-            })
-            .map((game) => {
-              return <GameCard game={game} key={game.id} />;
-            })}
-        {searchFilteredGames.length === 0 && <Loaders.HashLoader />}
-      </GamesList>
-      <GamesList>
+        <GamesList>
+          {searchFilteredGames.length > 0 &&
+            searchFilteredGames
+              .filter((game) => {
+                return (
+                  game.completion >= COMPLETION25 &&
+                  game.completion < COMPLETION50
+                );
+              })
+              .map((game) => {
+                return <GameCard game={game} key={game.id} />;
+              })}
+          {searchFilteredGames.length === 0 && <Loaders.HashLoader />}
+        </GamesList>
+      </GamesContainer>
+      <GamesContainer>
         <XPContainer iconColor={COMPLETION10_COLOR}>
           <XPIcon>{getIcon("trophy")}</XPIcon>
           <XPData complete={true}>BRONZE TROPHIES</XPData>
         </XPContainer>
-        {searchFilteredGames.length > 0 &&
-          searchFilteredGames
-            .filter((game) => {
-              return (
-                game.completion >= COMPLETION10 &&
-                game.completion < COMPLETION25
-              );
-            })
-            .map((game) => {
-              return <GameCard game={game} key={game.id} />;
-            })}
-        {searchFilteredGames.length === 0 && <Loaders.HashLoader />}
-      </GamesList>
+        <GamesList>
+          {searchFilteredGames.length > 0 &&
+            searchFilteredGames
+              .filter((game) => {
+                return (
+                  game.completion >= COMPLETION10 &&
+                  game.completion < COMPLETION25
+                );
+              })
+              .map((game) => {
+                return <GameCard game={game} key={game.id} />;
+              })}
+          {searchFilteredGames.length === 0 && <Loaders.HashLoader />}
+        </GamesList>
+      </GamesContainer>
     </Container>
   );
 }
