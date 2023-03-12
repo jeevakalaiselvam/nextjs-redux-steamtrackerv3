@@ -12,6 +12,7 @@ import e from "cors";
 import {
   GAMES_OPTION_COMPLETION_DESC,
   GAMES_OPTION_COMPLETION_PINNED,
+  GAMES_OPTION_RECENT,
 } from "../../helpers/filterHelper";
 import { getIcon } from "../../helpers/iconHelper";
 import {
@@ -111,7 +112,7 @@ export default function Games({ games, filterOption, searchTerm }) {
     } else {
       filteredGames = sortGamesByFilterOption(
         searchFilteredGames,
-        GAMES_OPTION_COMPLETION_DESC,
+        GAMES_OPTION_RECENT,
         pinnedGames ?? [],
         completionPercentageTarget ?? 100,
         targetSettings,
@@ -120,7 +121,14 @@ export default function Games({ games, filterOption, searchTerm }) {
     }
 
     setSearchFilteredGames((old) => filteredGames);
-  }, [searchTerm, filterOption, pinnedGames, sidebarGameFilter, games]);
+  }, [
+    searchTerm,
+    filterOption,
+    pinnedGames,
+    sidebarGameFilter,
+    games,
+    GAMES_OPTION_RECENT,
+  ]);
 
   return (
     <Container>

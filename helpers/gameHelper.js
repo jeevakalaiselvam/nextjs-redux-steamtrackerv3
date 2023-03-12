@@ -97,9 +97,11 @@ export const sortGamesByFilterOption = (
   let newGames = [];
   switch (filterOption) {
     case GAMES_OPTION_RECENT:
-      newGames = games.sort(
-        (game1, game2) => +game1.lastPlayed < +game2.lastPlayed
-      );
+      newGames = games.sort((game1, game2) => {
+        if (+game2.lastPlayed < +game1.lastPlayed) {
+          return -1;
+        }
+      });
       break;
     case GAMES_OPTION_COMPLETION_PINNED:
       let allCompletedGames = [];
@@ -210,11 +212,13 @@ export const sortGamesByFilterOption = (
         } else {
         }
       }
-      console.log("JEEVA - NEW GAMES", { newGames });
       break;
     case GAMES_OPTION_COMPLETION_DESC:
       newGames = games.sort(
-        (game1, game2) => +game1.completion < +game2.completion
+        (game1, game2) => +game2.completion < +game1.completion
+      );
+      newGames = newGames.sort(
+        (game1, game2) => +game2.lastPlayed > +game1.lastPlayed
       );
       break;
     case GAMES_OPTION_COMPLETION_ASC:
@@ -239,6 +243,7 @@ export const sortGamesByFilterOption = (
       );
       break;
   }
+  console.log("JEEVA - NEW GAMES", { newGames, filterOption });
   return newGames;
 };
 
