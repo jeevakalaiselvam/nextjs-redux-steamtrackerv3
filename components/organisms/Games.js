@@ -9,7 +9,10 @@ import {
   sortGamesByFilterOption,
 } from "../../helpers/gameHelper";
 import e from "cors";
-import { GAMES_OPTION_COMPLETION_PINNED } from "../../helpers/filterHelper";
+import {
+  GAMES_OPTION_COMPLETION_DESC,
+  GAMES_OPTION_COMPLETION_PINNED,
+} from "../../helpers/filterHelper";
 import { getIcon } from "../../helpers/iconHelper";
 import {
   COMMON_COLOR,
@@ -108,7 +111,7 @@ export default function Games({ games, filterOption, searchTerm }) {
     } else {
       filteredGames = sortGamesByFilterOption(
         searchFilteredGames,
-        GAMES_OPTION_COMPLETION_PINNED,
+        GAMES_OPTION_COMPLETION_DESC,
         pinnedGames ?? [],
         completionPercentageTarget ?? 100,
         targetSettings,
@@ -129,9 +132,7 @@ export default function Games({ games, filterOption, searchTerm }) {
         {searchFilteredGames.length > 0 &&
           searchFilteredGames
             .filter((game) => {
-              return (
-                game.completion >= COMPLETION0 && game.completion < COMPLETION10
-              );
+              return game.completion < COMPLETION10;
             })
             .map((game) => {
               return <GameCard game={game} key={game.id} />;
