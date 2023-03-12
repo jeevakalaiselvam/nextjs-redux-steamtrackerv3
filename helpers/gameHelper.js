@@ -46,10 +46,30 @@ import {
 export const calculaNextStageForGame = (game) => {
   let nextStage = {
     next: 0,
+    to1: 0,
+    to10: 0,
+    to25: 0,
+    to50: 0,
+    to75: 0,
+    to90: 0,
+    to100: 0,
     iconColor: COMPLETION10_COLOR,
   };
 
   let completion = +game.completion;
+  nextStage.to100 =
+    Math.ceil(game.total * (COMPLETION100 / 100)) - game.completed;
+  nextStage.to90 =
+    Math.ceil(game.total * (COMPLETION90 / 100)) - game.completed;
+  nextStage.to75 =
+    Math.ceil(game.total * (COMPLETION75 / 100)) - game.completed;
+  nextStage.to50 =
+    Math.ceil(game.total * (COMPLETION50 / 100)) - game.completed;
+  nextStage.to25 =
+    Math.ceil(game.total * (COMPLETION25 / 100)) - game.completed;
+  nextStage.to10 =
+    Math.ceil(game.total * (COMPLETION10 / 100)) - game.completed;
+  nextStage.to1 = Math.ceil(game.total * (COMPLETION1 / 100)) - game.completed;
   if (completion == COMPLETION100) {
     nextStage.next = 0;
     nextStage.iconColor = COMPLETION100_COLOR;

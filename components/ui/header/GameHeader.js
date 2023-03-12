@@ -26,11 +26,17 @@ import {
   XP_FOR_LEVEL,
 } from "../../../helpers/xpHelper";
 import { getIcon } from "../../../helpers/iconHelper";
-import { FaTrophy } from "react-icons/fa";
+import { FaCheck, FaTrophy } from "react-icons/fa";
 import chroma from "chroma-js";
 import {
   COMMON,
   COMMON_COLOR,
+  COMPLETION100_COLOR,
+  COMPLETION10_COLOR,
+  COMPLETION25_COLOR,
+  COMPLETION50_COLOR,
+  COMPLETION75_COLOR,
+  COMPLETION90_COLOR,
   EPIC,
   EPIC_COLOR,
   INFINITY,
@@ -159,11 +165,102 @@ const XPContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: row;
+  flex-direction: column;
   top: 0;
   left: 150px;
   z-index: 8;
   padding: 0.25rem;
+  color: ${(props) => (props.iconColor ? props.iconColor : "")};
+  transition: all 0.5s;
+  transform: translateY(-5px);
+`;
+
+const XPContainer90 = styled.div`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  top: 0;
+  left: 190px;
+  z-index: 8;
+  padding: 0.25rem;
+  transform: translateY(-5px);
+  color: ${(props) => (props.iconColor ? props.iconColor : "")};
+  transition: all 0.5s;
+`;
+
+const XPContainer75 = styled.div`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  top: 0;
+  left: 230px;
+  z-index: 8;
+  padding: 0.25rem;
+  transform: translateY(-5px);
+  color: ${(props) => (props.iconColor ? props.iconColor : "")};
+  transition: all 0.5s;
+`;
+
+const XPContainer50 = styled.div`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  top: 0;
+  left: 270px;
+  z-index: 8;
+  padding: 0.25rem;
+  transform: translateY(-5px);
+  color: ${(props) => (props.iconColor ? props.iconColor : "")};
+  transition: all 0.5s;
+`;
+
+const XPContainer25 = styled.div`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  top: 0;
+  left: 310px;
+  z-index: 8;
+  padding: 0.25rem;
+  transform: translateY(-5px);
+  color: ${(props) => (props.iconColor ? props.iconColor : "")};
+  transition: all 0.5s;
+`;
+
+const XPContainer10 = styled.div`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  top: 0;
+  left: 350px;
+  z-index: 8;
+  padding: 0.25rem;
+  transform: translateY(-5px);
+  color: ${(props) => (props.iconColor ? props.iconColor : "")};
+  transition: all 0.5s;
+`;
+
+const XPContainer1 = styled.div`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  top: 0;
+  left: 220px;
+  z-index: 8;
+  padding: 0.25rem;
+  transform: translateY(-5px);
   color: ${(props) => (props.iconColor ? props.iconColor : "")};
   transition: all 0.5s;
 `;
@@ -172,7 +269,6 @@ const XPIcon = styled.div`
   display: flex;
   align-items: center;
   font-size: 2rem;
-  margin-right: 1rem;
   z-index: 8;
   justify-content: center;
 `;
@@ -182,7 +278,7 @@ const XPData = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 8;
-  font-size: ${(props) => (props.complete ? "1.5rem" : "2rem")};
+  font-size: ${(props) => (props.complete ? "1.5rem" : "1.5rem")};
 `;
 
 const RefreshText = styled.div`
@@ -329,14 +425,135 @@ export default function GameHeader() {
                   // window.open(`https://www.youtube.com/results?search_query=${searchQuery}`);
                 }
               }}
-              iconColor={nextStage.iconColor}
+              iconColor={COMPLETION100_COLOR}
               complete={nextStage.next <= 0}
             >
               <XPIcon>{getIcon("trophy")}</XPIcon>
               <XPData complete={rarityInfo.remainingInTarget == 0}>
-                {nextStage.next}
+                {nextStage.to100 < 0 ? (
+                  <FaCheck
+                    style={{ marginTop: "0.5rem", padding: "0.25rem" }}
+                  />
+                ) : (
+                  nextStage.to100
+                )}
               </XPData>
             </XPContainer>
+            <XPContainer90
+              onClick={() => {
+                if (window !== "undefined") {
+                  window.open(
+                    `https://steamcommunity.com/id/notreallogan/stats/${gameId}/?tab=achievements`
+                  );
+                  // window.open(`https://www.youtube.com/results?search_query=${searchQuery}`);
+                }
+              }}
+              iconColor={COMPLETION90_COLOR}
+              complete={nextStage.next <= 0}
+            >
+              <XPIcon>{getIcon("trophy")}</XPIcon>
+              <XPData complete={rarityInfo.remainingInTarget == 0}>
+                {nextStage.to90 < 0 ? (
+                  <FaCheck
+                    style={{ marginTop: "0.5rem", padding: "0.25rem" }}
+                  />
+                ) : (
+                  nextStage.to90
+                )}
+              </XPData>
+            </XPContainer90>
+            <XPContainer75
+              onClick={() => {
+                if (window !== "undefined") {
+                  window.open(
+                    `https://steamcommunity.com/id/notreallogan/stats/${gameId}/?tab=achievements`
+                  );
+                  // window.open(`https://www.youtube.com/results?search_query=${searchQuery}`);
+                }
+              }}
+              iconColor={COMPLETION75_COLOR}
+              complete={nextStage.next <= 0}
+            >
+              <XPIcon>{getIcon("trophy")}</XPIcon>
+              <XPData complete={rarityInfo.remainingInTarget == 0}>
+                {nextStage.to75 < 0 ? (
+                  <FaCheck
+                    style={{ marginTop: "0.5rem", padding: "0.25rem" }}
+                  />
+                ) : (
+                  nextStage.to75
+                )}
+              </XPData>
+            </XPContainer75>
+            <XPContainer50
+              onClick={() => {
+                if (window !== "undefined") {
+                  window.open(
+                    `https://steamcommunity.com/id/notreallogan/stats/${gameId}/?tab=achievements`
+                  );
+                  // window.open(`https://www.youtube.com/results?search_query=${searchQuery}`);
+                }
+              }}
+              iconColor={COMPLETION50_COLOR}
+              complete={nextStage.next <= 0}
+            >
+              <XPIcon>{getIcon("trophy")}</XPIcon>
+              <XPData complete={rarityInfo.remainingInTarget == 0}>
+                {nextStage.to50 < 0 ? (
+                  <FaCheck
+                    style={{ marginTop: "0.5rem", padding: "0.25rem" }}
+                  />
+                ) : (
+                  nextStage.to50
+                )}
+              </XPData>
+            </XPContainer50>
+            <XPContainer25
+              onClick={() => {
+                if (window !== "undefined") {
+                  window.open(
+                    `https://steamcommunity.com/id/notreallogan/stats/${gameId}/?tab=achievements`
+                  );
+                  // window.open(`https://www.youtube.com/results?search_query=${searchQuery}`);
+                }
+              }}
+              iconColor={COMPLETION25_COLOR}
+              complete={nextStage.next <= 0}
+            >
+              <XPIcon>{getIcon("trophy")}</XPIcon>
+              <XPData complete={rarityInfo.remainingInTarget == 0}>
+                {nextStage.to25 < 0 ? (
+                  <FaCheck
+                    style={{ marginTop: "0.5rem", padding: "0.25rem" }}
+                  />
+                ) : (
+                  nextStage.to25
+                )}
+              </XPData>
+            </XPContainer25>
+            <XPContainer10
+              onClick={() => {
+                if (window !== "undefined") {
+                  window.open(
+                    `https://steamcommunity.com/id/notreallogan/stats/${gameId}/?tab=achievements`
+                  );
+                  // window.open(`https://www.youtube.com/results?search_query=${searchQuery}`);
+                }
+              }}
+              iconColor={COMPLETION10_COLOR}
+              complete={nextStage.next <= 0}
+            >
+              <XPIcon>{getIcon("trophy")}</XPIcon>
+              <XPData complete={rarityInfo.remainingInTarget == 0}>
+                {nextStage.to10 < 0 ? (
+                  <FaCheck
+                    style={{ marginTop: "0.5rem", padding: "0.25rem" }}
+                  />
+                ) : (
+                  nextStage.to10
+                )}
+              </XPData>
+            </XPContainer10>
           </RemainingTrophyContainer>
         }
       </ClearTrophyFilter>
