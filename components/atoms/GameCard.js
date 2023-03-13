@@ -125,6 +125,7 @@ const ToGetContainer = styled.div`
   padding: 1rem;
   z-index: 8;
   transition: all 0.5s;
+  background-color: rgba(0, 0, 0, 0.5);
   transform: translateX("0%");
 `;
 
@@ -208,7 +209,6 @@ const PinIcon = styled.div`
   position: absolute;
   bottom: 0px;
   right: ${(props) => (props.movePinRight ? "-100px" : "0px")};
-  background-color: rgba(0, 0, 0, 0.9);
   color: ${(props) => (props.active ? "#f5b81c" : "#fefefe")};
   cursor: pointer;
   padding: 1rem;
@@ -265,7 +265,7 @@ export default function GameCard({ game }) {
 
   const router = useRouter();
 
-  const [trophyHovered, setTrophyHovered] = useState(true);
+  const [trophyHovered, setTrophyHovered] = useState(false);
 
   useEffect(() => {
     if (game) {
@@ -301,9 +301,11 @@ export default function GameCard({ game }) {
         <TitleData
           onMouseEnter={() => {
             setMovePinRight(false);
+            setTrophyHovered(true);
           }}
           onMouseLeave={() => {
             setMovePinRight(true);
+            setTrophyHovered(false);
           }}
         >
           {name}
@@ -311,9 +313,9 @@ export default function GameCard({ game }) {
       </Title>
       {
         <ToGetContainer>
-          {false && (
+          {
             <ToGetData>
-              {false && (
+              {
                 <TrophyIcon
                   iconColor={getPercentageCompletionColor(gameData.completion)}
                 >
@@ -322,7 +324,7 @@ export default function GameCard({ game }) {
                   {getPercentageCompletionColor(gameData.completion) ==
                     COMMON_COLOR && getIcon("ongoing")}
                 </TrophyIcon>
-              )}
+              }
               {false && (
                 <Percentage
                   iconColor={getPercentageCompletionColor(gameData.completion)}
@@ -331,7 +333,7 @@ export default function GameCard({ game }) {
                 </Percentage>
               )}
             </ToGetData>
-          )}
+          }
         </ToGetContainer>
       }
       {nextStage.next > 0 && (
@@ -371,14 +373,8 @@ export default function GameCard({ game }) {
       >
         <AiFillPushpin />
       </PinIcon>
-      {(nextStage.next == 0 || gameData.completed > 0) && (
+      {false && (nextStage.next == 0 || gameData.completed > 0) && (
         <CompleteIcon
-          onMouseEnter={() => {
-            // setTrophyHovered(true);
-          }}
-          onMouseLeave={() => {
-            // setTrophyHovered(false);
-          }}
           active={true}
           onClick={() => {}}
           color={getPercentageCompletionColor(gameData.completion)}

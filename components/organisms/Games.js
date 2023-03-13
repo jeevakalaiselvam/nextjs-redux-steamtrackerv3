@@ -164,7 +164,7 @@ export default function Games({ games, filterOption, searchTerm }) {
       <GamesContainer>
         <XPContainer iconColor={COMPLETION100_COLOR}>
           <XPIcon>{getIcon("trophy")}</XPIcon>
-          <XPData complete={true}>MARVEL TROPHIES</XPData>
+          <XPData complete={true}>MARVEL (100%)</XPData>
         </XPContainer>
         <GamesList>
           {searchFilteredGames.length > 0 &&
@@ -181,7 +181,7 @@ export default function Games({ games, filterOption, searchTerm }) {
       <GamesContainer>
         <XPContainer iconColor={COMPLETION90_COLOR}>
           <XPIcon>{getIcon("trophy")}</XPIcon>
-          <XPData complete={true}>LEGENDARY TROPHIES</XPData>
+          <XPData complete={true}>LEGENDARY (90%)</XPData>
         </XPContainer>
         <GamesList>
           {searchFilteredGames.length > 0 &&
@@ -201,7 +201,7 @@ export default function Games({ games, filterOption, searchTerm }) {
       <GamesContainer>
         <XPContainer iconColor={COMPLETION75_COLOR}>
           <XPIcon>{getIcon("trophy")}</XPIcon>
-          <XPData complete={true}>EPIC TROPHIES</XPData>
+          <XPData complete={true}>EPIC (75%)</XPData>
         </XPContainer>
         <GamesList>
           {searchFilteredGames.length > 0 &&
@@ -221,7 +221,7 @@ export default function Games({ games, filterOption, searchTerm }) {
       <GamesContainer>
         <XPContainer iconColor={COMPLETION50_COLOR}>
           <XPIcon>{getIcon("trophy")}</XPIcon>
-          <XPData complete={true}>RARE TROPHIES</XPData>
+          <XPData complete={true}>RARE (50%)</XPData>
         </XPContainer>
         <GamesList>
           {searchFilteredGames.length > 0 &&
@@ -241,7 +241,7 @@ export default function Games({ games, filterOption, searchTerm }) {
       <GamesContainer>
         <XPContainer iconColor={COMPLETION25_COLOR}>
           <XPIcon>{getIcon("trophy")}</XPIcon>
-          <XPData complete={true}>COMMON TROPHIES</XPData>
+          <XPData complete={true}>COMMON (25%)</XPData>
         </XPContainer>
         <GamesList>
           {searchFilteredGames.length > 0 &&
@@ -261,7 +261,7 @@ export default function Games({ games, filterOption, searchTerm }) {
       <GamesContainer>
         <XPContainer iconColor={COMPLETION10_COLOR}>
           <XPIcon>{getIcon("trophy")}</XPIcon>
-          <XPData complete={true}>BRONZE TROPHIES</XPData>
+          <XPData complete={true}>BRONZE (10%)</XPData>
         </XPContainer>
         <GamesList>
           {searchFilteredGames.length > 0 &&
