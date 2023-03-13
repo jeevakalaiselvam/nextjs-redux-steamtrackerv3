@@ -167,7 +167,7 @@ const XPContainer = styled.div`
   justify-content: center;
   flex-direction: column;
   top: 0;
-  left: 150px;
+  left: 350px;
   z-index: 8;
   padding: 0.25rem;
   color: ${(props) => (props.iconColor ? props.iconColor : "")};
@@ -182,7 +182,7 @@ const XPContainer90 = styled.div`
   justify-content: center;
   flex-direction: column;
   top: 0;
-  left: 190px;
+  left: 310px;
   z-index: 8;
   padding: 0.25rem;
   transform: translateY(-5px);
@@ -197,7 +197,7 @@ const XPContainer75 = styled.div`
   justify-content: center;
   flex-direction: column;
   top: 0;
-  left: 230px;
+  left: 270px;
   z-index: 8;
   padding: 0.25rem;
   transform: translateY(-5px);
@@ -212,7 +212,7 @@ const XPContainer50 = styled.div`
   justify-content: center;
   flex-direction: column;
   top: 0;
-  left: 270px;
+  left: 230px;
   z-index: 8;
   padding: 0.25rem;
   transform: translateY(-5px);
@@ -227,7 +227,7 @@ const XPContainer25 = styled.div`
   justify-content: center;
   flex-direction: column;
   top: 0;
-  left: 310px;
+  left: 190px;
   z-index: 8;
   padding: 0.25rem;
   transform: translateY(-5px);
@@ -242,7 +242,7 @@ const XPContainer10 = styled.div`
   justify-content: center;
   flex-direction: column;
   top: 0;
-  left: 350px;
+  left: 150px;
   z-index: 8;
   padding: 0.25rem;
   transform: translateY(-5px);
@@ -257,7 +257,7 @@ const XPContainer1 = styled.div`
   justify-content: center;
   flex-direction: column;
   top: 0;
-  left: 220px;
+  left: 150px;
   z-index: 8;
   padding: 0.25rem;
   transform: translateY(-5px);
@@ -416,122 +416,6 @@ export default function GameHeader() {
         </InnerContainer>
         {
           <RemainingTrophyContainer>
-            <XPContainer10
-              onClick={() => {
-                if (window !== "undefined") {
-                  window.open(
-                    `https://steamcommunity.com/id/notreallogan/stats/${gameId}/?tab=achievements`
-                  );
-                  // window.open(`https://www.youtube.com/results?search_query=${searchQuery}`);
-                }
-              }}
-              iconColor={COMPLETION10_COLOR}
-              complete={nextStage.next <= 0}
-            >
-              <XPIcon>{getIcon("trophy")}</XPIcon>
-              <XPData complete={rarityInfo.remainingInTarget == 0}>
-                {nextStage.to10 < 0 ? (
-                  <FaCheck
-                    style={{ marginTop: "0.5rem", padding: "0.25rem" }}
-                  />
-                ) : (
-                  nextStage.to10
-                )}
-              </XPData>
-            </XPContainer10>
-            <XPContainer25
-              onClick={() => {
-                if (window !== "undefined") {
-                  window.open(
-                    `https://steamcommunity.com/id/notreallogan/stats/${gameId}/?tab=achievements`
-                  );
-                  // window.open(`https://www.youtube.com/results?search_query=${searchQuery}`);
-                }
-              }}
-              iconColor={COMPLETION25_COLOR}
-              complete={nextStage.next <= 0}
-            >
-              <XPIcon>{getIcon("trophy")}</XPIcon>
-              <XPData complete={rarityInfo.remainingInTarget == 0}>
-                {nextStage.to25 < 0 ? (
-                  <FaCheck
-                    style={{ marginTop: "0.5rem", padding: "0.25rem" }}
-                  />
-                ) : (
-                  nextStage.to25
-                )}
-              </XPData>
-            </XPContainer25>
-            <XPContainer50
-              onClick={() => {
-                if (window !== "undefined") {
-                  window.open(
-                    `https://steamcommunity.com/id/notreallogan/stats/${gameId}/?tab=achievements`
-                  );
-                  // window.open(`https://www.youtube.com/results?search_query=${searchQuery}`);
-                }
-              }}
-              iconColor={COMPLETION50_COLOR}
-              complete={nextStage.next <= 0}
-            >
-              <XPIcon>{getIcon("trophy")}</XPIcon>
-              <XPData complete={rarityInfo.remainingInTarget == 0}>
-                {nextStage.to50 < 0 ? (
-                  <FaCheck
-                    style={{ marginTop: "0.5rem", padding: "0.25rem" }}
-                  />
-                ) : (
-                  nextStage.to50
-                )}
-              </XPData>
-            </XPContainer50>
-            <XPContainer75
-              onClick={() => {
-                if (window !== "undefined") {
-                  window.open(
-                    `https://steamcommunity.com/id/notreallogan/stats/${gameId}/?tab=achievements`
-                  );
-                  // window.open(`https://www.youtube.com/results?search_query=${searchQuery}`);
-                }
-              }}
-              iconColor={COMPLETION75_COLOR}
-              complete={nextStage.next <= 0}
-            >
-              <XPIcon>{getIcon("trophy")}</XPIcon>
-              <XPData complete={rarityInfo.remainingInTarget == 0}>
-                {nextStage.to75 < 0 ? (
-                  <FaCheck
-                    style={{ marginTop: "0.5rem", padding: "0.25rem" }}
-                  />
-                ) : (
-                  nextStage.to75
-                )}
-              </XPData>
-            </XPContainer75>
-
-            <XPContainer90
-              onClick={() => {
-                if (window !== "undefined") {
-                  window.open(
-                    `https://steamcommunity.com/id/notreallogan/stats/${gameId}/?tab=achievements`
-                  );
-                  // window.open(`https://www.youtube.com/results?search_query=${searchQuery}`);
-                }
-              }}
-              iconColor={COMPLETION90_COLOR}
-              complete={nextStage.next <= 0}
-            >
-              <XPIcon>{getIcon("trophy")}</XPIcon>
-              <XPData complete={rarityInfo.remainingInTarget == 0}>
-                {nextStage.to90 < 0 ? (
-                  <FaCheck
-                    style={{ marginTop: "0.5rem", padding: "0.25rem" }}
-                  />
-                ) : (
-                  nextStage.to90
-                )}
-              </XPData>
-            </XPContainer90>
             <XPContainer
               onClick={() => {
                 if (window !== "undefined") {
@@ -555,6 +439,121 @@ export default function GameHeader() {
                 )}
               </XPData>
             </XPContainer>
+            <XPContainer90
+              onClick={() => {
+                if (window !== "undefined") {
+                  window.open(
+                    `https://steamcommunity.com/id/notreallogan/stats/${gameId}/?tab=achievements`
+                  );
+                  // window.open(`https://www.youtube.com/results?search_query=${searchQuery}`);
+                }
+              }}
+              iconColor={COMPLETION90_COLOR}
+              complete={nextStage.next <= 0}
+            >
+              <XPIcon>{getIcon("trophy")}</XPIcon>
+              <XPData complete={rarityInfo.remainingInTarget == 0}>
+                {nextStage.to90 < 0 ? (
+                  <FaCheck
+                    style={{ marginTop: "0.5rem", padding: "0.25rem" }}
+                  />
+                ) : (
+                  nextStage.to90
+                )}
+              </XPData>
+            </XPContainer90>
+            <XPContainer75
+              onClick={() => {
+                if (window !== "undefined") {
+                  window.open(
+                    `https://steamcommunity.com/id/notreallogan/stats/${gameId}/?tab=achievements`
+                  );
+                  // window.open(`https://www.youtube.com/results?search_query=${searchQuery}`);
+                }
+              }}
+              iconColor={COMPLETION75_COLOR}
+              complete={nextStage.next <= 0}
+            >
+              <XPIcon>{getIcon("trophy")}</XPIcon>
+              <XPData complete={rarityInfo.remainingInTarget == 0}>
+                {nextStage.to75 < 0 ? (
+                  <FaCheck
+                    style={{ marginTop: "0.5rem", padding: "0.25rem" }}
+                  />
+                ) : (
+                  nextStage.to75
+                )}
+              </XPData>
+            </XPContainer75>
+            <XPContainer50
+              onClick={() => {
+                if (window !== "undefined") {
+                  window.open(
+                    `https://steamcommunity.com/id/notreallogan/stats/${gameId}/?tab=achievements`
+                  );
+                  // window.open(`https://www.youtube.com/results?search_query=${searchQuery}`);
+                }
+              }}
+              iconColor={COMPLETION50_COLOR}
+              complete={nextStage.next <= 0}
+            >
+              <XPIcon>{getIcon("trophy")}</XPIcon>
+              <XPData complete={rarityInfo.remainingInTarget == 0}>
+                {nextStage.to50 < 0 ? (
+                  <FaCheck
+                    style={{ marginTop: "0.5rem", padding: "0.25rem" }}
+                  />
+                ) : (
+                  nextStage.to50
+                )}
+              </XPData>
+            </XPContainer50>
+            <XPContainer25
+              onClick={() => {
+                if (window !== "undefined") {
+                  window.open(
+                    `https://steamcommunity.com/id/notreallogan/stats/${gameId}/?tab=achievements`
+                  );
+                  // window.open(`https://www.youtube.com/results?search_query=${searchQuery}`);
+                }
+              }}
+              iconColor={COMPLETION25_COLOR}
+              complete={nextStage.next <= 0}
+            >
+              <XPIcon>{getIcon("trophy")}</XPIcon>
+              <XPData complete={rarityInfo.remainingInTarget == 0}>
+                {nextStage.to25 < 0 ? (
+                  <FaCheck
+                    style={{ marginTop: "0.5rem", padding: "0.25rem" }}
+                  />
+                ) : (
+                  nextStage.to25
+                )}
+              </XPData>
+            </XPContainer25>
+            <XPContainer10
+              onClick={() => {
+                if (window !== "undefined") {
+                  window.open(
+                    `https://steamcommunity.com/id/notreallogan/stats/${gameId}/?tab=achievements`
+                  );
+                  // window.open(`https://www.youtube.com/results?search_query=${searchQuery}`);
+                }
+              }}
+              iconColor={COMPLETION10_COLOR}
+              complete={nextStage.next <= 0}
+            >
+              <XPIcon>{getIcon("trophy")}</XPIcon>
+              <XPData complete={rarityInfo.remainingInTarget == 0}>
+                {nextStage.to10 < 0 ? (
+                  <FaCheck
+                    style={{ marginTop: "0.5rem", padding: "0.25rem" }}
+                  />
+                ) : (
+                  nextStage.to10
+                )}
+              </XPData>
+            </XPContainer10>
           </RemainingTrophyContainer>
         }
       </ClearTrophyFilter>
