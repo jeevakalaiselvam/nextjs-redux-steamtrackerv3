@@ -430,7 +430,7 @@ export default function GameHeader() {
             >
               <XPIcon>{getIcon("trophy")}</XPIcon>
               <XPData complete={rarityInfo.remainingInTarget == 0}>
-                {nextStage.to100 < 0 ? (
+                {nextStage.to100 <= 0 ? (
                   <FaCheck
                     style={{ marginTop: "0.5rem", padding: "0.25rem" }}
                   />
@@ -453,7 +453,7 @@ export default function GameHeader() {
             >
               <XPIcon>{getIcon("trophy")}</XPIcon>
               <XPData complete={rarityInfo.remainingInTarget == 0}>
-                {nextStage.to90 < 0 ? (
+                {nextStage.to90 <= 0 ? (
                   <FaCheck
                     style={{ marginTop: "0.5rem", padding: "0.25rem" }}
                   />
@@ -476,7 +476,7 @@ export default function GameHeader() {
             >
               <XPIcon>{getIcon("trophy")}</XPIcon>
               <XPData complete={rarityInfo.remainingInTarget == 0}>
-                {nextStage.to75 < 0 ? (
+                {nextStage.to75 <= 0 ? (
                   <FaCheck
                     style={{ marginTop: "0.5rem", padding: "0.25rem" }}
                   />
@@ -499,7 +499,7 @@ export default function GameHeader() {
             >
               <XPIcon>{getIcon("trophy")}</XPIcon>
               <XPData complete={rarityInfo.remainingInTarget == 0}>
-                {nextStage.to50 < 0 ? (
+                {nextStage.to50 <= 0 ? (
                   <FaCheck
                     style={{ marginTop: "0.5rem", padding: "0.25rem" }}
                   />
@@ -522,7 +522,7 @@ export default function GameHeader() {
             >
               <XPIcon>{getIcon("trophy")}</XPIcon>
               <XPData complete={rarityInfo.remainingInTarget == 0}>
-                {nextStage.to25 < 0 ? (
+                {nextStage.to25 <= 0 ? (
                   <FaCheck
                     style={{ marginTop: "0.5rem", padding: "0.25rem" }}
                   />
@@ -545,7 +545,7 @@ export default function GameHeader() {
             >
               <XPIcon>{getIcon("trophy")}</XPIcon>
               <XPData complete={rarityInfo.remainingInTarget == 0}>
-                {nextStage.to10 < 0 ? (
+                {nextStage.to10 <= 0 ? (
                   <FaCheck
                     style={{ marginTop: "0.5rem", padding: "0.25rem" }}
                   />
