@@ -235,10 +235,10 @@ export const sortGamesByFilterOption = (
       break;
     case GAMES_OPTION_COMPLETION_DESC:
       newGames = games.sort(
-        (game1, game2) => +game2.completion < +game1.completion
+        (game1, game2) => +game2.completion - +game1.completion
       );
       newGames = newGames.sort(
-        (game1, game2) => +game2.lastPlayed > +game1.lastPlayed
+        (game1, game2) => +game2.lastPlayed - +game1.lastPlayed
       );
       break;
     case GAMES_OPTION_COMPLETION_ASC:

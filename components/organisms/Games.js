@@ -124,7 +124,7 @@ export default function Games({ games, filterOption, searchTerm }) {
     } else {
       filteredGames = sortGamesByFilterOption(
         searchFilteredGames,
-        GAMES_OPTION_RECENT,
+        GAMES_OPTION_COMPLETION_DESC,
         pinnedGames ?? [],
         completionPercentageTarget ?? 100,
         targetSettings,
