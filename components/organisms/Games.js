@@ -49,7 +49,7 @@ const GamesContainer = styled.div`
   align-items: center;
   min-height: 100vh;
   max-height: 100vh;
-  margin: 1rem 0.25rem;
+  margin: 1rem 1.5rem;
   padding: 0 1rem;
   min-width: 300px;
   max-width: 300px;
