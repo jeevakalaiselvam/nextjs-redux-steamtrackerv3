@@ -70,7 +70,7 @@ const INITIAL_STATE = {
   hiddenGames: {},
   settings: {
     gamesPage: {
-      filterOption: GAMES_OPTION_COMPLETION_DESC,
+      filterOption: GAMES_OPTION_RECENT,
       searchTerm: "",
       leftSidebarOpen: true,
       rightSidebarOpen: false,
