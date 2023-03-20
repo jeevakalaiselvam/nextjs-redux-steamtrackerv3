@@ -147,37 +147,40 @@ const ProfilePlatinum = (props) => {
       let completed = total - toGet;
       let adjustedTotal = Math.ceil((completionPercentageTarget / 100) * total);
 
+      const adjustedCompletion = Math.ceil(game.completion);
+      console.log("JEEVA GAME", game.name, adjustedCompletion);
+
       if (completed >= 1) {
-        if (game.completion == COMPLETION100) {
+        if (adjustedCompletion == COMPLETION100) {
           infinityCount++;
         } else if (
-          game.completion < COMPLETION100 &&
-          game.completion >= COMPLETION90
+          adjustedCompletion < COMPLETION100 &&
+          adjustedCompletion >= COMPLETION90
         ) {
           marvelCount++;
         } else if (
-          game.completion < COMPLETION90 &&
-          game.completion >= COMPLETION75
+          adjustedCompletion < COMPLETION90 &&
+          adjustedCompletion >= COMPLETION75
         ) {
           legendaryCount++;
         } else if (
-          game.completion < COMPLETION75 &&
-          game.completion >= COMPLETION50
+          adjustedCompletion < COMPLETION75 &&
+          adjustedCompletion >= COMPLETION50
         ) {
           epicCount++;
         } else if (
-          game.completion < COMPLETION50 &&
-          game.completion >= COMPLETION25
+          adjustedCompletion < COMPLETION50 &&
+          adjustedCompletion >= COMPLETION25
         ) {
           rareCount++;
         } else if (
-          game.completion < COMPLETION25 &&
-          game.completion >= COMPLETION10
+          adjustedCompletion < COMPLETION25 &&
+          adjustedCompletion >= COMPLETION10
         ) {
           wasteCount++;
         } else if (
-          game.completion < COMPLETION10 &&
-          game.completion >= COMPLETION1
+          adjustedCompletion < COMPLETION10 &&
+          adjustedCompletion >= COMPLETION1
         ) {
           copperCount++;
         } else {
@@ -263,7 +266,7 @@ const ProfilePlatinum = (props) => {
               }}
             >
               <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
-              <Text>{allCounts.epicCount}</Text>
+              <Text>{allCounts.legendaryCount}</Text>
             </Trophy>
           </Level>
         </LevelContainer>
@@ -276,7 +279,7 @@ const ProfilePlatinum = (props) => {
               }}
             >
               <Icon fontSize={"2rem"}>{getIcon("trophy")}</Icon>
-              <Text>{allCounts.legendaryCount}</Text>
+              <Text>{allCounts.epicCount}</Text>
             </Trophy>
           </Level>
           <Level>
