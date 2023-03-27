@@ -36,7 +36,7 @@ const Container = styled.div`
   flex-direction: column;
   position: relative;
   margin: 0.5rem;
-  height: 120px;
+  height: 135px;
   opacity: ${(props) =>
     props.achieved == 1 && props.activateCompletionOpacity
       ? props.opacity
@@ -73,7 +73,7 @@ const MainContainer = styled.div`
   background: rgba(0, 0, 0, 0.25);
   border-radius: 4px;
   cursor: pointer;
-  height: 120px;
+  height: 135px;
   &:hover {
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
   }
@@ -153,8 +153,8 @@ const Title = styled.div`
 
 const Description = styled.div`
   display: flex;
-  min-height: 60px;
-  max-height: 60px;
+  min-height: 75px;
+  max-height: 75px;
   width: 100%;
   padding: 0.5rem;
   font-weight: bold;
