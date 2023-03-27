@@ -1,38 +1,58 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { FILTER_OPTIONS_GAME_PAGE } from "../../../helpers/filterHelper";
+import {
+  FILTER_OPTIONS_GAME_PAGE,
+  GAMES_OPTION_COMPLETION_PINNED,
+} from "../../../helpers/filterHelper";
 import {
   changeGamePageFilterOption,
   changeGamePageSearchTerm,
-  resetKanbanBoard,
   setGameDataRefresh,
-  setPlannerUnlockedType,
-  setSwitchPlannerViewType,
+  setRarityFilterForGame,
+  toggleJournalRightSidebar,
 } from "../../../store/actions/games.actions";
 import Filter from "../../atoms/Filter";
 import Search from "../../atoms/Search";
-import { TbRefresh } from "react-icons/tb";
+import { TbAB, TbArrowsMaximize, TbDialpad, TbRefresh } from "react-icons/tb";
 import { useRouter } from "next/router";
 import axios from "axios";
-import { FaTrophy } from "react-icons/fa";
 import {
   calculateLevelFromAllGames,
+  calculateRarityLeftFromAchievements,
   getAllXPFromAchievements,
+  WASTE_HIGHER,
+  WASTE_LOWER,
   XP_FOR_LEVEL,
 } from "../../../helpers/xpHelper";
-import {
-  HiDuplicate,
-  HiOutlineArrowCircleDown,
-  HiOutlineArrowsExpand,
-  HiPencilAlt,
-  HiViewBoards,
-  HiXCircle,
-} from "react-icons/hi";
-import { ALL } from "../../../helpers/gameHelper";
-import { AiFillGold } from "react-icons/ai";
 import { getIcon } from "../../../helpers/iconHelper";
-import { PLAYER_LEVEL_KEY } from "./GameHeader";
+import { FaCheck, FaTrophy } from "react-icons/fa";
+import chroma from "chroma-js";
+import {
+  COMMON,
+  COMMON_COLOR,
+  COMPLETION100_COLOR,
+  COMPLETION10_COLOR,
+  COMPLETION25_COLOR,
+  COMPLETION50_COLOR,
+  COMPLETION75_COLOR,
+  COMPLETION90_COLOR,
+  EPIC,
+  EPIC_COLOR,
+  INFINITY,
+  INFINITY_COLOR,
+  LEGENDARY,
+  LEGENDARY_COLOR,
+  MARVEL,
+  MARVEL_COLOR,
+  RARE,
+  RARE_COLOR,
+  UNCOMMON,
+  UNCOMMON_COLOR,
+  WASTE,
+  WASTE_COLOR,
+} from "../../../helpers/colorHelper";
+import { calculaNextStageForGame } from "../../../helpers/gameHelper";
 
 const Container = styled.div`
   display: flex;
@@ -44,52 +64,89 @@ const Container = styled.div`
   width: 100%;
 `;
 
-const FilterContainer = styled.div`
-  display: flex;
-  align-items: center;
-  flex: 1;
-  justify-content: flex-start;
-  width: 100%;
-`;
-
-const XPDataContainer = styled.div`
+const RemainingContainer = styled.div`
   display: flex;
   flex: 1;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
+  cursor: pointer;
 `;
 
-const SearchContainer = styled.div`
+const TrophyRemainingList = styled.div`
   display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+`;
+
+const TrophyContainer = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: ${(props) => (props.flex ? props.flex : "column")};
+  justify-content: center;
+  color: ${(props) => (props.color ? props.color : "")};
+  width: ${(props) => (props.flex == "row" ? "200px" : "50px")};
+`;
+
+const TrophyDesc = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: "5rem";
+  margin-right: ${(props) => (props.flex == "row" ? "1rem" : "0rem")};
+`;
+
+const TrophyIcon = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: ${(props) => (props.flex == "row" ? "3rem" : "2.5rem")};
+  margin-right: ${(props) => (props.flex == "row" ? "1rem" : "0rem")};
+`;
+
+const TrophyCount = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-right: ${(props) => (props.flex == "row" ? "1rem" : "0rem")};
+`;
+
+const ClearTrophyFilter = styled.div`
+  position: absolute;
+  display: flex;
+  left: 0;
+  padding-left: 2rem;
   align-items: center;
   justify-content: flex-end;
 `;
 
-const RefreshContainer = styled.div`
+const SearchContainer = styled.div`
+  position: absolute;
+  display: flex;
+  right: 0;
+  padding-right: 2rem;
+  align-items: center;
+  justify-content: flex-end;
+`;
+
+const RemainingTrophyContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  width: 150px;
+  width: 100px;
   padding: 0.5rem;
   color: #fefefe;
   cursor: pointer;
-  background-color: rgba(48, 73, 209, 0.8);
-  backdrop-filter: blur(6px);
-  margin-left: 1rem;
-
-  &:hover {
-    background-color: rgba(30, 51, 166, 0.8);
-    backdrop-filter: blur(6px);
-  }
 `;
 
-const ResetContainer = styled.div`
+const InnerContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  width: 150px;
+  width: 100px;
   padding: 0.5rem;
   color: #fefefe;
   cursor: pointer;
@@ -104,23 +161,114 @@ const ResetContainer = styled.div`
 `;
 
 const XPContainer = styled.div`
+  position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: row;
+  flex-direction: column;
+  top: 0;
+  left: 350px;
   z-index: 8;
-  padding: 1rem;
+  padding: 0.25rem;
+  color: ${(props) => (props.iconColor ? props.iconColor : "")};
   transition: all 0.5s;
-  background-color: rgba(0, 0, 0, 0.5);
-  transform: translateX("0%");
+  transform: translateY(-5px);
+`;
+
+const XPContainer90 = styled.div`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  top: 0;
+  left: 310px;
+  z-index: 8;
+  padding: 0.25rem;
+  transform: translateY(-5px);
+  color: ${(props) => (props.iconColor ? props.iconColor : "")};
+  transition: all 0.5s;
+`;
+
+const XPContainer75 = styled.div`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  top: 0;
+  left: 270px;
+  z-index: 8;
+  padding: 0.25rem;
+  transform: translateY(-5px);
+  color: ${(props) => (props.iconColor ? props.iconColor : "")};
+  transition: all 0.5s;
+`;
+
+const XPContainer50 = styled.div`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  top: 0;
+  left: 230px;
+  z-index: 8;
+  padding: 0.25rem;
+  transform: translateY(-5px);
+  color: ${(props) => (props.iconColor ? props.iconColor : "")};
+  transition: all 0.5s;
+`;
+
+const XPContainer25 = styled.div`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  top: 0;
+  left: 190px;
+  z-index: 8;
+  padding: 0.25rem;
+  transform: translateY(-5px);
+  color: ${(props) => (props.iconColor ? props.iconColor : "")};
+  transition: all 0.5s;
+`;
+
+const XPContainer10 = styled.div`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  top: 0;
+  left: 150px;
+  z-index: 8;
+  padding: 0.25rem;
+  transform: translateY(-5px);
+  color: ${(props) => (props.iconColor ? props.iconColor : "")};
+  transition: all 0.5s;
+`;
+
+const XPContainer1 = styled.div`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  top: 0;
+  left: 150px;
+  z-index: 8;
+  padding: 0.25rem;
+  transform: translateY(-5px);
+  color: ${(props) => (props.iconColor ? props.iconColor : "")};
+  transition: all 0.5s;
 `;
 
 const XPIcon = styled.div`
   display: flex;
   align-items: center;
-  color: #f5b81c;
-  font-size: 1.75rem;
-  margin-right: 0.5rem;
+  font-size: 2rem;
   z-index: 8;
   justify-content: center;
 `;
@@ -129,9 +277,8 @@ const XPData = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #f5b81c;
   z-index: 8;
-  font-size: 1.5rem;
+  font-size: ${(props) => (props.complete ? "1.5rem" : "1.5rem")};
 `;
 
 const RefreshText = styled.div`
@@ -141,7 +288,7 @@ const RefreshText = styled.div`
   justify-content: center;
 `;
 
-const RefreshIcon = styled.div`
+const Icon = styled.div`
   display: flex;
   align-items: center;
   z-index: 8;
@@ -187,107 +334,315 @@ const RefreshIcon = styled.div`
   }
 `;
 
+export const PLAYER_LEVEL_KEY = "PLAYER_LEVEL_KEY";
+
 export default function PlannerHeader() {
   const dispatch = useDispatch();
   const router = useRouter();
+  const steamtracker = useSelector((state) => state.steamtracker);
+  const { games, settings, targetSettings } = steamtracker;
+  const { settingsPage } = settings;
+  const { completionPercentageTarget } = settingsPage;
   const { gameId } = router.query;
 
-  const steamtracker = useSelector((state) => state.steamtracker);
-  const { games, planner } = steamtracker;
-  const { phaseAddedGame, plannerViewActive, unlockedShowToday } = planner;
-  const [rotate, setRotate] = useState(false);
-  const [refreshing, setRefreshing] = useState(false);
-  const { xpTotal, currentLevel, toNextLevel, unlockedAll } =
-    calculateLevelFromAllGames(games);
+  const [gameData, setGameData] = useState({
+    achievements: [],
+    percentageCompletion: 0,
+  });
+  const [xpInfo, setXPInfo] = useState({});
+  const [levelInfo, setLevelInfo] = useState({});
+  const [rarityInfo, setRarityInfo] = useState({});
+  const [nextStage, setNextStage] = useState({
+    next: 0,
+    iconColor: COMMON_COLOR,
+  });
 
-  const resetButtonClickHandler = async () => {
-    if (games) {
-      const game = games.find((game) => game.id == gameId);
-      if (game) {
-        game.achievements.forEach((achievement) => {
-          if (typeof window !== "undefined") {
-            localStorage.setItem(`${gameId}_${achievement.name}_PHASE`, ALL);
-          }
-        });
-        dispatch(resetKanbanBoard(gameId, game, phaseAddedGame));
+  const [refreshing, setRefreshing] = useState(false);
+
+  useEffect(() => {
+    if (games.length > 0) {
+      if (gameId) {
+        console.log("GAMEID and GAMES", { gameId, games });
+        const game = games.length && games.find((game) => game.id == gameId);
+        if (game) {
+          const xpData = getAllXPFromAchievements(game.achievements);
+          const xpInfo = calculateLevelFromAllGames(games);
+          const rarityInfo = calculateRarityLeftFromAchievements(
+            game.achievements,
+            targetSettings
+          );
+          const nextStage = calculaNextStageForGame(game);
+          setGameData(game);
+          setXPInfo(xpInfo);
+          setLevelInfo(levelInfo);
+          setRarityInfo(rarityInfo);
+          setNextStage(nextStage);
+        }
       }
     }
-  };
-  let xpData = { totalXP: 0, completedXP: 0, remainingXP: 0 };
-  if (gameId) {
-    const game = games.find((game) => game.id == gameId);
-    xpData = getAllXPFromAchievements(game.achievements);
-  }
+  }, [gameId, games]);
 
-  const switchViewHandler = () => {
-    dispatch(setSwitchPlannerViewType());
-  };
-
-  const showAllAchievementsUnlocked = () => {
-    dispatch(setPlannerUnlockedType());
+  const onSearchObtained = (searchTerm) => {
+    dispatch(changeGamePageSearchTerm(searchTerm));
   };
 
   const refreshButtonClickHandler = async () => {
-    if (typeof window !== "undefined") {
-      localStorage.setItem(
-        PLAYER_LEVEL_KEY,
-        Math.floor(xpTotal / XP_FOR_LEVEL)
-      );
-    }
+    dispatch(toggleJournalRightSidebar(false));
     setRefreshing(true);
     const response = await axios.get(`/api/refresh/${gameId}`);
     const gameRefreshedData = response.data.data;
-    dispatch(setGameDataRefresh(gameId, gameRefreshedData));
+    dispatch(setGameDataRefresh(gameId, { ...gameRefreshedData }));
     setRefreshing(false);
+  };
+
+  const filterAchievementsByRarity = (rarity) => {
+    dispatch(setRarityFilterForGame({ gameId: gameData.id, rarity }));
   };
 
   return (
     <Container>
-      {gameId && (
-        <FilterContainer>
-          {!plannerViewActive && (
-            <ResetContainer onClick={resetButtonClickHandler}>
-              <HiXCircle />
-              <RefreshText>RESET BOARD</RefreshText>
-            </ResetContainer>
-          )}
-          {plannerViewActive && (
-            <ResetContainer onClick={showAllAchievementsUnlocked}>
-              <HiOutlineArrowsExpand />
-              {unlockedShowToday && <RefreshText>SHOW ALL</RefreshText>}
-              {!unlockedShowToday && <RefreshText>SHOW TODAY</RefreshText>}
-            </ResetContainer>
-          )}
-          {false && (
-            <XPDataContainer>
-              <XPContainer>
-                <XPIcon>{getIcon("xp")}</XPIcon>
-                <XPData>
-                  {Math.floor(
-                    Math.floor((xpData.totalXP || 0) * 0.5) -
-                      (xpData.completedXP || 0)
-                  )}
-                </XPData>
-              </XPContainer>
-            </XPDataContainer>
-          )}
-        </FilterContainer>
+      <ClearTrophyFilter>
+        <InnerContainer
+          onClick={() => {
+            dispatch(
+              setRarityFilterForGame({ gameId: gameData.id, rarity: "ALL" })
+            );
+          }}
+        >
+          <Icon rotate={false}>
+            <TbArrowsMaximize />
+          </Icon>
+          <RefreshText>SHOW ALL</RefreshText>
+        </InnerContainer>
+        {
+          <RemainingTrophyContainer>
+            <XPContainer
+              onClick={() => {
+                if (window !== "undefined") {
+                  window.open(
+                    `https://steamcommunity.com/id/notreallogan/stats/${gameId}/?tab=achievements`
+                  );
+                  // window.open(`https://www.youtube.com/results?search_query=${searchQuery}`);
+                }
+              }}
+              iconColor={COMPLETION100_COLOR}
+              complete={nextStage.next <= 0}
+            >
+              <XPIcon>{getIcon("trophy")}</XPIcon>
+              <XPData complete={rarityInfo.remainingInTarget == 0}>
+                {nextStage.to100 <= 0 ? (
+                  <FaCheck
+                    style={{ marginTop: "0.5rem", padding: "0.25rem" }}
+                  />
+                ) : (
+                  nextStage.to100
+                )}
+              </XPData>
+            </XPContainer>
+            <XPContainer90
+              onClick={() => {
+                if (window !== "undefined") {
+                  window.open(
+                    `https://steamcommunity.com/id/notreallogan/stats/${gameId}/?tab=achievements`
+                  );
+                  // window.open(`https://www.youtube.com/results?search_query=${searchQuery}`);
+                }
+              }}
+              iconColor={COMPLETION90_COLOR}
+              complete={nextStage.next <= 0}
+            >
+              <XPIcon>{getIcon("trophy")}</XPIcon>
+              <XPData complete={rarityInfo.remainingInTarget == 0}>
+                {nextStage.to90 <= 0 ? (
+                  <FaCheck
+                    style={{ marginTop: "0.5rem", padding: "0.25rem" }}
+                  />
+                ) : (
+                  nextStage.to90
+                )}
+              </XPData>
+            </XPContainer90>
+            <XPContainer75
+              onClick={() => {
+                if (window !== "undefined") {
+                  window.open(
+                    `https://steamcommunity.com/id/notreallogan/stats/${gameId}/?tab=achievements`
+                  );
+                  // window.open(`https://www.youtube.com/results?search_query=${searchQuery}`);
+                }
+              }}
+              iconColor={COMPLETION75_COLOR}
+              complete={nextStage.next <= 0}
+            >
+              <XPIcon>{getIcon("trophy")}</XPIcon>
+              <XPData complete={rarityInfo.remainingInTarget == 0}>
+                {nextStage.to75 <= 0 ? (
+                  <FaCheck
+                    style={{ marginTop: "0.5rem", padding: "0.25rem" }}
+                  />
+                ) : (
+                  nextStage.to75
+                )}
+              </XPData>
+            </XPContainer75>
+            <XPContainer50
+              onClick={() => {
+                if (window !== "undefined") {
+                  window.open(
+                    `https://steamcommunity.com/id/notreallogan/stats/${gameId}/?tab=achievements`
+                  );
+                  // window.open(`https://www.youtube.com/results?search_query=${searchQuery}`);
+                }
+              }}
+              iconColor={COMPLETION50_COLOR}
+              complete={nextStage.next <= 0}
+            >
+              <XPIcon>{getIcon("trophy")}</XPIcon>
+              <XPData complete={rarityInfo.remainingInTarget == 0}>
+                {nextStage.to50 <= 0 ? (
+                  <FaCheck
+                    style={{ marginTop: "0.5rem", padding: "0.25rem" }}
+                  />
+                ) : (
+                  nextStage.to50
+                )}
+              </XPData>
+            </XPContainer50>
+            <XPContainer25
+              onClick={() => {
+                if (window !== "undefined") {
+                  window.open(
+                    `https://steamcommunity.com/id/notreallogan/stats/${gameId}/?tab=achievements`
+                  );
+                  // window.open(`https://www.youtube.com/results?search_query=${searchQuery}`);
+                }
+              }}
+              iconColor={COMPLETION25_COLOR}
+              complete={nextStage.next <= 0}
+            >
+              <XPIcon>{getIcon("trophy")}</XPIcon>
+              <XPData complete={rarityInfo.remainingInTarget == 0}>
+                {nextStage.to25 <= 0 ? (
+                  <FaCheck
+                    style={{ marginTop: "0.5rem", padding: "0.25rem" }}
+                  />
+                ) : (
+                  nextStage.to25
+                )}
+              </XPData>
+            </XPContainer25>
+            <XPContainer10
+              onClick={() => {
+                if (window !== "undefined") {
+                  window.open(
+                    `https://steamcommunity.com/id/notreallogan/stats/${gameId}/?tab=achievements`
+                  );
+                  // window.open(`https://www.youtube.com/results?search_query=${searchQuery}`);
+                }
+              }}
+              iconColor={COMPLETION10_COLOR}
+              complete={nextStage.next <= 0}
+            >
+              <XPIcon>{getIcon("trophy")}</XPIcon>
+              <XPData complete={rarityInfo.remainingInTarget == 0}>
+                {nextStage.to10 <= 0 ? (
+                  <FaCheck
+                    style={{ marginTop: "0.5rem", padding: "0.25rem" }}
+                  />
+                ) : (
+                  nextStage.to10
+                )}
+              </XPData>
+            </XPContainer10>
+          </RemainingTrophyContainer>
+        }
+      </ClearTrophyFilter>
+      {(rarityInfo.remainingInTarget > 0 || true) && (
+        <RemainingContainer>
+          <TrophyRemainingList>
+            <TrophyContainer
+              color={WASTE_COLOR}
+              onClick={() => filterAchievementsByRarity(WASTE)}
+            >
+              <TrophyDesc></TrophyDesc>
+              <TrophyIcon>{getIcon("achievement")}</TrophyIcon>
+              <TrophyCount>{rarityInfo.wasteTarget}</TrophyCount>
+            </TrophyContainer>
+            <TrophyContainer
+              color={COMMON_COLOR}
+              onClick={() => filterAchievementsByRarity(COMMON)}
+            >
+              <TrophyIcon>{getIcon("achievement")}</TrophyIcon>
+              <TrophyCount>{rarityInfo.commonTarget}</TrophyCount>
+            </TrophyContainer>
+            <TrophyContainer
+              color={UNCOMMON_COLOR}
+              onClick={() => filterAchievementsByRarity(UNCOMMON)}
+            >
+              <TrophyIcon>{getIcon("achievement")}</TrophyIcon>
+              <TrophyCount>{rarityInfo.uncommonTarget}</TrophyCount>
+            </TrophyContainer>
+            <TrophyContainer
+              color={RARE_COLOR}
+              onClick={() => filterAchievementsByRarity(RARE)}
+            >
+              <TrophyIcon>{getIcon("achievement")}</TrophyIcon>
+              <TrophyCount>{rarityInfo.rareTarget}</TrophyCount>
+            </TrophyContainer>
+            <TrophyContainer
+              color={EPIC_COLOR}
+              onClick={() => filterAchievementsByRarity(EPIC)}
+            >
+              <TrophyIcon>{getIcon("achievement")}</TrophyIcon>
+              <TrophyCount>{rarityInfo.epicTarget}</TrophyCount>
+            </TrophyContainer>
+            <TrophyContainer
+              color={LEGENDARY_COLOR}
+              onClick={() => filterAchievementsByRarity(LEGENDARY)}
+            >
+              <TrophyIcon>{getIcon("achievement")}</TrophyIcon>
+              <TrophyCount>{rarityInfo.legendaryTarget}</TrophyCount>
+            </TrophyContainer>
+            <TrophyContainer
+              color={MARVEL_COLOR}
+              onClick={() => filterAchievementsByRarity(MARVEL)}
+            >
+              <TrophyIcon>{getIcon("achievement")}</TrophyIcon>
+              <TrophyCount>{rarityInfo.marvelTarget}</TrophyCount>
+            </TrophyContainer>
+            <TrophyContainer
+              color={INFINITY_COLOR}
+              onClick={() => filterAchievementsByRarity(INFINITY)}
+            >
+              <TrophyIcon>{getIcon("achievement")}</TrophyIcon>
+              <TrophyCount>{rarityInfo.infinityTarget}</TrophyCount>
+            </TrophyContainer>
+          </TrophyRemainingList>
+        </RemainingContainer>
       )}
-      {false && (
-        <SearchContainer>
-          <RefreshContainer onClick={switchViewHandler}>
-            <HiDuplicate />
-            <RefreshText>SWITCH VIEW</RefreshText>
-          </RefreshContainer>
-        </SearchContainer>
+      {rarityInfo.remainingInTarget == 0 && false && (
+        <RemainingContainer>
+          <TrophyRemainingList>
+            <TrophyContainer
+              flex="row"
+              color={MARVEL_COLOR}
+              onClick={() => filterAchievementsByRarity(MARVEL)}
+            >
+              <TrophyIcon flex="row">{getIcon("achievement")}</TrophyIcon>
+              <TrophyCount flex="row">{"COMPLETED"}</TrophyCount>
+              <TrophyIcon flex="row">{getIcon("achievement")}</TrophyIcon>
+            </TrophyContainer>
+          </TrophyRemainingList>
+        </RemainingContainer>
       )}
       <SearchContainer>
-        <RefreshContainer onClick={refreshButtonClickHandler}>
-          <RefreshIcon rotate={refreshing}>
+        <Search onSearchObtained={onSearchObtained} />
+        <InnerContainer onClick={refreshButtonClickHandler}>
+          <Icon rotate={refreshing}>
             <TbRefresh />
-          </RefreshIcon>
+          </Icon>
           <RefreshText>REFRESH</RefreshText>
-        </RefreshContainer>
+        </InnerContainer>
       </SearchContainer>
     </Container>
   );
