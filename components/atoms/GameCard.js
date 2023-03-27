@@ -295,7 +295,7 @@ export default function GameCard({ game }) {
           }
           dispatch(setLastSelectedGame(id));
           dispatch(changeGamesPageSearchTerm(""));
-          router.push(`/planner/${id}`);
+          router.push(`/games/${id}`);
         }}
       >
         <TitleData

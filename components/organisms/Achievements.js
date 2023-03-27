@@ -45,6 +45,7 @@ export default function Achievements({
   animateRight,
   setAchCount,
   hidePinned,
+  planner,
 }) {
   const [searchFilteredAchievements, setSearchFilteredAchievements] = useState(
     []
@@ -124,9 +125,15 @@ export default function Achievements({
           }
         });
       }
+
       pinnedOrNotAchievements = pinnedOrNotAchievements.sort(
         (ach1, ach2) => ach2.percentage - ach1.percentage
       );
+      if (planner) {
+        pinnedOrNotAchievements = pinnedOrNotAchievements.sort(
+          (ach1, ach2) => ach2.unlocktime - ach1.unlocktime
+        );
+      }
       setSearchFilteredAchievements((old) => pinnedOrNotAchievements);
     }
   }, [

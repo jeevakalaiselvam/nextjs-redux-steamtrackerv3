@@ -558,6 +558,7 @@ export default function PlannerContent() {
                   showPhase={false}
                   phase={UNLOCKED}
                   showIgnore={false}
+                  planner={true}
                 />
               </PhaseContainer>
             </>
