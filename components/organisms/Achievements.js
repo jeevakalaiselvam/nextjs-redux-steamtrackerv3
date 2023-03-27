@@ -131,7 +131,7 @@ export default function Achievements({
       );
       if (planner) {
         pinnedOrNotAchievements = pinnedOrNotAchievements.sort(
-          (ach1, ach2) => ach1.unlocktime - ach2.unlocktime
+          (ach1, ach2) => ach2.unlocktime - ach1.unlocktime
         );
       }
       setSearchFilteredAchievements((old) => pinnedOrNotAchievements);

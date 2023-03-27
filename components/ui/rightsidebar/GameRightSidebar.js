@@ -159,6 +159,7 @@ export default function GameRightSidebar() {
             searchTerm={""}
             showOnly={true}
             includeAll={true}
+            planner={true}
           />
         </>
       )}
