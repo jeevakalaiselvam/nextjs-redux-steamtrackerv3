@@ -158,6 +158,9 @@ export const getPhaseFiltedAchievements = (gameId, achievements, phase) => {
       (achievement) => achievement.phase == phase
     );
   }
+  newAchievements = newAchievements.sort((ach1, ach2) => {
+    ach2.percentage - ach1.percentage;
+  });
   return newAchievements;
 };
 
