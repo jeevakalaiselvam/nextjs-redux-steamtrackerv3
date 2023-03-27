@@ -564,7 +564,7 @@ export default function PlannerHeader() {
               onClick={() => filterAchievementsByRarity(WASTE)}
             >
               <TrophyDesc></TrophyDesc>
-              <TrophyIcon>{getIcon("achievement")}</TrophyIcon>
+              <TrophyIcon>{getIcon("trophy")}</TrophyIcon>
               <TrophyCount>
                 {nextStage.to10 <= 0 ? (
                   <FaCheck
@@ -580,7 +580,7 @@ export default function PlannerHeader() {
               color={RARE_COLOR}
               onClick={() => filterAchievementsByRarity(RARE)}
             >
-              <TrophyIcon>{getIcon("achievement")}</TrophyIcon>
+              <TrophyIcon>{getIcon("trophy")}</TrophyIcon>
               <TrophyCount>
                 {nextStage.to25 <= 0 ? (
                   <FaCheck
@@ -595,7 +595,7 @@ export default function PlannerHeader() {
               color={EPIC_COLOR}
               onClick={() => filterAchievementsByRarity(EPIC)}
             >
-              <TrophyIcon>{getIcon("achievement")}</TrophyIcon>
+              <TrophyIcon>{getIcon("trophy")}</TrophyIcon>
               <TrophyCount>
                 {nextStage.to50 <= 0 ? (
                   <FaCheck
@@ -610,7 +610,7 @@ export default function PlannerHeader() {
               color={LEGENDARY_COLOR}
               onClick={() => filterAchievementsByRarity(LEGENDARY)}
             >
-              <TrophyIcon>{getIcon("achievement")}</TrophyIcon>
+              <TrophyIcon>{getIcon("trophy")}</TrophyIcon>
               <TrophyCount>
                 {nextStage.to75 <= 0 ? (
                   <FaCheck
@@ -625,7 +625,7 @@ export default function PlannerHeader() {
               color={MARVEL_COLOR}
               onClick={() => filterAchievementsByRarity(MARVEL)}
             >
-              <TrophyIcon>{getIcon("achievement")}</TrophyIcon>
+              <TrophyIcon>{getIcon("trophy")}</TrophyIcon>
               <TrophyCount>
                 {nextStage.to90 <= 0 ? (
                   <FaCheck
@@ -640,7 +640,7 @@ export default function PlannerHeader() {
               color={INFINITY_COLOR}
               onClick={() => filterAchievementsByRarity(INFINITY)}
             >
-              <TrophyIcon>{getIcon("achievement")}</TrophyIcon>
+              <TrophyIcon>{getIcon("trophy")}</TrophyIcon>
               <TrophyCount>
                 {nextStage.to100 <= 0 ? (
                   <FaCheck
@@ -662,9 +662,9 @@ export default function PlannerHeader() {
               color={MARVEL_COLOR}
               onClick={() => filterAchievementsByRarity(MARVEL)}
             >
-              <TrophyIcon flex="row">{getIcon("achievement")}</TrophyIcon>
+              <TrophyIcon flex="row">{getIcon("trophy")}</TrophyIcon>
               <TrophyCount flex="row">{"COMPLETED"}</TrophyCount>
-              <TrophyIcon flex="row">{getIcon("achievement")}</TrophyIcon>
+              <TrophyIcon flex="row">{getIcon("trophy")}</TrophyIcon>
             </TrophyContainer>
           </TrophyRemainingList>
         </RemainingContainer>

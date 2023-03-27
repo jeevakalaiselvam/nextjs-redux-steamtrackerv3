@@ -73,7 +73,7 @@ const XPContainer = styled.div`
 const XPIcon = styled.div`
   display: flex;
   align-items: center;
-  font-size: 2rem;
+  font-size: 2.5rem;
   margin-bottom: 0.5rem;
   z-index: 8;
   justify-content: center;
@@ -244,7 +244,7 @@ export default function Games({ games, filterOption, searchTerm }) {
       </GamesContainer>
       <GamesContainer>
         <XPContainer iconColor={COMPLETION100_COLOR}>
-          <XPIcon>{getIcon("trophy")}</XPIcon>
+          <XPIcon>{getIcon("trophy")} </XPIcon>
           <XPData complete={true}>{allCounts.infinityCount}</XPData>
         </XPContainer>
         <GamesList>
@@ -321,7 +321,7 @@ export default function Games({ games, filterOption, searchTerm }) {
       </GamesContainer>
       <GamesContainer>
         <XPContainer iconColor={COMPLETION25_COLOR}>
-          <XPIcon>{getIcon("trophy")}</XPIcon>
+          <XPIcon>{getIcon("trophy")} </XPIcon>
           <XPData complete={true}>{allCounts.copperCount}</XPData>
         </XPContainer>
         <GamesList>
