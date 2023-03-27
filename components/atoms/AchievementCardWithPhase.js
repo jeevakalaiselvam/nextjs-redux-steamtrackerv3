@@ -36,7 +36,7 @@ const Container = styled.div`
   flex-direction: column;
   position: relative;
   margin: 0.5rem;
-  height: 135px;
+  height: 125px;
   opacity: ${(props) =>
     props.achieved == 1 && props.activateCompletionOpacity
       ? props.opacity
@@ -73,7 +73,7 @@ const MainContainer = styled.div`
   background: rgba(0, 0, 0, 0.25);
   border-radius: 4px;
   cursor: pointer;
-  height: 135px;
+  height: 125px;
   &:hover {
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
   }
@@ -153,8 +153,8 @@ const Title = styled.div`
 
 const Description = styled.div`
   display: flex;
-  min-height: 75px;
-  max-height: 75px;
+  min-height: 65px;
+  max-height: 65px;
   width: 100%;
   padding: 0.5rem;
   font-weight: bold;
@@ -162,7 +162,7 @@ const Description = styled.div`
   align-items: flex-start;
   justify-content: flex-start;
   color: #b0bec5;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
 `;
 
 const HiddenContainer = styled.div`

@@ -335,7 +335,10 @@ export default function PlannerContent() {
                           gameId
                         )
                       )}
-                      count={phase1Achievements.length}
+                      count={
+                        phase1Achievements.filter((ach) => ach.achieved != 1)
+                          .length
+                      }
                     />
                   </HeaderContainer>
                   <Search onSearchObtained={phase1SearchObtained} />
@@ -367,7 +370,10 @@ export default function PlannerContent() {
                           gameId
                         )
                       )}
-                      count={phase2Achievements.length}
+                      count={
+                        phase2Achievements.filter((ach) => ach.achieved != 1)
+                          .length
+                      }
                     />
                   </HeaderContainer>
                   <Search onSearchObtained={phase2SearchObtained} />
@@ -399,7 +405,10 @@ export default function PlannerContent() {
                           gameId
                         )
                       )}
-                      count={phase3Achievements.length}
+                      count={
+                        phase3Achievements.filter((ach) => ach.achieved != 1)
+                          .length
+                      }
                     />
                   </HeaderContainer>
                   <Search onSearchObtained={phase5SearchObtained} />
@@ -431,7 +440,10 @@ export default function PlannerContent() {
                           gameId
                         )
                       )}
-                      count={phase4Achievements.length}
+                      count={
+                        phase4Achievements.filter((ach) => ach.achieved != 1)
+                          .length
+                      }
                     />
                   </HeaderContainer>
                   <Search onSearchObtained={phase3SearchObtained} />
@@ -463,7 +475,10 @@ export default function PlannerContent() {
                           gameId
                         )
                       )}
-                      count={phase5Achievements.length}
+                      count={
+                        phase5Achievements.filter((ach) => ach.achieved != 1)
+                          .length
+                      }
                     />
                   </HeaderContainer>
                   <Search onSearchObtained={phase4SearchObtained} />
