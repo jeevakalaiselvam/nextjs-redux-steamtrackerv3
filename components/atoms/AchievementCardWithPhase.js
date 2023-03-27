@@ -162,7 +162,7 @@ const Description = styled.div`
   align-items: flex-start;
   justify-content: flex-start;
   color: #b0bec5;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
 `;
 
 const HiddenContainer = styled.div`
@@ -178,7 +178,7 @@ const HiddenContainer = styled.div`
 
 const PinnedStatusContainer = styled.div`
   position: absolute;
-  bottom: 4px;
+  bottom: 8px;
   left: 1rem;
   width: 60px;
   font-size: 1rem;
