@@ -210,7 +210,7 @@ const RarityIcon = styled.div`
   align-items: flex-start;
   justify-content: center;
   color: ${(props) => (props.color ? props.color : "")};
-  font-size: 1.5rem;
+  font-size: 1.75rem;
 `;
 
 const RarityText = styled.div`
@@ -221,7 +221,7 @@ const RarityText = styled.div`
   align-items: flex-start;
   justify-content: center;
   color: ${(props) => (props.color ? props.color : "")};
-  font-size: 1rem;
+  font-size: 1.15rem;
 `;
 
 const TrophyIcon = styled.div`
