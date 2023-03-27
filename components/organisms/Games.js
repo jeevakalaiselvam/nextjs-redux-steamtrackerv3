@@ -73,7 +73,7 @@ const XPContainer = styled.div`
 const XPIcon = styled.div`
   display: flex;
   align-items: center;
-  font-size: 2.5rem;
+  font-size: 1.5rem;
   margin-bottom: 0.5rem;
   z-index: 8;
   justify-content: center;
@@ -227,8 +227,13 @@ export default function Games({ games, filterOption, searchTerm }) {
     <Container>
       <GamesContainer>
         <XPContainer iconColor={COMMON_COLOR}>
-          <XPIcon>{getIcon("trophy")}</XPIcon>
-          <XPData complete={true}>{allCounts.backlogCount}</XPData>
+          <XPData complete={true}>BACKLOG</XPData>
+          <XPIcon>
+            {getIcon("trophy")}
+            <span style={{ marginLeft: "0.5rem" }}>
+              {allCounts.backlogCount}
+            </span>
+          </XPIcon>
         </XPContainer>
         <GamesList>
           {searchFilteredGames.length > 0 &&
@@ -244,8 +249,13 @@ export default function Games({ games, filterOption, searchTerm }) {
       </GamesContainer>
       <GamesContainer>
         <XPContainer iconColor={COMPLETION100_COLOR}>
-          <XPIcon>{getIcon("trophy")} </XPIcon>
-          <XPData complete={true}>{allCounts.infinityCount}</XPData>
+          <XPData complete={true}>MARVEL</XPData>
+          <XPIcon>
+            {getIcon("trophy")}
+            <span style={{ marginLeft: "0.5rem" }}>
+              {allCounts.infinityCount}
+            </span>
+          </XPIcon>
         </XPContainer>
         <GamesList>
           {searchFilteredGames.length > 0 &&
@@ -261,8 +271,13 @@ export default function Games({ games, filterOption, searchTerm }) {
       </GamesContainer>
       <GamesContainer>
         <XPContainer iconColor={COMPLETION90_COLOR}>
-          <XPIcon>{getIcon("trophy")}</XPIcon>
-          <XPData complete={true}>{allCounts.marvelCount}</XPData>
+          <XPData complete={true}>LEGENDARY</XPData>
+          <XPIcon>
+            {getIcon("trophy")}
+            <span style={{ marginLeft: "0.5rem" }}>
+              {allCounts.marvelCount}
+            </span>
+          </XPIcon>
         </XPContainer>
         <GamesList>
           {searchFilteredGames.length > 0 &&
@@ -281,8 +296,11 @@ export default function Games({ games, filterOption, searchTerm }) {
       </GamesContainer>
       <GamesContainer>
         <XPContainer iconColor={COMPLETION75_COLOR}>
-          <XPIcon>{getIcon("trophy")}</XPIcon>
-          <XPData complete={true}>{allCounts.legendaryCount}</XPData>
+          <XPData complete={true}>EPIC</XPData>
+          <XPIcon>
+            {getIcon("trophy")}
+            <span style={{ marginLeft: "0.5rem" }}>{allCounts.epicCount}</span>
+          </XPIcon>
         </XPContainer>
         <GamesList>
           {searchFilteredGames.length > 0 &&
@@ -301,8 +319,11 @@ export default function Games({ games, filterOption, searchTerm }) {
       </GamesContainer>
       <GamesContainer>
         <XPContainer iconColor={COMPLETION50_COLOR}>
-          <XPIcon>{getIcon("trophy")}</XPIcon>
-          <XPData complete={true}>{allCounts.epicCount}</XPData>
+          <XPData complete={true}>RARE</XPData>
+          <XPIcon>
+            {getIcon("trophy")}
+            <span style={{ marginLeft: "0.5rem" }}>{allCounts.rareCount}</span>
+          </XPIcon>
         </XPContainer>
         <GamesList>
           {searchFilteredGames.length > 0 &&
@@ -321,8 +342,13 @@ export default function Games({ games, filterOption, searchTerm }) {
       </GamesContainer>
       <GamesContainer>
         <XPContainer iconColor={COMPLETION25_COLOR}>
-          <XPIcon>{getIcon("trophy")} </XPIcon>
-          <XPData complete={true}>{allCounts.copperCount}</XPData>
+          <XPData complete={true}>COMMON</XPData>
+          <XPIcon>
+            {getIcon("trophy")}
+            <span style={{ marginLeft: "0.5rem" }}>
+              {allCounts.copperCount}
+            </span>
+          </XPIcon>
         </XPContainer>
         <GamesList>
           {searchFilteredGames.length > 0 &&
@@ -341,8 +367,11 @@ export default function Games({ games, filterOption, searchTerm }) {
       </GamesContainer>
       <GamesContainer>
         <XPContainer iconColor={COMPLETION10_COLOR}>
-          <XPIcon>{getIcon("trophy")}</XPIcon>
-          <XPData complete={true}>{allCounts.wasteCount}</XPData>
+          <XPData complete={true}>BRONZE</XPData>
+          <XPIcon>
+            {getIcon("trophy")}
+            <span style={{ marginLeft: "0.5rem" }}>{allCounts.wasteCount}</span>
+          </XPIcon>
         </XPContainer>
         <GamesList>
           {searchFilteredGames.length > 0 &&
