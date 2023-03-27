@@ -273,7 +273,14 @@ export default function AchievementCardWithPhase(props) {
     description,
     phase,
   } = props.achievement;
-  const { width, hideUnlock, animateRight, index, hidePinned = false } = props;
+  const {
+    width,
+    hideUnlock,
+    animateRight,
+    index,
+    hidePinned = false,
+    showPhase,
+  } = props;
   const gameId = props?.gameId || "";
   const activateCompletionOpacity = props.activateCompletionOpacity;
 
@@ -385,7 +392,7 @@ export default function AchievementCardWithPhase(props) {
     padding: 0.25rem 0.5rem;
     cursor: pointer;
     margin: 1rem 0.5rem 0.25rem 0.25rem;
-    opacity: ${(props) => (props.active ? "1.0" : "0.5")};
+    opacity: ${(props) => (props.active ? "1.0" : "0.25")};
     font-size: 1rem;
     &:hover {
       color: #fefefe;
@@ -485,7 +492,7 @@ export default function AchievementCardWithPhase(props) {
             <IoEyeOff />
           </HiddenContainer>
         )}
-        <PhaseContainer show={true}>
+        <PhaseContainer show={showPhase}>
           {false && (
             <XPData>
               <XPText>{calculateXPFromPercentage(percentage)}</XPText>

@@ -162,6 +162,7 @@ export default function Achievements({
               index={index}
               showIgnore={showIgnore}
               activateCompletionOpacity={activateCompletionOpacity}
+              showPhase={showPhase}
             />
           );
         })}
@@ -189,6 +190,7 @@ export default function Achievements({
                 phase={phase}
                 showIgnore={showIgnore}
                 activateCompletionOpacity={false}
+                showPhase={showPhase}
               />
             );
           } else {
@@ -205,6 +207,7 @@ export default function Achievements({
                 phase={phase}
                 showIgnore={showIgnore}
                 activateCompletionOpacity={false}
+                showPhase={showPhase}
               />
             );
           }
