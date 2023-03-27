@@ -196,6 +196,7 @@ const PercentageContainer = styled.div`
   display: flex;
   padding: 0rem 1rem 1rem 1rem;
   flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
 `;
@@ -220,7 +221,7 @@ const RarityText = styled.div`
   align-items: flex-start;
   justify-content: center;
   color: ${(props) => (props.color ? props.color : "")};
-  font-size: 0.75rem;
+  font-size: 1rem;
 `;
 
 const TrophyIcon = styled.div`
@@ -437,10 +438,12 @@ export default function AchievementCardWithPhase(props) {
       <MainContainer>
         <IconContainer>
           <Icon icon={achieved ? icon : icon}></Icon>
-          <XPData>
-            <XPText>{calculateXPFromPercentage(percentage)}</XPText>
-            <XPIcon>{getIcon("xp")}</XPIcon>
-          </XPData>
+          {false && (
+            <XPData>
+              <XPText>{calculateXPFromPercentage(percentage)}</XPText>
+              <XPIcon>{getIcon("xp")}</XPIcon>
+            </XPData>
+          )}
           {achieved == 1 && false && (
             <CheckContainer>
               <FaCheck />
@@ -470,10 +473,10 @@ export default function AchievementCardWithPhase(props) {
           </Description>
         </DataContainer>
         <PercentageContainer>
+          <RarityText>{calculateXPFromPercentage(percentage)}</RarityText>
           <RarityIcon color={getRarityColorFromPercentage(percentage)}>
             {getIcon("achievement")}
           </RarityIcon>
-          <RarityText>{getRarityTextFromPercentage(percentage)}</RarityText>
         </PercentageContainer>
         {!hidePinned && (
           <PinnedStatusContainer
@@ -496,7 +499,7 @@ export default function AchievementCardWithPhase(props) {
           {false && (
             <XPData>
               <XPText>{calculateXPFromPercentage(percentage)}</XPText>
-              <XPIcon>{getIcon("xp")}</XPIcon>
+              <XPIcon>{getIcon("achievement")}</XPIcon>
             </XPData>
           )}
           <PhaseItem

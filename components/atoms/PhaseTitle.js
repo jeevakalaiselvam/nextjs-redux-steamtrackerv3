@@ -21,18 +21,21 @@ const TitleIcon = styled.div`
   align-items: center;
   justify-content: center;
   margin-left: 1rem;
-  color: #ffcc00;
 `;
 
 const Icon = styled.div`
   display: flex;
   align-items: center;
+  color: #ffcc00;
+  font-size: 1.75rem;
   justify-content: center;
 `;
 
 const IconCount = styled.div`
   display: flex;
   align-items: center;
+  color: #ffcc00;
+  margin-right: 0.5rem;
   justify-content: center;
 `;
 
@@ -119,8 +122,8 @@ export default function PhaseTitle({ gameId, phase, defaultTitle, totalXP }) {
         >
           <TitleData>{titleData}</TitleData>
           <TitleIcon>
-            <Icon>{getIcon("xp")}</Icon>
             <IconCount>{JSON.stringify(totalXP)}</IconCount>
+            <Icon>{getIcon("achievement")}</Icon>
           </TitleIcon>
         </Title>
       )}
