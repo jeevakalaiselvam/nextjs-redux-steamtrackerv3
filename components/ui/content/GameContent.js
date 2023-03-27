@@ -292,6 +292,7 @@ export default function GameContent() {
               ]
             </Header>
             <Achievements
+              hidePinned={false}
               game={game}
               filterOption={GAME_OPTION_PERCENTAGE_DESC}
               searchTerm={searchTerm}
@@ -304,6 +305,7 @@ export default function GameContent() {
         <MissableAchievementContainer>
           <Header>Pinned [{getPinnedAchievementsCount()}]</Header>
           <Achievements
+            hidePinned={false}
             game={game}
             filterOption={GAME_OPTION_PERCENTAGE_DESC}
             searchTerm={searchTerm}

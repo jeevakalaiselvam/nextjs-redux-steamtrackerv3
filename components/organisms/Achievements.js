@@ -154,7 +154,7 @@ export default function Achievements({
           }
           return (
             <AchievementCardWithPhase
-              hidePinned={true}
+              hidePinned={hidePinned}
               gameId={gameId}
               gameName={name}
               achievement={achievement}
@@ -182,7 +182,7 @@ export default function Achievements({
           if (showPhase) {
             return (
               <AchievementCardWithPhase
-                hidePinned={true}
+                hidePinned={hidePinned}
                 gameId={gameId}
                 gameName={name}
                 index={index}
@@ -199,7 +199,7 @@ export default function Achievements({
           } else {
             return (
               <AchievementCardWithPhase
-                hidePinned={true}
+                hidePinned={hidePinned}
                 gameId={gameId}
                 gameName={name}
                 index={index}
