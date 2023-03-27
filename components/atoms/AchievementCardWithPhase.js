@@ -36,7 +36,7 @@ const Container = styled.div`
   flex-direction: column;
   position: relative;
   margin: 0.5rem;
-  height: 120px;
+  height: 130px;
   opacity: ${(props) =>
     props.achieved == 1 && props.activateCompletionOpacity
       ? props.opacity
@@ -73,7 +73,7 @@ const MainContainer = styled.div`
   background: rgba(0, 0, 0, 0.25);
   border-radius: 4px;
   cursor: pointer;
-  height: 120px;
+  height: 130px;
   &:hover {
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
   }
@@ -153,8 +153,8 @@ const Title = styled.div`
 
 const Description = styled.div`
   display: flex;
-  min-height: 70px;
-  max-height: 70px;
+  min-height: 80px;
+  max-height: 80px;
   width: 100%;
   padding: 0.5rem;
   font-weight: bold;
@@ -162,7 +162,7 @@ const Description = styled.div`
   align-items: flex-start;
   justify-content: flex-start;
   color: #b0bec5;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
 `;
 
 const HiddenContainer = styled.div`
@@ -384,10 +384,11 @@ export default function AchievementCardWithPhase(props) {
     color: ${(props) => (props.active ? "#FFFFFF" : "#737c9d;")};
     padding: 0rem 0.5rem;
     cursor: pointer;
-    margin: 0.25rem 0.5rem 0.25rem 0.25rem;
-    opacity: 0.5;
+    margin: 1rem 0.5rem 0.25rem 0.25rem;
+    opacity: 1;
+    font-size: 1rem;
     &:hover {
-      color: #ffffff;
+      color: #fefefe;
     }
   `;
 
@@ -497,7 +498,7 @@ export default function AchievementCardWithPhase(props) {
               setPhaseForAchievement(name, ALL);
             }}
           >
-            1
+            ALL
           </PhaseItem>
           <PhaseItem
             active={phase == EASY}
@@ -505,7 +506,7 @@ export default function AchievementCardWithPhase(props) {
               setPhaseForAchievement(name, EASY);
             }}
           >
-            2
+            EASY
           </PhaseItem>
           <PhaseItem
             active={phase == MISSABLE}
@@ -513,7 +514,7 @@ export default function AchievementCardWithPhase(props) {
               setPhaseForAchievement(name, MISSABLE);
             }}
           >
-            3
+            MISS
           </PhaseItem>
           <PhaseItem
             active={phase == HARD}
@@ -521,7 +522,7 @@ export default function AchievementCardWithPhase(props) {
               setPhaseForAchievement(name, HARD);
             }}
           >
-            4
+            HARD
           </PhaseItem>
           <PhaseItem
             active={phase == GRIND}
@@ -529,7 +530,7 @@ export default function AchievementCardWithPhase(props) {
               setPhaseForAchievement(name, GRIND);
             }}
           >
-            5
+            GRIND
           </PhaseItem>
           {false && (
             <PhaseItemIgnore active={ignoreActive} onClick={addToIgnoreList}>
