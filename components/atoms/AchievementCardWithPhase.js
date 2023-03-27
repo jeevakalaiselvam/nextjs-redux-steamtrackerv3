@@ -472,12 +472,14 @@ export default function AchievementCardWithPhase(props) {
                 `${description?.length > 75 ? "..." : ""}`}
           </Description>
         </DataContainer>
-        <PercentageContainer>
-          <RarityText>{calculateXPFromPercentage(percentage)}</RarityText>
-          <RarityIcon color={getRarityColorFromPercentage(percentage)}>
-            {getIcon("achievement")}
-          </RarityIcon>
-        </PercentageContainer>
+        {false && (
+          <PercentageContainer>
+            <RarityText>{calculateXPFromPercentage(percentage)}</RarityText>
+            <RarityIcon color={getRarityColorFromPercentage(percentage)}>
+              {getIcon("achievement")}
+            </RarityIcon>
+          </PercentageContainer>
+        )}
         {!hidePinned && (
           <PinnedStatusContainer
             pinColor={pinColor}

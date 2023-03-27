@@ -109,10 +109,8 @@ const ProfileLevel = (props) => {
   const steamtracker = useSelector((state) => state.steamtracker);
   const { games, planner } = steamtracker;
 
-  const { xpTotal, toNextLevel, unlockedAll } =
+  const { xpTotal, toNextLevel, unlockedAll, currentLevel } =
     calculateLevelFromAllGames(games);
-
-  const currentLevel = Math.floor(xpTotal / XP_FOR_LEVEL);
 
   const [levelInStorage, setLevelInStorage] = useState(0);
 
