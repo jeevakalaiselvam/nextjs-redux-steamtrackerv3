@@ -522,7 +522,7 @@ export default function AchievementCardWithPhase(props) {
               setPhaseForAchievement(name, HARD);
             }}
           >
-            HARD
+            GRIND
           </PhaseItem>
           <PhaseItem
             active={phase == GRIND}
@@ -530,7 +530,7 @@ export default function AchievementCardWithPhase(props) {
               setPhaseForAchievement(name, GRIND);
             }}
           >
-            GRIND
+            HARD
           </PhaseItem>
           {false && (
             <PhaseItemIgnore active={ignoreActive} onClick={addToIgnoreList}>

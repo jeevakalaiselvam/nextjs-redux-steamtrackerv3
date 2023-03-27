@@ -75,9 +75,9 @@ export default function GamesPageMenu() {
       <MenuItemContainer>
         <MenuItem to="/settings" title="Settings" icon={<HiAdjustments />} />
       </MenuItemContainer>
-      <MenuItemContainer>
+      {/* <MenuItemContainer>
         <MenuItem to="/" title="Refresh" icon={<HiArrowsExpand />} />
-      </MenuItemContainer>
+      </MenuItemContainer> */}
       <MenuItemContainer>
         <MenuItemNoLink
           title="Theme"
