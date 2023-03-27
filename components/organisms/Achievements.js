@@ -124,7 +124,9 @@ export default function Achievements({
           }
         });
       }
-
+      pinnedOrNotAchievements = pinnedOrNotAchievements.sort(
+        (ach1, ach2) => ach2.percentage - ach1.percentage
+      );
       setSearchFilteredAchievements((old) => pinnedOrNotAchievements);
     }
   }, [
@@ -135,6 +137,7 @@ export default function Achievements({
     rarityFilters,
     pinnedOnly,
     pinnedAchievements,
+    rarityFilters[game?.id],
   ]);
 
   return (

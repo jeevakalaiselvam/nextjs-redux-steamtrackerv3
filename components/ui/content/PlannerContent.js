@@ -268,6 +268,8 @@ export default function PlannerContent() {
     phase4Search,
     phase5Search,
     phase6Search,
+    gameId,
+    phaseAddedGame.achievements,
   ]);
 
   useEffect(() => {
