@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import GameCard from "../atoms/GameCard";
@@ -28,7 +28,9 @@ import {
   MARVEL_COLOR,
 } from "../../helpers/colorHelper";
 import {
+  calculateRarityLeftFromAchievements,
   COMPLETION0,
+  COMPLETION1,
   COMPLETION10,
   COMPLETION100,
   COMPLETION25,
@@ -60,7 +62,7 @@ const XPContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: row;
+  flex-direction: column;
   z-index: 8;
   text-align: center;
   padding: 0.25rem;
@@ -72,7 +74,7 @@ const XPIcon = styled.div`
   display: flex;
   align-items: center;
   font-size: 2rem;
-  margin-right: 1rem;
+  margin-bottom: 0.5rem;
   z-index: 8;
   justify-content: center;
 `;
@@ -100,6 +102,85 @@ export default function Games({ games, filterOption, searchTerm }) {
     steamtracker;
   const { settingsPage } = settings;
   const { completionPercentageTarget } = settingsPage;
+
+  let allCounts = useMemo(() => {
+    let infinityCount = 0;
+    let marvelCount = 0;
+    let epicCount = 0;
+    let legendaryCount = 0;
+    let rareCount = 0;
+    let commonCount = 0;
+    let wasteCount = 0;
+    let copperCount = 0;
+    let subPlatinum = 0;
+    let backlogCount = 0;
+    games.forEach((game) => {
+      let total = game?.achievements?.length ?? 0;
+      let toGet = game?.toGet ?? 0;
+      let completed = total - toGet;
+      let adjustedTotal = Math.ceil((completionPercentageTarget / 100) * total);
+
+      const adjustedCompletion = Math.ceil(game.completion);
+
+      if (completed >= 1) {
+        if (adjustedCompletion == COMPLETION100) {
+          infinityCount++;
+        } else if (
+          adjustedCompletion < COMPLETION100 &&
+          adjustedCompletion >= COMPLETION90
+        ) {
+          marvelCount++;
+        } else if (
+          adjustedCompletion < COMPLETION90 &&
+          adjustedCompletion >= COMPLETION75
+        ) {
+          legendaryCount++;
+        } else if (
+          adjustedCompletion < COMPLETION75 &&
+          adjustedCompletion >= COMPLETION50
+        ) {
+          epicCount++;
+        } else if (
+          adjustedCompletion < COMPLETION50 &&
+          adjustedCompletion >= COMPLETION25
+        ) {
+          rareCount++;
+        } else if (
+          adjustedCompletion < COMPLETION25 &&
+          adjustedCompletion >= COMPLETION10
+        ) {
+          wasteCount++;
+        } else if (
+          adjustedCompletion < COMPLETION10 &&
+          adjustedCompletion >= COMPLETION1
+        ) {
+          copperCount++;
+        } else {
+        }
+      } else {
+        backlogCount += 1;
+      }
+      const rarityInfo = calculateRarityLeftFromAchievements(
+        game.achievements,
+        targetSettings
+      );
+
+      if (rarityInfo.remainingInTarget <= 0) {
+        subPlatinum++;
+      }
+    });
+    return {
+      infinityCount,
+      marvelCount,
+      epicCount,
+      legendaryCount,
+      rareCount,
+      commonCount,
+      wasteCount,
+      copperCount,
+      backlogCount,
+    };
+  }, [games]);
 
   useEffect(() => {
     const searchFilteredGames = games.filter((game) => {
@@ -147,7 +228,7 @@ export default function Games({ games, filterOption, searchTerm }) {
       <GamesContainer>
         <XPContainer iconColor={COMMON_COLOR}>
           <XPIcon>{getIcon("trophy")}</XPIcon>
-          <XPData complete={true}>BACKLOG</XPData>
+          <XPData complete={true}>{allCounts.backlogCount}</XPData>
         </XPContainer>
         <GamesList>
           {searchFilteredGames.length > 0 &&
@@ -164,7 +245,7 @@ export default function Games({ games, filterOption, searchTerm }) {
       <GamesContainer>
         <XPContainer iconColor={COMPLETION100_COLOR}>
           <XPIcon>{getIcon("trophy")}</XPIcon>
-          <XPData complete={true}>MARVEL (100%)</XPData>
+          <XPData complete={true}>{allCounts.infinityCount}</XPData>
         </XPContainer>
         <GamesList>
           {searchFilteredGames.length > 0 &&
@@ -181,7 +262,7 @@ export default function Games({ games, filterOption, searchTerm }) {
       <GamesContainer>
         <XPContainer iconColor={COMPLETION90_COLOR}>
           <XPIcon>{getIcon("trophy")}</XPIcon>
-          <XPData complete={true}>LEGENDARY (90%)</XPData>
+          <XPData complete={true}>{allCounts.marvelCount}</XPData>
         </XPContainer>
         <GamesList>
           {searchFilteredGames.length > 0 &&
@@ -201,7 +282,7 @@ export default function Games({ games, filterOption, searchTerm }) {
       <GamesContainer>
         <XPContainer iconColor={COMPLETION75_COLOR}>
           <XPIcon>{getIcon("trophy")}</XPIcon>
-          <XPData complete={true}>EPIC (75%)</XPData>
+          <XPData complete={true}>{allCounts.legendaryCount}</XPData>
         </XPContainer>
         <GamesList>
           {searchFilteredGames.length > 0 &&
@@ -221,7 +302,7 @@ export default function Games({ games, filterOption, searchTerm }) {
       <GamesContainer>
         <XPContainer iconColor={COMPLETION50_COLOR}>
           <XPIcon>{getIcon("trophy")}</XPIcon>
-          <XPData complete={true}>RARE (50%)</XPData>
+          <XPData complete={true}>{allCounts.epicCount}</XPData>
         </XPContainer>
         <GamesList>
           {searchFilteredGames.length > 0 &&
@@ -241,7 +322,7 @@ export default function Games({ games, filterOption, searchTerm }) {
       <GamesContainer>
         <XPContainer iconColor={COMPLETION25_COLOR}>
           <XPIcon>{getIcon("trophy")}</XPIcon>
-          <XPData complete={true}>COMMON (25%)</XPData>
+          <XPData complete={true}>{allCounts.copperCount}</XPData>
         </XPContainer>
         <GamesList>
           {searchFilteredGames.length > 0 &&
@@ -261,7 +342,7 @@ export default function Games({ games, filterOption, searchTerm }) {
       <GamesContainer>
         <XPContainer iconColor={COMPLETION10_COLOR}>
           <XPIcon>{getIcon("trophy")}</XPIcon>
-          <XPData complete={true}>BRONZE (10%)</XPData>
+          <XPData complete={true}>{allCounts.wasteCount}</XPData>
         </XPContainer>
         <GamesList>
           {searchFilteredGames.length > 0 &&

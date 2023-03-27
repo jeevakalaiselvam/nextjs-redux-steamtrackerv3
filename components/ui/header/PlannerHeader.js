@@ -413,7 +413,7 @@ export default function PlannerHeader() {
           </Icon>
           <RefreshText>SHOW ALL</RefreshText>
         </InnerContainer>
-        {
+        {false && (
           <RemainingTrophyContainer>
             <XPContainer
               onClick={() => {
@@ -554,7 +554,7 @@ export default function PlannerHeader() {
               </XPData>
             </XPContainer10>
           </RemainingTrophyContainer>
-        }
+        )}
       </ClearTrophyFilter>
       {(rarityInfo.remainingInTarget > 0 || true) && (
         <RemainingContainer>
@@ -565,56 +565,91 @@ export default function PlannerHeader() {
             >
               <TrophyDesc></TrophyDesc>
               <TrophyIcon>{getIcon("achievement")}</TrophyIcon>
-              <TrophyCount>{rarityInfo.wasteTarget}</TrophyCount>
+              <TrophyCount>
+                {nextStage.to10 <= 0 ? (
+                  <FaCheck
+                    style={{ marginTop: "0.5rem", padding: "0.25rem" }}
+                  />
+                ) : (
+                  nextStage.to10
+                )}
+              </TrophyCount>
             </TrophyContainer>
-            <TrophyContainer
-              color={COMMON_COLOR}
-              onClick={() => filterAchievementsByRarity(COMMON)}
-            >
-              <TrophyIcon>{getIcon("achievement")}</TrophyIcon>
-              <TrophyCount>{rarityInfo.commonTarget}</TrophyCount>
-            </TrophyContainer>
-            <TrophyContainer
-              color={UNCOMMON_COLOR}
-              onClick={() => filterAchievementsByRarity(UNCOMMON)}
-            >
-              <TrophyIcon>{getIcon("achievement")}</TrophyIcon>
-              <TrophyCount>{rarityInfo.uncommonTarget}</TrophyCount>
-            </TrophyContainer>
+
             <TrophyContainer
               color={RARE_COLOR}
               onClick={() => filterAchievementsByRarity(RARE)}
             >
               <TrophyIcon>{getIcon("achievement")}</TrophyIcon>
-              <TrophyCount>{rarityInfo.rareTarget}</TrophyCount>
+              <TrophyCount>
+                {nextStage.to25 <= 0 ? (
+                  <FaCheck
+                    style={{ marginTop: "0.5rem", padding: "0.25rem" }}
+                  />
+                ) : (
+                  nextStage.to25
+                )}
+              </TrophyCount>
             </TrophyContainer>
             <TrophyContainer
               color={EPIC_COLOR}
               onClick={() => filterAchievementsByRarity(EPIC)}
             >
               <TrophyIcon>{getIcon("achievement")}</TrophyIcon>
-              <TrophyCount>{rarityInfo.epicTarget}</TrophyCount>
+              <TrophyCount>
+                {nextStage.to50 <= 0 ? (
+                  <FaCheck
+                    style={{ marginTop: "0.5rem", padding: "0.25rem" }}
+                  />
+                ) : (
+                  nextStage.to50
+                )}
+              </TrophyCount>
             </TrophyContainer>
             <TrophyContainer
               color={LEGENDARY_COLOR}
               onClick={() => filterAchievementsByRarity(LEGENDARY)}
             >
               <TrophyIcon>{getIcon("achievement")}</TrophyIcon>
-              <TrophyCount>{rarityInfo.legendaryTarget}</TrophyCount>
+              <TrophyCount>
+                {nextStage.to75 <= 0 ? (
+                  <FaCheck
+                    style={{ marginTop: "0.5rem", padding: "0.25rem" }}
+                  />
+                ) : (
+                  nextStage.to75
+                )}
+              </TrophyCount>
             </TrophyContainer>
             <TrophyContainer
               color={MARVEL_COLOR}
               onClick={() => filterAchievementsByRarity(MARVEL)}
             >
               <TrophyIcon>{getIcon("achievement")}</TrophyIcon>
-              <TrophyCount>{rarityInfo.marvelTarget}</TrophyCount>
+              <TrophyCount>
+                {nextStage.to90 <= 0 ? (
+                  <FaCheck
+                    style={{ marginTop: "0.5rem", padding: "0.25rem" }}
+                  />
+                ) : (
+                  nextStage.to90
+                )}
+              </TrophyCount>
             </TrophyContainer>
             <TrophyContainer
               color={INFINITY_COLOR}
               onClick={() => filterAchievementsByRarity(INFINITY)}
             >
               <TrophyIcon>{getIcon("achievement")}</TrophyIcon>
-              <TrophyCount>{rarityInfo.infinityTarget}</TrophyCount>
+              <TrophyCount>
+                {nextStage.to100 <= 0 ? (
+                  <FaCheck
+                    style={{ marginTop: "0.5rem", padding: "0.25rem" }}
+                  />
+                ) : (
+                  nextStage.to100
+                )}
+              </TrophyCount>
             </TrophyContainer>
           </TrophyRemainingList>
         </RemainingContainer>

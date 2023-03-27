@@ -88,6 +88,7 @@ const Level = styled.div`
   justify-content: center;
   padding: 0.5rem 0rem 0rem 0rem;
   margin-top: "0.5rem";
+  margin-right: 0.5rem;
   flex-wrap: wrap;
 `;
 
