@@ -408,6 +408,7 @@ export default function AchievementCardWithPhase(props) {
   const setPhaseForAchievement = (achievementName, phaseValue) => {
     if (props.achievement) {
       if (typeof window !== "undefined") {
+        localStorage.setItem(`${gameId}_${achievementName}_PHASE`, phaseValue);
         dispatch(updatePhaseForAchievement(achievementName, phaseValue));
       }
     }
