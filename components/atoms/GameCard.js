@@ -287,7 +287,17 @@ export default function GameCard({ game }) {
   return (
     <Container>
       <Overlay />
-      <Image image={HEADER_IMAGE(id)} />
+      <Image
+        image={HEADER_IMAGE(id)}
+        onClick={() => {
+          if (typeof window !== "undefined") {
+            localStorage.setItem("SELECTED_GAME", id);
+          }
+          dispatch(setLastSelectedGame(id));
+          dispatch(changeGamesPageSearchTerm(""));
+          router.push(`/planner/${id}`);
+        }}
+      />
       <Title
         onClick={() => {
           if (typeof window !== "undefined") {
