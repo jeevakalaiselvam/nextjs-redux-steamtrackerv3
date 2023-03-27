@@ -335,6 +335,7 @@ export default function PlannerContent() {
                           gameId
                         )
                       )}
+                      count={phase1Achievements.length}
                     />
                   </HeaderContainer>
                   <Search onSearchObtained={phase1SearchObtained} />
@@ -366,6 +367,7 @@ export default function PlannerContent() {
                           gameId
                         )
                       )}
+                      count={phase2Achievements.length}
                     />
                   </HeaderContainer>
                   <Search onSearchObtained={phase2SearchObtained} />
@@ -397,6 +399,7 @@ export default function PlannerContent() {
                           gameId
                         )
                       )}
+                      count={phase3Achievements.length}
                     />
                   </HeaderContainer>
                   <Search onSearchObtained={phase5SearchObtained} />
@@ -428,6 +431,7 @@ export default function PlannerContent() {
                           gameId
                         )
                       )}
+                      count={phase4Achievements.length}
                     />
                   </HeaderContainer>
                   <Search onSearchObtained={phase3SearchObtained} />
@@ -459,6 +463,7 @@ export default function PlannerContent() {
                           gameId
                         )
                       )}
+                      count={phase5Achievements.length}
                     />
                   </HeaderContainer>
                   <Search onSearchObtained={phase4SearchObtained} />

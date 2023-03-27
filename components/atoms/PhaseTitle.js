@@ -80,7 +80,13 @@ const EditSave = styled.div`
   padding: 0.5rem;
 `;
 
-export default function PhaseTitle({ gameId, phase, defaultTitle, totalXP }) {
+export default function PhaseTitle({
+  gameId,
+  phase,
+  defaultTitle,
+  totalXP,
+  count,
+}) {
   const [editModeActive, setEditModeActive] = useState(false);
   const [titleData, setTitleData] = useState("");
 
@@ -120,11 +126,15 @@ export default function PhaseTitle({ gameId, phase, defaultTitle, totalXP }) {
             setEditModeActive((old) => true);
           }}
         >
-          <TitleData>{titleData}</TitleData>
-          <TitleIcon>
-            <IconCount>{JSON.stringify(totalXP)}</IconCount>
-            <Icon>{getIcon("achievement")}</Icon>
-          </TitleIcon>
+          <TitleData>
+            {titleData} [ {count} ]
+          </TitleData>
+          {false && (
+            <TitleIcon>
+              <IconCount>{JSON.stringify(totalXP)}</IconCount>
+              <Icon>{getIcon("achievement")}</Icon>
+            </TitleIcon>
+          )}
         </Title>
       )}
       {editModeActive && (
