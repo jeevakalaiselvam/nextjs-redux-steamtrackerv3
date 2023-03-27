@@ -136,6 +136,7 @@ const Icon = styled.div`
 
 const IconCount = styled.div`
   display: flex;
+  margin-right: 0.5rem;
   align-items: center;
   justify-content: center;
 `;
@@ -528,7 +529,6 @@ export default function PlannerContent() {
                     >
                       UNLOCKED ALL TIME{" "}
                       <TitleIcon>
-                        <Icon>{getIcon("xp")}</Icon>
                         <IconCount>
                           {getXPFromAchievements(
                             sortAchievementsByFilterOption(
@@ -538,6 +538,7 @@ export default function PlannerContent() {
                             )
                           )}
                         </IconCount>
+                        <Icon>{getIcon("achievement")}</Icon>
                       </TitleIcon>
                     </HeaderContainer>
                   )}
