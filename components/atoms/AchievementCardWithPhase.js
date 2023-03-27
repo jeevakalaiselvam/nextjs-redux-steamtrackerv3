@@ -381,11 +381,11 @@ export default function AchievementCardWithPhase(props) {
     justify-content: center;
     background-color: ${(props) =>
       props.active ? "rgba(0,0,0,0.5)" : "rgba(0,0,0,0.5)"};
-    color: ${(props) => (props.active ? "#FFFFFF" : "#737c9d;")};
-    padding: 0rem 0.5rem;
+    color: ${(props) => (props.active ? "#FFFFFF" : "#737c9d")};
+    padding: 0.25rem 0.5rem;
     cursor: pointer;
     margin: 1rem 0.5rem 0.25rem 0.25rem;
-    opacity: 1;
+    opacity: ${(props) => (props.active ? "1.0" : "0.5")};
     font-size: 1rem;
     &:hover {
       color: #fefefe;
