@@ -199,7 +199,6 @@ const SettingsTarget = (props) => {
       ...targetRarity,
       [rarityInfo.type + "_TARGET"]: Number(rarityInfo.value),
     };
-    console.log("NEW RARITY", { newRarity });
     setTargetRarity(newRarity);
   };
 

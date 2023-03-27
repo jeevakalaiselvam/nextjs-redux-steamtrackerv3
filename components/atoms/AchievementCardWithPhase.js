@@ -273,7 +273,7 @@ export default function AchievementCardWithPhase(props) {
     description,
     phase,
   } = props.achievement;
-  const { width, hideUnlock, animateRight, index } = props;
+  const { width, hideUnlock, animateRight, index, hidePinned = false } = props;
   const gameId = props?.gameId || "";
   const activateCompletionOpacity = props.activateCompletionOpacity;
 
@@ -348,6 +348,71 @@ export default function AchievementCardWithPhase(props) {
     }
   };
 
+  const PhaseRevealer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 7px;
+    left: 0;
+    color: ${(props) => (props.active ? "#6cff5c" : "#737c9d;")};
+    padding: 0rem 0.5rem;
+    margin: 0.5rem;
+    z-index: 10000000;
+    font-size: 1.5rem;
+    &:hover {
+      color: #6cff5c;
+    }
+  `;
+
+  const PhaseContainer = styled.div`
+    position: absolute;
+    bottom: 7px;
+    right: 0;
+    display: ${(props) => (props.show ? "flex" : "none")};
+    align-items: center;
+    justify-content: center;
+    padding-right: 0.5rem;
+  `;
+
+  const PhaseItem = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: ${(props) =>
+      props.active ? "rgba(0,0,0,0.5)" : "rgba(0,0,0,0.5)"};
+    color: ${(props) => (props.active ? "#FFFFFF" : "#737c9d;")};
+    padding: 0rem 0.5rem;
+    cursor: pointer;
+    margin: 0.25rem 0.5rem 0.25rem 0.25rem;
+    opacity: 0.5;
+    &:hover {
+      color: #ffffff;
+    }
+  `;
+
+  const PhaseItemIgnore = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: ${(props) =>
+      props.active ? "rgba(0,0,0,0.5)" : "rgba(0,0,0,0.5)"};
+    color: ${(props) => (props.active ? "#bd2a2e" : "#737c9d;")};
+    padding: 0rem 0.5rem;
+    margin: 0.25rem;
+    &:hover {
+      color: #ff4858;
+    }
+  `;
+
+  const setPhaseForAchievement = (achievementName, phaseValue) => {
+    if (props.achievement) {
+      if (typeof window !== "undefined") {
+        dispatch(updatePhaseForAchievement(achievementName, phaseValue));
+      }
+    }
+  };
+
   return (
     <Container
       index={index}
@@ -401,21 +466,77 @@ export default function AchievementCardWithPhase(props) {
           </RarityIcon>
           <RarityText>{getRarityTextFromPercentage(percentage)}</RarityText>
         </PercentageContainer>
-        <PinnedStatusContainer
-          pinColor={pinColor}
-          onMouseEnter={onPinMouseEnter}
-          onMouseLeave={onPinMouseLeave}
-          onClick={() => {
-            addOrRemovePinStatus();
-          }}
-        >
-          {pinnedText}
-        </PinnedStatusContainer>
+        {!hidePinned && (
+          <PinnedStatusContainer
+            pinColor={pinColor}
+            onMouseEnter={onPinMouseEnter}
+            onMouseLeave={onPinMouseLeave}
+            onClick={() => {
+              addOrRemovePinStatus();
+            }}
+          >
+            {pinnedText}
+          </PinnedStatusContainer>
+        )}
         {hidden == "1" && false && (
           <HiddenContainer>
             <IoEyeOff />
           </HiddenContainer>
         )}
+        <PhaseContainer show={true}>
+          {false && (
+            <XPData>
+              <XPText>{calculateXPFromPercentage(percentage)}</XPText>
+              <XPIcon>{getIcon("xp")}</XPIcon>
+            </XPData>
+          )}
+          <PhaseItem
+            active={phase == ALL}
+            onClick={() => {
+              setPhaseForAchievement(name, ALL);
+            }}
+          >
+            1
+          </PhaseItem>
+          <PhaseItem
+            active={phase == EASY}
+            onClick={() => {
+              setPhaseForAchievement(name, EASY);
+            }}
+          >
+            2
+          </PhaseItem>
+          <PhaseItem
+            active={phase == MISSABLE}
+            onClick={() => {
+              setPhaseForAchievement(name, MISSABLE);
+            }}
+          >
+            3
+          </PhaseItem>
+          <PhaseItem
+            active={phase == HARD}
+            onClick={() => {
+              setPhaseForAchievement(name, HARD);
+            }}
+          >
+            4
+          </PhaseItem>
+          <PhaseItem
+            active={phase == GRIND}
+            onClick={() => {
+              setPhaseForAchievement(name, GRIND);
+            }}
+          >
+            5
+          </PhaseItem>
+          {false && (
+            <PhaseItemIgnore active={ignoreActive} onClick={addToIgnoreList}>
+              {ignoreActive && "REMOVE"}
+              {!ignoreActive && "IGNORE"}
+            </PhaseItemIgnore>
+          )}
+        </PhaseContainer>
       </MainContainer>
       {achieved == 1 && (
         <UnlockedContainer achieved={achieved}>

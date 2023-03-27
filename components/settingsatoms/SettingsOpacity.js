@@ -182,7 +182,6 @@ const SettingsOpacity = (props) => {
               step={0.1}
               value={achievementUnlockedOpacity}
               onChange={(e) => {
-                console.log("ONCHANGE");
                 setAchievementUnlockedOpacity(e.target.value);
               }}
             />

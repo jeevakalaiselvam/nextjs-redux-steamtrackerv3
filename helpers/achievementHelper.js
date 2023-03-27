@@ -17,15 +17,9 @@ export const filterAchievementsByRarityFilter = (
   rarityFilters,
   rarityInfo
 ) => {
-  console.log("FILTERING ACHIEVEMENTS", {
-    filteredAchievements,
-    gameId,
-    rarityFilters,
-  });
   let newAchievements = [];
   const defaultRarity = "ALL";
   const selectedRarity = rarityFilters[gameId] ?? "ALL";
-  console.log("SELECTED RARITY", { selectedRarity });
 
   newAchievements = filteredAchievements.filter((achievement) => {
     const achievementRarity = getRarityTextFromPercentage(
@@ -46,7 +40,6 @@ export const filterAchievementsByRarityFilter = (
     }
   });
 
-  console.log("RETURNING ACHIEVEMENTS", { newAchievements });
   return newAchievements;
 };
 
@@ -323,7 +316,5 @@ export const removePinnedAchievement = (
     return achievement != achievementId;
   });
   newPinnedMap[gameId] = newPinnedAchievements;
-  console.log("OLD PINNED MAP", { oldPinnedMap });
-  console.log("NEW PINNED MAP", { newPinnedMap });
   return newPinnedMap;
 };

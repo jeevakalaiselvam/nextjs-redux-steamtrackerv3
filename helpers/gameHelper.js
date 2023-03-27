@@ -151,7 +151,6 @@ export const sortGamesByFilterOption = (
           !pinnedGameIds?.includes(game.id) &&
           game.completed > 1
         ) {
-          console.log("STARTED GAME", game.name);
           startedGameIds.push(game.id);
           return true;
         }
@@ -163,7 +162,6 @@ export const sortGamesByFilterOption = (
         return game2.completion - game1.completion;
       });
 
-      console.log("CHECKING SIDEBAR", { sidebarGameFilter });
       if (sidebarGameFilter == INFINITY) {
         newGames = newGames.filter((game) => {
           if (game.completion == COMPLETION100) {
@@ -263,7 +261,6 @@ export const sortGamesByFilterOption = (
       );
       break;
   }
-  console.log("JEEVA - NEW GAMES", { newGames, filterOption });
   return newGames;
 };
 

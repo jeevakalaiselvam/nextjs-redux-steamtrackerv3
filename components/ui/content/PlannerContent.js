@@ -337,6 +337,7 @@ export default function PlannerContent() {
                   <Search onSearchObtained={phase1SearchObtained} />
                 </SearchContainer>
                 <Achievements
+                  hidePinned={true}
                   game={{
                     ...phaseAddedGame,
                     achievements: phase1Achievements,
@@ -367,6 +368,7 @@ export default function PlannerContent() {
                   <Search onSearchObtained={phase2SearchObtained} />
                 </SearchContainer>
                 <Achievements
+                  hidePinned={true}
                   game={{
                     ...phaseAddedGame,
                     achievements: phase2Achievements,
@@ -397,6 +399,7 @@ export default function PlannerContent() {
                   <Search onSearchObtained={phase5SearchObtained} />
                 </SearchContainer>
                 <Achievements
+                  hidePinned={true}
                   game={{
                     ...phaseAddedGame,
                     achievements: phase5Achievements,
@@ -427,6 +430,7 @@ export default function PlannerContent() {
                   <Search onSearchObtained={phase3SearchObtained} />
                 </SearchContainer>
                 <Achievements
+                  hidePinned={true}
                   game={{
                     ...phaseAddedGame,
                     achievements: phase3Achievements,
@@ -457,6 +461,7 @@ export default function PlannerContent() {
                   <Search onSearchObtained={phase4SearchObtained} />
                 </SearchContainer>
                 <Achievements
+                  hidePinned={true}
                   game={{
                     ...phaseAddedGame,
                     achievements: phase4Achievements,
@@ -540,6 +545,7 @@ export default function PlannerContent() {
                   />
                 </SearchContainer>
                 <Achievements
+                  hidePinned={true}
                   game={{
                     ...phaseAddedGame,
                     achievements: phase6Achievements,

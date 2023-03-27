@@ -362,7 +362,6 @@ export default function GameHeader() {
   useEffect(() => {
     if (games.length > 0) {
       if (gameId) {
-        console.log("GAMEID and GAMES", { gameId, games });
         const game = games.length && games.find((game) => game.id == gameId);
         if (game) {
           const xpData = getAllXPFromAchievements(game.achievements);

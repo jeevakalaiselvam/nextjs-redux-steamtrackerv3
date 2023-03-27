@@ -148,7 +148,6 @@ const ProfilePlatinum = (props) => {
       let adjustedTotal = Math.ceil((completionPercentageTarget / 100) * total);
 
       const adjustedCompletion = Math.ceil(game.completion);
-      console.log("JEEVA GAME", game.name, adjustedCompletion);
 
       if (completed >= 1) {
         if (adjustedCompletion == COMPLETION100) {
