@@ -16,6 +16,7 @@ import {
 import {
   addHiddenToGames,
   ALL,
+  generateNewPhaseMapForGameAchievementPhase,
   refreshGameDataByGameId,
   updateAchievementPhaseForGame,
 } from "../../helpers/gameHelper";
@@ -63,10 +64,12 @@ import {
   SET_COMPLETION_PERCENTAGE_TARGET,
   SET_TARGET_INFO,
   SET_SIDEBAR_GAME_FILTER,
+  SET_PHASE_ACHIEVEMENT_GAME,
 } from "../types/games.types";
 
 const INITIAL_STATE = {
   games: [],
+  phaseMap: {},
   lastUnlockedTime: "",
   hiddenGames: {},
   settings: {
@@ -147,6 +150,17 @@ const reducer = (state = INITIAL_STATE, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case SET_PHASE_ACHIEVEMENT_GAME:
+      return {
+        ...state,
+        phaseMap: generateNewPhaseMapForGameAchievementPhase(
+          state?.phaseMap ?? {},
+          payload.gameId,
+          payload.achievementId,
+          payload.phase
+        ),
+      };
+
     case SET_SIDEBAR_GAME_FILTER:
       return {
         ...state,

@@ -43,6 +43,7 @@ import {
   SET_COMPLETION_PERCENTAGE_TARGET,
   SET_TARGET_INFO,
   SET_SIDEBAR_GAME_FILTER,
+  SET_PHASE_ACHIEVEMENT_GAME,
 } from "../types/games.types";
 import axios from "axios";
 import { getPhaseFiltedAchievements } from "../../helpers/achievementHelper";
@@ -361,6 +362,15 @@ export const setOpacityForUnlockedAchievement = (payload) => {
 export const setCompletionPercentageTarget = (payload) => {
   return (dispatch) => {
     return dispatch({ type: SET_COMPLETION_PERCENTAGE_TARGET, payload });
+  };
+};
+
+export const setPhaseForAchievementForGame = (gameId, achievementId, phase) => {
+  return (dispatch) => {
+    return dispatch({
+      type: SET_PHASE_ACHIEVEMENT_GAME,
+      payload: { gameId, achievementId, phase },
+    });
   };
 };
 

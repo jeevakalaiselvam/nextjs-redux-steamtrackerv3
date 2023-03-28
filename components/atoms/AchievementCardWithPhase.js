@@ -416,10 +416,7 @@ export default function AchievementCardWithPhase(props) {
 
   const setPhaseForAchievement = (achievementName, phaseValue) => {
     if (props.achievement) {
-      if (typeof window !== "undefined") {
-        localStorage.setItem(`${gameId}_${achievementName}_PHASE`, phaseValue);
-        dispatch(updatePhaseForAchievement(achievementName, phaseValue));
-      }
+      dispatch(updatePhaseForAchievement(achievementName, phaseValue));
     }
   };
 
@@ -529,21 +526,22 @@ export default function AchievementCardWithPhase(props) {
             MISS
           </PhaseItem>
           <PhaseItem
-            active={phase == HARD}
-            onClick={() => {
-              setPhaseForAchievement(name, HARD);
-            }}
-          >
-            GRIND
-          </PhaseItem>
-          <PhaseItem
             active={phase == GRIND}
             onClick={() => {
               setPhaseForAchievement(name, GRIND);
             }}
           >
+            GRIND
+          </PhaseItem>
+          <PhaseItem
+            active={phase == HARD}
+            onClick={() => {
+              setPhaseForAchievement(name, HARD);
+            }}
+          >
             HARD
           </PhaseItem>
+
           {false && (
             <PhaseItemIgnore active={ignoreActive} onClick={addToIgnoreList}>
               {ignoreActive && "REMOVE"}

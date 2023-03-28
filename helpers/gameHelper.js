@@ -43,6 +43,43 @@ import {
   COMPLETION1,
 } from "./xpHelper";
 
+export const generateNewPhaseMapForGameAchievementPhase = (
+  phaseMap,
+  gameId,
+  achievementId,
+  phase
+) => {
+  let newPhaseMap = { ...phaseMap };
+  if (!newPhaseMap[gameId]) {
+    newPhaseMap[gameId] = {
+      [ALL]: [],
+      [EASY]: [],
+      [MISSABLE]: [],
+      [GRIND]: [],
+      [HARD]: [],
+    };
+  }
+  newPhaseMap[gameId][ALL] = newPhaseMap[gameId][ALL].filter(
+    (item) => item != achievementId
+  );
+  newPhaseMap[gameId][EASY] = newPhaseMap[gameId][EASY].filter(
+    (item) => item != achievementId
+  );
+  newPhaseMap[gameId][MISSABLE] = newPhaseMap[gameId][MISSABLE].filter(
+    (item) => item != achievementId
+  );
+  newPhaseMap[gameId][GRIND] = newPhaseMap[gameId][GRIND].filter(
+    (item) => item != achievementId
+  );
+  newPhaseMap[gameId][HARD] = newPhaseMap[gameId][HARD].filter(
+    (item) => item != achievementId
+  );
+
+  newPhaseMap[gameId][phase].push(achievementId);
+
+  return newPhaseMap;
+};
+
 export const calculaNextStageForGame = (game) => {
   let nextStage = {
     next: 0,
@@ -305,9 +342,9 @@ export const refreshGameDataByGameId = (games, gameId, gameRefreshedData) => {
 
 export const ALL = "1";
 export const EASY = "2";
-export const HARD = "3";
+export const MISSABLE = "3";
 export const GRIND = "4";
-export const MISSABLE = "5";
+export const HARD = "5";
 export const UNLOCKED = "UNLOCKED";
 
 export const getPhaseAddedGames = (game) => {

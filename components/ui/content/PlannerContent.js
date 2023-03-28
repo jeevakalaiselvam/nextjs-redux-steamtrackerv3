@@ -206,7 +206,7 @@ export default function PlannerContent() {
       let phase3FilteredAchievements = getPhaseFiltedAchievements(
         gameId,
         phaseAddedGame.achievements,
-        HARD
+        MISSABLE
       );
       let phase4FilteredAchievements = getPhaseFiltedAchievements(
         gameId,
@@ -216,7 +216,7 @@ export default function PlannerContent() {
       let phase5FilteredAchievements = getPhaseFiltedAchievements(
         gameId,
         phaseAddedGame.achievements,
-        MISSABLE
+        HARD
       );
 
       let phase6FilteredAchievements = getaUnlockedAchievementsByType(
@@ -411,16 +411,16 @@ export default function PlannerContent() {
                       }
                     />
                   </HeaderContainer>
-                  <Search onSearchObtained={phase5SearchObtained} />
+                  <Search onSearchObtained={phase3SearchObtained} />
                 </SearchContainer>
                 <Achievements
                   hidePinned={true}
                   game={{
                     ...phaseAddedGame,
-                    achievements: phase5Achievements,
+                    achievements: phase3Achievements,
                   }}
-                  filterOption={phase5Filter}
-                  searchTerm={phase5Search}
+                  filterOption={phase3Filter}
+                  searchTerm={phase3Search}
                   showPhase={true}
                   phase={MISSABLE}
                   showIgnore={false}
@@ -446,16 +446,16 @@ export default function PlannerContent() {
                       }
                     />
                   </HeaderContainer>
-                  <Search onSearchObtained={phase3SearchObtained} />
+                  <Search onSearchObtained={phase4SearchObtained} />
                 </SearchContainer>
                 <Achievements
                   hidePinned={true}
                   game={{
                     ...phaseAddedGame,
-                    achievements: phase3Achievements,
+                    achievements: phase4Achievements,
                   }}
-                  filterOption={phase3Filter}
-                  searchTerm={phase3Search}
+                  filterOption={phase4Filter}
+                  searchTerm={phase4Search}
                   showPhase={true}
                   phase={HARD}
                   showIgnore={false}
@@ -481,16 +481,16 @@ export default function PlannerContent() {
                       }
                     />
                   </HeaderContainer>
-                  <Search onSearchObtained={phase4SearchObtained} />
+                  <Search onSearchObtained={phase5SearchObtained} />
                 </SearchContainer>
                 <Achievements
                   hidePinned={true}
                   game={{
                     ...phaseAddedGame,
-                    achievements: phase4Achievements,
+                    achievements: phase5Achievements,
                   }}
-                  filterOption={phase4Filter}
-                  searchTerm={phase4Search}
+                  filterOption={phase5Filter}
+                  searchTerm={phase5Search}
                   showPhase={true}
                   phase={GRIND}
                   showIgnore={false}
